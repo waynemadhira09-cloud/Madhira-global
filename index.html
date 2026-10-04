@@ -1,310 +1,318 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head><!-- Link your manifest file -->
-<link rel="manifest" href="manifest.json">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madhira Global</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<!-- Script to register the service worker background app process -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('App Service Worker registered successfully!'))
-        .catch(err => console.log('Service Worker setup failed: ', err));
-    });
-  }
-</script>
+        body {
+            background-color: #0b1426; /* Deep navy background */
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        /* ========================================================
+           1. INITIAL AUTHENTICATION SCREEN (Shows First)
+           ======================================================== */
+        #auth-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            text-align: center;
+        }
 
-<title>Madhira Global - Buy & Sell Worldwide</title>
-  <link rel="stylesheet" href="style.css">
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
 
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+        .brand-logo {
+            font-size: 2rem;
+            font-weight: bold;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f6f8;
-    color: #111827;
-}
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
 
-header {
-    background: #111827;
-    color: white;
-    padding: 18px;
-}
+        .hero-tagline {
+            color: #8fa0dd;
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
 
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        .auth-box {
+            background-color: #131c2e;
+            width: 100%;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            display: none;
+        }
 
-.logo {
-    font-size: 23px;
-    font-weight: bold;
-}
+        .auth-box.active {
+            display: block;
+        }
 
-.nav button {
-    background: white;
-    color: #111827;
-    border: none;
-    padding: 9px 14px;
-    border-radius: 8px;
-}
+        .auth-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
 
-.hero {
-    background: #111827;
-    color: white;
-    text-align: center;
-    padding: 45px 20px;
-}
+        .input-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
 
-.hero h1 {
-    font-size: 32px;
-    margin-bottom: 12px;
-}
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #8fa0dd;
+            margin-bottom: 6px;
+        }
 
-.hero p {
-    font-size: 16px;
-    margin-bottom: 25px;
-}
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: #1e2d4a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            color: #fff;
+            outline: none;
+            font-size: 0.95rem;
+        }
 
-.search-box {
-    max-width: 650px;
-    margin: auto;
-    display: flex;
-    background: white;
-    padding: 6px;
-    border-radius: 10px;
-}
+        .input-group input:focus {
+            border-color: #2b6cb0;
+        }
 
-.search-box input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 14px;
-    font-size: 15px;
-}
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #2b6cb0; /* Search button blue */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-.search-box button {
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 7px;
-}
+        .toggle-link {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #8fa0dd;
+        }
 
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 25px 15px;
-}
+        .toggle-link span {
+            color: #2b6cb0;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-h2 {
-    margin-bottom: 18px;
-}
+        /* ========================================================
+           2. MAIN DASHBOARD CONTENT (Hidden until login/signup)
+           ======================================================== */
+        #main-platform {
+            display: none; /* Kept completely hidden at startup */
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
 
-.categories {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 35px;
-}
+        /* Styles mimicking your original UI setup */
+        .top-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
 
-.category {
-    background: white;
-    border: 1px solid #ddd;
-    padding: 18px 8px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 14px;
-}
+        .search-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-.request {
-    background: #2563eb;
-    color: white;
-    padding: 25px;
-    border-radius: 12px;
-    text-align: center;
-    margin-bottom: 35px;
-}
+        .search-bar-wrapper {
+            background: white;
+            border-radius: 8px;
+            padding: 8px;
+            display: flex;
+            margin-top: 20px;
+        }
 
-.request button {
-    margin-top: 15px;
-    background: white;
-    color: #2563eb;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: bold;
-}
+        .search-bar-wrapper input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            outline: none;
+            font-size: 1rem;
+        }
 
-.products {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
+        .search-btn {
+            background-color: #2b6cb0;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-.product {
-    background: white;
-    border-radius: 10px;
-    padding: 15px;
-    border: 1px solid #ddd;
-}
+        .categories-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
 
-.product-image {
-    height: 130px;
-    background: #e5e7eb;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 45px;
-    margin-bottom: 12px;
-}
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
 
-.price {
-    color: #2563eb;
-    font-weight: bold;
-    margin-top: 8px;
-}
+        .category-card {
+            background-color: #ffffff;
+            color: #333333;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-footer {
-    margin-top: 40px;
-    background: #111827;
-    color: white;
-    text-align: center;
-    padding: 25px;
-}
-
-@media (max-width: 500px) {
-    .hero h1 {
-        font-size: 26px;
-    }
-
-    .categories {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-</style>
+        .category-icon {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-    <div class="nav">
-        <div class="logo">🌍 Madhira Global</div>
-        <button>Sell</button>
-    </div>
-</header>
+    <!-- STAGE 1: GATEWAY WALL (ONLY SIGN IN / SIGN UP SHOWN) -->
+    <div id="auth-screen">
+        <div class="brand-header">
+            <span style="font-size: 2.2rem;">🌐</span>
+            <span class="brand-logo">Madhira Global</span>
+        </div>
+        
+        <h1 class="hero-title">Buy & Sell Anything Worldwide</h1>
+        <p class="hero-tagline">Find products from sellers around the world.</p>
 
-<section class="hero">
-
-    <h1>Buy & Sell Anything Worldwide</h1>
-
-    <p>Find products from sellers around the world.</p>
-
-    <div class="search-box">
-        <input
-            type="search"
-            placeholder="What are you looking for?"
-        >
-        <button>Search</button>
-    </div>
-
-</section>
-<!-- The Search Bar Component -->
-<div class="search-container">
-    <input type="text" id="searchInput" placeholder="What are you looking for?">
-    <button id="searchButton" onclick="filterProducts()">Search</button>
-</div>
-
-<!-- The Products Container (Add this below your categories to test) -->
-<div id="productGrid" class="product-grid">
-    <div class="product-card" data-name="red sports car">Cars - Red Sports Car</div>
-    <div class="product-card" data-name="luxury apartment">Property - Luxury Apartment</div>
-    <div class="product-card" data-name="smartphone laptop electronics">Electronics - Smartphone</div>
-    <div class="product-card" data-name="leather sofa furniture">Furniture - Leather Sofa</div>
-</div>
-
-
-    <div class="request">
-
-        <h2>Can't Find What You Want?</h2>
-
-        <p>
-            Tell sellers exactly what you're looking for
-            and let them find you.
-        </p>
-
-        <button>I Want This</button>
-
-    </div>
-
-    <h2>Featured Products</h2>
-
-    <div class="products">
-
-        <div class="product">
-
-            <div class="product-image">🚗</div>
-
-            <h3>Cars & Vehicles</h3>
-
-            <p>Find vehicles from sellers worldwide.</p>
-
-            <div class="price">View listings</div>
-
+        <!-- Sign In Box -->
+        <div id="signin-box" class="auth-box active">
+            <h2>Sign In</h2>
+            <form onsubmit="handleAuthentication(event)">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" required placeholder="name@example.com">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="submit-btn">Sign In</button>
+            </form>
+            <div class="toggle-link">
+                New to the platform? <span onclick="switchForm('signup')">Sign Up here</span>
+            </div>
         </div>
 
-        <div class="product">
-
-            <div class="product-image">📱</div>
-
-            <h3>Electronics</h3>
-
-            <p>Phones, computers and more.</p>
-
-            <div class="price">View listings</div>
-
+        <!-- Sign Up Box -->
+        <div id="signup-box" class="auth-box">
+            <h2>Create Account</h2>
+            <form onsubmit="handleAuthentication(event)">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" required placeholder="John Doe">
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" required placeholder="name@example.com">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" required placeholder="Create password">
+                </div>
+                <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+            <div class="toggle-link">
+                Already have an account? <span onclick="switchForm('signin')">Sign In here</span>
+            </div>
         </div>
-
     </div>
 
-</div>
 
-<footer>
+    <!-- STAGE 2: ACCESS GRANTED (CARS, PROPERTY, ELECTRONICS REVEALED) -->
+    <div id="main-platform">
+        <header class="top-navbar">
+            <div class="brand-header" style="margin-bottom: 0;">
+                <span>🌐</span>
+                <span class="brand-logo" style="font-size: 1.4rem;">Madhira Global</span>
+            </div>
+            <button class="search-btn" style="background: #131c2e; border: 1px solid rgba(255,255,255,0.2);">Sell</button>
+        </header>
 
-    <h3>🌍 Madhira Global</h3>
+        <section class="search-container">
+            <div class="search-bar-wrapper">
+                <input type="text" placeholder="What are you looking for?">
+                <button class="search-btn">Search</button>
+            </div>
+        </section>
 
-    <p>One marketplace. The world of sellers.</p>
-
-    <br>
-
-    <p>© 2026 Madhira Global</p>
-
-</footer>
-
-</body>
-  <header class="site-header">
-    <div class="logo">
-        🌍 Madhira Global
+        <section class="categories-section">
+            <h3>Explore Categories</h3>
+            <div class="grid-container">
+                <div class="category-card"><span class="category-icon">🚗</span> Cars</div>
+                <div class="category-card"><span class="category-icon">🏠</span> Property</div>
+                <div class="category-card"><span class="category-icon">📱</span> Electronics</div>
+                <div class="category-card"><span class="category-icon">👕</span> Fashion</div>
+                <div class="category-card"><span class="category-icon">🛋️</span> Furniture</div>
+                <div class="category-card"><span class="category-icon">⚙️</span> Machinery</div>
+            </div>
+        </section>
     </div>
 
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Categories</a>
-        <a href="#">Sell</a>
-        <a href="#">I Want This</a>
-    </nav>
+    <!-- Interface Controller Logic -->
+    <script>
+        // Toggles entry forms back and forth on the standalone login wall
+        function switchForm(target) {
+            document.getElementById('signin-box').classList.remove('active');
+            document.getElementById('signup-box').classList.remove('active');
+            
+            if(target === 'signup') {
+                document.getElementById('signup-box').classList.add('active');
+            } else {
+                document.getElementById('signin-box').classList.add('active');
+            }
+        }
 
-    <button>Sign In</button>
-  </header>
-              </html>
+        // Triggers transition from Auth screen straight into your categories app grid
+        function handleAuthentication(event) {
+            event.preventDefault(); // Prevents default page refresh
+            
+            // Hide the isolated auth page completely
+            document.getElementById('auth-screen').style.display = 'none';
+            
