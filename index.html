@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MADHIRA GLOBAL</title>
+
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +14,7 @@
         }
 
         body {
-            background-color: #0b1426; /* Deep navy background */
+            background-color: #0b1426;
             color: #ffffff;
             min-height: 100vh;
             display: flex;
@@ -22,8 +23,9 @@
         }
 
         /* ========================================================
-           1. INITIAL AUTHENTICATION SCREEN (Shows First)
+           1. INITIAL AUTHENTICATION SCREEN
            ======================================================== */
+
         #auth-screen {
             display: flex;
             flex-direction: column;
@@ -105,10 +107,27 @@
             border-color: #2b6cb0;
         }
 
+        /* Country selection */
+
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            background: #1e2d4a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            color: #fff;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .input-group select:focus {
+            border-color: #2b6cb0;
+        }
+
         .submit-btn {
             width: 100%;
             padding: 12px;
-            background-color: #2b6cb0; /* Search button blue */
+            background-color: #2b6cb0;
             color: white;
             border: none;
             border-radius: 6px;
@@ -130,17 +149,18 @@
             font-weight: bold;
         }
 
+
         /* ========================================================
-           2. MAIN DASHBOARD CONTENT (Hidden until login/signup)
+           2. MAIN DASHBOARD CONTENT
            ======================================================== */
+
         #main-platform {
-            display: none; /* Kept completely hidden at startup */
+            display: none;
             width: 100%;
             max-width: 600px;
             padding: 20px;
         }
 
-        /* Styles mimicking your original UI setup */
         .top-navbar {
             display: flex;
             justify-content: space-between;
@@ -209,110 +229,383 @@
         }
     </style>
 </head>
+
 <body>
 
-    <!-- STAGE 1: GATEWAY WALL (ONLY SIGN IN / SIGN UP SHOWN) -->
+    <!-- ========================================================
+         STAGE 1: AUTHENTICATION SCREEN
+         ======================================================== -->
+
     <div id="auth-screen">
+
         <div class="brand-header">
             <span style="font-size: 2.2rem;">🌐</span>
             <span class="brand-logo">Madhira Global</span>
         </div>
-        
-        <h1 class="hero-title">Buy & Sell Anything Worldwide</h1>
-        <p class="hero-tagline">Find products from sellers around the world.</p>
 
-        <!-- Sign In Box -->
+        <h1 class="hero-title">
+            Buy & Sell Anything Worldwide
+        </h1>
+
+        <p class="hero-tagline">
+            Find products from sellers around the world.
+        </p>
+
+
+        <!-- ====================================================
+             SIGN IN
+             ==================================================== -->
+
         <div id="signin-box" class="auth-box active">
+
             <h2>Sign In</h2>
+
             <form onsubmit="handleAuthentication(event)">
+
                 <div class="input-group">
                     <label>Email Address</label>
-                    <input type="email" required placeholder="name@example.com">
+                    <input
+                        type="email"
+                        required
+                        placeholder="name@example.com"
+                    >
                 </div>
+
                 <div class="input-group">
                     <label>Password</label>
-                    <input type="password" required placeholder="••••••••">
+                    <input
+                        type="password"
+                        required
+                        placeholder="••••••••"
+                    >
                 </div>
-                <button type="submit" class="submit-btn">Sign In</button>
+
+                <button type="submit" class="submit-btn">
+                    Sign In
+                </button>
+
             </form>
+
             <div class="toggle-link">
-                New to the platform? <span onclick="switchForm('signup')">Sign Up here</span>
+                New to the platform?
+                <span onclick="switchForm('signup')">
+                    Sign Up here
+                </span>
             </div>
+
         </div>
 
-        <!-- Sign Up Box -->
+
+        <!-- ====================================================
+             SIGN UP
+             ==================================================== -->
+
         <div id="signup-box" class="auth-box">
+
             <h2>Create Account</h2>
+
             <form onsubmit="handleAuthentication(event)">
+
+                <!-- COUNTRY -->
+
                 <div class="input-group">
-                    <label>Full Name</label>
-                    <input type="text" required placeholder="John Doe">
+                    <label>Country</label>
+
+                    <select required>
+                        <option value="">
+                            Select your country
+                        </option>
+
+                        <option>Kenya</option>
+                        <option>Uganda</option>
+                        <option>Tanzania</option>
+                        <option>Rwanda</option>
+                        <option>South Africa</option>
+                        <option>Nigeria</option>
+                        <option>Ghana</option>
+                        <option>United States</option>
+                        <option>United Kingdom</option>
+                        <option>Canada</option>
+                        <option>Australia</option>
+                        <option>India</option>
+                        <option>China</option>
+                        <option>Germany</option>
+                        <option>France</option>
+                        <option>Italy</option>
+                        <option>Spain</option>
+                        <option>Brazil</option>
+                        <option>Other</option>
+                    </select>
                 </div>
+
+
+                <!-- FIRST NAME -->
+
+                <div class="input-group">
+                    <label>First Name</label>
+
+                    <input
+                        type="text"
+                        required
+                        placeholder="Enter your first name"
+                    >
+                </div>
+
+
+                <!-- LAST NAME -->
+
+                <div class="input-group">
+                    <label>Last Name</label>
+
+                    <input
+                        type="text"
+                        required
+                        placeholder="Enter your last name"
+                    >
+                </div>
+
+
+                <!-- EMAIL -->
+
                 <div class="input-group">
                     <label>Email Address</label>
-                    <input type="email" required placeholder="name@example.com">
+
+                    <input
+                        type="email"
+                        required
+                        placeholder="name@example.com"
+                    >
                 </div>
+
+
+                <!-- PASSWORD -->
+
                 <div class="input-group">
                     <label>Password</label>
-                    <input type="password" required placeholder="Create password">
+
+                    <input
+                        type="password"
+                        required
+                        placeholder="Create password"
+                    >
                 </div>
-                <button type="submit" class="submit-btn">Sign Up</button>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+
+                    <input
+                        type="password"
+                        required
+                        placeholder="Confirm password"
+                    >
+                </div>
+
+
+                <!-- CREATE ACCOUNT BUTTON -->
+
+                <button type="submit" class="submit-btn">
+                    Create Account
+                </button>
+
             </form>
+
+
+            <!-- BACK TO SIGN IN -->
+
             <div class="toggle-link">
-                Already have an account? <span onclick="switchForm('signin')">Sign In here</span>
+                Already have an account?
+                <span onclick="switchForm('signin')">
+                    Sign In here
+                </span>
             </div>
+
         </div>
+
     </div>
 
 
-    <!-- STAGE 2: ACCESS GRANTED (CARS, PROPERTY, ELECTRONICS REVEALED) -->
+
+    <!-- ========================================================
+         STAGE 2: MAIN PLATFORM
+         ======================================================== -->
+
     <div id="main-platform">
+
         <header class="top-navbar">
-            <div class="brand-header" style="margin-bottom: 0;">
+
+            <div
+                class="brand-header"
+                style="margin-bottom: 0;"
+            >
+
                 <span>🌐</span>
-                <span class="brand-logo" style="font-size: 1.4rem;">Madhira Global</span>
+
+                <span
+                    class="brand-logo"
+                    style="font-size: 1.4rem;"
+                >
+                    Madhira Global
+                </span>
+
             </div>
-            <button class="search-btn" style="background: #131c2e; border: 1px solid rgba(255,255,255,0.2);">Sell</button>
+
+            <button
+                class="search-btn"
+                style="background: #131c2e; border: 1px solid rgba(255,255,255,0.2);"
+            >
+                Sell
+            </button>
+
         </header>
 
+
+
+        <!-- SEARCH -->
+
         <section class="search-container">
+
             <div class="search-bar-wrapper">
-                <input type="text" placeholder="What are you looking for?">
-                <button class="search-btn">Search</button>
+
+                <input
+                    type="text"
+                    placeholder="What are you looking for?"
+                >
+
+                <button class="search-btn">
+                    Search
+                </button>
+
             </div>
+
         </section>
+
+
+
+        <!-- CATEGORIES -->
 
         <section class="categories-section">
-            <h3>Explore Categories</h3>
+
+            <h3>
+                Explore Categories
+            </h3>
+
+
             <div class="grid-container">
-                <div class="category-card"><span class="category-icon">🚗</span> Cars</div>
-                <div class="category-card"><span class="category-icon">🏠</span> Property</div>
-                <div class="category-card"><span class="category-icon">📱</span> Electronics</div>
-                <div class="category-card"><span class="category-icon">👕</span> Fashion</div>
-                <div class="category-card"><span class="category-icon">🛋️</span> Furniture</div>
-                <div class="category-card"><span class="category-icon">⚙️</span> Machinery</div>
+
+                <div class="category-card">
+                    <span class="category-icon">🚗</span>
+                    Cars
+                </div>
+
+                <div class="category-card">
+                    <span class="category-icon">🏠</span>
+                    Property
+                </div>
+
+                <div class="category-card">
+                    <span class="category-icon">📱</span>
+                    Electronics
+                </div>
+
+                <div class="category-card">
+                    <span class="category-icon">👕</span>
+                    Fashion
+                </div>
+
+                <div class="category-card">
+                    <span class="category-icon">🛋️</span>
+                    Furniture
+                </div>
+
+                <div class="category-card">
+                    <span class="category-icon">⚙️</span>
+                    Machinery
+                </div>
+
             </div>
+
         </section>
+
     </div>
 
-    <!-- Interface Controller Logic -->
+
+
+    <!-- ========================================================
+         INTERFACE CONTROLLER
+         ======================================================== -->
+
     <script>
-        // Toggles entry forms back and forth on the standalone login wall
+
+        // Switch between Sign In and Sign Up
+
         function switchForm(target) {
-            document.getElementById('signin-box').classList.remove('active');
-            document.getElementById('signup-box').classList.remove('active');
-            
-            if(target === 'signup') {
-                document.getElementById('signup-box').classList.add('active');
+
+            document
+                .getElementById('signin-box')
+                .classList
+                .remove('active');
+
+            document
+                .getElementById('signup-box')
+                .classList
+                .remove('active');
+
+
+            if (target === 'signup') {
+
+                document
+                    .getElementById('signup-box')
+                    .classList
+                    .add('active');
+
             } else {
-                document.getElementById('signin-box').classList.add('active');
+
+                document
+                    .getElementById('signin-box')
+                    .classList
+                    .add('active');
+
             }
+
         }
 
-        // Triggers transition from Auth screen straight into your categories app grid
+
+        // Handle authentication
+
         function handleAuthentication(event) {
-            event.preventDefault(); // Prevents default page refresh
-            
-            // Hide the isolated auth page completely
-            document.getElementById('auth-screen').style.display = 'none';
-            
+
+            event.preventDefault();
+
+
+            // Hide authentication screen
+
+            document
+                .getElementById('auth-screen')
+                .style
+                .display = 'none';
+
+
+            // Show main platform
+
+            document
+                .getElementById('main-platform')
+                .style
+                .display = 'block';
+
+
+            // Scroll to top
+
+            window.scrollTo(0, 0);
+
+        }
+
+    </script>
+
+</body>
+</html>
+
+
+
