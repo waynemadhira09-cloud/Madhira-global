@@ -52,3 +52,60 @@ body > * {
     margin-left: auto;
     margin-right: auto;
 }
+.site-header {
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px 22px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.site-header nav {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.site-header nav a {
+    color: #1f2937;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.site-header nav a:hover {
+    text-decoration: underline;
+}
+
+.site-header button {
+    background: #111827;
+    margin: 0;
+    white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+    .site-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .site-header nav {
+        gap: 12px;
+    }
+
+    .site-header button {
+        width: 100%;
+    }
+}
