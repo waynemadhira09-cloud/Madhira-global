@@ -1,1 +1,289 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Madhira Global - Buy & Sell Worldwide</title>
+  <link rel="stylesheet" href="style.css">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f6f8;
+    color: #111827;
+}
+
+header {
+    background: #111827;
+    color: white;
+    padding: 18px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.nav button {
+    background: white;
+    color: #111827;
+    border: none;
+    padding: 9px 14px;
+    border-radius: 8px;
+}
+
+.hero {
+    background: #111827;
+    color: white;
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.hero h1 {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+.search-box {
+    max-width: 650px;
+    margin: auto;
+    display: flex;
+    background: white;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 14px;
+    font-size: 15px;
+}
+
+.search-box button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 7px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px 15px;
+}
+
+h2 {
+    margin-bottom: 18px;
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 35px;
+}
+
+.category {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 18px 8px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.request {
+    background: #2563eb;
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.request button {
+    margin-top: 15px;
+    background: white;
+    color: #2563eb;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.product {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+
+.product-image {
+    height: 130px;
+    background: #e5e7eb;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.price {
+    color: #2563eb;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+footer {
+    margin-top: 40px;
+    background: #111827;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+@media (max-width: 500px) {
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+        <div class="logo">🌍 Madhira Global</div>
+        <button>Sell</button>
+    </div>
+</header>
+
+<section class="hero">
+
+    <h1>Buy & Sell Anything Worldwide</h1>
+
+    <p>Find products from sellers around the world.</p>
+
+    <div class="search-box">
+        <input
+            type="search"
+            placeholder="What are you looking for?"
+        >
+        <button>Search</button>
+    </div>
+
+</section>
+
+<div class="container">
+
+    <h2>Explore Categories</h2>
+
+    <div class="categories">
+
+        <div class="category">🚗<br>Cars</div>
+
+        <div class="category">🏠<br>Property</div>
+
+        <div class="category">📱<br>Electronics</div>
+
+        <div class="category">👕<br>Fashion</div>
+
+        <div class="category">🛋️<br>Furniture</div>
+
+        <div class="category">⚙️<br>Machinery</div>
+
+    </div>
+
+    <div class="request">
+
+        <h2>Can't Find What You Want?</h2>
+
+        <p>
+            Tell sellers exactly what you're looking for
+            and let them find you.
+        </p>
+
+        <button>I Want This</button>
+
+    </div>
+
+    <h2>Featured Products</h2>
+
+    <div class="products">
+
+        <div class="product">
+
+            <div class="product-image">🚗</div>
+
+            <h3>Cars & Vehicles</h3>
+
+            <p>Find vehicles from sellers worldwide.</p>
+
+            <div class="price">View listings</div>
+
+        </div>
+
+        <div class="product">
+
+            <div class="product-image">📱</div>
+
+            <h3>Electronics</h3>
+
+            <p>Phones, computers and more.</p>
+
+            <div class="price">View listings</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <h3>🌍 Madhira Global</h3>
+
+    <p>One marketplace. The world of sellers.</p>
+
+    <br>
+
+    <p>© 2026 Madhira Global</p>
+
+</footer>
+
+</body>
+              </html>
