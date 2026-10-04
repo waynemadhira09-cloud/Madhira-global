@@ -1,746 +1,1799 @@
-* {
-    box-sizing: border-box;
+
+
+{
+
+box-sizing: border-box;
+
 }
+
+
+
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f7fa;
-    color: #1f2937;
-    padding: 20px;
+
+margin: 0;
+
+font-family: Arial, sans-serif;
+
+background: #f5f7fa;
+
+color: #1f2937;
+
+padding: 20px;
+
 }
+
 
 h1 {
-    font-size: 32px;
-    margin-bottom: 8px;
+
+font-size: 32px;
+
+margin-bottom: 8px;
+
 }
+
 
 p {
-    color: #667085;
+
+color: #667085;
+
 }
 
-button {
-    padding: 12px 18px;
-    margin: 6px 4px;
-    border: none;
-    border-radius: 8px;
-    background: #111827;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.85;
-}
-
-body > * {
-    max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-/* =====================================================
-   AUTHENTICATION
-===================================================== */
-
-.auth-box {
-    background: white;
-    width: 100%;
-    max-width: 450px;
-    margin: 30px auto;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
-
-.auth-box h1 {
-    margin-top: 0;
-    font-size: 28px;
-}
-
-.auth-box p {
-    margin-bottom: 20px;
-}
-
-.input-group {
-    margin-bottom: 16px;
-    text-align: left;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #344054;
-}
-
-.input-group input,
-.input-group select {
-    width: 100%;
-    padding: 13px;
-    border: 1px solid #d0d5dd;
-    border-radius: 8px;
-    font-size: 15px;
-    background: white;
-    color: #1f2937;
-}
-
-.input-group input:focus,
-.input-group select:focus {
-    outline: none;
-    border-color: #111827;
-}
-
-.input-group input[type="file"] {
-    padding: 10px;
-    background: #f8fafc;
-}
-
-.submit-btn {
-    width: 100%;
-    margin: 10px 0 0;
-    background: #111827;
-    color: white;
-}
-
-.toggle-link {
-    text-align: center;
-    margin-top: 18px;
-    color: #667085;
-    font-size: 14px;
-}
-
-.toggle-link span:last-child {
-    color: #111827;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.site-header {
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 16px 22px;
-    margin-bottom: 30px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
-
-.logo {
-    font-size: 22px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.site-header nav {
-    display: flex;
-    gap: 18px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.site-header nav a {
-    color: #1f2937;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.site-header nav a:hover {
-    text-decoration: underline;
-}
-
-.top-actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-
-.top-actions button {
-    margin: 0;
-}
-
-
-/* =====================================================
-   MARKETPLACE
-===================================================== */
-
-#marketplace-home {
-    width: 100%;
-}
-
-.search-area {
-    margin: 25px 0;
-}
 
 input[type="search"] {
-    width: 100%;
-    max-width: 600px;
-    padding: 14px;
-    border: 1px solid #d0d5dd;
-    border-radius: 8px;
-    font-size: 16px;
-}
 
-input[type="search"]:focus {
-    outline: none;
-    border-color: #111827;
-}
+width: 70%;
 
-.categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 30px;
-}
+max-width: 600px;
 
-.categories button {
-    background: white;
-    color: #1f2937;
-    border: 1px solid #d0d5dd;
-}
+padding: 14px;
 
-.categories button:hover {
-    background: #f2f4f7;
-}
+border: 1px solid #d0d5dd;
 
-#marketplace-listings {
-    width: 100%;
-    margin-top: 30px;
-}
+border-radius: 8px;
 
-#marketplace-listings h2 {
-    margin-bottom: 20px;
-}
+font-size: 16px;
 
-.listing-card {
-    background: white;
-    color: #1f2937;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
-.listing-image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    display: block;
-    background: #f5f7fa;
-}
 
-.listing-content {
-    padding: 20px;
-}
+button {
 
-.listing-content h3 {
-    margin: 0 0 8px;
-    font-size: 21px;
-}
+padding: 12px 18px;
 
-.listing-price {
-    color: #111827;
-    font-size: 21px;
-    font-weight: bold;
-    margin-bottom: 14px;
-}
+margin: 6px 4px;
 
-.listing-info {
-    color: #667085;
-    font-size: 14px;
-    margin-bottom: 7px;
-}
+border: none;
 
-.listing-description {
-    color: #475467;
-    line-height: 1.5;
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid #eaecf0;
-}
+border-radius: 8px;
 
-.contact-seller-btn {
-    width: 100%;
-    margin: 18px 0 0;
-    background: #111827;
-}
+background: #111827;
 
-.empty-marketplace {
-    background: white;
-    padding: 45px 20px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
+color: white;
 
-.empty-marketplace p {
-    margin-bottom: 20px;
-}
+font-size: 15px;
 
-.empty-icon {
-    font-size: 45px;
+cursor: pointer;
+
 }
 
 
-/* =====================================================
-   ACCOUNT
-===================================================== */
+button:hover {
 
-#account-panel {
-    display: none;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-}
+opacity: 0.85;
 
-.account-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
 }
 
-.account-header h2 {
-    margin: 0;
-}
 
-.back-btn {
-    margin: 0;
-}
+h2 {
 
-.account-card {
-    background: white;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
+margin-top: 35px;
 
-.profile-top {
-    text-align: center;
-    margin-bottom: 25px;
 }
 
-.profile-picture-wrapper {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 15px;
-}
 
-.profile-picture {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    border: 4px solid #f2f4f7;
-    background: #e5e7eb;
-}
+body > * {
 
-.change-photo-label {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: #111827;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 3px solid white;
-}
+max-width: 1100px;
 
-#profile-picture-input {
-    display: none;
-}
+margin-left: auto;
 
-.profile-top h2 {
-    margin: 8px 0;
-    font-size: 24px;
-}
+margin-right: auto;
 
-.profile-status {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 20px;
-    background: #ecfdf3;
-    color: #027a48;
-    font-size: 13px;
-    font-weight: bold;
 }
 
-.account-details {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
 
-.account-detail {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 14px;
-    background: #f8fafc;
-    border-radius: 9px;
-    border: 1px solid #eaecf0;
-}
+/* ========================================================
 
-.account-detail-label {
-    color: #667085;
-    font-size: 14px;
-    font-weight: 600;
-}
+SITE HEADER
 
-.account-detail-value {
-    color: #1f2937;
-    font-size: 14px;
-    font-weight: 600;
-    text-align: right;
-    word-break: break-word;
-}
+======================================================== */
 
-.account-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
 
-.account-actions button {
-    flex: 1;
-    margin: 0;
-}
+.site-header {
 
-.edit-profile-btn {
-    background: #111827;
-}
+background: white;
 
-.logout-btn {
-    background: #dc2626;
-}
+display: flex;
 
+align-items: center;
 
-/* =====================================================
-   WALLET
-===================================================== */
+justify-content: space-between;
 
-#wallet-dashboard {
-    display: none;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-}
+gap: 20px;
 
-.wallet-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
-}
+padding: 16px 22px;
 
-.wallet-header h2 {
-    margin: 0;
-}
+margin-bottom: 30px;
 
-.wallet-balance-card {
-    background: #111827;
-    color: white;
-    padding: 25px;
-    border-radius: 14px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-}
+border-radius: 12px;
 
-.wallet-balance-card p {
-    color: #cbd5e1;
-}
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 
-.wallet-balance-card p strong {
-    color: white;
 }
 
-.wallet-balance-card h1 {
-    font-size: 32px;
-    margin: 10px 0 25px;
-    color: white;
-}
 
-.wallet-actions {
-    display: flex;
-    gap: 10px;
-}
+.logo {
 
-.wallet-actions button {
-    flex: 1;
-    margin: 0;
-    background: white;
-    color: #111827;
-}
+font-size: 22px;
 
-.wallet-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 18px;
-}
+font-weight: bold;
 
-.wallet-stat {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
+white-space: nowrap;
 
-.wallet-stat span {
-    display: block;
-    color: #667085;
-    font-size: 14px;
-    margin-bottom: 8px;
 }
 
-.wallet-stat strong {
-    font-size: 18px;
-}
 
-.transactions {
-    background: white;
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
+.site-header nav {
 
-.transactions h3 {
-    margin-top: 0;
-}
+display: flex;
 
-.empty-transactions {
-    color: #667085;
-    text-align: center;
-    padding: 25px 0;
-}
+gap: 18px;
 
-.transaction-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid #eaecf0;
-    gap: 10px;
-}
+flex-wrap: wrap;
 
-.transaction-item:last-child {
-    border-bottom: none;
-}
+justify-content: center;
 
-.transaction-item small {
-    display: block;
-    margin-top: 5px;
-    color: #98a2b3;
 }
 
-.transaction-positive {
-    color: #027a48;
-}
 
-.transaction-negative {
-    color: #b42318;
-}
+.site-header nav a {
 
-.wallet-btn {
-    background: #111827;
-    color: white;
-}
+color: #1f2937;
 
+text-decoration: none;
 
-/* =====================================================
-   SELL
-===================================================== */
+font-size: 15px;
 
-#sell-dashboard {
-    display: none;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-}
+font-weight: 600;
 
-.sell-box {
-    background: white;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
-.sell-box h2 {
-    margin: 0;
-}
 
-.sell-input-group {
-    margin-bottom: 18px;
-}
+.site-header nav a:hover {
 
-.sell-input-group label {
-    display: block;
-    margin-bottom: 7px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #344054;
-}
+text-decoration: underline;
 
-.sell-input-group input,
-.sell-input-group select,
-.sell-input-group textarea {
-    width: 100%;
-    padding: 13px;
-    border: 1px solid #d0d5dd;
-    border-radius: 8px;
-    font-size: 15px;
-    background: white;
-    color: #1f2937;
-    outline: none;
 }
 
-.sell-input-group input:focus,
-.sell-input-group select:focus,
-.sell-input-group textarea:focus {
-    border-color: #111827;
-}
 
-.sell-input-group textarea {
-    min-height: 120px;
-    resize: vertical;
-    font-family: Arial, sans-serif;
-}
+.site-header button {
 
-.sell-input-group input[type="file"] {
-    padding: 10px;
-    background: #f5f7fa;
-}
+background: #111827;
 
-.image-preview {
-    width: 100%;
-    max-height: 250px;
-    object-fit: contain;
-    display: none;
-    margin-top: 12px;
-    border-radius: 10px;
-    background: #f5f7fa;
-    border: 1px solid #d0d5dd;
+margin: 0;
+
+white-space: nowrap;
+
 }
+
+
+/* ========================================================
+
+SITE HEADER MOBILE
 
+======================================================== */
 
-/* =====================================================
-   MOBILE
-===================================================== */
 
 @media (max-width: 700px) {
 
-    body {
-        padding: 10px;
-    }
 
-    .site-header {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-    }
+.site-header {  
+    flex-direction: column;  
+    align-items: stretch;  
+    text-align: center;  
+}  
 
-    .site-header nav {
-        gap: 12px;
-    }
+.site-header nav {  
+    gap: 12px;  
+}  
 
-    .top-actions {
-        width: 100%;
-        flex-direction: column;
-    }
+.site-header button {  
+    width: 100%;  
+}  
 
-    .top-actions button {
-        width: 100%;
-    }
 
-    .categories {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
 
-    .categories button {
-        width: 100%;
-        margin: 0;
-    }
 }
+
+
+/* ========================================================
+
+SIGN UP / AUTHENTICATION FORM
+
+======================================================== */
+
+
+.auth-box {
+
+background: white;
+
+width: 100%;
+
+max-width: 450px;
+
+margin: 30px auto;
+
+padding: 30px;
+
+border-radius: 12px;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.auth-box h2 {
+
+margin-top: 0;
+
+margin-bottom: 20px;
+
+color: #1f2937;
+
+}
+
+
+.input-group {
+
+margin-bottom: 16px;
+
+text-align: left;
+
+}
+
+
+.input-group label {
+
+display: block;
+
+margin-bottom: 6px;
+
+font-size: 14px;
+
+font-weight: 600;
+
+color: #344054;
+
+}
+
+
+.input-group input,
+
+.input-group select {
+
+width: 100%;
+
+padding: 13px;
+
+border: 1px solid #d0d5dd;
+
+border-radius: 8px;
+
+font-size: 15px;
+
+background: white;
+
+color: #1f2937;
+
+}
+
+
+.input-group input:focus,
+
+.input-group select:focus {
+
+outline: none;
+
+border-color: #111827;
+
+}
+
+
+.submit-btn {
+
+width: 100%;
+
+margin: 10px 0 0;
+
+background: #111827;
+
+color: white;
+
+}
+
+
+.toggle-link {
+
+text-align: center;
+
+margin-top: 18px;
+
+color: #667085;
+
+font-size: 14px;
+
+}
+
+
+.toggle-link span {
+
+color: #111827;
+
+font-weight: bold;
+
+cursor: pointer;
+
+}
+
+
+.toggle-link span:hover {
+
+text-decoration: underline;
+
+}
+
+
+/* ========================================================
+
+MADHIRA GLOBAL WALLET DASHBOARD
+
+======================================================== */
+
+
+#wallet-dashboard {
+
+display: none;
+
+width: 100%;
+
+max-width: 600px;
+
+margin: 0 auto;
+
+padding: 20px;
+
+}
+
+
+.wallet-header {
+
+display: flex;
+
+align-items: center;
+
+gap: 15px;
+
+margin-bottom: 25px;
+
+}
+
+
+.wallet-header h2 {
+
+margin: 0;
+
+}
+
+
+.back-btn {
+
+margin: 0;
+
+}
+
+
+.wallet-balance-card {
+
+background: #111827;
+
+color: white;
+
+padding: 25px;
+
+border-radius: 14px;
+
+text-align: center;
+
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+}
+
+
+.wallet-balance-card p {
+
+color: #cbd5e1;
+
+margin-bottom: 8px;
+
+}
+
+
+.wallet-balance-card h1 {
+
+font-size: 32px;
+
+margin: 10px 0 25px;
+
+color: white;
+
+}
+
+
+.wallet-actions {
+
+display: flex;
+
+gap: 10px;
+
+}
+
+
+.wallet-actions button {
+
+flex: 1;
+
+margin: 0;
+
+background: white;
+
+color: #111827;
+
+}
+
+
+.wallet-stats {
+
+display: grid;
+
+grid-template-columns: 1fr 1fr;
+
+gap: 15px;
+
+margin-top: 18px;
+
+}
+
+
+.wallet-stat {
+
+background: white;
+
+padding: 20px;
+
+border-radius: 12px;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.wallet-stat span {
+
+display: block;
+
+color: #667085;
+
+font-size: 14px;
+
+margin-bottom: 8px;
+
+}
+
+
+.wallet-stat strong {
+
+font-size: 18px;
+
+}
+
+
+.transactions {
+
+background: white;
+
+margin-top: 20px;
+
+padding: 20px;
+
+border-radius: 12px;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.transactions h3 {
+
+margin-top: 0;
+
+}
+
+
+.empty-transactions {
+
+color: #667085;
+
+text-align: center;
+
+padding: 25px 0;
+
+}
+
+
+/* ========================================================
+
+WALLET BUTTON
+
+======================================================== */
+
+
+.wallet-btn {
+
+background: #111827;
+
+color: white;
+
+border: none;
+
+padding: 12px 18px;
+
+border-radius: 8px;
+
+font-size: 15px;
+
+font-weight: 600;
+
+cursor: pointer;
+
+}
+
+
+.wallet-btn:hover {
+
+opacity: 0.85;
+
+}
+
+
+/* ========================================================
+
+SELL PRODUCT DASHBOARD
+
+======================================================== */
+
+
+#sell-dashboard {
+
+display: none;
+
+width: 100%;
+
+max-width: 600px;
+
+margin: 0 auto;
+
+padding: 20px;
+
+}
+
+
+.sell-box {
+
+background: white;
+
+padding: 25px;
+
+border-radius: 14px;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.sell-box h3 {
+
+margin-top: 0;
+
+margin-bottom: 22px;
+
+font-size: 22px;
+
+color: #1f2937;
+
+}
+
+
+.sell-input-group {
+
+margin-bottom: 18px;
+
+}
+
+
+.sell-input-group label {
+
+display: block;
+
+margin-bottom: 7px;
+
+font-size: 14px;
+
+font-weight: 600;
+
+color: #344054;
+
+}
+
+
+.sell-input-group input,
+
+.sell-input-group select,
+
+.sell-input-group textarea {
+
+width: 100%;
+
+padding: 13px;
+
+border: 1px solid #d0d5dd;
+
+border-radius: 8px;
+
+font-size: 15px;
+
+background: white;
+
+color: #1f2937;
+
+outline: none;
+
+}
+
+
+.sell-input-group input:focus,
+
+.sell-input-group select:focus,
+
+.sell-input-group textarea:focus {
+
+border-color: #111827;
+
+}
+
+
+.sell-input-group textarea {
+
+min-height: 120px;
+
+resize: vertical;
+
+font-family: Arial, sans-serif;
+
+}
+
+
+.sell-input-group input[type="file"] {
+
+padding: 10px;
+
+background: #f5f7fa;
+
+}
+
+
+.sell-box .submit-btn {
+
+width: 100%;
+
+margin-top: 8px;
+
+background: #111827;
+
+color: white;
+
+}
+
+
+/* ========================================================
+
+PRODUCT IMAGE PREVIEW
+
+======================================================== */
+
+
+.image-preview {
+
+width: 100%;
+
+max-height: 250px;
+
+object-fit: contain;
+
+display: none;
+
+margin-top: 12px;
+
+border-radius: 10px;
+
+background: #f5f7fa;
+
+border: 1px solid #d0d5dd;
+
+}
+
+
+/* ========================================================
+
+MARKETPLACE LISTINGS
+
+======================================================== */
+
+
+#marketplace-listings {
+
+width: 100%;
+
+margin-top: 40px;
+
+}
+
+
+#marketplace-listings h3 {
+
+margin-bottom: 20px;
+
+}
+
+
+.listing-card {
+
+background: white;
+
+color: #1f2937;
+
+border-radius: 12px;
+
+margin-bottom: 20px;
+
+overflow: hidden;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.listing-image {
+
+width: 100%;
+
+height: 220px;
+
+object-fit: cover;
+
+display: block;
+
+background: #f5f7fa;
+
+}
+
+
+.listing-content {
+
+padding: 20px;
+
+}
+
+
+.listing-content h3 {
+
+margin: 0 0 8px;
+
+font-size: 20px;
+
+color: #1f2937;
+
+}
+
+
+.listing-price {
+
+color: #111827;
+
+font-size: 20px;
+
+font-weight: bold;
+
+margin-bottom: 12px;
+
+}
+
+
+.listing-info {
+
+color: #667085;
+
+font-size: 14px;
+
+margin-bottom: 7px;
+
+}
+
+
+.listing-description {
+
+color: #475467;
+
+line-height: 1.5;
+
+margin-top: 14px;
+
+padding-top: 14px;
+
+border-top: 1px solid #eaecf0;
+
+}
+
+
+/* ========================================================
+
+SELL PAGE MOBILE
+
+======================================================== */
 
 
 @media (max-width: 500px) {
 
-    .auth-box {
-        padding: 20px;
-    }
 
-    #wallet-dashboard,
-    #sell-dashboard,
-    #account-panel {
-        padding: 10px;
-    }
+#wallet-dashboard,  
+#sell-dashboard {  
+    padding: 10px;  
+}  
 
-    .wallet-actions {
-        flex-direction: column;
-    }
+.wallet-actions {  
+    flex-direction: column;  
+}  
 
-    .wallet-stats {
-        grid-template-columns: 1fr;
-    }
+.wallet-stats {  
+    grid-template-columns: 1fr;  
+}  
 
-    .wallet-header {
-        flex-wrap: wrap;
-    }
+.wallet-header {  
+    flex-wrap: wrap;  
+}  
 
-    .sell-box,
-    .account-card {
-        padding: 20px;
-    }
+.sell-box {  
+    padding: 20px;  
+}  
 
-    .account-detail {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
+.listing-image {  
+    height: 200px;  
+}  
 
-    .account-detail-value {
-        text-align: left;
-    }
+.listing-content {  
+    padding: 16px;  
+}  
 
-    .account-actions {
-        flex-direction: column;
-    }
+}  
 
-    .listing-image {
-        height: 200px;
-    }
 
-    .listing-content {
-        padding: 16px;
-    }
 
-    .transaction-item {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-    }
+
+
+{
+
+box-sizing: border-box;
+
+}
+
+
+
+
+body {
+
+margin: 0;
+
+font-family: Arial, sans-serif;
+
+background: #f5f7fa;
+
+color: #1f2937;
+
+padding: 20px;
+
+}
+
+
+h1 {
+
+font-size: 32px;
+
+margin-bottom: 8px;
+
+}
+
+
+p {
+
+color: #667085;
+
+}
+
+
+input[type="search"] {
+
+width: 70%;
+
+max-width: 600px;
+
+padding: 14px;
+
+border: 1px solid #d0d5dd;
+
+border-radius: 8px;
+
+font-size: 16px;
+
+}
+
+
+button {
+
+padding: 12px 18px;
+
+margin: 6px 4px;
+
+border: none;
+
+border-radius: 8px;
+
+background: #111827;
+
+color: white;
+
+font-size: 15px;
+
+cursor: pointer;
+
+}
+
+
+button:hover {
+
+opacity: 0.85;
+
+}
+
+
+h2 {
+
+margin-top: 35px;
+
+}
+
+
+body > * {
+
+max-width: 1100px;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+
+/* ========================================================
+
+SITE HEADER
+
+======================================================== */
+
+
+.site-header {
+
+background: white;
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 20px;
+
+padding: 16px 22px;
+
+margin-bottom: 30px;
+
+border-radius: 12px;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.logo {
+
+font-size: 22px;
+
+font-weight: bold;
+
+white-space: nowrap;
+
+}
+
+
+.site-header nav {
+
+display: flex;
+
+gap: 18px;
+
+flex-wrap: wrap;
+
+justify-content: center;
+
+}
+
+
+.site-header nav a {
+
+color: #1f2937;
+
+text-decoration: none;
+
+font-size: 15px;
+
+font-weight: 600;
+
+}
+
+
+.site-header nav a:hover {
+
+text-decoration: underline;
+
+}
+
+
+.site-header button {
+
+background: #111827;
+
+margin: 0;
+
+white-space: nowrap;
+
+}
+
+
+/* ========================================================
+
+SITE HEADER MOBILE
+
+======================================================== */
+
+
+@media (max-width: 700px) {
+
+
+.site-header {  
+    flex-direction: column;  
+    align-items: stretch;  
+    text-align: center;  
+}  
+
+.site-header nav {  
+    gap: 12px;  
+}  
+
+.site-header button {  
+    width: 100%;  
+}  
+
+
+
+}
+
+
+/* ========================================================
+
+SIGN UP / AUTHENTICATION FORM
+
+======================================================== */
+
+
+.auth-box {
+
+background: white;
+
+width: 100%;
+
+max-width: 450px;
+
+margin: 30px auto;
+
+padding: 30px;
+
+border-radius: 12px;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.auth-box h2 {
+
+margin-top: 0;
+
+margin-bottom: 20px;
+
+color: #1f2937;
+
+}
+
+
+.input-group {
+
+margin-bottom: 16px;
+
+text-align: left;
+
+}
+
+
+.input-group label {
+
+display: block;
+
+margin-bottom: 6px;
+
+font-size: 14px;
+
+font-weight: 600;
+
+color: #344054;
+
+}
+
+
+.input-group input,
+
+.input-group select {
+
+width: 100%;
+
+padding: 13px;
+
+border: 1px solid #d0d5dd;
+
+border-radius: 8px;
+
+font-size: 15px;
+
+background: white;
+
+color: #1f2937;
+
+}
+
+
+.input-group input:focus,
+
+.input-group select:focus {
+
+outline: none;
+
+border-color: #111827;
+
+}
+
+
+.submit-btn {
+
+width: 100%;
+
+margin: 10px 0 0;
+
+background: #111827;
+
+color: white;
+
+}
+
+
+.toggle-link {
+
+text-align: center;
+
+margin-top: 18px;
+
+color: #667085;
+
+font-size: 14px;
+
+}
+
+
+.toggle-link span {
+
+color: #111827;
+
+font-weight: bold;
+
+cursor: pointer;
+
+}
+
+
+.toggle-link span:hover {
+
+text-decoration: underline;
+
+}
+
+
+/* ========================================================
+
+MADHIRA GLOBAL WALLET DASHBOARD
+
+======================================================== */
+
+
+#wallet-dashboard {
+
+display: none;
+
+width: 100%;
+
+max-width: 600px;
+
+margin: 0 auto;
+
+padding: 20px;
+
+}
+
+
+.wallet-header {
+
+display: flex;
+
+align-items: center;
+
+gap: 15px;
+
+margin-bottom: 25px;
+
+}
+
+
+.wallet-header h2 {
+
+margin: 0;
+
+}
+
+
+.back-btn {
+
+margin: 0;
+
+}
+
+
+.wallet-balance-card {
+
+background: #111827;
+
+color: white;
+
+padding: 25px;
+
+border-radius: 14px;
+
+text-align: center;
+
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+}
+
+
+.wallet-balance-card p {
+
+color: #cbd5e1;
+
+margin-bottom: 8px;
+
+}
+
+
+.wallet-balance-card h1 {
+
+font-size: 32px;
+
+margin: 10px 0 25px;
+
+color: white;
+
+}
+
+
+.wallet-actions {
+
+display: flex;
+
+gap: 10px;
+
+}
+
+
+.wallet-actions button {
+
+flex: 1;
+
+margin: 0;
+
+background: white;
+
+color: #111827;
+
+}
+
+
+.wallet-stats {
+
+display: grid;
+
+grid-template-columns: 1fr 1fr;
+
+gap: 15px;
+
+margin-top: 18px;
+
+}
+
+
+.wallet-stat {
+
+background: white;
+
+padding: 20px;
+
+border-radius: 12px;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.wallet-stat span {
+
+display: block;
+
+color: #667085;
+
+font-size: 14px;
+
+margin-bottom: 8px;
+
+}
+
+
+.wallet-stat strong {
+
+font-size: 18px;
+
+}
+
+
+.transactions {
+
+background: white;
+
+margin-top: 20px;
+
+padding: 20px;
+
+border-radius: 12px;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.transactions h3 {
+
+margin-top: 0;
+
+}
+
+
+.empty-transactions {
+
+color: #667085;
+
+text-align: center;
+
+padding: 25px 0;
+
+}
+
+
+/* ========================================================
+
+WALLET BUTTON
+
+======================================================== */
+
+
+.wallet-btn {
+
+background: #111827;
+
+color: white;
+
+border: none;
+
+padding: 12px 18px;
+
+border-radius: 8px;
+
+font-size: 15px;
+
+font-weight: 600;
+
+cursor: pointer;
+
+}
+
+
+.wallet-btn:hover {
+
+opacity: 0.85;
+
+}
+
+
+/* ========================================================
+
+SELL PRODUCT DASHBOARD
+
+======================================================== */
+
+
+#sell-dashboard {
+
+display: none;
+
+width: 100%;
+
+max-width: 600px;
+
+margin: 0 auto;
+
+padding: 20px;
+
+}
+
+
+.sell-box {
+
+background: white;
+
+padding: 25px;
+
+border-radius: 14px;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.sell-box h3 {
+
+margin-top: 0;
+
+margin-bottom: 22px;
+
+font-size: 22px;
+
+color: #1f2937;
+
+}
+
+
+.sell-input-group {
+
+margin-bottom: 18px;
+
+}
+
+
+.sell-input-group label {
+
+display: block;
+
+margin-bottom: 7px;
+
+font-size: 14px;
+
+font-weight: 600;
+
+color: #344054;
+
+}
+
+
+.sell-input-group input,
+
+.sell-input-group select,
+
+.sell-input-group textarea {
+
+width: 100%;
+
+padding: 13px;
+
+border: 1px solid #d0d5dd;
+
+border-radius: 8px;
+
+font-size: 15px;
+
+background: white;
+
+color: #1f2937;
+
+outline: none;
+
+}
+
+
+.sell-input-group input:focus,
+
+.sell-input-group select:focus,
+
+.sell-input-group textarea:focus {
+
+border-color: #111827;
+
+}
+
+
+.sell-input-group textarea {
+
+min-height: 120px;
+
+resize: vertical;
+
+font-family: Arial, sans-serif;
+
+}
+
+
+.sell-input-group input[type="file"] {
+
+padding: 10px;
+
+background: #f5f7fa;
+
+}
+
+
+.sell-box .submit-btn {
+
+width: 100%;
+
+margin-top: 8px;
+
+background: #111827;
+
+color: white;
+
+}
+
+
+/* ========================================================
+
+PRODUCT IMAGE PREVIEW
+
+======================================================== */
+
+
+.image-preview {
+
+width: 100%;
+
+max-height: 250px;
+
+object-fit: contain;
+
+display: none;
+
+margin-top: 12px;
+
+border-radius: 10px;
+
+background: #f5f7fa;
+
+border: 1px solid #d0d5dd;
+
+}
+
+
+/* ========================================================
+
+MARKETPLACE LISTINGS
+
+======================================================== */
+
+
+#marketplace-listings {
+
+width: 100%;
+
+margin-top: 40px;
+
+}
+
+
+#marketplace-listings h3 {
+
+margin-bottom: 20px;
+
+}
+
+
+.listing-card {
+
+background: white;
+
+color: #1f2937;
+
+border-radius: 12px;
+
+margin-bottom: 20px;
+
+overflow: hidden;
+
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.listing-image {
+
+width: 100%;
+
+height: 220px;
+
+object-fit: cover;
+
+display: block;
+
+background: #f5f7fa;
+
+}
+
+
+.listing-content {
+
+padding: 20px;
+
+}
+
+
+.listing-content h3 {
+
+margin: 0 0 8px;
+
+font-size: 20px;
+
+color: #1f2937;
+
+}
+
+
+.listing-price {
+
+color: #111827;
+
+font-size: 20px;
+
+font-weight: bold;
+
+margin-bottom: 12px;
+
+}
+
+
+.listing-info {
+
+color: #667085;
+
+font-size: 14px;
+
+margin-bottom: 7px;
+
+}
+
+
+.listing-description {
+
+color: #475467;
+
+line-height: 1.5;
+
+margin-top: 14px;
+
+padding-top: 14px;
+
+border-top: 1px solid #eaecf0;
+
+}
+
+
+/* ========================================================
+
+SELL PAGE MOBILE
+
+======================================================== */
+
+
+@media (max-width: 500px) {
+
+
+#wallet-dashboard,  
+#sell-dashboard {  
+    padding: 10px;  
+}  
+
+.wallet-actions {  
+    flex-direction: column;  
+}  
+
+.wallet-stats {  
+    grid-template-columns: 1fr;  
+}  
+
+.wallet-header {  
+    flex-wrap: wrap;  
+}  
+
+.sell-box {  
+    padding: 20px;  
+}  
+
+.listing-image {  
+    height: 200px;  
+}  
+
+.listing-content {  
+    padding: 16px;  
+}  
+
+}  
+
+
