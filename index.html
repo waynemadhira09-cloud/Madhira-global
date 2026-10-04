@@ -23,7 +23,7 @@
         }
 
         /* ========================================================
-           1. INITIAL AUTHENTICATION SCREEN
+           1. AUTHENTICATION SCREEN
            ======================================================== */
 
         #auth-screen {
@@ -92,23 +92,7 @@
             margin-bottom: 6px;
         }
 
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            background: #1e2d4a;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px;
-            color: #fff;
-            outline: none;
-            font-size: 0.95rem;
-        }
-
-        .input-group input:focus {
-            border-color: #2b6cb0;
-        }
-
-        /* Country selection */
-
+        .input-group input,
         .input-group select {
             width: 100%;
             padding: 12px;
@@ -120,6 +104,7 @@
             font-size: 0.95rem;
         }
 
+        .input-group input:focus,
         .input-group select:focus {
             border-color: #2b6cb0;
         }
@@ -137,6 +122,10 @@
             margin-top: 10px;
         }
 
+        .submit-btn:hover {
+            background-color: #347dcc;
+        }
+
         .toggle-link {
             margin-top: 20px;
             font-size: 0.9rem;
@@ -149,9 +138,69 @@
             font-weight: bold;
         }
 
+        /* ========================================================
+           2. ROLE SELECTION
+           ======================================================== */
+
+        #role-screen {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            min-height: 100vh;
+            padding: 30px 20px;
+            text-align: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .role-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .role-subtitle {
+            color: #8fa0dd;
+            margin-bottom: 35px;
+        }
+
+        .role-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .role-card {
+            background: #131c2e;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 35px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .role-card:hover {
+            transform: translateY(-4px);
+            border-color: #2b6cb0;
+        }
+
+        .role-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .role-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .role-card p {
+            color: #8fa0dd;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
 
         /* ========================================================
-           2. MAIN DASHBOARD CONTENT
+           3. MAIN PLATFORM
            ======================================================== */
 
         #main-platform {
@@ -188,6 +237,7 @@
             padding: 10px;
             outline: none;
             font-size: 1rem;
+            min-width: 0;
         }
 
         .search-btn {
@@ -227,13 +277,68 @@
             font-size: 1.5rem;
             margin-bottom: 8px;
         }
+
+        /* ========================================================
+           SELLER DASHBOARD
+           ======================================================== */
+
+        #seller-dashboard {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .dashboard-card {
+            background: #131c2e;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-card h2 {
+            margin-bottom: 10px;
+        }
+
+        .dashboard-card p {
+            color: #8fa0dd;
+            margin-bottom: 20px;
+        }
+
+        .sell-product-btn {
+            width: 100%;
+            padding: 14px;
+            background: #2b6cb0;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ========================================================
+           RESPONSIVE
+           ======================================================== */
+
+        @media (max-width: 500px) {
+
+            .role-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+        }
     </style>
 </head>
 
 <body>
 
     <!-- ========================================================
-         STAGE 1: AUTHENTICATION SCREEN
+         STAGE 1: AUTHENTICATION
          ======================================================== -->
 
     <div id="auth-screen">
@@ -251,10 +356,7 @@
             Find products from sellers around the world.
         </p>
 
-
-        <!-- ====================================================
-             SIGN IN
-             ==================================================== -->
+        <!-- SIGN IN -->
 
         <div id="signin-box" class="auth-box active">
 
@@ -265,6 +367,7 @@
                 <div class="input-group">
                     <label>Email Address</label>
                     <input
+                        id="signin-email"
                         type="email"
                         required
                         placeholder="name@example.com"
@@ -274,6 +377,7 @@
                 <div class="input-group">
                     <label>Password</label>
                     <input
+                        id="signin-password"
                         type="password"
                         required
                         placeholder="••••••••"
@@ -295,10 +399,7 @@
 
         </div>
 
-
-        <!-- ====================================================
-             SIGN UP
-             ==================================================== -->
+        <!-- SIGN UP -->
 
         <div id="signup-box" class="auth-box">
 
@@ -306,12 +407,10 @@
 
             <form onsubmit="handleAuthentication(event)">
 
-                <!-- COUNTRY -->
-
                 <div class="input-group">
                     <label>Country</label>
 
-                    <select required>
+                    <select id="signup-country" required>
                         <option value="">
                             Select your country
                         </option>
@@ -338,82 +437,61 @@
                     </select>
                 </div>
 
-
-                <!-- FIRST NAME -->
-
                 <div class="input-group">
                     <label>First Name</label>
-
                     <input
+                        id="signup-firstname"
                         type="text"
                         required
                         placeholder="Enter your first name"
                     >
                 </div>
 
-
-                <!-- LAST NAME -->
-
                 <div class="input-group">
                     <label>Last Name</label>
-
                     <input
+                        id="signup-lastname"
                         type="text"
                         required
                         placeholder="Enter your last name"
                     >
                 </div>
 
-
-                <!-- EMAIL -->
-
                 <div class="input-group">
                     <label>Email Address</label>
-
                     <input
+                        id="signup-email"
                         type="email"
                         required
                         placeholder="name@example.com"
                     >
                 </div>
 
-
-                <!-- PASSWORD -->
-
                 <div class="input-group">
                     <label>Password</label>
-
                     <input
+                        id="signup-password"
                         type="password"
                         required
                         placeholder="Create password"
                     >
                 </div>
 
-
-                <!-- CONFIRM PASSWORD -->
-
                 <div class="input-group">
                     <label>Confirm Password</label>
-
                     <input
+                        id="signup-confirm-password"
                         type="password"
                         required
                         placeholder="Confirm password"
                     >
                 </div>
 
-
-                <!-- CREATE ACCOUNT BUTTON -->
-
                 <button type="submit" class="submit-btn">
                     Create Account
                 </button>
 
             </form>
-
-
-            <!-- BACK TO SIGN IN -->
 
             <div class="toggle-link">
                 Already have an account?
@@ -427,9 +505,62 @@
     </div>
 
 
+    <!-- ========================================================
+         STAGE 2: BUYER / SELLER SELECTION
+         ======================================================== -->
+
+    <div id="role-screen">
+
+        <h1 class="role-title">
+            Welcome to Madhira Global
+        </h1>
+
+        <p class="role-subtitle">
+            How do you want to use the marketplace?
+        </p>
+
+        <div class="role-container">
+
+            <div class="role-card" onclick="selectRole('buyer')">
+
+                <div class="role-icon">
+                    🛒
+                </div>
+
+                <h3>
+                    I want to Buy
+                </h3>
+
+                <p>
+                    Browse products, compare prices and buy from sellers.
+                </p>
+
+            </div>
+
+
+            <div class="role-card" onclick="selectRole('seller')">
+
+                <div class="role-icon">
+                    🏪
+                </div>
+
+                <h3>
+                    I want to Sell
+                </h3>
+
+                <p>
+                    List your products and start selling to buyers.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
 
     <!-- ========================================================
-         STAGE 2: MAIN PLATFORM
+         STAGE 3: BUYER PLATFORM
          ======================================================== -->
 
     <div id="main-platform">
@@ -454,6 +585,7 @@
 
             <button
                 class="search-btn"
+                onclick="showSellerDashboard()"
                 style="background: #131c2e; border: 1px solid rgba(255,255,255,0.2);"
             >
                 Sell
@@ -461,20 +593,24 @@
 
         </header>
 
-
-
-        <!-- SEARCH -->
-
         <section class="search-container">
+
+            <h2>
+                Find what you need
+            </h2>
 
             <div class="search-bar-wrapper">
 
                 <input
                     type="text"
+                    id="search-input"
                     placeholder="What are you looking for?"
                 >
 
-                <button class="search-btn">
+                <button
+                    class="search-btn"
+                    onclick="searchProducts()"
+                >
                     Search
                 </button>
 
@@ -482,16 +618,11 @@
 
         </section>
 
-
-
-        <!-- CATEGORIES -->
-
         <section class="categories-section">
 
             <h3>
                 Explore Categories
             </h3>
-
 
             <div class="grid-container">
 
@@ -532,14 +663,87 @@
     </div>
 
 
+    <!-- ========================================================
+         STAGE 4: SELLER DASHBOARD
+         ======================================================== -->
+
+    <div id="seller-dashboard">
+
+        <header class="top-navbar">
+
+            <div
+                class="brand-header"
+                style="margin-bottom: 0;"
+            >
+
+                <span>🌐</span>
+
+                <span
+                    class="brand-logo"
+                    style="font-size: 1.4rem;"
+                >
+                    Madhira Global
+                </span>
+
+            </div>
+
+            <button
+                class="search-btn"
+                onclick="showBuyerPlatform()"
+            >
+                Buy
+            </button>
+
+        </header>
+
+
+        <div class="dashboard-card">
+
+            <h2>
+                🏪 Seller Dashboard
+            </h2>
+
+            <p>
+                Welcome, Seller. Start listing your products.
+            </p>
+
+            <button
+                class="sell-product-btn"
+                onclick="startSelling()"
+            >
+                + Add Product
+            </button>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <h2>
+                My Products
+            </h2>
+
+            <p>
+                Your products will appear here.
+            </p>
+
+            <div id="seller-products"></div>
+
+        </div>
+
+    </div>
+
 
     <!-- ========================================================
-         INTERFACE CONTROLLER
+         JAVASCRIPT
          ======================================================== -->
 
     <script>
 
-        // Switch between Sign In and Sign Up
+        /*
+         ========================================================
+         SWITCH BETWEEN SIGN IN AND SIGN UP
+         ========================================================
+        */
 
         function switchForm(target) {
 
@@ -573,32 +777,278 @@
         }
 
 
-        // Handle authentication
+        /*
+         ========================================================
+         HANDLE SIGN IN / SIGN UP
+         ========================================================
+        */
 
         function handleAuthentication(event) {
 
             event.preventDefault();
 
 
-            // Hide authentication screen
-
-            document
-                .getElementById('auth-screen')
-                .style
-                .display = 'none';
+            const form = event.target;
 
 
-            // Show main platform
+            /*
+             Check if this is SIGN UP
+            */
 
-            document
-                .getElementById('main-platform')
-                .style
-                .display = 'block';
+            if (
+                form.closest('#signup-box')
+            ) {
+
+                const password =
+                    document.getElementById(
+                        'signup-password'
+                    ).value;
+
+                const confirmPassword =
+                    document.getElementById(
+                        'signup-confirm-password'
+                    ).value;
 
 
-            // Scroll to top
+                if (password !== confirmPassword) {
+
+                    alert(
+                        'Passwords do not match.'
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 Save basic account information
+                */
+
+                const user = {
+
+                    firstName:
+                        document.getElementById(
+                            'signup-firstname'
+                        ).value,
+
+                    lastName:
+                        document.getElementById(
+                            'signup-lastname'
+                        ).value,
+
+                    email:
+                        document.getElementById(
+                            'signup-email'
+                        ).value,
+
+                    country:
+                        document.getElementById(
+                            'signup-country'
+                        ).value
+
+                };
+
+
+                localStorage.setItem(
+                    'madhiraUser',
+                    JSON.stringify(user)
+                );
+
+            }
+
+
+            /*
+             Hide authentication
+            */
+
+            document.getElementById(
+                'auth-screen'
+            ).style.display = 'none';
+
+
+            /*
+             Check if user already selected
+             a role
+            */
+
+            const savedRole =
+                localStorage.getItem(
+                    'madhiraRole'
+                );
+
+
+            if (savedRole === 'buyer') {
+
+                showBuyerPlatform();
+
+            } else if (savedRole === 'seller') {
+
+                showSellerDashboard();
+
+            } else {
+
+                showRoleSelection();
+
+            }
+
 
             window.scrollTo(0, 0);
+
+        }
+
+
+        /*
+         ========================================================
+         SHOW ROLE SELECTION
+         ========================================================
+        */
+
+        function showRoleSelection() {
+
+            document.getElementById(
+                'role-screen'
+            ).style.display = 'flex';
+
+            document.getElementById(
+                'main-platform'
+            ).style.display = 'none';
+
+            document.getElementById(
+                'seller-dashboard'
+            ).style.display = 'none';
+
+        }
+
+
+        /*
+         ========================================================
+         SELECT BUYER OR SELLER
+         ========================================================
+        */
+
+        function selectRole(role) {
+
+            localStorage.setItem(
+                'madhiraRole',
+                role
+            );
+
+
+            if (role === 'buyer') {
+
+                showBuyerPlatform();
+
+            } else {
+
+                showSellerDashboard();
+
+            }
+
+        }
+
+
+        /*
+         ========================================================
+         SHOW BUYER PLATFORM
+         ========================================================
+        */
+
+        function showBuyerPlatform() {
+
+            document.getElementById(
+                'auth-screen'
+            ).style.display = 'none';
+
+            document.getElementById(
+                'role-screen'
+            ).style.display = 'none';
+
+            document.getElementById(
+                'seller-dashboard'
+            ).style.display = 'none';
+
+            document.getElementById(
+                'main-platform'
+            ).style.display = 'block';
+
+            window.scrollTo(0, 0);
+
+        }
+
+
+        /*
+         ========================================================
+         SHOW SELLER DASHBOARD
+         ========================================================
+        */
+
+        function showSellerDashboard() {
+
+            document.getElementById(
+                'auth-screen'
+            ).style.display = 'none';
+
+            document.getElementById(
+                'role-screen'
+            ).style.display = 'none';
+
+            document.getElementById(
+                'main-platform'
+            ).style.display = 'none';
+
+            document.getElementById(
+                'seller-dashboard'
+            ).style.display = 'block';
+
+            window.scrollTo(0, 0);
+
+        }
+
+
+        /*
+         ========================================================
+         SEARCH
+         ========================================================
+        */
+
+        function searchProducts() {
+
+            const search =
+                document.getElementById(
+                    'search-input'
+                ).value.trim();
+
+
+            if (search === '') {
+
+                alert(
+                    'Please enter what you are looking for.'
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                'Searching for: ' + search
+            );
+
+        }
+
+
+        /*
+         ========================================================
+         START SELLING
+         ========================================================
+        */
+
+        function startSelling() {
+
+            alert(
+                'Product listing will be added in the next step.'
+            );
 
         }
 
