@@ -317,6 +317,119 @@
             cursor: pointer;
         }
 
+
+        /* ========================================================
+           ADD PRODUCT FORM
+           ======================================================== */
+
+        #add-product-box {
+            display: none;
+            background: #131c2e;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        #add-product-box.active {
+            display: block;
+        }
+
+        #add-product-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .product-input {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .product-input label {
+            display: block;
+            font-size: 0.85rem;
+            color: #8fa0dd;
+            margin-bottom: 6px;
+        }
+
+        .product-input input,
+        .product-input select,
+        .product-input textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1e2d4a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            color: #fff;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .product-input textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .product-input input:focus,
+        .product-input select:focus,
+        .product-input textarea:focus {
+            border-color: #2b6cb0;
+        }
+
+        .product-submit {
+            width: 100%;
+            padding: 13px;
+            background: #2b6cb0;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cancel-product {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            color: #8fa0dd;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 7px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        /* ========================================================
+           SELLER PRODUCTS
+           ======================================================== */
+
+        #seller-products {
+            width: 100%;
+        }
+
+        .seller-product {
+            background: #1e2d4a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .seller-product img {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .seller-product h3 {
+            margin-bottom: 8px;
+        }
+
+        .seller-product p {
+            color: #8fa0dd;
+            margin-bottom: 7px;
+        }
+
+
         /* ========================================================
            RESPONSIVE
            ======================================================== */
@@ -716,6 +829,148 @@
 
         </div>
 
+
+        <!-- ========================================================
+             ADD PRODUCT
+             ======================================================== -->
+
+        <div id="add-product-box">
+
+            <h2>
+                📦 Add Product
+            </h2>
+
+            <form onsubmit="saveProduct(event)">
+
+                <div class="product-input">
+
+                    <label>
+                        Product Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="product-name"
+                        placeholder="e.g. iPhone 13"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="product-input">
+
+                    <label>
+                        Price
+                    </label>
+
+                    <input
+                        type="number"
+                        id="product-price"
+                        placeholder="e.g. 45000"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="product-input">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select
+                        id="product-category"
+                        required
+                    >
+
+                        <option value="">
+                            Select category
+                        </option>
+
+                        <option>Cars</option>
+                        <option>Property</option>
+                        <option>Electronics</option>
+                        <option>Fashion</option>
+                        <option>Furniture</option>
+                        <option>Machinery</option>
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="product-input">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="product-location"
+                        placeholder="e.g. Nairobi, Kenya"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="product-input">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="product-description"
+                        placeholder="Describe your product..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="product-input">
+
+                    <label>
+                        Product Image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="product-image"
+                        accept="image/*"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="product-submit"
+                >
+                    List Product
+                </button>
+
+
+                <button
+                    type="button"
+                    class="cancel-product"
+                    onclick="closeProductForm()"
+                >
+                    Cancel
+                </button>
+
+            </form>
+
+        </div>
+
+
         <div class="dashboard-card">
 
             <h2>
@@ -791,10 +1046,6 @@
             const form = event.target;
 
 
-            /*
-             Check if this is SIGN UP
-            */
-
             if (
                 form.closest('#signup-box')
             ) {
@@ -820,10 +1071,6 @@
 
                 }
 
-
-                /*
-                 Save basic account information
-                */
 
                 const user = {
 
@@ -858,19 +1105,10 @@
             }
 
 
-            /*
-             Hide authentication
-            */
-
             document.getElementById(
                 'auth-screen'
             ).style.display = 'none';
 
-
-            /*
-             Check if user already selected
-             a role
-            */
 
             const savedRole =
                 localStorage.getItem(
@@ -1001,6 +1239,10 @@
                 'seller-dashboard'
             ).style.display = 'block';
 
+
+            displaySellerProducts();
+
+
             window.scrollTo(0, 0);
 
         }
@@ -1046,16 +1288,97 @@
 
         function startSelling() {
 
-            alert(
-                'Product listing will be added in the next step.'
-            );
+            document.getElementById(
+                'add-product-box'
+            ).classList.add('active');
 
         }
 
-    </script>
 
-</body>
-</html>
+        /*
+         ========================================================
+         CLOSE PRODUCT FORM
+         ========================================================
+        */
+
+        function closeProductForm() {
+
+            document.getElementById(
+                'add-product-box'
+            ).classList.remove('active');
+
+        }
 
 
+        /*
+         ========================================================
+         SAVE PRODUCT
+         ========================================================
+        */
 
+        function saveProduct(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                document.getElementById(
+                    'product-name'
+                ).value.trim();
+
+
+            const price =
+                document.getElementById(
+                    'product-price'
+                ).value;
+
+
+            const category =
+                document.getElementById(
+                    'product-category'
+                ).value;
+
+
+            const location =
+                document.getElementById(
+                    'product-location'
+                ).value.trim();
+
+
+            const description =
+                document.getElementById(
+                    'product-description'
+                ).value.trim();
+
+
+            const imageFile =
+                document.getElementById(
+                    'product-image'
+                ).files[0];
+
+
+            if (!imageFile) {
+
+                alert(
+                    'Please select a product image.'
+                );
+
+                return;
+
+            }
+
+
+            const reader = new FileReader();
+
+
+            reader.onload = function() {
+
+                const product = {
+
+                    id: Date.now(),
+
+                    name: name,
+
+                    price: Number(price),
+
+                    category:
