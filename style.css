@@ -114,7 +114,6 @@ body > * {
 
 /* ========================================================
    SIGN UP / AUTHENTICATION FORM
-   Added without changing the original CSS above
    ======================================================== */
 
 .auth-box {
@@ -184,6 +183,154 @@ body > * {
 
 .toggle-link span:hover {
     text-decoration: underline;
+}
+
+
+/* ========================================================
+   MADHIRA GLOBAL WALLET DASHBOARD
+   ======================================================== */
+
+#wallet-dashboard {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.wallet-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.wallet-header h2 {
+    margin: 0;
+}
+
+.back-btn {
+    margin: 0;
+}
+
+.wallet-balance-card {
+    background: #111827;
+    color: white;
+    padding: 25px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.wallet-balance-card p {
+    color: #cbd5e1;
+    margin-bottom: 8px;
+}
+
+.wallet-balance-card h1 {
+    font-size: 32px;
+    margin: 10px 0 25px;
+    color: white;
+}
+
+.wallet-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.wallet-actions button {
+    flex: 1;
+    margin: 0;
+    background: white;
+    color: #111827;
+}
+
+.wallet-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 18px;
+}
+
+.wallet-stat {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.wallet-stat span {
+    display: block;
+    color: #667085;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.wallet-stat strong {
+    font-size: 18px;
+}
+
+.transactions {
+    background: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.transactions h3 {
+    margin-top: 0;
+}
+
+.empty-transactions {
+    color: #667085;
+    text-align: center;
+    padding: 25px 0;
+}
+
+
+/* ========================================================
+   WALLET BUTTON
+   ======================================================== */
+
+.wallet-btn {
+    background: #111827;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.wallet-btn:hover {
+    opacity: 0.85;
+}
+
+
+/* ========================================================
+   MOBILE WALLET
+   ======================================================== */
+
+@media (max-width: 500px) {
+
+    #wallet-dashboard {
+        padding: 10px;
+    }
+
+    .wallet-actions {
+        flex-direction: column;
+    }
+
+    .wallet-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .wallet-header {
+        flex-wrap: wrap;
+    }
+
 }
 
 
