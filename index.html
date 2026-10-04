@@ -92,23 +92,7 @@
             margin-bottom: 6px;
         }
 
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            background: #1e2d4a;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px;
-            color: #fff;
-            outline: none;
-            font-size: 0.95rem;
-        }
-
-        .input-group input:focus {
-            border-color: #2b6cb0;
-        }
-
-        /* Country selection */
-
+        .input-group input,
         .input-group select {
             width: 100%;
             padding: 12px;
@@ -120,6 +104,7 @@
             font-size: 0.95rem;
         }
 
+        .input-group input:focus,
         .input-group select:focus {
             border-color: #2b6cb0;
         }
@@ -151,7 +136,7 @@
 
 
         /* ========================================================
-           2. MAIN DASHBOARD CONTENT
+           2. MAIN DASHBOARD
            ======================================================== */
 
         #main-platform {
@@ -256,6 +241,10 @@
             background: #131c2e;
             border: 1px solid rgba(255,255,255,0.2);
             margin: 0;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
         .wallet-balance-card {
@@ -288,6 +277,10 @@
             margin: 0;
             background: #2b6cb0;
             color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
         .wallet-stats {
@@ -334,8 +327,6 @@
             padding: 25px 0;
         }
 
-        /* Wallet button */
-
         .wallet-btn {
             background: #2b6cb0;
             color: white;
@@ -348,12 +339,139 @@
 
 
         /* ========================================================
-           MOBILE WALLET
+           4. SELL PRODUCT DASHBOARD
+           ======================================================== */
+
+        #sell-dashboard {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .sell-box {
+            background: #131c2e;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .sell-box h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .sell-input-group {
+            margin-bottom: 16px;
+        }
+
+        .sell-input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #8fa0dd;
+            margin-bottom: 6px;
+        }
+
+        .sell-input-group input,
+        .sell-input-group select,
+        .sell-input-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1e2d4a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            color: #fff;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .sell-input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .sell-input-group input:focus,
+        .sell-input-group select:focus,
+        .sell-input-group textarea:focus {
+            border-color: #2b6cb0;
+        }
+
+        .sell-input-group select option {
+            background: #1e2d4a;
+            color: white;
+        }
+
+        .image-preview {
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            display: none;
+            margin-top: 10px;
+            border-radius: 8px;
+            background: #0b1426;
+        }
+
+
+        /* ========================================================
+           5. MARKETPLACE LISTINGS
+           ======================================================== */
+
+        #marketplace-listings {
+            margin-top: 40px;
+            display: none;
+        }
+
+        .listing-card {
+            background: #131c2e;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .listing-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #1e2d4a;
+        }
+
+        .listing-content {
+            padding: 18px;
+        }
+
+        .listing-content h3 {
+            margin-bottom: 8px;
+        }
+
+        .listing-price {
+            color: #5da9ff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .listing-info {
+            color: #8fa0dd;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .listing-description {
+            color: #d8def5;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+
+        /* ========================================================
+           MOBILE
            ======================================================== */
 
         @media (max-width: 500px) {
 
-            #wallet-dashboard {
+            #wallet-dashboard,
+            #sell-dashboard {
                 padding: 20px;
             }
 
@@ -367,6 +485,10 @@
 
             .wallet-header {
                 flex-wrap: wrap;
+            }
+
+            .top-navbar {
+                align-items: flex-start;
             }
         }
 
@@ -453,11 +575,7 @@
                     <label>Country</label>
 
                     <select required>
-
-                        <option value="">
-                            Select your country
-                        </option>
-
+                        <option value="">Select your country</option>
                         <option>Kenya</option>
                         <option>Uganda</option>
                         <option>Tanzania</option>
@@ -477,10 +595,8 @@
                         <option>Spain</option>
                         <option>Brazil</option>
                         <option>Other</option>
-
                     </select>
                 </div>
-
 
                 <div class="input-group">
                     <label>First Name</label>
@@ -492,7 +608,6 @@
                     >
                 </div>
 
-
                 <div class="input-group">
                     <label>Last Name</label>
 
@@ -502,7 +617,6 @@
                         placeholder="Enter your last name"
                     >
                 </div>
-
 
                 <div class="input-group">
                     <label>Email Address</label>
@@ -514,7 +628,6 @@
                     >
                 </div>
 
-
                 <div class="input-group">
                     <label>Password</label>
 
@@ -524,7 +637,6 @@
                         placeholder="Create password"
                     >
                 </div>
-
 
                 <div class="input-group">
                     <label>Confirm Password</label>
@@ -536,13 +648,11 @@
                     >
                 </div>
 
-
                 <button type="submit" class="submit-btn">
                     Create Account
                 </button>
 
             </form>
-
 
             <div class="toggle-link">
                 Already have an account?
@@ -583,12 +693,13 @@
             </div>
 
 
-            <!-- SELL BUTTON -->
-
             <div>
+
+                <!-- SELL BUTTON -->
 
                 <button
                     class="search-btn"
+                    onclick="openSell()"
                     style="background: #131c2e; border: 1px solid rgba(255,255,255,0.2);"
                 >
                     Sell
@@ -618,10 +729,14 @@
 
                 <input
                     type="text"
+                    id="search-input"
                     placeholder="What are you looking for?"
                 >
 
-                <button class="search-btn">
+                <button
+                    class="search-btn"
+                    onclick="searchProducts()"
+                >
                     Search
                 </button>
 
@@ -638,7 +753,6 @@
             <h3>
                 Explore Categories
             </h3>
-
 
             <div class="grid-container">
 
@@ -676,6 +790,19 @@
 
         </section>
 
+
+        <!-- MARKETPLACE LISTINGS -->
+
+        <section id="marketplace-listings">
+
+            <h3 style="margin-bottom: 20px;">
+                🛍️ Marketplace Listings
+            </h3>
+
+            <div id="listing-container"></div>
+
+        </section>
+
     </div>
 
 
@@ -701,9 +828,6 @@
 
         </div>
 
-
-        <!-- BALANCE -->
-
         <div class="wallet-balance-card">
 
             <p>
@@ -713,7 +837,6 @@
             <h1 id="wallet-balance">
                 KSh 0.00
             </h1>
-
 
             <div class="wallet-actions">
 
@@ -729,9 +852,6 @@
 
         </div>
 
-
-        <!-- WALLET STATISTICS -->
-
         <div class="wallet-stats">
 
             <div class="wallet-stat">
@@ -740,12 +860,11 @@
                     Pending
                 </span>
 
-                <strong>
+                <strong id="pending-balance">
                     KSh 0.00
                 </strong>
 
             </div>
-
 
             <div class="wallet-stat">
 
@@ -753,16 +872,13 @@
                     Total Earned
                 </span>
 
-                <strong>
+                <strong id="total-earned">
                     KSh 0.00
                 </strong>
 
             </div>
 
         </div>
-
-
-        <!-- TRANSACTIONS -->
 
         <div class="transactions">
 
@@ -785,12 +901,236 @@
 
 
     <!-- ========================================================
+         STAGE 4: SELL PRODUCT DASHBOARD
+         ======================================================== -->
+
+    <div id="sell-dashboard">
+
+        <div class="wallet-header">
+
+            <button
+                onclick="closeSell()"
+                class="back-btn"
+            >
+                ← Back
+            </button>
+
+            <h2>
+                🏷️ Sell Product
+            </h2>
+
+        </div>
+
+
+        <div class="sell-box">
+
+            <h3>
+                List Your Product
+            </h3>
+
+
+            <!-- PRODUCT IMAGE -->
+
+            <div class="sell-input-group">
+
+                <label>
+                    Product Image
+                </label>
+
+                <input
+                    type="file"
+                    id="product-image"
+                    accept="image/*"
+                    onchange="previewProductImage(event)"
+                >
+
+                <img
+                    id="image-preview"
+                    class="image-preview"
+                    alt="Product preview"
+                >
+
+            </div>
+
+
+            <!-- PRODUCT NAME -->
+
+            <div class="sell-input-group">
+
+                <label>
+                    Product Name
+                </label>
+
+                <input
+                    type="text"
+                    id="product-name"
+                    placeholder="e.g. Samsung Galaxy A06"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PRICE -->
+
+            <div class="sell-input-group">
+
+                <label>
+                    Price (KSh)
+                </label>
+
+                <input
+                    type="number"
+                    id="product-price"
+                    placeholder="Enter price"
+                    min="1"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CATEGORY -->
+
+            <div class="sell-input-group">
+
+                <label>
+                    Category
+                </label>
+
+                <select id="product-category" required>
+
+                    <option value="">
+                        Select category
+                    </option>
+
+                    <option>Cars</option>
+                    <option>Property</option>
+                    <option>Electronics</option>
+                    <option>Fashion</option>
+                    <option>Furniture</option>
+                    <option>Machinery</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- COUNTRY -->
+
+            <div class="sell-input-group">
+
+                <label>
+                    Country
+                </label>
+
+                <select id="product-country" required>
+
+                    <option value="">
+                        Select country
+                    </option>
+
+                    <option>Kenya</option>
+                    <option>Uganda</option>
+                    <option>Tanzania</option>
+                    <option>Rwanda</option>
+                    <option>South Africa</option>
+                    <option>Nigeria</option>
+                    <option>Ghana</option>
+                    <option>United States</option>
+                    <option>United Kingdom</option>
+                    <option>Canada</option>
+                    <option>Australia</option>
+                    <option>India</option>
+                    <option>China</option>
+                    <option>Germany</option>
+                    <option>France</option>
+                    <option>Italy</option>
+                    <option>Spain</option>
+                    <option>Brazil</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="sell-input-group">
+
+                <label>
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="product-location"
+                    placeholder="e.g. Nairobi"
+                    required
+                >
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="sell-input-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    id="product-description"
+                    placeholder="Describe your product..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="sell-input-group">
+
+                <label>
+                    Contact
+                </label>
+
+                <input
+                    type="text"
+                    id="seller-contact"
+                    placeholder="Phone or WhatsApp"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                class="submit-btn"
+                onclick="postProduct()"
+            >
+                🚀 Post Product
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
          JAVASCRIPT
          ======================================================== -->
 
     <script>
 
-        // Switch between Sign In and Sign Up
+        /* ====================================================
+           AUTHENTICATION
+           ==================================================== */
 
         function switchForm(target) {
 
@@ -803,7 +1143,6 @@
                 .getElementById('signup-box')
                 .classList
                 .remove('active');
-
 
             if (target === 'signup') {
 
@@ -824,33 +1163,34 @@
         }
 
 
-        // Handle authentication
-
         function handleAuthentication(event) {
 
             event.preventDefault();
-
 
             document
                 .getElementById('auth-screen')
                 .style
                 .display = 'none';
 
-
             document
                 .getElementById('main-platform')
                 .style
                 .display = 'block';
-
 
             window.scrollTo(0, 0);
 
         }
 
 
-        // ====================================================
-        // OPEN WALLET
-        // ====================================================
+
+        /* ====================================================
+           WALLET
+           ==================================================== */
+
+        let walletBalance = 0;
+
+        let totalEarned = 0;
+
 
         function openWallet() {
 
@@ -859,21 +1199,22 @@
                 .style
                 .display = 'none';
 
+            document
+                .getElementById('sell-dashboard')
+                .style
+                .display = 'none';
 
             document
                 .getElementById('wallet-dashboard')
                 .style
                 .display = 'block';
 
+            updateWalletDisplay();
 
             window.scrollTo(0, 0);
 
         }
 
-
-        // ====================================================
-        // CLOSE WALLET
-        // ====================================================
 
         function closeWallet() {
 
@@ -882,6 +1223,391 @@
                 .style
                 .display = 'none';
 
+            document
+                .getElementById('main-platform')
+                .style
+                .display = 'block';
+
+            window.scrollTo(0, 0);
+
+        }
+
+
+        function updateWalletDisplay() {
+
+            document
+                .getElementById('wallet-balance')
+                .textContent =
+                'KSh ' + walletBalance.toFixed(2);
+
+            document
+                .getElementById('total-earned')
+                .textContent =
+                'KSh ' + totalEarned.toFixed(2);
+
+        }
+
+
+        function addMoney() {
+
+            let amount = prompt(
+                "Enter the amount you want to add:"
+            );
+
+            if (amount === null) {
+                return;
+            }
+
+            amount = Number(amount);
+
+            if (isNaN(amount) || amount <= 0) {
+
+                alert("Please enter a valid amount.");
+
+                return;
+            }
+
+            walletBalance += amount;
+
+            addTransaction(
+                "Deposit",
+                amount,
+                "plus"
+            );
+
+            updateWalletDisplay();
+
+            alert(
+                "KSh " +
+                amount.toFixed(2) +
+                " added to your demo wallet."
+            );
+
+        }
+
+
+        function withdrawMoney() {
+
+            let amount = prompt(
+                "Enter the amount you want to withdraw:"
+            );
+
+            if (amount === null) {
+                return;
+            }
+
+            amount = Number(amount);
+
+            if (isNaN(amount) || amount <= 0) {
+
+                alert("Please enter a valid amount.");
+
+                return;
+            }
+
+            if (amount > walletBalance) {
+
+                alert(
+                    "Insufficient wallet balance."
+                );
+
+                return;
+            }
+
+            walletBalance -= amount;
+
+            addTransaction(
+                "Withdrawal",
+                amount,
+                "minus"
+            );
+
+            updateWalletDisplay();
+
+            alert(
+                "KSh " +
+                amount.toFixed(2) +
+                " withdrawn from your demo wallet."
+            );
+
+        }
+
+
+        function addTransaction(
+            type,
+            amount,
+            direction
+        ) {
+
+            const transactionList =
+                document.getElementById(
+                    'transaction-list'
+                );
+
+            const emptyMessage =
+                transactionList.querySelector(
+                    '.empty-transactions'
+                );
+
+            if (emptyMessage) {
+                emptyMessage.remove();
+            }
+
+            const transaction =
+                document.createElement('div');
+
+            transaction.style.padding = '12px 0';
+            transaction.style.borderBottom =
+                '1px solid rgba(255,255,255,0.1)';
+
+            transaction.innerHTML =
+                '<strong>' +
+                type +
+                '</strong>' +
+                '<br>' +
+                '<span style="color:#8fa0dd;">' +
+                new Date().toLocaleString() +
+                '</span>' +
+                '<br>' +
+                '<span style="color:' +
+                (direction === 'plus'
+                    ? '#4ade80'
+                    : '#ff6b6b') +
+                '; font-weight:bold;">' +
+                (direction === 'plus' ? '+' : '-') +
+                'KSh ' +
+                amount.toFixed(2) +
+                '</span>';
+
+            transactionList.prepend(
+                transaction
+            );
+
+        }
+
+
+
+        /* ====================================================
+           SELL SYSTEM
+           ==================================================== */
+
+        let selectedProductImage = "";
+
+
+        function openSell() {
+
+            document
+                .getElementById('main-platform')
+                .style
+                .display = 'none';
+
+            document
+                .getElementById('wallet-dashboard')
+                .style
+                .display = 'none';
+
+            document
+                .getElementById('sell-dashboard')
+                .style
+                .display = 'block';
+
+            window.scrollTo(0, 0);
+
+        }
+
+
+        function closeSell() {
+
+            document
+                .getElementById('sell-dashboard')
+                .style
+                .display = 'none';
+
+            document
+                .getElementById('main-platform')
+                .style
+                .display = 'block';
+
+            window.scrollTo(0, 0);
+
+        }
+
+
+        function previewProductImage(event) {
+
+            const file =
+                event.target.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            const reader =
+                new FileReader();
+
+            reader.onload = function(e) {
+
+                selectedProductImage =
+                    e.target.result;
+
+                const preview =
+                    document.getElementById(
+                        'image-preview'
+                    );
+
+                preview.src =
+                    selectedProductImage;
+
+                preview.style.display =
+                    'block';
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+
+
+        function postProduct() {
+
+            const name =
+                document.getElementById(
+                    'product-name'
+                ).value.trim();
+
+            const price =
+                document.getElementById(
+                    'product-price'
+                ).value;
+
+            const category =
+                document.getElementById(
+                    'product-category'
+                ).value;
+
+            const country =
+                document.getElementById(
+                    'product-country'
+                ).value;
+
+            const location =
+                document.getElementById(
+                    'product-location'
+                ).value.trim();
+
+            const description =
+                document.getElementById(
+                    'product-description'
+                ).value.trim();
+
+            const contact =
+                document.getElementById(
+                    'seller-contact'
+                ).value.trim();
+
+
+            if (
+                !name ||
+                !price ||
+                !category ||
+                !country ||
+                !location ||
+                !description ||
+                !contact
+            ) {
+
+                alert(
+                    "Please fill in all product details."
+                );
+
+                return;
+            }
+
+
+            const listingContainer =
+                document.getElementById(
+                    'listing-container'
+                );
+
+
+            const listingsSection =
+                document.getElementById(
+                    'marketplace-listings'
+                );
+
+
+            const listing =
+                document.createElement('div');
+
+            listing.className =
+                'listing-card';
+
+
+            const imageHTML =
+                selectedProductImage
+                    ? '<img class="listing-image" src="' +
+                      selectedProductImage +
+                      '" alt="' +
+                      name +
+                      '">'
+                    : '<div class="listing-image" style="display:flex;align-items:center;justify-content:center;font-size:60px;">🛍️</div>';
+
+
+            listing.innerHTML =
+                imageHTML +
+
+                '<div class="listing-content">' +
+
+                '<h3>' +
+                escapeHTML(name) +
+                '</h3>' +
+
+                '<div class="listing-price">' +
+                'KSh ' +
+                Number(price).toLocaleString() +
+                '</div>' +
+
+                '<div class="listing-info">' +
+                '📂 ' +
+                escapeHTML(category) +
+                '</div>' +
+
+                '<div class="listing-info">' +
+                '🌍 ' +
+                escapeHTML(country) +
+                '</div>' +
+
+                '<div class="listing-info">' +
+                '📍 ' +
+                escapeHTML(location) +
+                '</div>' +
+
+                '<div class="listing-info">' +
+                '📞 ' +
+                escapeHTML(contact) +
+                '</div>' +
+
+                '<div class="listing-description">' +
+                escapeHTML(description) +
+                '</div>' +
+
+                '</div>';
+
+
+            listingContainer.prepend(
+                listing
+            );
+
+            listingsSection.style.display =
+                'block';
+
+
+            // Return to marketplace
+
+            document
+                .getElementById('sell-dashboard')
+                .style
+                .display = 'none';
 
             document
                 .getElementById('main-platform')
@@ -889,36 +1615,126 @@
                 .display = 'block';
 
 
+            // Clear form
+
+            document
+                .getElementById('product-name')
+                .value = '';
+
+            document
+                .getElementById('product-price')
+                .value = '';
+
+            document
+                .getElementById('product-category')
+                .value = '';
+
+            document
+                .getElementById('product-country')
+                .value = '';
+
+            document
+                .getElementById('product-location')
+                .value = '';
+
+            document
+                .getElementById('product-description')
+                .value = '';
+
+            document
+                .getElementById('seller-contact')
+                .value = '';
+
+            document
+                .getElementById('product-image')
+                .value = '';
+
+            document
+                .getElementById('image-preview')
+                .style
+                .display = 'none';
+
+            selectedProductImage = "";
+
             window.scrollTo(0, 0);
 
-        }
-
-
-        // ====================================================
-        // ADD MONEY
-        // ====================================================
-
-        function addMoney() {
-
-            alert("Add Money feature coming next.");
+            alert(
+                "Your product has been posted successfully!"
+            );
 
         }
 
 
-        // ====================================================
-        // WITHDRAW
-        // ====================================================
+        function escapeHTML(text) {
 
-        function withdrawMoney() {
+            const div =
+                document.createElement('div');
 
-            alert("Withdraw feature coming next.");
+            div.textContent = text;
+
+            return div.innerHTML;
+
+        }
+
+
+
+        /* ====================================================
+           SEARCH SYSTEM
+           ==================================================== */
+
+        function searchProducts() {
+
+            const searchTerm =
+                document.getElementById(
+                    'search-input'
+                ).value
+                .trim()
+                .toLowerCase();
+
+            const listings =
+                document.querySelectorAll(
+                    '.listing-card'
+                );
+
+
+            if (!searchTerm) {
+
+                listings.forEach(function(listing) {
+
+                    listing.style.display =
+                        'block';
+
+                });
+
+                return;
+            }
+
+
+            listings.forEach(function(listing) {
+
+                const content =
+                    listing.textContent
+                    .toLowerCase();
+
+                if (
+                    content.includes(searchTerm)
+                ) {
+
+                    listing.style.display =
+                        'block';
+
+                } else {
+
+                    listing.style.display =
+                        'none';
+
+                }
+
+            });
 
         }
 
     </script>
 
 </body>
-</html>
-
-
-
+    </html>
