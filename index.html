@@ -16,7 +16,6 @@ const supabaseClient = window.supabase.createClient(
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Madhira Global</title>
 
 <style>
@@ -152,6 +151,11 @@ button {
     margin-top: 10px;
 }
 
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 .toggle-link {
     margin-top: 20px;
     font-size: 0.9rem;
@@ -227,6 +231,7 @@ button {
     padding: 10px;
     outline: none;
     font-size: 1rem;
+    min-width: 0;
 }
 
 .search-btn {
@@ -258,6 +263,7 @@ button {
     font-weight: 600;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: 0.2s;
 }
 
 .category-card:hover {
@@ -676,7 +682,7 @@ button {
 
 <body>
 
-<!-- AUTH -->
+<!-- ================= AUTH ================= -->
 
 <div id="auth-screen">
 
@@ -719,7 +725,7 @@ button {
                     placeholder="••••••••">
             </div>
 
-            <button type="submit" class="submit-btn">
+            <button type="submit" class="submit-btn" id="signin-button">
                 Sign In
             </button>
 
@@ -818,7 +824,7 @@ button {
                     placeholder="Confirm password">
             </div>
 
-            <button type="submit" class="submit-btn">
+            <button type="submit" class="submit-btn" id="signup-button">
                 Create Account
             </button>
 
@@ -838,7 +844,7 @@ button {
 </div>
 
 
-<!-- MAIN PLATFORM -->
+<!-- ================= MAIN PLATFORM ================= -->
 
 <div id="main-platform">
 
@@ -900,38 +906,32 @@ button {
 
         <div class="grid-container">
 
-            <div class="category-card"
-                 onclick="filterCategory('Cars')">
+            <div class="category-card" onclick="filterCategory('Cars')">
                 <span class="category-icon">🚗</span>
                 Cars
             </div>
 
-            <div class="category-card"
-                 onclick="filterCategory('Property')">
+            <div class="category-card" onclick="filterCategory('Property')">
                 <span class="category-icon">🏠</span>
                 Property
             </div>
 
-            <div class="category-card"
-                 onclick="filterCategory('Electronics')">
+            <div class="category-card" onclick="filterCategory('Electronics')">
                 <span class="category-icon">📱</span>
                 Electronics
             </div>
 
-            <div class="category-card"
-                 onclick="filterCategory('Fashion')">
+            <div class="category-card" onclick="filterCategory('Fashion')">
                 <span class="category-icon">👕</span>
                 Fashion
             </div>
 
-            <div class="category-card"
-                 onclick="filterCategory('Furniture')">
+            <div class="category-card" onclick="filterCategory('Furniture')">
                 <span class="category-icon">🛋️</span>
                 Furniture
             </div>
 
-            <div class="category-card"
-                 onclick="filterCategory('Machinery')">
+            <div class="category-card" onclick="filterCategory('Machinery')">
                 <span class="category-icon">⚙️</span>
                 Machinery
             </div>
@@ -953,7 +953,7 @@ button {
 </div>
 
 
-<!-- WALLET -->
+<!-- ================= WALLET ================= -->
 
 <div id="wallet-dashboard">
 
@@ -968,10 +968,7 @@ button {
                 💰 Madhira Wallet
             </h2>
 
-            <div
-                class="wallet-owner"
-                id="wallet-owner">
-            </div>
+            <div class="wallet-owner" id="wallet-owner"></div>
         </div>
 
     </div>
@@ -1031,7 +1028,7 @@ button {
 </div>
 
 
-<!-- SELL -->
+<!-- ================= SELL ================= -->
 
 <div id="sell-dashboard">
 
@@ -1163,6 +1160,7 @@ button {
 
         <button
             class="submit-btn"
+            id="post-product-button"
             onclick="postProduct()">
             🚀 Post Product
         </button>
@@ -1174,7 +1172,7 @@ button {
 </div>
 
 
-<!-- ACCOUNT -->
+<!-- ================= ACCOUNT ================= -->
 
 <div id="account-dashboard">
 
@@ -1224,27 +1222,17 @@ button {
 
         <div class="account-input-group">
             <label>First Name</label>
-            <input
-                type="text"
-                id="account-first-name"
-                placeholder="Enter first name">
+            <input type="text" id="account-first-name">
         </div>
 
         <div class="account-input-group">
             <label>Last Name</label>
-            <input
-                type="text"
-                id="account-last-name"
-                placeholder="Enter last name">
+            <input type="text" id="account-last-name">
         </div>
 
         <div class="account-input-group">
             <label>Email Address</label>
-            <input
-                type="email"
-                id="account-email"
-                placeholder="Email"
-                readonly>
+            <input type="email" id="account-email" readonly>
         </div>
 
         <div class="account-input-group">
@@ -1281,10 +1269,7 @@ button {
             💾 Save Account Details
         </button>
 
-        <div
-            id="account-status"
-            class="account-status">
-        </div>
+        <div id="account-status" class="account-status"></div>
 
         <div class="my-products-section">
 
@@ -1299,16 +1284,14 @@ button {
             <h3>🔐 Account Security</h3>
 
             <p>
-                Your login is now handled by Supabase
-                Authentication. Your marketplace data is
-                stored in the Supabase database.
+                Your login is handled by Supabase Authentication.
+                Your marketplace profile and products are stored
+                in the Supabase database.
             </p>
 
         </div>
 
-        <button
-            class="logout-btn"
-            onclick="signOut()">
+        <button class="logout-btn" onclick="signOut()">
             🚪 Sign Out
         </button>
 
@@ -1334,48 +1317,49 @@ let totalEarned = 0;
 
 
 /* =====================================================
-   START APPLICATION
+   START
    ===================================================== */
 
 window.addEventListener("load", async function() {
-
     await checkSession();
-
 });
 
 
 /* =====================================================
-   CHECK SUPABASE SESSION
+   CHECK SESSION
    ===================================================== */
 
 async function checkSession() {
 
-    const {
-        data,
-        error
-    } = await supabaseClient.auth.getSession();
+    try {
 
-    if (error) {
+        const { data, error } =
+            await supabaseClient.auth.getSession();
+
+        if (error) {
+            console.error(error);
+            showAuth();
+            return;
+        }
+
+        if (data.session && data.session.user) {
+
+            currentUser = data.session.user;
+
+            await loadProfile();
+            await loadProducts();
+
+            enterPlatform();
+
+        } else {
+
+            showAuth();
+
+        }
+
+    } catch (error) {
 
         console.error(error);
-
-        showAuth();
-
-        return;
-    }
-
-    if (data.session) {
-
-        currentUser = data.session.user;
-
-        await loadProfile();
-
-        await loadProducts();
-
-        enterPlatform();
-
-    } else {
-
         showAuth();
 
     }
@@ -1400,37 +1384,29 @@ function showAuth() {
 
 
 /* =====================================================
-   SWITCH LOGIN / SIGNUP
+   SWITCH FORM
    ===================================================== */
 
 function switchForm(target) {
 
-    document
-        .getElementById("signin-box")
-        .classList
-        .remove("active");
+    document.getElementById("signin-box")
+        .classList.remove("active");
 
-    document
-        .getElementById("signup-box")
-        .classList
-        .remove("active");
+    document.getElementById("signup-box")
+        .classList.remove("active");
 
     document.getElementById("signin-message").textContent = "";
     document.getElementById("signup-message").textContent = "";
 
     if (target === "signup") {
 
-        document
-            .getElementById("signup-box")
-            .classList
-            .add("active");
+        document.getElementById("signup-box")
+            .classList.add("active");
 
     } else {
 
-        document
-            .getElementById("signin-box")
-            .classList
-            .add("active");
+        document.getElementById("signin-box")
+            .classList.add("active");
 
     }
 
@@ -1438,7 +1414,7 @@ function switchForm(target) {
 
 
 /* =====================================================
-   SIGN UP WITH SUPABASE
+   SIGN UP
    ===================================================== */
 
 async function handleSignUp(event) {
@@ -1448,41 +1424,33 @@ async function handleSignUp(event) {
     const message =
         document.getElementById("signup-message");
 
+    const button =
+        document.getElementById("signup-button");
+
     message.textContent = "Creating your account...";
+    button.disabled = true;
 
     const country =
-        document
-            .getElementById("signup-country")
-            .value;
+        document.getElementById("signup-country").value;
 
     const firstName =
-        document
-            .getElementById("signup-first-name")
-            .value
-            .trim();
+        document.getElementById("signup-first-name")
+        .value.trim();
 
     const lastName =
-        document
-            .getElementById("signup-last-name")
-            .value
-            .trim();
+        document.getElementById("signup-last-name")
+        .value.trim();
 
     const email =
-        document
-            .getElementById("signup-email")
-            .value
-            .trim()
-            .toLowerCase();
+        document.getElementById("signup-email")
+        .value.trim()
+        .toLowerCase();
 
     const password =
-        document
-            .getElementById("signup-password")
-            .value;
+        document.getElementById("signup-password").value;
 
     const confirmPassword =
-        document
-            .getElementById("signup-confirm-password")
-            .value;
+        document.getElementById("signup-confirm-password").value;
 
 
     if (password !== confirmPassword) {
@@ -1490,47 +1458,30 @@ async function handleSignUp(event) {
         message.textContent =
             "Passwords do not match.";
 
-        return;
-
-    }
-
-
-    if (password.length < 6) {
-
-        message.textContent =
-            "Password must be at least 6 characters.";
+        button.disabled = false;
 
         return;
-
     }
 
 
     try {
 
-        const {
-            data,
-            error
-        } = await supabaseClient.auth.signUp({
+        const { data, error } =
+            await supabaseClient.auth.signUp({
 
-            email: email,
+                email: email,
 
-            password: password,
+                password: password,
 
-            options: {
-
-                data: {
-
-                    first_name: firstName,
-
-                    last_name: lastName,
-
-                    country: country
-
+                options: {
+                    data: {
+                        first_name: firstName,
+                        last_name: lastName,
+                        country: country
+                    }
                 }
 
-            }
-
-        });
+            });
 
 
         if (error) {
@@ -1540,8 +1491,9 @@ async function handleSignUp(event) {
             message.textContent =
                 error.message;
 
-            return;
+            button.disabled = false;
 
+            return;
         }
 
 
@@ -1550,83 +1502,100 @@ async function handleSignUp(event) {
             message.textContent =
                 "Account could not be created.";
 
-            return;
+            button.disabled = false;
 
+            return;
         }
 
 
         /*
-         Create profile.
+         IMPORTANT:
+         The real table is public."Profiles"
+         and the real columns have spaces/capital letters.
         */
 
-        const {
-            error: profileError
-        } = await supabaseClient
-            .from("profiles")
-            .upsert({
+        if (data.session) {
 
-                id: data.user.id,
+            const { data: profileData, error: profileError } =
+                await supabaseClient
+                .from("Profiles")
+                .upsert({
 
-                first_name: firstName,
+                    id: data.user.id,
 
-                last_name: lastName,
+                    "First name": firstName,
 
-                email: email,
+                    "Last name": lastName,
 
-                country: country,
+                    "Email": email,
 
-                contact: "",
+                    "Country": country,
 
-                location: "",
+                    "Location": "",
 
-                id_number: "",
+                    "Id number": "",
 
-                profile_picture: ""
+                    "Profile picture": ""
 
-            });
+                }, {
+                    onConflict: "id"
+                })
+                .select()
+                .single();
 
 
-        if (profileError) {
+            if (profileError) {
 
-            console.error(profileError);
+                console.error(profileError);
 
-            message.textContent =
-                "Account created, but profile setup failed: " +
-                profileError.message;
+                message.textContent =
+                    "Account created, but profile setup failed: " +
+                    profileError.message;
 
-            return;
+                button.disabled = false;
+
+                return;
+            }
+
+            currentProfile = profileData;
 
         }
 
 
         /*
-         If Supabase requires email confirmation,
-         there may not be a session yet.
+         If email confirmation is enabled,
+         Supabase won't give us a session yet.
         */
 
         if (!data.session) {
 
             message.textContent =
-                "Account created! Check your email to confirm your account, then sign in.";
+                "Account created! Please check your email to confirm your account, then sign in.";
 
             document
                 .getElementById("signup-box")
                 .querySelector("form")
                 .reset();
 
-            return;
+            button.disabled = false;
 
+            return;
         }
 
 
         currentUser = data.user;
 
         await loadProfile();
-
         await loadProducts();
 
         enterPlatform();
 
+        document
+            .getElementById("signup-box")
+            .querySelector("form")
+            .reset();
+
+        button.disabled = false;
 
         alert(
             "Welcome to Madhira Global, " +
@@ -1642,15 +1611,16 @@ async function handleSignUp(event) {
         console.error(error);
 
         message.textContent =
-            "Something went wrong. Please try again.";
+            error.message || "Something went wrong.";
 
+        button.disabled = false;
     }
 
 }
 
 
 /* =====================================================
-   SIGN IN WITH SUPABASE
+   SIGN IN
    ===================================================== */
 
 async function handleSignIn(event) {
@@ -1660,35 +1630,31 @@ async function handleSignIn(event) {
     const message =
         document.getElementById("signin-message");
 
-    message.textContent =
-        "Signing in...";
+    const button =
+        document.getElementById("signin-button");
+
+    message.textContent = "Signing in...";
+    button.disabled = true;
 
 
     const email =
-        document
-            .getElementById("signin-email")
-            .value
-            .trim()
-            .toLowerCase();
+        document.getElementById("signin-email")
+        .value.trim()
+        .toLowerCase();
 
     const password =
-        document
-            .getElementById("signin-password")
-            .value;
+        document.getElementById("signin-password").value;
 
 
     try {
 
-        const {
-            data,
-            error
-        } = await supabaseClient.auth.signInWithPassword({
+        const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
 
-            email: email,
+                email: email,
+                password: password
 
-            password: password
-
-        });
+            });
 
 
         if (error) {
@@ -1698,8 +1664,9 @@ async function handleSignIn(event) {
             message.textContent =
                 error.message;
 
-            return;
+            button.disabled = false;
 
+            return;
         }
 
 
@@ -1708,18 +1675,20 @@ async function handleSignIn(event) {
             message.textContent =
                 "Login did not create a session.";
 
-            return;
+            button.disabled = false;
 
+            return;
         }
 
 
         currentUser = data.user;
 
         await loadProfile();
-
         await loadProducts();
 
         enterPlatform();
+
+        button.disabled = false;
 
 
     } catch (error) {
@@ -1727,15 +1696,16 @@ async function handleSignIn(event) {
         console.error(error);
 
         message.textContent =
-            "Unable to sign in. Please try again.";
+            error.message || "Unable to sign in.";
 
+        button.disabled = false;
     }
 
 }
 
 
 /* =====================================================
-   LOAD PROFILE FROM SUPABASE
+   LOAD PROFILE
    ===================================================== */
 
 async function loadProfile() {
@@ -1745,11 +1715,9 @@ async function loadProfile() {
     }
 
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("profiles")
+    const { data, error } =
+        await supabaseClient
+        .from("Profiles")
         .select("*")
         .eq("id", currentUser.id)
         .maybeSingle();
@@ -1763,7 +1731,6 @@ async function loadProfile() {
         );
 
         return;
-
     }
 
 
@@ -1771,68 +1738,63 @@ async function loadProfile() {
 
         currentProfile = data;
 
-    } else {
-
-        /*
-         If profile does not exist,
-         create one from Auth metadata.
-        */
-
-        const firstName =
-            currentUser.user_metadata?.first_name || "";
-
-        const lastName =
-            currentUser.user_metadata?.last_name || "";
-
-        const country =
-            currentUser.user_metadata?.country || "";
-
-
-        const {
-            data: newProfile,
-            error: createError
-        } = await supabaseClient
-            .from("profiles")
-            .insert({
-
-                id: currentUser.id,
-
-                first_name: firstName,
-
-                last_name: lastName,
-
-                email: currentUser.email,
-
-                country: country,
-
-                contact: "",
-
-                location: "",
-
-                id_number: "",
-
-                profile_picture: ""
-
-            })
-            .select()
-            .single();
-
-
-        if (createError) {
-
-            console.error(
-                "Profile creation error:",
-                createError
-            );
-
-            return;
-
-        }
-
-
-        currentProfile = newProfile;
-
+        return;
     }
+
+
+    /*
+     Profile doesn't exist.
+     Create it using Auth metadata.
+    */
+
+    const firstName =
+        currentUser.user_metadata?.first_name || "";
+
+    const lastName =
+        currentUser.user_metadata?.last_name || "";
+
+    const country =
+        currentUser.user_metadata?.country || "";
+
+
+    const { data: newProfile, error: createError } =
+        await supabaseClient
+        .from("Profiles")
+        .insert({
+
+            id: currentUser.id,
+
+            "First name": firstName,
+
+            "Last name": lastName,
+
+            "Email": currentUser.email || "",
+
+            "Country": country,
+
+            "Location": "",
+
+            "Id number": "",
+
+            "Profile picture": ""
+
+        })
+        .select()
+        .single();
+
+
+    if (createError) {
+
+        console.error(
+            "Profile creation error:",
+            createError
+        );
+
+        return;
+    }
+
+
+    currentProfile = newProfile;
 
 }
 
@@ -1871,7 +1833,6 @@ function openAccount() {
         alert("Please sign in first.");
 
         return;
-
     }
 
     document.getElementById("main-platform").style.display = "none";
@@ -1903,7 +1864,7 @@ function closeAccount() {
 
 
 /* =====================================================
-   LOAD ACCOUNT DETAILS
+   ACCOUNT DETAILS
    ===================================================== */
 
 function loadAccountDetails() {
@@ -1913,38 +1874,35 @@ function loadAccountDetails() {
     }
 
 
-    const profile =
-        currentProfile || {};
+    const profile = currentProfile || {};
 
 
     document.getElementById("account-first-name").value =
-        profile.first_name || "";
-
+        profile["First name"] || "";
 
     document.getElementById("account-last-name").value =
-        profile.last_name || "";
-
+        profile["Last name"] || "";
 
     document.getElementById("account-email").value =
-        currentUser.email || profile.email || "";
-
+        currentUser.email || profile["Email"] || "";
 
     document.getElementById("account-contact").value =
-        profile.contact || "";
-
+        profile["Contact"] || "";
 
     document.getElementById("account-location").value =
-        profile.location || "";
-
+        profile["Location"] || "";
 
     document.getElementById("account-id-number").value =
-        profile.id_number || "";
+        profile["Id number"] || "";
 
 
-    if (profile.profile_picture) {
+    selectedProfilePicture = "";
+
+
+    if (profile["Profile picture"]) {
 
         document.getElementById("profile-picture").src =
-            profile.profile_picture;
+            profile["Profile picture"];
 
         document.getElementById("profile-picture").style.display =
             "block";
@@ -1959,20 +1917,18 @@ function loadAccountDetails() {
 
         document.getElementById("profile-placeholder").style.display =
             "flex";
-
     }
 
 }
 
 
 /* =====================================================
-   PROFILE IMAGE
+   PROFILE PICTURE
    ===================================================== */
 
 function previewProfilePicture(event) {
 
-    const file =
-        event.target.files[0];
+    const file = event.target.files[0];
 
     if (!file) {
         return;
@@ -1988,30 +1944,26 @@ function previewProfilePicture(event) {
         event.target.value = "";
 
         return;
-
     }
 
 
-    const reader =
-        new FileReader();
+    const reader = new FileReader();
 
 
-    reader.onload =
-        function(e) {
+    reader.onload = function(e) {
 
-            selectedProfilePicture =
-                e.target.result;
+        selectedProfilePicture =
+            e.target.result;
 
-            document.getElementById("profile-picture").src =
-                selectedProfilePicture;
+        document.getElementById("profile-picture").src =
+            selectedProfilePicture;
 
-            document.getElementById("profile-picture").style.display =
-                "block";
+        document.getElementById("profile-picture").style.display =
+            "block";
 
-            document.getElementById("profile-placeholder").style.display =
-                "none";
-
-        };
+        document.getElementById("profile-placeholder").style.display =
+            "none";
+    };
 
 
     reader.readAsDataURL(file);
@@ -2020,7 +1972,7 @@ function previewProfilePicture(event) {
 
 
 /* =====================================================
-   SAVE ACCOUNT TO SUPABASE
+   SAVE ACCOUNT
    ===================================================== */
 
 async function saveAccountDetails() {
@@ -2030,85 +1982,70 @@ async function saveAccountDetails() {
         alert("Please sign in first.");
 
         return;
-
     }
 
 
     const status =
         document.getElementById("account-status");
 
-    status.textContent =
-        "Saving...";
+    status.textContent = "Saving...";
 
 
     const firstName =
-        document
-            .getElementById("account-first-name")
-            .value
-            .trim();
+        document.getElementById("account-first-name")
+        .value.trim();
 
     const lastName =
-        document
-            .getElementById("account-last-name")
-            .value
-            .trim();
+        document.getElementById("account-last-name")
+        .value.trim();
 
     const contact =
-        document
-            .getElementById("account-contact")
-            .value
-            .trim();
+        document.getElementById("account-contact")
+        .value.trim();
 
     const location =
-        document
-            .getElementById("account-location")
-            .value
-            .trim();
+        document.getElementById("account-location")
+        .value.trim();
 
     const idNumber =
-        document
-            .getElementById("account-id-number")
-            .value
-            .trim();
+        document.getElementById("account-id-number")
+        .value.trim();
 
 
     let profilePicture =
-        currentProfile?.profile_picture || "";
+        currentProfile?.["Profile picture"] || "";
 
 
     if (selectedProfilePicture) {
 
         profilePicture =
             selectedProfilePicture;
-
     }
 
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("profiles")
+    const { data, error } =
+        await supabaseClient
+        .from("Profiles")
         .upsert({
 
             id: currentUser.id,
 
-            first_name: firstName,
+            "First name": firstName,
 
-            last_name: lastName,
+            "Last name": lastName,
 
-            email: currentUser.email,
+            "Email": currentUser.email || "",
 
-            country: currentProfile?.country || "",
+            "Country": currentProfile?.["Country"] || "",
 
-            contact: contact,
+            "Location": location,
 
-            location: location,
+            "Id number": idNumber,
 
-            id_number: idNumber,
+            "Profile picture": profilePicture
 
-            profile_picture: profilePicture
-
+        }, {
+            onConflict: "id"
         })
         .select()
         .single();
@@ -2122,7 +2059,6 @@ async function saveAccountDetails() {
             "Error: " + error.message;
 
         return;
-
     }
 
 
@@ -2138,8 +2074,6 @@ async function saveAccountDetails() {
         status.textContent = "";
 
     }, 3000);
-
-    displayMyProducts();
 
 }
 
@@ -2188,7 +2122,7 @@ function updateWalletDisplay() {
     if (currentUser) {
 
         const firstName =
-            currentProfile?.first_name ||
+            currentProfile?.["First name"] ||
             currentUser.user_metadata?.first_name ||
             "User";
 
@@ -2219,7 +2153,6 @@ function addMoney() {
         alert("Please enter a valid amount.");
 
         return;
-
     }
 
     walletBalance += amount;
@@ -2253,7 +2186,6 @@ function withdrawMoney() {
         alert("Please enter a valid amount.");
 
         return;
-
     }
 
     if (amount > walletBalance) {
@@ -2261,7 +2193,6 @@ function withdrawMoney() {
         alert("Insufficient wallet balance.");
 
         return;
-
     }
 
     walletBalance -= amount;
@@ -2291,6 +2222,7 @@ function addTransaction(type, amount, direction) {
         emptyMessage.remove();
     }
 
+
     const transaction =
         document.createElement("div");
 
@@ -2299,24 +2231,43 @@ function addTransaction(type, amount, direction) {
     transaction.style.borderBottom =
         "1px solid rgba(255,255,255,0.1)";
 
-    transaction.innerHTML =
-        "<strong>" +
-        escapeHTML(type) +
-        "</strong><br>" +
 
-        "<span style='color:#8fa0dd;'>" +
-        new Date().toLocaleString() +
-        "</span><br>" +
+    const title =
+        document.createElement("strong");
 
-        "<span style='color:" +
-        (direction === "plus" ? "#4ade80" : "#ff6b6b") +
-        ";font-weight:bold;'>" +
+    title.textContent = type;
 
+
+    const date =
+        document.createElement("span");
+
+    date.style.color = "#8fa0dd";
+    date.textContent =
+        new Date().toLocaleString();
+
+
+    const amountElement =
+        document.createElement("span");
+
+    amountElement.style.color =
+        direction === "plus"
+            ? "#4ade80"
+            : "#ff6b6b";
+
+    amountElement.style.fontWeight = "bold";
+
+    amountElement.textContent =
         (direction === "plus" ? "+" : "-") +
-
         "KSh " +
-        amount.toFixed(2) +
-        "</span>";
+        amount.toFixed(2);
+
+
+    transaction.appendChild(title);
+    transaction.appendChild(document.createElement("br"));
+    transaction.appendChild(date);
+    transaction.appendChild(document.createElement("br"));
+    transaction.appendChild(amountElement);
+
 
     transactionList.prepend(transaction);
 
@@ -2334,7 +2285,6 @@ function openSell() {
         alert("Please sign in first.");
 
         return;
-
     }
 
     document.getElementById("main-platform").style.display = "none";
@@ -2367,8 +2317,7 @@ function closeSell() {
 
 function previewProductImage(event) {
 
-    const file =
-        event.target.files[0];
+    const file = event.target.files[0];
 
     if (!file) {
         return;
@@ -2384,30 +2333,26 @@ function previewProductImage(event) {
         event.target.value = "";
 
         return;
-
     }
 
 
-    const reader =
-        new FileReader();
+    const reader = new FileReader();
 
 
-    reader.onload =
-        function(e) {
+    reader.onload = function(e) {
 
-            selectedProductImage =
-                e.target.result;
+        selectedProductImage =
+            e.target.result;
 
-            const preview =
-                document.getElementById("image-preview");
+        const preview =
+            document.getElementById("image-preview");
 
-            preview.src =
-                selectedProductImage;
+        preview.src =
+            selectedProductImage;
 
-            preview.style.display =
-                "block";
-
-        };
+        preview.style.display =
+            "block";
+    };
 
 
     reader.readAsDataURL(file);
@@ -2416,7 +2361,7 @@ function previewProductImage(event) {
 
 
 /* =====================================================
-   LOAD PRODUCTS FROM SUPABASE
+   LOAD PRODUCTS
    ===================================================== */
 
 async function loadProducts() {
@@ -2424,17 +2369,18 @@ async function loadProducts() {
     const container =
         document.getElementById("listing-container");
 
+
     container.innerHTML =
         '<div class="loading">Loading marketplace...</div>';
 
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("products")
+    const { data, error } =
+        await supabaseClient
+        .from("Products table")
         .select("*")
-        .order("created_at", { ascending: false });
+        .order("Created at", {
+            ascending: false
+        });
 
 
     if (error) {
@@ -2447,7 +2393,6 @@ async function loadProducts() {
             '</div>';
 
         return;
-
     }
 
 
@@ -2460,13 +2405,53 @@ async function loadProducts() {
             "none";
 
         return;
+    }
 
+
+    /*
+     Load seller profiles so we can display
+     the seller's first and last name.
+    */
+
+    const sellerIds = [
+        ...new Set(
+            data
+            .map(product => product.seller_id)
+            .filter(Boolean)
+        )
+    ];
+
+
+    let sellerProfiles = {};
+
+
+    if (sellerIds.length > 0) {
+
+        const { data: profiles, error: profileError } =
+            await supabaseClient
+            .from("Profiles")
+            .select('id, "First name", "Last name"')
+            .in("id", sellerIds);
+
+
+        if (!profileError && profiles) {
+
+            profiles.forEach(function(profile) {
+
+                sellerProfiles[profile.id] =
+                    profile;
+
+            });
+        }
     }
 
 
     data.forEach(function(product) {
 
-        createMarketplaceListing(product);
+        createMarketplaceListing(
+            product,
+            sellerProfiles[product.seller_id]
+        );
 
     });
 
@@ -2474,17 +2459,21 @@ async function loadProducts() {
     document.getElementById("marketplace-listings").style.display =
         "block";
 
+
+    applyCurrentFilters();
+
 }
 
 
 /* =====================================================
-   CREATE LISTING
+   CREATE MARKETPLACE LISTING
    ===================================================== */
 
-function createMarketplaceListing(product) {
+function createMarketplaceListing(product, sellerProfile) {
 
     const listingContainer =
         document.getElementById("listing-container");
+
 
     const listing =
         document.createElement("div");
@@ -2492,78 +2481,187 @@ function createMarketplaceListing(product) {
     listing.className =
         "listing-card";
 
-    let imageHTML = "";
-
-
-    if (product.image) {
-
-        imageHTML =
-            '<img class="listing-image" src="' +
-            escapeAttribute(product.image) +
-            '" alt="' +
-            escapeAttribute(product.name) +
-            '">';
-
-    } else {
-
-        imageHTML =
-            '<div class="listing-image" style="display:flex;align-items:center;justify-content:center;font-size:60px;">🛍️</div>';
-
-    }
-
-
-    listing.innerHTML =
-
-        imageHTML +
-
-        '<div class="listing-content">' +
-
-        '<h3>' +
-        escapeHTML(product.name) +
-        '</h3>' +
-
-        '<div class="listing-price">' +
-        'KSh ' +
-        Number(product.price || 0).toLocaleString() +
-        '</div>' +
-
-        '<div class="listing-info">' +
-        '📂 ' +
-        escapeHTML(product.category) +
-        '</div>' +
-
-        '<div class="listing-info">' +
-        '🌍 ' +
-        escapeHTML(product.country) +
-        '</div>' +
-
-        '<div class="listing-info">' +
-        '📍 ' +
-        escapeHTML(product.location) +
-        '</div>' +
-
-        '<div class="listing-info">' +
-        '📞 ' +
-        escapeHTML(product.contact) +
-        '</div>' +
-
-        '<div class="seller-name">' +
-        '👤 Seller: ' +
-        escapeHTML(product.seller_name || "Seller") +
-        '</div>' +
-
-        '<div class="listing-description">' +
-        escapeHTML(product.description) +
-        '</div>' +
-
-        '</div>';
-
 
     listing.dataset.productId =
         product.id;
 
     listing.dataset.category =
-        product.category || "";
+        product["Category"] || "";
+
+
+    /*
+     IMAGE
+    */
+
+    if (product["Image url"]) {
+
+        const image =
+            document.createElement("img");
+
+        image.className =
+            "listing-image";
+
+        image.src =
+            product["Image url"];
+
+        image.alt =
+            product["Product name"] || "Product";
+
+        listing.appendChild(image);
+
+    } else {
+
+        const placeholder =
+            document.createElement("div");
+
+        placeholder.className =
+            "listing-image";
+
+        placeholder.style.display =
+            "flex";
+
+        placeholder.style.alignItems =
+            "center";
+
+        placeholder.style.justifyContent =
+            "center";
+
+        placeholder.style.fontSize =
+            "60px";
+
+        placeholder.textContent =
+            "🛍️";
+
+        listing.appendChild(placeholder);
+    }
+
+
+    /*
+     CONTENT
+    */
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "listing-content";
+
+
+    const title =
+        document.createElement("h3");
+
+    title.textContent =
+        product["Product name"] || "Unnamed product";
+
+
+    const price =
+        document.createElement("div");
+
+    price.className =
+        "listing-price";
+
+    price.textContent =
+        "KSh " +
+        Number(product["Price"] || 0)
+        .toLocaleString();
+
+
+    const category =
+        document.createElement("div");
+
+    category.className =
+        "listing-info";
+
+    category.textContent =
+        "📂 " +
+        (product["Category"] || "");
+
+
+    const country =
+        document.createElement("div");
+
+    country.className =
+        "listing-info";
+
+    country.textContent =
+        "🌍 " +
+        (product["Country"] || "");
+
+
+    const location =
+        document.createElement("div");
+
+    location.className =
+        "listing-info";
+
+    location.textContent =
+        "📍 " +
+        (product["Location"] || "");
+
+
+    const contact =
+        document.createElement("div");
+
+    contact.className =
+        "listing-info";
+
+    contact.textContent =
+        "📞 " +
+        (product["Contact"] || "");
+
+
+    let sellerName =
+        "Seller";
+
+
+    if (sellerProfile) {
+
+        sellerName =
+            (
+                sellerProfile["First name"] || ""
+            ) +
+            " " +
+            (
+                sellerProfile["Last name"] || ""
+            );
+
+        sellerName =
+            sellerName.trim() || "Seller";
+    }
+
+
+    const seller =
+        document.createElement("div");
+
+    seller.className =
+        "seller-name";
+
+    seller.textContent =
+        "👤 Seller: " +
+        sellerName;
+
+
+    const description =
+        document.createElement("div");
+
+    description.className =
+        "listing-description";
+
+    description.textContent =
+        product["Description"] || "";
+
+
+    content.appendChild(title);
+    content.appendChild(price);
+    content.appendChild(category);
+    content.appendChild(country);
+    content.appendChild(location);
+    content.appendChild(contact);
+    content.appendChild(seller);
+    content.appendChild(description);
+
+
+    listing.appendChild(content);
 
     listingContainer.appendChild(listing);
 
@@ -2571,7 +2669,7 @@ function createMarketplaceListing(product) {
 
 
 /* =====================================================
-   POST PRODUCT TO SUPABASE
+   POST PRODUCT
    ===================================================== */
 
 async function postProduct() {
@@ -2581,57 +2679,51 @@ async function postProduct() {
         alert("Please sign in first.");
 
         return;
-
     }
 
 
     const message =
         document.getElementById("sell-message");
 
+    const button =
+        document.getElementById("post-product-button");
+
+
     message.textContent =
         "Posting product...";
 
+    button.disabled = true;
+
 
     const name =
-        document
-            .getElementById("product-name")
-            .value
-            .trim();
+        document.getElementById("product-name")
+        .value.trim();
 
     const price =
         Number(
-            document
-                .getElementById("product-price")
-                .value
+            document.getElementById("product-price")
+            .value
         );
 
     const category =
-        document
-            .getElementById("product-category")
-            .value;
+        document.getElementById("product-category")
+        .value;
 
     const country =
-        document
-            .getElementById("product-country")
-            .value;
+        document.getElementById("product-country")
+        .value;
 
     const location =
-        document
-            .getElementById("product-location")
-            .value
-            .trim();
+        document.getElementById("product-location")
+        .value.trim();
 
     const description =
-        document
-            .getElementById("product-description")
-            .value
-            .trim();
+        document.getElementById("product-description")
+        .value.trim();
 
     const contact =
-        document
-            .getElementById("seller-contact")
-            .value
-            .trim();
+        document.getElementById("seller-contact")
+        .value.trim();
 
 
     if (
@@ -2648,111 +2740,116 @@ async function postProduct() {
         message.textContent =
             "Please fill in all product details.";
 
-        return;
-
-    }
-
-
-    const sellerName =
-        (
-            currentProfile?.first_name ||
-            currentUser.user_metadata?.first_name ||
-            ""
-        ) +
-
-        " " +
-
-        (
-            currentProfile?.last_name ||
-            currentUser.user_metadata?.last_name ||
-            ""
-        );
-
-
-    const finalSellerName =
-        sellerName.trim() ||
-        currentUser.email ||
-        "Seller";
-
-
-    const product = {
-
-        id: crypto.randomUUID(),
-
-        seller_id: currentUser.id,
-
-        name: name,
-
-        price: price,
-
-        category: category,
-
-        country: country,
-
-        location: location,
-
-        description: description,
-
-        contact: contact,
-
-        image: selectedProductImage || "",
-
-        seller_name: finalSellerName
-
-    };
-
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("products")
-        .insert(product)
-        .select()
-        .single();
-
-
-    if (error) {
-
-        console.error(error);
-
-        message.textContent =
-            "Error: " + error.message;
+        button.disabled = false;
 
         return;
-
     }
 
 
     /*
-     Add the new listing to the page.
+     IMPORTANT:
+     These are the EXACT column names
+     from your Products table.
     */
 
-    createMarketplaceListing(data);
+    const product = {
 
-    document.getElementById("marketplace-listings").style.display =
-        "block";
+        seller_id:
+            currentUser.id,
+
+        "Product name":
+            name,
+
+        "Price":
+            price,
+
+        "Category":
+            category,
+
+        "Country":
+            country,
+
+        "Location":
+            location,
+
+        "Description":
+            description,
+
+        "Contact":
+            contact,
+
+        "Image url":
+            selectedProductImage || ""
+
+    };
 
 
-    clearSellForm();
+    try {
+
+        const { data, error } =
+            await supabaseClient
+            .from("Products table")
+            .insert(product)
+            .select()
+            .single();
 
 
-    document.getElementById("sell-dashboard").style.display =
-        "none";
+        if (error) {
 
-    document.getElementById("main-platform").style.display =
-        "block";
+            console.error(error);
+
+            message.textContent =
+                "Error: " +
+                error.message;
+
+            button.disabled = false;
+
+            return;
+        }
 
 
-    window.scrollTo(0, 0);
+        /*
+         Refresh the entire marketplace
+         so the new product appears correctly.
+        */
+
+        await loadProducts();
+
+        await displayMyProducts();
 
 
-    message.textContent = "";
+        clearSellForm();
 
 
-    alert(
-        "Your product has been posted successfully!"
-    );
+        document.getElementById("sell-dashboard").style.display =
+            "none";
+
+        document.getElementById("main-platform").style.display =
+            "block";
+
+
+        window.scrollTo(0, 0);
+
+        button.disabled = false;
+
+        message.textContent = "";
+
+
+        alert(
+            "Your product has been posted successfully!"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            error.message ||
+            "Unable to post product.";
+
+        button.disabled = false;
+    }
 
 }
 
@@ -2779,7 +2876,8 @@ function clearSellForm() {
 
     document.getElementById("product-image").value = "";
 
-    document.getElementById("image-preview").style.display = "none";
+    document.getElementById("image-preview").style.display =
+        "none";
 
     selectedProductImage = "";
 
@@ -2795,6 +2893,7 @@ async function displayMyProducts() {
     const container =
         document.getElementById("my-products-container");
 
+
     container.innerHTML =
         '<div class="loading">Loading your products...</div>';
 
@@ -2805,18 +2904,17 @@ async function displayMyProducts() {
             '<div class="no-products">Please sign in first.</div>';
 
         return;
-
     }
 
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("products")
+    const { data, error } =
+        await supabaseClient
+        .from("Products table")
         .select("*")
         .eq("seller_id", currentUser.id)
-        .order("created_at", { ascending: false });
+        .order("Created at", {
+            ascending: false
+        });
 
 
     if (error) {
@@ -2829,7 +2927,6 @@ async function displayMyProducts() {
             '</div>';
 
         return;
-
     }
 
 
@@ -2844,7 +2941,6 @@ async function displayMyProducts() {
             '</div>';
 
         return;
-
     }
 
 
@@ -2857,80 +2953,140 @@ async function displayMyProducts() {
             "my-product-card";
 
 
-        let imageHTML = "";
+        if (product["Image url"]) {
 
+            const image =
+                document.createElement("img");
 
-        if (product.image) {
+            image.className =
+                "my-product-image";
 
-            imageHTML =
-                '<img class="my-product-image" src="' +
-                escapeAttribute(product.image) +
-                '" alt="' +
-                escapeAttribute(product.name) +
-                '">';
+            image.src =
+                product["Image url"];
+
+            image.alt =
+                product["Product name"] || "Product";
+
+            card.appendChild(image);
 
         } else {
 
-            imageHTML =
-                '<div class="my-product-image" style="display:flex;align-items:center;justify-content:center;font-size:50px;">🛍️</div>';
+            const placeholder =
+                document.createElement("div");
 
+            placeholder.className =
+                "my-product-image";
+
+            placeholder.style.display =
+                "flex";
+
+            placeholder.style.alignItems =
+                "center";
+
+            placeholder.style.justifyContent =
+                "center";
+
+            placeholder.style.fontSize =
+                "50px";
+
+            placeholder.textContent =
+                "🛍️";
+
+            card.appendChild(placeholder);
         }
 
 
-        card.innerHTML =
+        const content =
+            document.createElement("div");
 
-            imageHTML +
-
-            '<div class="my-product-content">' +
-
-            '<h4>' +
-            escapeHTML(product.name) +
-            '</h4>' +
-
-            '<div class="my-product-price">' +
-            'KSh ' +
-            Number(product.price || 0).toLocaleString() +
-            '</div>' +
-
-            '<div class="my-product-location">' +
-            '📍 ' +
-            escapeHTML(product.location) +
-            ' • ' +
-            escapeHTML(product.country) +
-            '</div>' +
-
-            '<div class="my-product-actions">' +
-
-            '<button class="edit-product-btn">' +
-            '✏️ Edit' +
-            '</button>' +
-
-            '<button class="delete-product-btn">' +
-            '🗑️ Delete' +
-            '</button>' +
-
-            '</div>' +
-
-            '</div>';
+        content.className =
+            "my-product-content";
 
 
-        card
-            .querySelector(".edit-product-btn")
-            .onclick = function() {
+        const name =
+            document.createElement("h4");
+
+        name.textContent =
+            product["Product name"] || "Unnamed product";
+
+
+        const price =
+            document.createElement("div");
+
+        price.className =
+            "my-product-price";
+
+        price.textContent =
+            "KSh " +
+            Number(product["Price"] || 0)
+            .toLocaleString();
+
+
+        const location =
+            document.createElement("div");
+
+        location.className =
+            "my-product-location";
+
+        location.textContent =
+            "📍 " +
+            (product["Location"] || "") +
+            " • " +
+            (product["Country"] || "");
+
+
+        const actions =
+            document.createElement("div");
+
+        actions.className =
+            "my-product-actions";
+
+
+        const editButton =
+            document.createElement("button");
+
+        editButton.className =
+            "edit-product-btn";
+
+        editButton.textContent =
+            "✏️ Edit";
+
+        editButton.onclick =
+            function() {
 
                 editProduct(product.id);
 
             };
 
 
-        card
-            .querySelector(".delete-product-btn")
-            .onclick = function() {
+        const deleteButton =
+            document.createElement("button");
+
+        deleteButton.className =
+            "delete-product-btn";
+
+        deleteButton.textContent =
+            "🗑️ Delete";
+
+        deleteButton.onclick =
+            function() {
 
                 deleteProduct(product.id);
 
             };
 
+
+        actions.appendChild(editButton);
+        actions.appendChild(deleteButton);
+
+
+        content.appendChild(name);
+        content.appendChild(price);
+        content.appendChild(location);
+        content.appendChild(actions);
+
+
+        card.appendChild(content);
 
         container.appendChild(card);
 
@@ -2961,10 +3117,9 @@ async function deleteProduct(productId) {
     }
 
 
-    const {
-        error
-    } = await supabaseClient
-        .from("products")
+    const { error } =
+        await supabaseClient
+        .from("Products table")
         .delete()
         .eq("id", productId)
         .eq("seller_id", currentUser.id);
@@ -2980,7 +3135,6 @@ async function deleteProduct(productId) {
         );
 
         return;
-
     }
 
 
@@ -3007,32 +3161,42 @@ async function editProduct(productId) {
     }
 
 
-    const {
-        data: product,
-        error: findError
-    } = await supabaseClient
-        .from("products")
+    const { data: product, error: findError } =
+        await supabaseClient
+        .from("Products table")
         .select("*")
         .eq("id", productId)
         .eq("seller_id", currentUser.id)
         .maybeSingle();
 
 
-    if (findError || !product) {
+    if (findError) {
+
+        console.error(findError);
+
+        alert(
+            "Unable to find product: " +
+            findError.message
+        );
+
+        return;
+    }
+
+
+    if (!product) {
 
         alert(
             "Product could not be found."
         );
 
         return;
-
     }
 
 
     const newName =
         prompt(
             "Product name:",
-            product.name
+            product["Product name"] || ""
         );
 
 
@@ -3044,7 +3208,7 @@ async function editProduct(productId) {
     const newPrice =
         prompt(
             "Price (KSh):",
-            product.price
+            product["Price"] || ""
         );
 
 
@@ -3056,7 +3220,7 @@ async function editProduct(productId) {
     const newDescription =
         prompt(
             "Description:",
-            product.description
+            product["Description"] || ""
         );
 
 
@@ -3080,21 +3244,21 @@ async function editProduct(productId) {
         );
 
         return;
-
     }
 
 
-    const {
-        error
-    } = await supabaseClient
-        .from("products")
+    const { error } =
+        await supabaseClient
+        .from("Products table")
         .update({
 
-            name: newName.trim(),
+            "Product name":
+                newName.trim(),
 
-            price: priceNumber,
+            "Price":
+                priceNumber,
 
-            description:
+            "Description":
                 newDescription.trim()
 
         })
@@ -3112,7 +3276,6 @@ async function editProduct(productId) {
         );
 
         return;
-
     }
 
 
@@ -3134,16 +3297,25 @@ async function editProduct(productId) {
 
 function searchProducts() {
 
+    applyCurrentFilters();
+
+}
+
+
+function applyCurrentFilters() {
+
     const searchTerm =
-        document
-            .getElementById("search-input")
-            .value
-            .trim()
-            .toLowerCase();
+        document.getElementById("search-input")
+        .value
+        .trim()
+        .toLowerCase();
 
 
     const listings =
         document.querySelectorAll(".listing-card");
+
+
+    let visibleCount = 0;
 
 
     listings.forEach(function(listing) {
@@ -3151,16 +3323,35 @@ function searchProducts() {
         const content =
             listing.textContent.toLowerCase();
 
+        const category =
+            (listing.dataset.category || "")
+            .toLowerCase();
+
+
+        const matchesSearch =
+            !searchTerm ||
+            content.includes(searchTerm) ||
+            category.includes(searchTerm);
+
 
         listing.style.display =
-            (
-                !searchTerm ||
-                content.includes(searchTerm)
-            )
+            matchesSearch
                 ? "block"
                 : "none";
 
+
+        if (matchesSearch) {
+            visibleCount++;
+        }
+
     });
+
+
+    if (listings.length > 0) {
+
+        document.getElementById("marketplace-listings").style.display =
+            "block";
+    }
 
 }
 
@@ -3171,29 +3362,10 @@ function searchProducts() {
 
 function filterCategory(category) {
 
-    document
-        .getElementById("search-input")
-        .value = category;
+    document.getElementById("search-input").value =
+        category;
 
-
-    const listings =
-        document.querySelectorAll(".listing-card");
-
-
-    listings.forEach(function(listing) {
-
-        const content =
-            listing.textContent.toLowerCase();
-
-
-        listing.style.display =
-            content.includes(
-                category.toLowerCase()
-            )
-                ? "block"
-                : "none";
-
-    });
+    searchProducts();
 
 }
 
@@ -3215,9 +3387,8 @@ async function signOut() {
     }
 
 
-    const {
-        error
-    } = await supabaseClient.auth.signOut();
+    const { error } =
+        await supabaseClient.auth.signOut();
 
 
     if (error) {
@@ -3228,16 +3399,13 @@ async function signOut() {
         );
 
         return;
-
     }
 
 
     currentUser = null;
-
     currentProfile = null;
 
     selectedProfilePicture = "";
-
     selectedProductImage = "";
 
     showAuth();
@@ -3245,29 +3413,27 @@ async function signOut() {
     switchForm("signin");
 
 
-    document
-        .getElementById("signin-email")
-        .value = "";
-
-    document
-        .getElementById("signin-password")
-        .value = "";
+    document.getElementById("signin-email").value = "";
+    document.getElementById("signin-password").value = "";
 
 }
 
 
 /* =====================================================
-   SUPABASE AUTH STATE LISTENER
+   AUTH STATE LISTENER
    ===================================================== */
 
 supabaseClient.auth.onAuthStateChange(
-    async function(event, session) {
+    function(event, session) {
 
-        if (session && session.user) {
+        if (event === "SIGNED_OUT") {
 
-            currentUser =
-                session.user;
+            currentUser = null;
+            currentProfile = null;
 
+            showAuth();
+
+            switchForm("signin");
         }
 
     }
@@ -3292,16 +3458,7 @@ function escapeHTML(text) {
 
 }
 
-
-function escapeAttribute(text) {
-
-    return escapeHTML(text)
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
 </script>
 
 </body>
-      </html>
+    </html>
