@@ -16,6 +16,7 @@ const supabaseClient = window.supabase.createClient(
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Madhira Global</title>
 
 <style>
@@ -707,6 +708,7 @@ button {
         width: 105px;
         height: 105px;
     }
+
 }
 
 </style>
@@ -739,6 +741,7 @@ button {
 
             <div class="input-group">
                 <label>Email Address</label>
+
                 <input
                     type="email"
                     id="signin-email"
@@ -748,6 +751,7 @@ button {
 
             <div class="input-group">
                 <label>Password</label>
+
                 <input
                     type="password"
                     id="signin-password"
@@ -755,8 +759,13 @@ button {
                     placeholder="••••••••">
             </div>
 
-            <button type="submit" class="submit-btn" id="signin-button">
+            <button
+                type="submit"
+                class="submit-btn"
+                id="signin-button">
+
                 Sign In
+
             </button>
 
         </form>
@@ -765,12 +774,14 @@ button {
 
         <div class="toggle-link">
             New to the platform?
+
             <span onclick="switchForm('signup')">
                 Sign Up here
             </span>
         </div>
 
     </div>
+
 
     <div id="signup-box" class="auth-box">
 
@@ -779,10 +790,15 @@ button {
         <form onsubmit="handleSignUp(event)">
 
             <div class="input-group">
+
                 <label>Country</label>
 
                 <select id="signup-country" required>
-                    <option value="">Select your country</option>
+
+                    <option value="">
+                        Select your country
+                    </option>
+
                     <option>Kenya</option>
                     <option>Uganda</option>
                     <option>Tanzania</option>
@@ -802,69 +818,102 @@ button {
                     <option>Spain</option>
                     <option>Brazil</option>
                     <option>Other</option>
+
                 </select>
+
             </div>
 
+
             <div class="input-group">
+
                 <label>First Name</label>
+
                 <input
                     type="text"
                     id="signup-first-name"
                     required
                     placeholder="Enter your first name">
+
             </div>
 
+
             <div class="input-group">
+
                 <label>Last Name</label>
+
                 <input
                     type="text"
                     id="signup-last-name"
                     required
                     placeholder="Enter your last name">
+
             </div>
 
+
             <div class="input-group">
+
                 <label>Email Address</label>
+
                 <input
                     type="email"
                     id="signup-email"
                     required
                     placeholder="name@example.com">
+
             </div>
 
+
             <div class="input-group">
+
                 <label>Password</label>
+
                 <input
                     type="password"
                     id="signup-password"
                     required
                     minlength="6"
                     placeholder="Create password">
+
             </div>
 
+
             <div class="input-group">
+
                 <label>Confirm Password</label>
+
                 <input
                     type="password"
                     id="signup-confirm-password"
                     required
                     minlength="6"
                     placeholder="Confirm password">
+
             </div>
 
-            <button type="submit" class="submit-btn" id="signup-button">
+
+            <button
+                type="submit"
+                class="submit-btn"
+                id="signup-button">
+
                 Create Account
+
             </button>
 
         </form>
 
+
         <div id="signup-message" class="message"></div>
 
+
         <div class="toggle-link">
+
             Already have an account?
+
             <span onclick="switchForm('signin')">
                 Sign In here
             </span>
+
         </div>
 
     </div>
@@ -878,15 +927,22 @@ button {
 
     <header class="top-navbar">
 
-        <div class="brand-header" style="margin-bottom:0;">
+        <div
+            class="brand-header"
+            style="margin-bottom:0;">
+
             <span>🌐</span>
 
             <span
                 class="brand-logo"
                 style="font-size:1.4rem;">
+
                 Madhira Global
+
             </span>
+
         </div>
+
 
         <div class="nav-buttons">
 
@@ -897,7 +953,9 @@ button {
             <button
                 onclick="openSell()"
                 style="background:#131c2e;border:1px solid rgba(255,255,255,0.2);">
+
                 Sell
+
             </button>
 
             <button onclick="openWallet()">
@@ -907,6 +965,7 @@ button {
         </div>
 
     </header>
+
 
     <section class="search-container">
 
@@ -921,12 +980,15 @@ button {
             <button
                 class="search-btn"
                 onclick="searchProducts()">
+
                 Search
+
             </button>
 
         </div>
 
     </section>
+
 
     <section class="categories-section">
 
@@ -934,39 +996,69 @@ button {
 
         <div class="grid-container">
 
-            <div class="category-card" onclick="filterCategory('Cars')">
+            <div
+                class="category-card"
+                onclick="filterCategory('Cars')">
+
                 <span class="category-icon">🚗</span>
                 Cars
+
             </div>
 
-            <div class="category-card" onclick="filterCategory('Property')">
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Property')">
+
                 <span class="category-icon">🏠</span>
                 Property
+
             </div>
 
-            <div class="category-card" onclick="filterCategory('Electronics')">
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Electronics')">
+
                 <span class="category-icon">📱</span>
                 Electronics
+
             </div>
 
-            <div class="category-card" onclick="filterCategory('Fashion')">
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Fashion')">
+
                 <span class="category-icon">👕</span>
                 Fashion
+
             </div>
 
-            <div class="category-card" onclick="filterCategory('Furniture')">
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Furniture')">
+
                 <span class="category-icon">🛋️</span>
                 Furniture
+
             </div>
 
-            <div class="category-card" onclick="filterCategory('Machinery')">
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Machinery')">
+
                 <span class="category-icon">⚙️</span>
                 Machinery
+
             </div>
 
         </div>
 
     </section>
+
 
     <section id="marketplace-listings">
 
@@ -987,19 +1079,30 @@ button {
 
     <div class="wallet-header">
 
-        <button onclick="closeWallet()" class="back-btn">
+        <button
+            onclick="closeWallet()"
+            class="back-btn">
+
             ← Back
+
         </button>
 
+
         <div>
+
             <h2 id="wallet-title">
                 💰 Madhira Wallet
             </h2>
 
-            <div class="wallet-owner" id="wallet-owner"></div>
+            <div
+                class="wallet-owner"
+                id="wallet-owner">
+            </div>
+
         </div>
 
     </div>
+
 
     <div class="wallet-balance-card">
 
@@ -1008,6 +1111,7 @@ button {
         <h1 id="wallet-balance">
             KSh 0.00
         </h1>
+
 
         <div class="wallet-actions">
 
@@ -1023,23 +1127,32 @@ button {
 
     </div>
 
+
     <div class="wallet-stats">
 
         <div class="wallet-stat">
+
             <span>Pending</span>
+
             <strong id="pending-balance">
                 KSh 0.00
             </strong>
+
         </div>
 
+
         <div class="wallet-stat">
+
             <span>Total Earned</span>
+
             <strong id="total-earned">
                 KSh 0.00
             </strong>
+
         </div>
 
     </div>
+
 
     <div class="transactions">
 
@@ -1064,17 +1177,23 @@ button {
 
     <div class="wallet-header">
 
-        <button onclick="closeSell()" class="back-btn">
+        <button
+            onclick="closeSell()"
+            class="back-btn">
+
             ← Back
+
         </button>
 
         <h2>🏷️ Sell Product</h2>
 
     </div>
 
+
     <div class="sell-box">
 
         <h3>List Your Product</h3>
+
 
         <div class="sell-input-group">
 
@@ -1093,14 +1212,18 @@ button {
 
         </div>
 
+
         <div class="sell-input-group">
+
             <label>Product Name</label>
 
             <input
                 type="text"
                 id="product-name"
                 placeholder="e.g. Samsung Galaxy A06">
+
         </div>
+
 
         <div class="sell-input-group">
 
@@ -1113,6 +1236,7 @@ button {
                 min="1">
 
         </div>
+
 
         <div class="sell-input-group">
 
@@ -1135,6 +1259,7 @@ button {
             </select>
 
         </div>
+
 
         <div class="sell-input-group">
 
@@ -1170,6 +1295,7 @@ button {
 
         </div>
 
+
         <div class="sell-input-group">
 
             <label>Location</label>
@@ -1181,6 +1307,7 @@ button {
 
         </div>
 
+
         <div class="sell-input-group">
 
             <label>Description</label>
@@ -1190,6 +1317,7 @@ button {
                 placeholder="Describe your product..."></textarea>
 
         </div>
+
 
         <div class="sell-input-group">
 
@@ -1202,6 +1330,7 @@ button {
 
         </div>
 
+
         <button
             class="submit-btn"
             id="post-product-button"
@@ -1211,7 +1340,11 @@ button {
 
         </button>
 
-        <div id="sell-message" class="message"></div>
+
+        <div
+            id="sell-message"
+            class="message">
+        </div>
 
     </div>
 
@@ -1224,13 +1357,18 @@ button {
 
     <div class="account-header">
 
-        <button onclick="closeAccount()" class="back-btn">
+        <button
+            onclick="closeAccount()"
+            class="back-btn">
+
             ← Back
+
         </button>
 
         <h2>👤 Account Details</h2>
 
     </div>
+
 
     <div class="account-box">
 
@@ -1239,14 +1377,18 @@ button {
             <div
                 id="profile-placeholder"
                 class="profile-picture-placeholder">
+
                 👤
+
             </div>
+
 
             <img
                 id="profile-picture"
                 class="profile-picture"
                 style="display:none;"
                 alt="Profile picture">
+
 
             <label
                 for="profile-picture-input"
@@ -1256,6 +1398,7 @@ button {
 
             </label>
 
+
             <input
                 type="file"
                 id="profile-picture-input"
@@ -1264,9 +1407,11 @@ button {
 
         </div>
 
+
         <h3 class="account-info-title">
             Your Information
         </h3>
+
 
         <div class="account-input-group">
 
@@ -1278,6 +1423,7 @@ button {
 
         </div>
 
+
         <div class="account-input-group">
 
             <label>Last Name</label>
@@ -1287,6 +1433,7 @@ button {
                 id="account-last-name">
 
         </div>
+
 
         <div class="account-input-group">
 
@@ -1299,6 +1446,7 @@ button {
 
         </div>
 
+
         <div class="account-input-group">
 
             <label>📞 Contact / Phone</label>
@@ -1310,6 +1458,7 @@ button {
 
         </div>
 
+
         <div class="account-input-group">
 
             <label>📍 Location</label>
@@ -1320,6 +1469,7 @@ button {
                 placeholder="e.g. Nairobi, Kenya">
 
         </div>
+
 
         <div class="account-input-group">
 
@@ -1336,6 +1486,7 @@ button {
 
         </div>
 
+
         <button
             class="submit-btn save-account-btn"
             onclick="saveAccountDetails()">
@@ -1344,7 +1495,12 @@ button {
 
         </button>
 
-        <div id="account-status" class="account-status"></div>
+
+        <div
+            id="account-status"
+            class="account-status">
+        </div>
+
 
         <div class="my-products-section">
 
@@ -1353,6 +1509,7 @@ button {
             <div id="my-products-container"></div>
 
         </div>
+
 
         <div class="account-security">
 
@@ -1366,8 +1523,13 @@ button {
 
         </div>
 
-        <button class="logout-btn" onclick="signOut()">
+
+        <button
+            class="logout-btn"
+            onclick="signOut()">
+
             🚪 Sign Out
+
         </button>
 
     </div>
@@ -1397,9 +1559,14 @@ let walletTransactions = [];
    START
    ===================================================== */
 
-window.addEventListener("load", async function() {
-    await checkSession();
-});
+window.addEventListener(
+    "load",
+    async function() {
+
+        await checkSession();
+
+    }
+);
 
 
 /* =====================================================
@@ -1410,8 +1577,12 @@ async function checkSession() {
 
     try {
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient.auth.getSession();
+
 
         if (error) {
 
@@ -1420,11 +1591,18 @@ async function checkSession() {
             showAuth();
 
             return;
+
         }
 
-        if (data.session && data.session.user) {
 
-            currentUser = data.session.user;
+        if (
+            data.session &&
+            data.session.user
+        ) {
+
+            currentUser =
+                data.session.user;
+
 
             await loadProfile();
 
@@ -1481,26 +1659,34 @@ function showAuth() {
 
 function switchForm(target) {
 
-    document.getElementById("signin-box")
+    document
+        .getElementById("signin-box")
         .classList.remove("active");
 
-    document.getElementById("signup-box")
+    document
+        .getElementById("signup-box")
         .classList.remove("active");
 
-    document.getElementById("signin-message")
+
+    document
+        .getElementById("signin-message")
         .textContent = "";
 
-    document.getElementById("signup-message")
+    document
+        .getElementById("signup-message")
         .textContent = "";
+
 
     if (target === "signup") {
 
-        document.getElementById("signup-box")
+        document
+            .getElementById("signup-box")
             .classList.add("active");
 
     } else {
 
-        document.getElementById("signin-box")
+        document
+            .getElementById("signin-box")
             .classList.add("active");
 
     }
@@ -1516,54 +1702,83 @@ async function handleSignUp(event) {
 
     event.preventDefault();
 
+
     const message =
         document.getElementById("signup-message");
 
     const button =
         document.getElementById("signup-button");
 
+
     message.textContent =
         "Creating your account...";
 
-    button.disabled = true;
+    button.disabled =
+        true;
+
 
     const country =
-        document.getElementById("signup-country").value;
+        document
+        .getElementById("signup-country")
+        .value;
+
 
     const firstName =
-        document.getElementById("signup-first-name")
-        .value.trim();
+        document
+        .getElementById("signup-first-name")
+        .value
+        .trim();
+
 
     const lastName =
-        document.getElementById("signup-last-name")
-        .value.trim();
+        document
+        .getElementById("signup-last-name")
+        .value
+        .trim();
+
 
     const email =
-        document.getElementById("signup-email")
-        .value.trim()
+        document
+        .getElementById("signup-email")
+        .value
+        .trim()
         .toLowerCase();
 
+
     const password =
-        document.getElementById("signup-password").value;
+        document
+        .getElementById("signup-password")
+        .value;
+
 
     const confirmPassword =
-        document.getElementById("signup-confirm-password").value;
+        document
+        .getElementById("signup-confirm-password")
+        .value;
 
 
-    if (password !== confirmPassword) {
+    if (
+        password !==
+        confirmPassword
+    ) {
 
         message.textContent =
             "Passwords do not match.";
 
-        button.disabled = false;
+        button.disabled =
+            false;
 
         return;
+
     }
 
 
     try {
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient.auth.signUp({
 
                 email: email,
@@ -1574,11 +1789,14 @@ async function handleSignUp(event) {
 
                     data: {
 
-                        first_name: firstName,
+                        first_name:
+                            firstName,
 
-                        last_name: lastName,
+                        last_name:
+                            lastName,
 
-                        country: country
+                        country:
+                            country
 
                     }
 
@@ -1594,9 +1812,11 @@ async function handleSignUp(event) {
             message.textContent =
                 error.message;
 
-            button.disabled = false;
+            button.disabled =
+                false;
 
             return;
+
         }
 
 
@@ -1605,9 +1825,11 @@ async function handleSignUp(event) {
             message.textContent =
                 "Account could not be created.";
 
-            button.disabled = false;
+            button.disabled =
+                false;
 
             return;
+
         }
 
 
@@ -1621,25 +1843,34 @@ async function handleSignUp(event) {
                 .from("Profiles")
                 .upsert({
 
-                    id: data.user.id,
+                    id:
+                        data.user.id,
 
-                    "First name": firstName,
+                    "First name":
+                        firstName,
 
-                    "Last name": lastName,
+                    "Last name":
+                        lastName,
 
-                    "Email": email,
+                    "Email":
+                        email,
 
-                    "Country": country,
+                    "Country":
+                        country,
 
-                    "Location": "",
+                    "Location":
+                        "",
 
-                    "Id number": "",
+                    "Id number":
+                        "",
 
-                    "Profile picture": ""
+                    "Profile picture":
+                        ""
 
                 }, {
 
-                    onConflict: "id"
+                    onConflict:
+                        "id"
 
                 })
                 .select()
@@ -1654,10 +1885,13 @@ async function handleSignUp(event) {
                     "Account created, but profile setup failed: " +
                     profileError.message;
 
-                button.disabled = false;
+                button.disabled =
+                    false;
 
                 return;
+
             }
+
 
             currentProfile =
                 profileData;
@@ -1675,14 +1909,17 @@ async function handleSignUp(event) {
                 .querySelector("form")
                 .reset();
 
-            button.disabled = false;
+            button.disabled =
+                false;
 
             return;
+
         }
 
 
         currentUser =
             data.user;
+
 
         await loadProfile();
 
@@ -1698,7 +1935,9 @@ async function handleSignUp(event) {
             .querySelector("form")
             .reset();
 
-        button.disabled = false;
+
+        button.disabled =
+            false;
 
 
         alert(
@@ -1718,7 +1957,8 @@ async function handleSignUp(event) {
             error.message ||
             "Something went wrong.";
 
-        button.disabled = false;
+        button.disabled =
+            false;
 
     }
 
@@ -1733,36 +1973,48 @@ async function handleSignIn(event) {
 
     event.preventDefault();
 
+
     const message =
         document.getElementById("signin-message");
 
     const button =
         document.getElementById("signin-button");
 
+
     message.textContent =
         "Signing in...";
 
-    button.disabled = true;
+    button.disabled =
+        true;
 
 
     const email =
-        document.getElementById("signin-email")
-        .value.trim()
+        document
+        .getElementById("signin-email")
+        .value
+        .trim()
         .toLowerCase();
 
+
     const password =
-        document.getElementById("signin-password")
+        document
+        .getElementById("signin-password")
         .value;
 
 
     try {
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient.auth.signInWithPassword({
 
-                email: email,
+                email:
+                    email,
 
-                password: password
+                password:
+                    password
 
             });
 
@@ -1774,9 +2026,11 @@ async function handleSignIn(event) {
             message.textContent =
                 error.message;
 
-            button.disabled = false;
+            button.disabled =
+                false;
 
             return;
+
         }
 
 
@@ -1785,14 +2039,17 @@ async function handleSignIn(event) {
             message.textContent =
                 "Login did not create a session.";
 
-            button.disabled = false;
+            button.disabled =
+                false;
 
             return;
+
         }
 
 
         currentUser =
             data.user;
+
 
         await loadProfile();
 
@@ -1802,7 +2059,9 @@ async function handleSignIn(event) {
 
         enterPlatform();
 
-        button.disabled = false;
+
+        button.disabled =
+            false;
 
 
     } catch (error) {
@@ -1813,7 +2072,8 @@ async function handleSignIn(event) {
             error.message ||
             "Unable to sign in.";
 
-        button.disabled = false;
+        button.disabled =
+            false;
 
     }
 
@@ -1831,11 +2091,17 @@ async function loadProfile() {
     }
 
 
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
         .from("Profiles")
         .select("*")
-        .eq("id", currentUser.id)
+        .eq(
+            "id",
+            currentUser.id
+        )
         .maybeSingle();
 
 
@@ -1847,6 +2113,7 @@ async function loadProfile() {
         );
 
         return;
+
     }
 
 
@@ -1856,17 +2123,29 @@ async function loadProfile() {
             data;
 
         return;
+
     }
 
 
     const firstName =
-        currentUser.user_metadata?.first_name || "";
+        currentUser
+        .user_metadata
+        ?.first_name ||
+        "";
+
 
     const lastName =
-        currentUser.user_metadata?.last_name || "";
+        currentUser
+        .user_metadata
+        ?.last_name ||
+        "";
+
 
     const country =
-        currentUser.user_metadata?.country || "";
+        currentUser
+        .user_metadata
+        ?.country ||
+        "";
 
 
     const {
@@ -1877,21 +2156,29 @@ async function loadProfile() {
         .from("Profiles")
         .insert({
 
-            id: currentUser.id,
+            id:
+                currentUser.id,
 
-            "First name": firstName,
+            "First name":
+                firstName,
 
-            "Last name": lastName,
+            "Last name":
+                lastName,
 
-            "Email": currentUser.email || "",
+            "Email":
+                currentUser.email || "",
 
-            "Country": country,
+            "Country":
+                country,
 
-            "Location": "",
+            "Location":
+                "",
 
-            "Id number": "",
+            "Id number":
+                "",
 
-            "Profile picture": ""
+            "Profile picture":
+                ""
 
         })
         .select()
@@ -1906,6 +2193,7 @@ async function loadProfile() {
         );
 
         return;
+
     }
 
 
@@ -1936,6 +2224,7 @@ function enterPlatform() {
     document.getElementById("main-platform").style.display =
         "block";
 
+
     updateWalletDisplay();
 
     window.scrollTo(0, 0);
@@ -1951,10 +2240,14 @@ function openAccount() {
 
     if (!currentUser) {
 
-        alert("Please sign in first.");
+        alert(
+            "Please sign in first."
+        );
 
         return;
+
     }
+
 
     document.getElementById("main-platform").style.display =
         "none";
@@ -1967,6 +2260,7 @@ function openAccount() {
 
     document.getElementById("account-dashboard").style.display =
         "block";
+
 
     loadAccountDetails();
 
@@ -2008,28 +2302,36 @@ function loadAccountDetails() {
     document.getElementById("account-first-name").value =
         profile["First name"] || "";
 
+
     document.getElementById("account-last-name").value =
         profile["Last name"] || "";
+
 
     document.getElementById("account-email").value =
         currentUser.email ||
         profile["Email"] ||
         "";
 
+
     document.getElementById("account-contact").value =
         profile["Contact"] || "";
 
+
     document.getElementById("account-location").value =
         profile["Location"] || "";
+
 
     document.getElementById("account-id-number").value =
         profile["Id number"] || "";
 
 
-    selectedProfilePicture = "";
+    selectedProfilePicture =
+        "";
 
 
-    if (profile["Profile picture"]) {
+    if (
+        profile["Profile picture"]
+    ) {
 
         document.getElementById("profile-picture").src =
             profile["Profile picture"];
@@ -2062,20 +2364,26 @@ function previewProfilePicture(event) {
     const file =
         event.target.files[0];
 
+
     if (!file) {
         return;
     }
 
 
-    if (file.size > 2 * 1024 * 1024) {
+    if (
+        file.size >
+        2 * 1024 * 1024
+    ) {
 
         alert(
             "Please choose a profile picture smaller than 2MB."
         );
 
-        event.target.value = "";
+        event.target.value =
+            "";
 
         return;
+
     }
 
 
@@ -2089,13 +2397,22 @@ function previewProfilePicture(event) {
             selectedProfilePicture =
                 e.target.result;
 
-            document.getElementById("profile-picture").src =
+
+            document
+                .getElementById("profile-picture")
+                .src =
                 selectedProfilePicture;
 
-            document.getElementById("profile-picture").style.display =
+
+            document
+                .getElementById("profile-picture")
+                .style.display =
                 "block";
 
-            document.getElementById("profile-placeholder").style.display =
+
+            document
+                .getElementById("profile-placeholder")
+                .style.display =
                 "none";
 
         };
@@ -2114,38 +2431,54 @@ async function saveAccountDetails() {
 
     if (!currentUser) {
 
-        alert("Please sign in first.");
+        alert(
+            "Please sign in first."
+        );
 
         return;
+
     }
 
 
     const status =
         document.getElementById("account-status");
 
+
     status.textContent =
         "Saving...";
 
 
     const firstName =
-        document.getElementById("account-first-name")
-        .value.trim();
+        document
+        .getElementById("account-first-name")
+        .value
+        .trim();
+
 
     const lastName =
-        document.getElementById("account-last-name")
-        .value.trim();
+        document
+        .getElementById("account-last-name")
+        .value
+        .trim();
+
 
     const location =
-        document.getElementById("account-location")
-        .value.trim();
+        document
+        .getElementById("account-location")
+        .value
+        .trim();
+
 
     const idNumber =
-        document.getElementById("account-id-number")
-        .value.trim();
+        document
+        .getElementById("account-id-number")
+        .value
+        .trim();
 
 
     let profilePicture =
-        currentProfile?.["Profile picture"] || "";
+        currentProfile?.["Profile picture"] ||
+        "";
 
 
     if (selectedProfilePicture) {
@@ -2164,25 +2497,34 @@ async function saveAccountDetails() {
         .from("Profiles")
         .upsert({
 
-            id: currentUser.id,
+            id:
+                currentUser.id,
 
-            "First name": firstName,
+            "First name":
+                firstName,
 
-            "Last name": lastName,
+            "Last name":
+                lastName,
 
-            "Email": currentUser.email || "",
+            "Email":
+                currentUser.email || "",
 
-            "Country": currentProfile?.["Country"] || "",
+            "Country":
+                currentProfile?.["Country"] || "",
 
-            "Location": location,
+            "Location":
+                location,
 
-            "Id number": idNumber,
+            "Id number":
+                idNumber,
 
-            "Profile picture": profilePicture
+            "Profile picture":
+                profilePicture
 
         }, {
 
-            onConflict: "id"
+            onConflict:
+                "id"
 
         })
         .select()
@@ -2194,27 +2536,34 @@ async function saveAccountDetails() {
         console.error(error);
 
         status.textContent =
-            "Error: " + error.message;
+            "Error: " +
+            error.message;
 
         return;
+
     }
 
 
     currentProfile =
         data;
 
-    selectedProfilePicture = "";
+    selectedProfilePicture =
+        "";
 
 
     status.textContent =
         "✓ Account details saved successfully.";
 
 
-    setTimeout(function() {
+    setTimeout(
+        function() {
 
-        status.textContent = "";
+            status.textContent =
+                "";
 
-    }, 3000);
+        },
+        3000
+    );
 
 }
 
@@ -2224,12 +2573,14 @@ async function saveAccountDetails() {
    ===================================================== */
 
 /*
-   Loads the user's wallet directly from Supabase.
+   Loads the logged-in user's wallet.
 
-   IMPORTANT:
-   We only READ the wallet from the browser.
-   Real balance changes will later be done through
-   secure database functions/payment verification.
+   If a wallet does not exist for the user,
+   the website attempts to create one with
+   a KSh 0.00 balance.
+
+   The browser does NOT directly change
+   the wallet balance.
 */
 
 async function loadWallet() {
@@ -2241,14 +2592,21 @@ async function loadWallet() {
 
     try {
 
-        const {
+        /* =========================================
+           FIND USER WALLET
+           ========================================= */
+
+        let {
             data: wallet,
             error: walletError
         } =
             await supabaseClient
             .from("wallets")
             .select("*")
-            .eq("user_id", currentUser.id)
+            .eq(
+                "user_id",
+                currentUser.id
+            )
             .maybeSingle();
 
 
@@ -2260,20 +2618,66 @@ async function loadWallet() {
             );
 
             return;
+
         }
 
+
+        /* =========================================
+           CREATE WALLET IF NEEDED
+           ========================================= */
 
         if (!wallet) {
 
-            walletBalance = 0;
+            const {
+                data: newWallet,
+                error: createWalletError
+            } =
+                await supabaseClient
+                .from("wallets")
+                .insert({
 
-        } else {
+                    user_id:
+                        currentUser.id,
 
-            walletBalance =
-                Number(wallet.balance || 0);
+                    balance:
+                        0
+
+                })
+                .select("*")
+                .single();
+
+
+            if (createWalletError) {
+
+                console.error(
+                    "Wallet creation error:",
+                    createWalletError
+                );
+
+                return;
+
+            }
+
+
+            wallet =
+                newWallet;
 
         }
 
+
+        /* =========================================
+           LOAD BALANCE
+           ========================================= */
+
+        walletBalance =
+            Number(
+                wallet.balance || 0
+            );
+
+
+        /* =========================================
+           LOAD TRANSACTIONS
+           ========================================= */
 
         const {
             data: transactions,
@@ -2282,10 +2686,16 @@ async function loadWallet() {
             await supabaseClient
             .from("wallet_transactions")
             .select("*")
-            .eq("user_id", currentUser.id)
-            .order("created_at", {
-                ascending: false
-            });
+            .eq(
+                "user_id",
+                currentUser.id
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
 
 
         if (transactionError) {
@@ -2295,7 +2705,8 @@ async function loadWallet() {
                 transactionError
             );
 
-            walletTransactions = [];
+            walletTransactions =
+                [];
 
         } else {
 
@@ -2305,45 +2716,69 @@ async function loadWallet() {
         }
 
 
-        totalEarned = 0;
+        /* =========================================
+           CALCULATE STATISTICS
+           ========================================= */
 
-        pendingBalance = 0;
+        totalEarned =
+            0;
 
-
-        walletTransactions.forEach(function(transaction) {
-
-            const amount =
-                Number(transaction.amount || 0);
-
-            const type =
-                String(transaction.type || "")
-                .toLowerCase();
-
-            const status =
-                String(transaction.status || "")
-                .toLowerCase();
+        pendingBalance =
+            0;
 
 
-            if (
-                type === "earning" &&
-                status === "completed"
-            ) {
+        walletTransactions.forEach(
+            function(transaction) {
 
-                totalEarned += amount;
+                const amount =
+                    Number(
+                        transaction.amount || 0
+                    );
+
+
+                const type =
+                    String(
+                        transaction.type || ""
+                    ).toLowerCase();
+
+
+                const status =
+                    String(
+                        transaction.status || ""
+                    ).toLowerCase();
+
+
+                if (
+                    (
+                        type === "earning" ||
+                        type === "sale" ||
+                        type === "commission"
+                    ) &&
+                    status === "completed"
+                ) {
+
+                    totalEarned +=
+                        amount;
+
+                }
+
+
+                if (
+                    status === "pending"
+                ) {
+
+                    pendingBalance +=
+                        amount;
+
+                }
 
             }
+        );
 
 
-            if (
-                status === "pending"
-            ) {
-
-                pendingBalance += amount;
-
-            }
-
-        });
-
+        /* =========================================
+           UPDATE SCREEN
+           ========================================= */
 
         updateWalletDisplay();
 
@@ -2353,7 +2788,7 @@ async function loadWallet() {
     } catch (error) {
 
         console.error(
-            "Wallet error:",
+            "Wallet connection error:",
             error
         );
 
@@ -2370,9 +2805,12 @@ async function openWallet() {
 
     if (!currentUser) {
 
-        alert("Please sign in first.");
+        alert(
+            "Please sign in first."
+        );
 
         return;
+
     }
 
 
@@ -2417,31 +2855,67 @@ function closeWallet() {
 
 function updateWalletDisplay() {
 
-    document.getElementById("wallet-balance").textContent =
-        "KSh " +
-        Number(walletBalance || 0)
-        .toLocaleString("en-KE", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
+    const balanceElement =
+        document.getElementById("wallet-balance");
 
 
-    document.getElementById("pending-balance").textContent =
-        "KSh " +
-        Number(pendingBalance || 0)
-        .toLocaleString("en-KE", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
+    const pendingElement =
+        document.getElementById("pending-balance");
 
 
-    document.getElementById("total-earned").textContent =
-        "KSh " +
-        Number(totalEarned || 0)
-        .toLocaleString("en-KE", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
+    const earnedElement =
+        document.getElementById("total-earned");
+
+
+    if (balanceElement) {
+
+        balanceElement.textContent =
+            "KSh " +
+            Number(
+                walletBalance || 0
+            ).toLocaleString(
+                "en-KE",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
+
+
+    if (pendingElement) {
+
+        pendingElement.textContent =
+            "KSh " +
+            Number(
+                pendingBalance || 0
+            ).toLocaleString(
+                "en-KE",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
+
+
+    if (earnedElement) {
+
+        earnedElement.textContent =
+            "KSh " +
+            Number(
+                totalEarned || 0
+            ).toLocaleString(
+                "en-KE",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
 
 
     if (currentUser) {
@@ -2452,15 +2926,38 @@ function updateWalletDisplay() {
             "User";
 
 
-        document.getElementById("wallet-title").textContent =
-            "💰 " +
-            firstName +
-            "'s Wallet";
+        const walletTitle =
+            document.getElementById(
+                "wallet-title"
+            );
 
 
-        document.getElementById("wallet-owner").textContent =
-            "Account: " +
-            (currentUser.email || "");
+        const walletOwner =
+            document.getElementById(
+                "wallet-owner"
+            );
+
+
+        if (walletTitle) {
+
+            walletTitle.textContent =
+                "💰 " +
+                firstName +
+                "'s Wallet";
+
+        }
+
+
+        if (walletOwner) {
+
+            walletOwner.textContent =
+                "Account: " +
+                (
+                    currentUser.email ||
+                    ""
+                );
+
+        }
 
     }
 
@@ -2474,10 +2971,18 @@ function updateWalletDisplay() {
 function displayWalletTransactions() {
 
     const transactionList =
-        document.getElementById("transaction-list");
+        document.getElementById(
+            "transaction-list"
+        );
 
 
-    transactionList.innerHTML = "";
+    if (!transactionList) {
+        return;
+    }
+
+
+    transactionList.innerHTML =
+        "";
 
 
     if (
@@ -2491,131 +2996,157 @@ function displayWalletTransactions() {
             '</div>';
 
         return;
+
     }
 
 
     walletTransactions
         .slice(0, 20)
-        .forEach(function(transaction) {
+        .forEach(
+            function(transaction) {
 
-            const item =
-                document.createElement("div");
+                const item =
+                    document.createElement(
+                        "div"
+                    );
 
-            item.className =
-                "transaction-item";
-
-
-            const title =
-                document.createElement("div");
-
-            title.className =
-                "transaction-title";
-
-            title.textContent =
-                transaction.type ||
-                "Transaction";
+                item.className =
+                    "transaction-item";
 
 
-            const date =
-                document.createElement("span");
+                const title =
+                    document.createElement(
+                        "div"
+                    );
 
-            date.className =
-                "transaction-date";
+                title.className =
+                    "transaction-title";
 
-            if (transaction.created_at) {
+                title.textContent =
+                    transaction.type ||
+                    "Transaction";
 
-                date.textContent =
-                    new Date(
-                        transaction.created_at
-                    ).toLocaleString();
 
-            } else {
+                const date =
+                    document.createElement(
+                        "span"
+                    );
 
-                date.textContent =
-                    "";
+                date.className =
+                    "transaction-date";
+
+
+                if (
+                    transaction.created_at
+                ) {
+
+                    date.textContent =
+                        new Date(
+                            transaction.created_at
+                        ).toLocaleString();
+
+                }
+
+
+                const amount =
+                    document.createElement(
+                        "span"
+                    );
+
+                amount.className =
+                    "transaction-amount";
+
+
+                const transactionType =
+                    String(
+                        transaction.type || ""
+                    ).toLowerCase();
+
+
+                const positive =
+                    transactionType === "deposit" ||
+                    transactionType === "earning" ||
+                    transactionType === "sale" ||
+                    transactionType === "commission" ||
+                    transactionType === "refund";
+
+
+                amount.style.color =
+                    positive
+                        ? "#4ade80"
+                        : "#ff6b6b";
+
+
+                amount.textContent =
+                    (positive ? "+" : "-") +
+                    "KSh " +
+                    Number(
+                        transaction.amount || 0
+                    ).toLocaleString(
+                        "en-KE",
+                        {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }
+                    );
+
+
+                const status =
+                    document.createElement(
+                        "span"
+                    );
+
+                status.className =
+                    "transaction-status";
+
+                status.textContent =
+                    transaction.status ||
+                    "pending";
+
+
+                item.appendChild(title);
+
+                item.appendChild(date);
+
+                item.appendChild(amount);
+
+                item.appendChild(status);
+
+
+                if (
+                    transaction.description
+                ) {
+
+                    const description =
+                        document.createElement(
+                            "div"
+                        );
+
+                    description.style.color =
+                        "#8fa0dd";
+
+                    description.style.fontSize =
+                        "12px";
+
+                    description.style.marginTop =
+                        "5px";
+
+                    description.textContent =
+                        transaction.description;
+
+                    item.appendChild(
+                        description
+                    );
+
+                }
+
+
+                transactionList.appendChild(
+                    item
+                );
 
             }
-
-
-            const amount =
-                document.createElement("span");
-
-            amount.className =
-                "transaction-amount";
-
-
-            const transactionType =
-                String(transaction.type || "")
-                .toLowerCase();
-
-
-            const positive =
-                transactionType === "deposit" ||
-                transactionType === "earning" ||
-                transactionType === "refund";
-
-
-            amount.style.color =
-                positive
-                    ? "#4ade80"
-                    : "#ff6b6b";
-
-
-            amount.textContent =
-                (positive ? "+" : "-") +
-                "KSh " +
-                Number(transaction.amount || 0)
-                .toLocaleString("en-KE", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                });
-
-
-            const status =
-                document.createElement("span");
-
-            status.className =
-                "transaction-status";
-
-            status.textContent =
-                transaction.status ||
-                "pending";
-
-
-            item.appendChild(title);
-
-            item.appendChild(date);
-
-            item.appendChild(amount);
-
-            item.appendChild(status);
-
-
-            if (transaction.description) {
-
-                const description =
-                    document.createElement("div");
-
-                description.style.color =
-                    "#8fa0dd";
-
-                description.style.fontSize =
-                    "12px";
-
-                description.style.marginTop =
-                    "5px";
-
-                description.textContent =
-                    transaction.description;
-
-                item.appendChild(description);
-
-            }
-
-
-            transactionList.appendChild(item);
-
-        });
+        );
 
 }
 
@@ -2627,9 +3158,8 @@ function displayWalletTransactions() {
 function addMoney() {
 
     alert(
-        "Wallet connection is working. " +
-        "Real deposits will be connected to M-Pesa/payment processing next. " +
-        "Your balance will only increase after the payment is verified."
+        "M-Pesa deposits are not connected yet. " +
+        "Your balance will only increase after a payment is securely verified."
     );
 
 }
@@ -2642,8 +3172,8 @@ function addMoney() {
 function withdrawMoney() {
 
     alert(
-        "Withdrawal processing will be connected next. " +
-        "For security, withdrawals must be verified by the server before your wallet balance changes."
+        "Withdrawals are not connected yet. " +
+        "Your wallet balance cannot be changed directly from the website."
     );
 
 }
@@ -2657,9 +3187,12 @@ function openSell() {
 
     if (!currentUser) {
 
-        alert("Please sign in first.");
+        alert(
+            "Please sign in first."
+        );
 
         return;
+
     }
 
 
@@ -2674,6 +3207,7 @@ function openSell() {
 
     document.getElementById("sell-dashboard").style.display =
         "block";
+
 
     window.scrollTo(0, 0);
 
@@ -2702,20 +3236,26 @@ function previewProductImage(event) {
     const file =
         event.target.files[0];
 
+
     if (!file) {
         return;
     }
 
 
-    if (file.size > 3 * 1024 * 1024) {
+    if (
+        file.size >
+        3 * 1024 * 1024
+    ) {
 
         alert(
             "Please choose an image smaller than 3MB."
         );
 
-        event.target.value = "";
+        event.target.value =
+            "";
 
         return;
+
     }
 
 
@@ -2729,8 +3269,12 @@ function previewProductImage(event) {
             selectedProductImage =
                 e.target.result;
 
+
             const preview =
-                document.getElementById("image-preview");
+                document.getElementById(
+                    "image-preview"
+                );
+
 
             preview.src =
                 selectedProductImage;
@@ -2753,7 +3297,9 @@ function previewProductImage(event) {
 async function loadProducts() {
 
     const container =
-        document.getElementById("listing-container");
+        document.getElementById(
+            "listing-container"
+        );
 
 
     container.innerHTML =
@@ -2767,9 +3313,12 @@ async function loadProducts() {
         await supabaseClient
         .from("Products table")
         .select("*")
-        .order("Created at", {
-            ascending: false
-        });
+        .order(
+            "Created at",
+            {
+                ascending: false
+            }
+        );
 
 
     if (error) {
@@ -2783,26 +3332,39 @@ async function loadProducts() {
             '</div>';
 
         return;
+
     }
 
 
-    container.innerHTML = "";
+    container.innerHTML =
+        "";
 
 
-    if (!data || data.length === 0) {
+    if (
+        !data ||
+        data.length === 0
+    ) {
 
-        document.getElementById("marketplace-listings").style.display =
+        document
+            .getElementById(
+                "marketplace-listings"
+            )
+            .style.display =
             "none";
 
         return;
+
     }
 
 
     const sellerIds = [
         ...new Set(
             data
-            .map(product => product.seller_id)
-            .filter(Boolean)
+                .map(
+                    product =>
+                        product.seller_id
+                )
+                .filter(Boolean)
         )
     ];
 
@@ -2810,7 +3372,9 @@ async function loadProducts() {
     let sellerProfiles = {};
 
 
-    if (sellerIds.length > 0) {
+    if (
+        sellerIds.length > 0
+    ) {
 
         const {
             data: profiles,
@@ -2818,35 +3382,55 @@ async function loadProducts() {
         } =
             await supabaseClient
             .from("Profiles")
-            .select('id, "First name", "Last name"')
-            .in("id", sellerIds);
+            .select(
+                'id, "First name", "Last name"'
+            )
+            .in(
+                "id",
+                sellerIds
+            );
 
 
-        if (!profileError && profiles) {
+        if (
+            !profileError &&
+            profiles
+        ) {
 
-            profiles.forEach(function(profile) {
+            profiles.forEach(
+                function(profile) {
 
-                sellerProfiles[profile.id] =
-                    profile;
+                    sellerProfiles[
+                        profile.id
+                    ] =
+                        profile;
 
-            });
+                }
+            );
 
         }
 
     }
 
 
-    data.forEach(function(product) {
+    data.forEach(
+        function(product) {
 
-        createMarketplaceListing(
-            product,
-            sellerProfiles[product.seller_id]
-        );
+            createMarketplaceListing(
+                product,
+                sellerProfiles[
+                    product.seller_id
+                ]
+            );
 
-    });
+        }
+    );
 
 
-    document.getElementById("marketplace-listings").style.display =
+    document
+        .getElementById(
+            "marketplace-listings"
+        )
+        .style.display =
         "block";
 
 
@@ -2865,11 +3449,15 @@ function createMarketplaceListing(
 ) {
 
     const listingContainer =
-        document.getElementById("listing-container");
+        document.getElementById(
+            "listing-container"
+        );
 
 
     const listing =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     listing.className =
         "listing-card";
@@ -2878,14 +3466,19 @@ function createMarketplaceListing(
     listing.dataset.productId =
         product.id;
 
+
     listing.dataset.category =
         product["Category"] || "";
 
 
-    if (product["Image url"]) {
+    if (
+        product["Image url"]
+    ) {
 
         const image =
-            document.createElement("img");
+            document.createElement(
+                "img"
+            );
 
         image.className =
             "listing-image";
@@ -2897,12 +3490,17 @@ function createMarketplaceListing(
             product["Product name"] ||
             "Product";
 
-        listing.appendChild(image);
+
+        listing.appendChild(
+            image
+        );
 
     } else {
 
         const placeholder =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
         placeholder.className =
             "listing-image";
@@ -2922,20 +3520,27 @@ function createMarketplaceListing(
         placeholder.textContent =
             "🛍️";
 
-        listing.appendChild(placeholder);
+
+        listing.appendChild(
+            placeholder
+        );
 
     }
 
 
     const content =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     content.className =
         "listing-content";
 
 
     const title =
-        document.createElement("h3");
+        document.createElement(
+            "h3"
+        );
 
     title.textContent =
         product["Product name"] ||
@@ -2943,66 +3548,91 @@ function createMarketplaceListing(
 
 
     const price =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     price.className =
         "listing-price";
 
     price.textContent =
         "KSh " +
-        Number(product["Price"] || 0)
-        .toLocaleString();
+        Number(
+            product["Price"] || 0
+        ).toLocaleString();
 
 
     const category =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     category.className =
         "listing-info";
 
     category.textContent =
         "📂 " +
-        (product["Category"] || "");
+        (
+            product["Category"] ||
+            ""
+        );
 
 
     const country =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     country.className =
         "listing-info";
 
     country.textContent =
         "🌍 " +
-        (product["Country"] || "");
+        (
+            product["Country"] ||
+            ""
+        );
 
 
     const location =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     location.className =
         "listing-info";
 
     location.textContent =
         "📍 " +
-        (product["Location"] || "");
+        (
+            product["Location"] ||
+            ""
+        );
 
 
     const contact =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     contact.className =
         "listing-info";
 
     contact.textContent =
         "📞 " +
-        (product["Contact"] || "");
+        (
+            product["Contact"] ||
+            ""
+        );
 
 
     let sellerName =
         "Seller";
 
 
-    if (sellerProfile) {
+    if (
+        sellerProfile
+    ) {
 
         sellerName =
             (
@@ -3015,6 +3645,7 @@ function createMarketplaceListing(
                 ""
             );
 
+
         sellerName =
             sellerName.trim() ||
             "Seller";
@@ -3023,7 +3654,9 @@ function createMarketplaceListing(
 
 
     const seller =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     seller.className =
         "seller-name";
@@ -3034,7 +3667,9 @@ function createMarketplaceListing(
 
 
     const description =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     description.className =
         "listing-description";
@@ -3061,9 +3696,14 @@ function createMarketplaceListing(
     content.appendChild(description);
 
 
-    listing.appendChild(content);
+    listing.appendChild(
+        content
+    );
 
-    listingContainer.appendChild(listing);
+
+    listingContainer.appendChild(
+        listing
+    );
 
 }
 
@@ -3076,60 +3716,95 @@ async function postProduct() {
 
     if (!currentUser) {
 
-        alert("Please sign in first.");
+        alert(
+            "Please sign in first."
+        );
 
         return;
+
     }
 
 
     const message =
-        document.getElementById("sell-message");
+        document.getElementById(
+            "sell-message"
+        );
+
 
     const button =
-        document.getElementById("post-product-button");
+        document.getElementById(
+            "post-product-button"
+        );
 
 
     message.textContent =
         "Posting product...";
 
-    button.disabled = true;
+
+    button.disabled =
+        true;
 
 
     const name =
-        document.getElementById("product-name")
-        .value.trim();
+        document
+        .getElementById(
+            "product-name"
+        )
+        .value
+        .trim();
 
 
     const price =
         Number(
-            document.getElementById("product-price")
+            document
+            .getElementById(
+                "product-price"
+            )
             .value
         );
 
 
     const category =
-        document.getElementById("product-category")
+        document
+        .getElementById(
+            "product-category"
+        )
         .value;
 
 
     const country =
-        document.getElementById("product-country")
+        document
+        .getElementById(
+            "product-country"
+        )
         .value;
 
 
     const location =
-        document.getElementById("product-location")
-        .value.trim();
+        document
+        .getElementById(
+            "product-location"
+        )
+        .value
+        .trim();
 
 
     const description =
-        document.getElementById("product-description")
-        .value.trim();
+        document
+        .getElementById(
+            "product-description"
+        )
+        .value
+        .trim();
 
 
     const contact =
-        document.getElementById("seller-contact")
-        .value.trim();
+        document
+        .getElementById(
+            "seller-contact"
+        )
+        .value
+        .trim();
 
 
     if (
@@ -3146,9 +3821,11 @@ async function postProduct() {
         message.textContent =
             "Please fill in all product details.";
 
-        button.disabled = false;
+        button.disabled =
+            false;
 
         return;
+
     }
 
 
@@ -3205,9 +3882,11 @@ async function postProduct() {
                 "Error: " +
                 error.message;
 
-            button.disabled = false;
+            button.disabled =
+                false;
 
             return;
+
         }
 
 
@@ -3215,22 +3894,33 @@ async function postProduct() {
 
         await displayMyProducts();
 
-
         clearSellForm();
 
 
-        document.getElementById("sell-dashboard").style.display =
+        document
+            .getElementById(
+                "sell-dashboard"
+            )
+            .style.display =
             "none";
 
-        document.getElementById("main-platform").style.display =
+
+        document
+            .getElementById(
+                "main-platform"
+            )
+            .style.display =
             "block";
 
 
         window.scrollTo(0, 0);
 
-        button.disabled = false;
 
-        message.textContent = "";
+        button.disabled =
+            false;
+
+        message.textContent =
+            "";
 
 
         alert(
@@ -3246,7 +3936,8 @@ async function postProduct() {
             error.message ||
             "Unable to post product.";
 
-        button.disabled = false;
+        button.disabled =
+            false;
 
     }
 
@@ -3259,32 +3950,59 @@ async function postProduct() {
 
 function clearSellForm() {
 
-    document.getElementById("product-name").value =
+    document.getElementById(
+        "product-name"
+    ).value =
         "";
 
-    document.getElementById("product-price").value =
+
+    document.getElementById(
+        "product-price"
+    ).value =
         "";
 
-    document.getElementById("product-category").value =
+
+    document.getElementById(
+        "product-category"
+    ).value =
         "";
 
-    document.getElementById("product-country").value =
+
+    document.getElementById(
+        "product-country"
+    ).value =
         "";
 
-    document.getElementById("product-location").value =
+
+    document.getElementById(
+        "product-location"
+    ).value =
         "";
 
-    document.getElementById("product-description").value =
+
+    document.getElementById(
+        "product-description"
+    ).value =
         "";
 
-    document.getElementById("seller-contact").value =
+
+    document.getElementById(
+        "seller-contact"
+    ).value =
         "";
 
-    document.getElementById("product-image").value =
+
+    document.getElementById(
+        "product-image"
+    ).value =
         "";
 
-    document.getElementById("image-preview").style.display =
+
+    document.getElementById(
+        "image-preview"
+    ).style.display =
         "none";
+
 
     selectedProductImage =
         "";
@@ -3299,7 +4017,9 @@ function clearSellForm() {
 async function displayMyProducts() {
 
     const container =
-        document.getElementById("my-products-container");
+        document.getElementById(
+            "my-products-container"
+        );
 
 
     container.innerHTML =
@@ -3312,6 +4032,7 @@ async function displayMyProducts() {
             '<div class="no-products">Please sign in first.</div>';
 
         return;
+
     }
 
 
@@ -3322,10 +4043,16 @@ async function displayMyProducts() {
         await supabaseClient
         .from("Products table")
         .select("*")
-        .eq("seller_id", currentUser.id)
-        .order("Created at", {
-            ascending: false
-        });
+        .eq(
+            "seller_id",
+            currentUser.id
+        )
+        .order(
+            "Created at",
+            {
+                ascending: false
+            }
+        );
 
 
     if (error) {
@@ -3339,6 +4066,7 @@ async function displayMyProducts() {
             '</div>';
 
         return;
+
     }
 
 
@@ -3346,7 +4074,10 @@ async function displayMyProducts() {
         "";
 
 
-    if (!data || data.length === 0) {
+    if (
+        !data ||
+        data.length === 0
+    ) {
 
         container.innerHTML =
             '<div class="no-products">' +
@@ -3354,163 +4085,224 @@ async function displayMyProducts() {
             '</div>';
 
         return;
+
     }
 
 
-    data.forEach(function(product) {
+    data.forEach(
+        function(product) {
 
-        const card =
-            document.createElement("div");
+            const card =
+                document.createElement(
+                    "div"
+                );
 
-        card.className =
-            "my-product-card";
+            card.className =
+                "my-product-card";
 
 
-        if (product["Image url"]) {
+            if (
+                product["Image url"]
+            ) {
 
-            const image =
-                document.createElement("img");
+                const image =
+                    document.createElement(
+                        "img"
+                    );
 
-            image.className =
-                "my-product-image";
+                image.className =
+                    "my-product-image";
 
-            image.src =
-                product["Image url"];
+                image.src =
+                    product["Image url"];
 
-            image.alt =
+                image.alt =
+                    product["Product name"] ||
+                    "Product";
+
+
+                card.appendChild(
+                    image
+                );
+
+            } else {
+
+                const placeholder =
+                    document.createElement(
+                        "div"
+                    );
+
+                placeholder.className =
+                    "my-product-image";
+
+                placeholder.style.display =
+                    "flex";
+
+                placeholder.style.alignItems =
+                    "center";
+
+                placeholder.style.justifyContent =
+                    "center";
+
+                placeholder.style.fontSize =
+                    "50px";
+
+                placeholder.textContent =
+                    "🛍️";
+
+
+                card.appendChild(
+                    placeholder
+                );
+
+            }
+
+
+            const content =
+                document.createElement(
+                    "div"
+                );
+
+            content.className =
+                "my-product-content";
+
+
+            const name =
+                document.createElement(
+                    "h4"
+                );
+
+            name.textContent =
                 product["Product name"] ||
-                "Product";
+                "Unnamed product";
 
-            card.appendChild(image);
 
-        } else {
+            const price =
+                document.createElement(
+                    "div"
+                );
 
-            const placeholder =
-                document.createElement("div");
+            price.className =
+                "my-product-price";
 
-            placeholder.className =
-                "my-product-image";
+            price.textContent =
+                "KSh " +
+                Number(
+                    product["Price"] || 0
+                ).toLocaleString();
 
-            placeholder.style.display =
-                "flex";
 
-            placeholder.style.alignItems =
-                "center";
+            const location =
+                document.createElement(
+                    "div"
+                );
 
-            placeholder.style.justifyContent =
-                "center";
+            location.className =
+                "my-product-location";
 
-            placeholder.style.fontSize =
-                "50px";
+            location.textContent =
+                "📍 " +
+                (
+                    product["Location"] ||
+                    ""
+                ) +
+                " • " +
+                (
+                    product["Country"] ||
+                    ""
+                );
 
-            placeholder.textContent =
-                "🛍️";
 
-            card.appendChild(placeholder);
+            const actions =
+                document.createElement(
+                    "div"
+                );
+
+            actions.className =
+                "my-product-actions";
+
+
+            const editButton =
+                document.createElement(
+                    "button"
+                );
+
+            editButton.className =
+                "edit-product-btn";
+
+            editButton.textContent =
+                "✏️ Edit";
+
+
+            editButton.onclick =
+                function() {
+
+                    editProduct(
+                        product.id
+                    );
+
+                };
+
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+            deleteButton.className =
+                "delete-product-btn";
+
+            deleteButton.textContent =
+                "🗑️ Delete";
+
+
+            deleteButton.onclick =
+                function() {
+
+                    deleteProduct(
+                        product.id
+                    );
+
+                };
+
+
+            actions.appendChild(
+                editButton
+            );
+
+            actions.appendChild(
+                deleteButton
+            );
+
+
+            content.appendChild(
+                name
+            );
+
+            content.appendChild(
+                price
+            );
+
+            content.appendChild(
+                location
+            );
+
+            content.appendChild(
+                actions
+            );
+
+
+            card.appendChild(
+                content
+            );
+
+
+            container.appendChild(
+                card
+            );
 
         }
-
-
-        const content =
-            document.createElement("div");
-
-        content.className =
-            "my-product-content";
-
-
-        const name =
-            document.createElement("h4");
-
-        name.textContent =
-            product["Product name"] ||
-            "Unnamed product";
-
-
-        const price =
-            document.createElement("div");
-
-        price.className =
-            "my-product-price";
-
-        price.textContent =
-            "KSh " +
-            Number(product["Price"] || 0)
-            .toLocaleString();
-
-
-        const location =
-            document.createElement("div");
-
-        location.className =
-            "my-product-location";
-
-        location.textContent =
-            "📍 " +
-            (product["Location"] || "") +
-            " • " +
-            (product["Country"] || "");
-
-
-        const actions =
-            document.createElement("div");
-
-        actions.className =
-            "my-product-actions";
-
-
-        const editButton =
-            document.createElement("button");
-
-        editButton.className =
-            "edit-product-btn";
-
-        editButton.textContent =
-            "✏️ Edit";
-
-        editButton.onclick =
-            function() {
-
-                editProduct(product.id);
-
-            };
-
-
-        const deleteButton =
-            document.createElement("button");
-
-        deleteButton.className =
-            "delete-product-btn";
-
-        deleteButton.textContent =
-            "🗑️ Delete";
-
-        deleteButton.onclick =
-            function() {
-
-                deleteProduct(product.id);
-
-            };
-
-
-        actions.appendChild(editButton);
-
-        actions.appendChild(deleteButton);
-
-
-        content.appendChild(name);
-
-        content.appendChild(price);
-
-        content.appendChild(location);
-
-        content.appendChild(actions);
-
-
-        card.appendChild(content);
-
-        container.appendChild(card);
-
-    });
+    );
 
 }
 
@@ -3543,8 +4335,14 @@ async function deleteProduct(productId) {
         await supabaseClient
         .from("Products table")
         .delete()
-        .eq("id", productId)
-        .eq("seller_id", currentUser.id);
+        .eq(
+            "id",
+            productId
+        )
+        .eq(
+            "seller_id",
+            currentUser.id
+        );
 
 
     if (error) {
@@ -3557,6 +4355,7 @@ async function deleteProduct(productId) {
         );
 
         return;
+
     }
 
 
@@ -3590,8 +4389,14 @@ async function editProduct(productId) {
         await supabaseClient
         .from("Products table")
         .select("*")
-        .eq("id", productId)
-        .eq("seller_id", currentUser.id)
+        .eq(
+            "id",
+            productId
+        )
+        .eq(
+            "seller_id",
+            currentUser.id
+        )
         .maybeSingle();
 
 
@@ -3605,6 +4410,7 @@ async function editProduct(productId) {
         );
 
         return;
+
     }
 
 
@@ -3615,6 +4421,7 @@ async function editProduct(productId) {
         );
 
         return;
+
     }
 
 
@@ -3669,6 +4476,7 @@ async function editProduct(productId) {
         );
 
         return;
+
     }
 
 
@@ -3689,8 +4497,14 @@ async function editProduct(productId) {
                 newDescription.trim()
 
         })
-        .eq("id", productId)
-        .eq("seller_id", currentUser.id);
+        .eq(
+            "id",
+            productId
+        )
+        .eq(
+            "seller_id",
+            currentUser.id
+        );
 
 
     if (error) {
@@ -3703,6 +4517,7 @@ async function editProduct(productId) {
         );
 
         return;
+
     }
 
 
@@ -3732,45 +4547,64 @@ function searchProducts() {
 function applyCurrentFilters() {
 
     const searchTerm =
-        document.getElementById("search-input")
+        document
+        .getElementById(
+            "search-input"
+        )
         .value
         .trim()
         .toLowerCase();
 
 
     const listings =
-        document.querySelectorAll(".listing-card");
+        document.querySelectorAll(
+            ".listing-card"
+        );
 
 
-    listings.forEach(function(listing) {
+    listings.forEach(
+        function(listing) {
 
-        const content =
-            listing.textContent.toLowerCase();
-
-        const category =
-            (
-                listing.dataset.category ||
-                ""
-            ).toLowerCase();
+            const content =
+                listing.textContent
+                .toLowerCase();
 
 
-        const matchesSearch =
-            !searchTerm ||
-            content.includes(searchTerm) ||
-            category.includes(searchTerm);
+            const category =
+                (
+                    listing.dataset.category ||
+                    ""
+                ).toLowerCase();
 
 
-        listing.style.display =
-            matchesSearch
-                ? "block"
-                : "none";
+            const matchesSearch =
+                !searchTerm ||
+                content.includes(
+                    searchTerm
+                ) ||
+                category.includes(
+                    searchTerm
+                );
 
-    });
+
+            listing.style.display =
+                matchesSearch
+                    ? "block"
+                    : "none";
+
+        }
+    );
 
 
-    if (listings.length > 0) {
+    if (
+        listings.length > 0
+    ) {
 
-        document.getElementById("marketplace-listings").style.display =
+        document
+            .getElementById(
+                "marketplace-listings"
+            )
+            .style.display =
             "block";
 
     }
@@ -3784,8 +4618,13 @@ function applyCurrentFilters() {
 
 function filterCategory(category) {
 
-    document.getElementById("search-input").value =
+    document
+        .getElementById(
+            "search-input"
+        )
+        .value =
         category;
+
 
     searchProducts();
 
@@ -3823,6 +4662,7 @@ async function signOut() {
         );
 
         return;
+
     }
 
 
@@ -3853,13 +4693,20 @@ async function signOut() {
 
     showAuth();
 
-    switchForm("signin");
+    switchForm(
+        "signin"
+    );
 
 
-    document.getElementById("signin-email").value =
+    document.getElementById(
+        "signin-email"
+    ).value =
         "";
 
-    document.getElementById("signin-password").value =
+
+    document.getElementById(
+        "signin-password"
+    ).value =
         "";
 
 }
@@ -3872,7 +4719,9 @@ async function signOut() {
 supabaseClient.auth.onAuthStateChange(
     function(event, session) {
 
-        if (event === "SIGNED_OUT") {
+        if (
+            event === "SIGNED_OUT"
+        ) {
 
             currentUser =
                 null;
@@ -3892,9 +4741,12 @@ supabaseClient.auth.onAuthStateChange(
             walletTransactions =
                 [];
 
+
             showAuth();
 
-            switchForm("signin");
+            switchForm(
+                "signin"
+            );
 
         }
 
@@ -3909,12 +4761,16 @@ supabaseClient.auth.onAuthStateChange(
 function escapeHTML(text) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     div.textContent =
         text == null
             ? ""
             : String(text);
+
 
     return div.innerHTML;
 
@@ -3923,4 +4779,7 @@ function escapeHTML(text) {
 </script>
 
 </body>
-                    </html>
+</html>
+
+
+
