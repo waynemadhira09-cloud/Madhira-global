@@ -375,6 +375,38 @@ button {
     padding: 25px 0;
 }
 
+.transaction-item {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.transaction-title {
+    font-weight: bold;
+}
+
+.transaction-date {
+    display: block;
+    color: #8fa0dd;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.transaction-amount {
+    display: block;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.transaction-status {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 11px;
+    padding: 3px 7px;
+    border-radius: 5px;
+    background: #1e2d4a;
+    color: #8fa0dd;
+}
+
 .sell-box {
     padding: 25px;
 }
@@ -699,8 +731,6 @@ button {
         Find products from sellers around the world.
     </p>
 
-    <!-- SIGN IN -->
-
     <div id="signin-box" class="auth-box active">
 
         <h2>Sign In</h2>
@@ -741,8 +771,6 @@ button {
         </div>
 
     </div>
-
-    <!-- SIGN UP -->
 
     <div id="signup-box" class="auth-box">
 
@@ -1018,9 +1046,11 @@ button {
         <h3>Recent Transactions</h3>
 
         <div id="transaction-list">
+
             <div class="empty-transactions">
                 No transactions yet.
             </div>
+
         </div>
 
     </div>
@@ -1065,6 +1095,7 @@ button {
 
         <div class="sell-input-group">
             <label>Product Name</label>
+
             <input
                 type="text"
                 id="product-name"
@@ -1072,12 +1103,15 @@ button {
         </div>
 
         <div class="sell-input-group">
+
             <label>Price (KSh)</label>
+
             <input
                 type="number"
                 id="product-price"
                 placeholder="Enter price"
                 min="1">
+
         </div>
 
         <div class="sell-input-group">
@@ -1085,7 +1119,11 @@ button {
             <label>Category</label>
 
             <select id="product-category">
-                <option value="">Select category</option>
+
+                <option value="">
+                    Select category
+                </option>
+
                 <option>Cars</option>
                 <option>Property</option>
                 <option>Electronics</option>
@@ -1093,6 +1131,7 @@ button {
                 <option>Furniture</option>
                 <option>Machinery</option>
                 <option>Other</option>
+
             </select>
 
         </div>
@@ -1102,7 +1141,11 @@ button {
             <label>Country</label>
 
             <select id="product-country">
-                <option value="">Select country</option>
+
+                <option value="">
+                    Select country
+                </option>
+
                 <option>Kenya</option>
                 <option>Uganda</option>
                 <option>Tanzania</option>
@@ -1122,6 +1165,7 @@ button {
                 <option>Spain</option>
                 <option>Brazil</option>
                 <option>Other</option>
+
             </select>
 
         </div>
@@ -1162,7 +1206,9 @@ button {
             class="submit-btn"
             id="post-product-button"
             onclick="postProduct()">
+
             🚀 Post Product
+
         </button>
 
         <div id="sell-message" class="message"></div>
@@ -1205,7 +1251,9 @@ button {
             <label
                 for="profile-picture-input"
                 class="profile-upload-label">
+
                 📷 Upload Profile Picture
+
             </label>
 
             <input
@@ -1221,38 +1269,62 @@ button {
         </h3>
 
         <div class="account-input-group">
+
             <label>First Name</label>
-            <input type="text" id="account-first-name">
+
+            <input
+                type="text"
+                id="account-first-name">
+
         </div>
 
         <div class="account-input-group">
+
             <label>Last Name</label>
-            <input type="text" id="account-last-name">
+
+            <input
+                type="text"
+                id="account-last-name">
+
         </div>
 
         <div class="account-input-group">
+
             <label>Email Address</label>
-            <input type="email" id="account-email" readonly>
+
+            <input
+                type="email"
+                id="account-email"
+                readonly>
+
         </div>
 
         <div class="account-input-group">
+
             <label>📞 Contact / Phone</label>
+
             <input
                 type="text"
                 id="account-contact"
                 placeholder="Enter your phone or WhatsApp number">
+
         </div>
 
         <div class="account-input-group">
+
             <label>📍 Location</label>
+
             <input
                 type="text"
                 id="account-location"
                 placeholder="e.g. Nairobi, Kenya">
+
         </div>
 
         <div class="account-input-group">
+
             <label>🪪 ID Number</label>
+
             <input
                 type="text"
                 id="account-id-number"
@@ -1261,12 +1333,15 @@ button {
             <div class="id-note">
                 Keep this information private.
             </div>
+
         </div>
 
         <button
             class="submit-btn save-account-btn"
             onclick="saveAccountDetails()">
+
             💾 Save Account Details
+
         </button>
 
         <div id="account-status" class="account-status"></div>
@@ -1314,6 +1389,8 @@ let selectedProductImage = "";
 
 let walletBalance = 0;
 let totalEarned = 0;
+let pendingBalance = 0;
+let walletTransactions = [];
 
 
 /* =====================================================
@@ -1337,8 +1414,11 @@ async function checkSession() {
             await supabaseClient.auth.getSession();
 
         if (error) {
+
             console.error(error);
+
             showAuth();
+
             return;
         }
 
@@ -1347,7 +1427,10 @@ async function checkSession() {
             currentUser = data.session.user;
 
             await loadProfile();
+
             await loadProducts();
+
+            await loadWallet();
 
             enterPlatform();
 
@@ -1360,6 +1443,7 @@ async function checkSession() {
     } catch (error) {
 
         console.error(error);
+
         showAuth();
 
     }
@@ -1373,12 +1457,20 @@ async function checkSession() {
 
 function showAuth() {
 
-    document.getElementById("auth-screen").style.display = "flex";
+    document.getElementById("auth-screen").style.display =
+        "flex";
 
-    document.getElementById("main-platform").style.display = "none";
-    document.getElementById("wallet-dashboard").style.display = "none";
-    document.getElementById("sell-dashboard").style.display = "none";
-    document.getElementById("account-dashboard").style.display = "none";
+    document.getElementById("main-platform").style.display =
+        "none";
+
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "none";
+
+    document.getElementById("account-dashboard").style.display =
+        "none";
 
 }
 
@@ -1395,8 +1487,11 @@ function switchForm(target) {
     document.getElementById("signup-box")
         .classList.remove("active");
 
-    document.getElementById("signin-message").textContent = "";
-    document.getElementById("signup-message").textContent = "";
+    document.getElementById("signin-message")
+        .textContent = "";
+
+    document.getElementById("signup-message")
+        .textContent = "";
 
     if (target === "signup") {
 
@@ -1427,7 +1522,9 @@ async function handleSignUp(event) {
     const button =
         document.getElementById("signup-button");
 
-    message.textContent = "Creating your account...";
+    message.textContent =
+        "Creating your account...";
+
     button.disabled = true;
 
     const country =
@@ -1474,11 +1571,17 @@ async function handleSignUp(event) {
                 password: password,
 
                 options: {
+
                     data: {
+
                         first_name: firstName,
+
                         last_name: lastName,
+
                         country: country
+
                     }
+
                 }
 
             });
@@ -1508,15 +1611,12 @@ async function handleSignUp(event) {
         }
 
 
-        /*
-         IMPORTANT:
-         The real table is public."Profiles"
-         and the real columns have spaces/capital letters.
-        */
-
         if (data.session) {
 
-            const { data: profileData, error: profileError } =
+            const {
+                data: profileData,
+                error: profileError
+            } =
                 await supabaseClient
                 .from("Profiles")
                 .upsert({
@@ -1538,7 +1638,9 @@ async function handleSignUp(event) {
                     "Profile picture": ""
 
                 }, {
+
                     onConflict: "id"
+
                 })
                 .select()
                 .single();
@@ -1557,20 +1659,16 @@ async function handleSignUp(event) {
                 return;
             }
 
-            currentProfile = profileData;
+            currentProfile =
+                profileData;
 
         }
 
 
-        /*
-         If email confirmation is enabled,
-         Supabase won't give us a session yet.
-        */
-
         if (!data.session) {
 
             message.textContent =
-                "Account created! Please check your email to confirm your account, then sign in.";
+                "Account created! Please sign in.";
 
             document
                 .getElementById("signup-box")
@@ -1583,12 +1681,17 @@ async function handleSignUp(event) {
         }
 
 
-        currentUser = data.user;
+        currentUser =
+            data.user;
 
         await loadProfile();
+
         await loadProducts();
 
+        await loadWallet();
+
         enterPlatform();
+
 
         document
             .getElementById("signup-box")
@@ -1596,6 +1699,7 @@ async function handleSignUp(event) {
             .reset();
 
         button.disabled = false;
+
 
         alert(
             "Welcome to Madhira Global, " +
@@ -1611,9 +1715,11 @@ async function handleSignUp(event) {
         console.error(error);
 
         message.textContent =
-            error.message || "Something went wrong.";
+            error.message ||
+            "Something went wrong.";
 
         button.disabled = false;
+
     }
 
 }
@@ -1633,7 +1739,9 @@ async function handleSignIn(event) {
     const button =
         document.getElementById("signin-button");
 
-    message.textContent = "Signing in...";
+    message.textContent =
+        "Signing in...";
+
     button.disabled = true;
 
 
@@ -1643,7 +1751,8 @@ async function handleSignIn(event) {
         .toLowerCase();
 
     const password =
-        document.getElementById("signin-password").value;
+        document.getElementById("signin-password")
+        .value;
 
 
     try {
@@ -1652,6 +1761,7 @@ async function handleSignIn(event) {
             await supabaseClient.auth.signInWithPassword({
 
                 email: email,
+
                 password: password
 
             });
@@ -1681,10 +1791,14 @@ async function handleSignIn(event) {
         }
 
 
-        currentUser = data.user;
+        currentUser =
+            data.user;
 
         await loadProfile();
+
         await loadProducts();
+
+        await loadWallet();
 
         enterPlatform();
 
@@ -1696,9 +1810,11 @@ async function handleSignIn(event) {
         console.error(error);
 
         message.textContent =
-            error.message || "Unable to sign in.";
+            error.message ||
+            "Unable to sign in.";
 
         button.disabled = false;
+
     }
 
 }
@@ -1736,16 +1852,12 @@ async function loadProfile() {
 
     if (data) {
 
-        currentProfile = data;
+        currentProfile =
+            data;
 
         return;
     }
 
-
-    /*
-     Profile doesn't exist.
-     Create it using Auth metadata.
-    */
 
     const firstName =
         currentUser.user_metadata?.first_name || "";
@@ -1757,7 +1869,10 @@ async function loadProfile() {
         currentUser.user_metadata?.country || "";
 
 
-    const { data: newProfile, error: createError } =
+    const {
+        data: newProfile,
+        error: createError
+    } =
         await supabaseClient
         .from("Profiles")
         .insert({
@@ -1794,7 +1909,8 @@ async function loadProfile() {
     }
 
 
-    currentProfile = newProfile;
+    currentProfile =
+        newProfile;
 
 }
 
@@ -1805,15 +1921,20 @@ async function loadProfile() {
 
 function enterPlatform() {
 
-    document.getElementById("auth-screen").style.display = "none";
+    document.getElementById("auth-screen").style.display =
+        "none";
 
-    document.getElementById("wallet-dashboard").style.display = "none";
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
 
-    document.getElementById("sell-dashboard").style.display = "none";
+    document.getElementById("sell-dashboard").style.display =
+        "none";
 
-    document.getElementById("account-dashboard").style.display = "none";
+    document.getElementById("account-dashboard").style.display =
+        "none";
 
-    document.getElementById("main-platform").style.display = "block";
+    document.getElementById("main-platform").style.display =
+        "block";
 
     updateWalletDisplay();
 
@@ -1835,13 +1956,17 @@ function openAccount() {
         return;
     }
 
-    document.getElementById("main-platform").style.display = "none";
+    document.getElementById("main-platform").style.display =
+        "none";
 
-    document.getElementById("wallet-dashboard").style.display = "none";
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
 
-    document.getElementById("sell-dashboard").style.display = "none";
+    document.getElementById("sell-dashboard").style.display =
+        "none";
 
-    document.getElementById("account-dashboard").style.display = "block";
+    document.getElementById("account-dashboard").style.display =
+        "block";
 
     loadAccountDetails();
 
@@ -1854,9 +1979,11 @@ function openAccount() {
 
 function closeAccount() {
 
-    document.getElementById("account-dashboard").style.display = "none";
+    document.getElementById("account-dashboard").style.display =
+        "none";
 
-    document.getElementById("main-platform").style.display = "block";
+    document.getElementById("main-platform").style.display =
+        "block";
 
     window.scrollTo(0, 0);
 
@@ -1874,7 +2001,8 @@ function loadAccountDetails() {
     }
 
 
-    const profile = currentProfile || {};
+    const profile =
+        currentProfile || {};
 
 
     document.getElementById("account-first-name").value =
@@ -1884,7 +2012,9 @@ function loadAccountDetails() {
         profile["Last name"] || "";
 
     document.getElementById("account-email").value =
-        currentUser.email || profile["Email"] || "";
+        currentUser.email ||
+        profile["Email"] ||
+        "";
 
     document.getElementById("account-contact").value =
         profile["Contact"] || "";
@@ -1917,6 +2047,7 @@ function loadAccountDetails() {
 
         document.getElementById("profile-placeholder").style.display =
             "flex";
+
     }
 
 }
@@ -1928,7 +2059,8 @@ function loadAccountDetails() {
 
 function previewProfilePicture(event) {
 
-    const file = event.target.files[0];
+    const file =
+        event.target.files[0];
 
     if (!file) {
         return;
@@ -1947,23 +2079,26 @@ function previewProfilePicture(event) {
     }
 
 
-    const reader = new FileReader();
+    const reader =
+        new FileReader();
 
 
-    reader.onload = function(e) {
+    reader.onload =
+        function(e) {
 
-        selectedProfilePicture =
-            e.target.result;
+            selectedProfilePicture =
+                e.target.result;
 
-        document.getElementById("profile-picture").src =
-            selectedProfilePicture;
+            document.getElementById("profile-picture").src =
+                selectedProfilePicture;
 
-        document.getElementById("profile-picture").style.display =
-            "block";
+            document.getElementById("profile-picture").style.display =
+                "block";
 
-        document.getElementById("profile-placeholder").style.display =
-            "none";
-    };
+            document.getElementById("profile-placeholder").style.display =
+                "none";
+
+        };
 
 
     reader.readAsDataURL(file);
@@ -1988,7 +2123,8 @@ async function saveAccountDetails() {
     const status =
         document.getElementById("account-status");
 
-    status.textContent = "Saving...";
+    status.textContent =
+        "Saving...";
 
 
     const firstName =
@@ -1997,10 +2133,6 @@ async function saveAccountDetails() {
 
     const lastName =
         document.getElementById("account-last-name")
-        .value.trim();
-
-    const contact =
-        document.getElementById("account-contact")
         .value.trim();
 
     const location =
@@ -2020,10 +2152,14 @@ async function saveAccountDetails() {
 
         profilePicture =
             selectedProfilePicture;
+
     }
 
 
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
         .from("Profiles")
         .upsert({
@@ -2045,7 +2181,9 @@ async function saveAccountDetails() {
             "Profile picture": profilePicture
 
         }, {
+
             onConflict: "id"
+
         })
         .select()
         .single();
@@ -2062,12 +2200,15 @@ async function saveAccountDetails() {
     }
 
 
-    currentProfile = data;
+    currentProfile =
+        data;
 
     selectedProfilePicture = "";
 
+
     status.textContent =
         "✓ Account details saved successfully.";
+
 
     setTimeout(function() {
 
@@ -2082,15 +2223,173 @@ async function saveAccountDetails() {
    WALLET
    ===================================================== */
 
-function openWallet() {
+/*
+   Loads the user's wallet directly from Supabase.
 
-    document.getElementById("main-platform").style.display = "none";
+   IMPORTANT:
+   We only READ the wallet from the browser.
+   Real balance changes will later be done through
+   secure database functions/payment verification.
+*/
 
-    document.getElementById("sell-dashboard").style.display = "none";
+async function loadWallet() {
 
-    document.getElementById("account-dashboard").style.display = "none";
+    if (!currentUser) {
+        return;
+    }
 
-    document.getElementById("wallet-dashboard").style.display = "block";
+
+    try {
+
+        const {
+            data: wallet,
+            error: walletError
+        } =
+            await supabaseClient
+            .from("wallets")
+            .select("*")
+            .eq("user_id", currentUser.id)
+            .maybeSingle();
+
+
+        if (walletError) {
+
+            console.error(
+                "Wallet loading error:",
+                walletError
+            );
+
+            return;
+        }
+
+
+        if (!wallet) {
+
+            walletBalance = 0;
+
+        } else {
+
+            walletBalance =
+                Number(wallet.balance || 0);
+
+        }
+
+
+        const {
+            data: transactions,
+            error: transactionError
+        } =
+            await supabaseClient
+            .from("wallet_transactions")
+            .select("*")
+            .eq("user_id", currentUser.id)
+            .order("created_at", {
+                ascending: false
+            });
+
+
+        if (transactionError) {
+
+            console.error(
+                "Transaction loading error:",
+                transactionError
+            );
+
+            walletTransactions = [];
+
+        } else {
+
+            walletTransactions =
+                transactions || [];
+
+        }
+
+
+        totalEarned = 0;
+
+        pendingBalance = 0;
+
+
+        walletTransactions.forEach(function(transaction) {
+
+            const amount =
+                Number(transaction.amount || 0);
+
+            const type =
+                String(transaction.type || "")
+                .toLowerCase();
+
+            const status =
+                String(transaction.status || "")
+                .toLowerCase();
+
+
+            if (
+                type === "earning" &&
+                status === "completed"
+            ) {
+
+                totalEarned += amount;
+
+            }
+
+
+            if (
+                status === "pending"
+            ) {
+
+                pendingBalance += amount;
+
+            }
+
+        });
+
+
+        updateWalletDisplay();
+
+        displayWalletTransactions();
+
+
+    } catch (error) {
+
+        console.error(
+            "Wallet error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN WALLET
+   ===================================================== */
+
+async function openWallet() {
+
+    if (!currentUser) {
+
+        alert("Please sign in first.");
+
+        return;
+    }
+
+
+    document.getElementById("main-platform").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "none";
+
+    document.getElementById("account-dashboard").style.display =
+        "none";
+
+    document.getElementById("wallet-dashboard").style.display =
+        "block";
+
+
+    await loadWallet();
 
     updateWalletDisplay();
 
@@ -2101,22 +2400,48 @@ function openWallet() {
 
 function closeWallet() {
 
-    document.getElementById("wallet-dashboard").style.display = "none";
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
 
-    document.getElementById("main-platform").style.display = "block";
+    document.getElementById("main-platform").style.display =
+        "block";
 
     window.scrollTo(0, 0);
 
 }
 
 
+/* =====================================================
+   UPDATE WALLET DISPLAY
+   ===================================================== */
+
 function updateWalletDisplay() {
 
     document.getElementById("wallet-balance").textContent =
-        "KSh " + walletBalance.toFixed(2);
+        "KSh " +
+        Number(walletBalance || 0)
+        .toLocaleString("en-KE", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+
+    document.getElementById("pending-balance").textContent =
+        "KSh " +
+        Number(pendingBalance || 0)
+        .toLocaleString("en-KE", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
 
     document.getElementById("total-earned").textContent =
-        "KSh " + totalEarned.toFixed(2);
+        "KSh " +
+        Number(totalEarned || 0)
+        .toLocaleString("en-KE", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
 
 
     if (currentUser) {
@@ -2126,150 +2451,200 @@ function updateWalletDisplay() {
             currentUser.user_metadata?.first_name ||
             "User";
 
+
         document.getElementById("wallet-title").textContent =
-            "💰 " + firstName + "'s Wallet";
+            "💰 " +
+            firstName +
+            "'s Wallet";
+
 
         document.getElementById("wallet-owner").textContent =
-            "Account: " + (currentUser.email || "");
+            "Account: " +
+            (currentUser.email || "");
 
     }
 
 }
 
 
-function addMoney() {
+/* =====================================================
+   DISPLAY WALLET TRANSACTIONS
+   ===================================================== */
 
-    let amount =
-        prompt("Enter the amount you want to add:");
-
-    if (amount === null) {
-        return;
-    }
-
-    amount = Number(amount);
-
-    if (!isFinite(amount) || amount <= 0) {
-
-        alert("Please enter a valid amount.");
-
-        return;
-    }
-
-    walletBalance += amount;
-
-    addTransaction("Deposit", amount, "plus");
-
-    updateWalletDisplay();
-
-    alert(
-        "KSh " +
-        amount.toFixed(2) +
-        " added to your demo wallet."
-    );
-
-}
-
-
-function withdrawMoney() {
-
-    let amount =
-        prompt("Enter the amount you want to withdraw:");
-
-    if (amount === null) {
-        return;
-    }
-
-    amount = Number(amount);
-
-    if (!isFinite(amount) || amount <= 0) {
-
-        alert("Please enter a valid amount.");
-
-        return;
-    }
-
-    if (amount > walletBalance) {
-
-        alert("Insufficient wallet balance.");
-
-        return;
-    }
-
-    walletBalance -= amount;
-
-    addTransaction("Withdrawal", amount, "minus");
-
-    updateWalletDisplay();
-
-    alert(
-        "KSh " +
-        amount.toFixed(2) +
-        " withdrawn from your demo wallet."
-    );
-
-}
-
-
-function addTransaction(type, amount, direction) {
+function displayWalletTransactions() {
 
     const transactionList =
         document.getElementById("transaction-list");
 
-    const emptyMessage =
-        transactionList.querySelector(".empty-transactions");
 
-    if (emptyMessage) {
-        emptyMessage.remove();
+    transactionList.innerHTML = "";
+
+
+    if (
+        !walletTransactions ||
+        walletTransactions.length === 0
+    ) {
+
+        transactionList.innerHTML =
+            '<div class="empty-transactions">' +
+            'No transactions yet.' +
+            '</div>';
+
+        return;
     }
 
 
-    const transaction =
-        document.createElement("div");
+    walletTransactions
+        .slice(0, 20)
+        .forEach(function(transaction) {
 
-    transaction.style.padding = "12px 0";
+            const item =
+                document.createElement("div");
 
-    transaction.style.borderBottom =
-        "1px solid rgba(255,255,255,0.1)";
-
-
-    const title =
-        document.createElement("strong");
-
-    title.textContent = type;
+            item.className =
+                "transaction-item";
 
 
-    const date =
-        document.createElement("span");
+            const title =
+                document.createElement("div");
 
-    date.style.color = "#8fa0dd";
-    date.textContent =
-        new Date().toLocaleString();
+            title.className =
+                "transaction-title";
 
-
-    const amountElement =
-        document.createElement("span");
-
-    amountElement.style.color =
-        direction === "plus"
-            ? "#4ade80"
-            : "#ff6b6b";
-
-    amountElement.style.fontWeight = "bold";
-
-    amountElement.textContent =
-        (direction === "plus" ? "+" : "-") +
-        "KSh " +
-        amount.toFixed(2);
+            title.textContent =
+                transaction.type ||
+                "Transaction";
 
 
-    transaction.appendChild(title);
-    transaction.appendChild(document.createElement("br"));
-    transaction.appendChild(date);
-    transaction.appendChild(document.createElement("br"));
-    transaction.appendChild(amountElement);
+            const date =
+                document.createElement("span");
+
+            date.className =
+                "transaction-date";
+
+            if (transaction.created_at) {
+
+                date.textContent =
+                    new Date(
+                        transaction.created_at
+                    ).toLocaleString();
+
+            } else {
+
+                date.textContent =
+                    "";
+
+            }
 
 
-    transactionList.prepend(transaction);
+            const amount =
+                document.createElement("span");
+
+            amount.className =
+                "transaction-amount";
+
+
+            const transactionType =
+                String(transaction.type || "")
+                .toLowerCase();
+
+
+            const positive =
+                transactionType === "deposit" ||
+                transactionType === "earning" ||
+                transactionType === "refund";
+
+
+            amount.style.color =
+                positive
+                    ? "#4ade80"
+                    : "#ff6b6b";
+
+
+            amount.textContent =
+                (positive ? "+" : "-") +
+                "KSh " +
+                Number(transaction.amount || 0)
+                .toLocaleString("en-KE", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+
+
+            const status =
+                document.createElement("span");
+
+            status.className =
+                "transaction-status";
+
+            status.textContent =
+                transaction.status ||
+                "pending";
+
+
+            item.appendChild(title);
+
+            item.appendChild(date);
+
+            item.appendChild(amount);
+
+            item.appendChild(status);
+
+
+            if (transaction.description) {
+
+                const description =
+                    document.createElement("div");
+
+                description.style.color =
+                    "#8fa0dd";
+
+                description.style.fontSize =
+                    "12px";
+
+                description.style.marginTop =
+                    "5px";
+
+                description.textContent =
+                    transaction.description;
+
+                item.appendChild(description);
+
+            }
+
+
+            transactionList.appendChild(item);
+
+        });
+
+}
+
+
+/* =====================================================
+   ADD MONEY
+   ===================================================== */
+
+function addMoney() {
+
+    alert(
+        "Wallet connection is working. " +
+        "Real deposits will be connected to M-Pesa/payment processing next. " +
+        "Your balance will only increase after the payment is verified."
+    );
+
+}
+
+
+/* =====================================================
+   WITHDRAW
+   ===================================================== */
+
+function withdrawMoney() {
+
+    alert(
+        "Withdrawal processing will be connected next. " +
+        "For security, withdrawals must be verified by the server before your wallet balance changes."
+    );
 
 }
 
@@ -2287,13 +2662,18 @@ function openSell() {
         return;
     }
 
-    document.getElementById("main-platform").style.display = "none";
 
-    document.getElementById("wallet-dashboard").style.display = "none";
+    document.getElementById("main-platform").style.display =
+        "none";
 
-    document.getElementById("account-dashboard").style.display = "none";
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
 
-    document.getElementById("sell-dashboard").style.display = "block";
+    document.getElementById("account-dashboard").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "block";
 
     window.scrollTo(0, 0);
 
@@ -2302,9 +2682,11 @@ function openSell() {
 
 function closeSell() {
 
-    document.getElementById("sell-dashboard").style.display = "none";
+    document.getElementById("sell-dashboard").style.display =
+        "none";
 
-    document.getElementById("main-platform").style.display = "block";
+    document.getElementById("main-platform").style.display =
+        "block";
 
     window.scrollTo(0, 0);
 
@@ -2317,7 +2699,8 @@ function closeSell() {
 
 function previewProductImage(event) {
 
-    const file = event.target.files[0];
+    const file =
+        event.target.files[0];
 
     if (!file) {
         return;
@@ -2336,23 +2719,26 @@ function previewProductImage(event) {
     }
 
 
-    const reader = new FileReader();
+    const reader =
+        new FileReader();
 
 
-    reader.onload = function(e) {
+    reader.onload =
+        function(e) {
 
-        selectedProductImage =
-            e.target.result;
+            selectedProductImage =
+                e.target.result;
 
-        const preview =
-            document.getElementById("image-preview");
+            const preview =
+                document.getElementById("image-preview");
 
-        preview.src =
-            selectedProductImage;
+            preview.src =
+                selectedProductImage;
 
-        preview.style.display =
-            "block";
-    };
+            preview.style.display =
+                "block";
+
+        };
 
 
     reader.readAsDataURL(file);
@@ -2374,7 +2760,10 @@ async function loadProducts() {
         '<div class="loading">Loading marketplace...</div>';
 
 
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
         .from("Products table")
         .select("*")
@@ -2388,7 +2777,8 @@ async function loadProducts() {
         console.error(error);
 
         container.innerHTML =
-            '<div class="no-products">Unable to load products: ' +
+            '<div class="no-products">' +
+            'Unable to load products: ' +
             escapeHTML(error.message) +
             '</div>';
 
@@ -2408,11 +2798,6 @@ async function loadProducts() {
     }
 
 
-    /*
-     Load seller profiles so we can display
-     the seller's first and last name.
-    */
-
     const sellerIds = [
         ...new Set(
             data
@@ -2427,7 +2812,10 @@ async function loadProducts() {
 
     if (sellerIds.length > 0) {
 
-        const { data: profiles, error: profileError } =
+        const {
+            data: profiles,
+            error: profileError
+        } =
             await supabaseClient
             .from("Profiles")
             .select('id, "First name", "Last name"')
@@ -2442,7 +2830,9 @@ async function loadProducts() {
                     profile;
 
             });
+
         }
+
     }
 
 
@@ -2469,7 +2859,10 @@ async function loadProducts() {
    CREATE MARKETPLACE LISTING
    ===================================================== */
 
-function createMarketplaceListing(product, sellerProfile) {
+function createMarketplaceListing(
+    product,
+    sellerProfile
+) {
 
     const listingContainer =
         document.getElementById("listing-container");
@@ -2489,10 +2882,6 @@ function createMarketplaceListing(product, sellerProfile) {
         product["Category"] || "";
 
 
-    /*
-     IMAGE
-    */
-
     if (product["Image url"]) {
 
         const image =
@@ -2505,7 +2894,8 @@ function createMarketplaceListing(product, sellerProfile) {
             product["Image url"];
 
         image.alt =
-            product["Product name"] || "Product";
+            product["Product name"] ||
+            "Product";
 
         listing.appendChild(image);
 
@@ -2533,12 +2923,9 @@ function createMarketplaceListing(product, sellerProfile) {
             "🛍️";
 
         listing.appendChild(placeholder);
+
     }
 
-
-    /*
-     CONTENT
-    */
 
     const content =
         document.createElement("div");
@@ -2551,7 +2938,8 @@ function createMarketplaceListing(product, sellerProfile) {
         document.createElement("h3");
 
     title.textContent =
-        product["Product name"] || "Unnamed product";
+        product["Product name"] ||
+        "Unnamed product";
 
 
     const price =
@@ -2618,15 +3006,19 @@ function createMarketplaceListing(product, sellerProfile) {
 
         sellerName =
             (
-                sellerProfile["First name"] || ""
+                sellerProfile["First name"] ||
+                ""
             ) +
             " " +
             (
-                sellerProfile["Last name"] || ""
+                sellerProfile["Last name"] ||
+                ""
             );
 
         sellerName =
-            sellerName.trim() || "Seller";
+            sellerName.trim() ||
+            "Seller";
+
     }
 
 
@@ -2648,16 +3040,24 @@ function createMarketplaceListing(product, sellerProfile) {
         "listing-description";
 
     description.textContent =
-        product["Description"] || "";
+        product["Description"] ||
+        "";
 
 
     content.appendChild(title);
+
     content.appendChild(price);
+
     content.appendChild(category);
+
     content.appendChild(country);
+
     content.appendChild(location);
+
     content.appendChild(contact);
+
     content.appendChild(seller);
+
     content.appendChild(description);
 
 
@@ -2699,27 +3099,33 @@ async function postProduct() {
         document.getElementById("product-name")
         .value.trim();
 
+
     const price =
         Number(
             document.getElementById("product-price")
             .value
         );
 
+
     const category =
         document.getElementById("product-category")
         .value;
+
 
     const country =
         document.getElementById("product-country")
         .value;
 
+
     const location =
         document.getElementById("product-location")
         .value.trim();
 
+
     const description =
         document.getElementById("product-description")
         .value.trim();
+
 
     const contact =
         document.getElementById("seller-contact")
@@ -2745,12 +3151,6 @@ async function postProduct() {
         return;
     }
 
-
-    /*
-     IMPORTANT:
-     These are the EXACT column names
-     from your Products table.
-    */
 
     const product = {
 
@@ -2786,7 +3186,10 @@ async function postProduct() {
 
     try {
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
             .from("Products table")
             .insert(product)
@@ -2807,11 +3210,6 @@ async function postProduct() {
             return;
         }
 
-
-        /*
-         Refresh the entire marketplace
-         so the new product appears correctly.
-        */
 
         await loadProducts();
 
@@ -2849,6 +3247,7 @@ async function postProduct() {
             "Unable to post product.";
 
         button.disabled = false;
+
     }
 
 }
@@ -2860,26 +3259,35 @@ async function postProduct() {
 
 function clearSellForm() {
 
-    document.getElementById("product-name").value = "";
+    document.getElementById("product-name").value =
+        "";
 
-    document.getElementById("product-price").value = "";
+    document.getElementById("product-price").value =
+        "";
 
-    document.getElementById("product-category").value = "";
+    document.getElementById("product-category").value =
+        "";
 
-    document.getElementById("product-country").value = "";
+    document.getElementById("product-country").value =
+        "";
 
-    document.getElementById("product-location").value = "";
+    document.getElementById("product-location").value =
+        "";
 
-    document.getElementById("product-description").value = "";
+    document.getElementById("product-description").value =
+        "";
 
-    document.getElementById("seller-contact").value = "";
+    document.getElementById("seller-contact").value =
+        "";
 
-    document.getElementById("product-image").value = "";
+    document.getElementById("product-image").value =
+        "";
 
     document.getElementById("image-preview").style.display =
         "none";
 
-    selectedProductImage = "";
+    selectedProductImage =
+        "";
 
 }
 
@@ -2907,7 +3315,10 @@ async function displayMyProducts() {
     }
 
 
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
         .from("Products table")
         .select("*")
@@ -2922,7 +3333,8 @@ async function displayMyProducts() {
         console.error(error);
 
         container.innerHTML =
-            '<div class="no-products">Unable to load your products: ' +
+            '<div class="no-products">' +
+            'Unable to load your products: ' +
             escapeHTML(error.message) +
             '</div>';
 
@@ -2930,7 +3342,8 @@ async function displayMyProducts() {
     }
 
 
-    container.innerHTML = "";
+    container.innerHTML =
+        "";
 
 
     if (!data || data.length === 0) {
@@ -2965,7 +3378,8 @@ async function displayMyProducts() {
                 product["Image url"];
 
             image.alt =
-                product["Product name"] || "Product";
+                product["Product name"] ||
+                "Product";
 
             card.appendChild(image);
 
@@ -2993,6 +3407,7 @@ async function displayMyProducts() {
                 "🛍️";
 
             card.appendChild(placeholder);
+
         }
 
 
@@ -3007,7 +3422,8 @@ async function displayMyProducts() {
             document.createElement("h4");
 
         name.textContent =
-            product["Product name"] || "Unnamed product";
+            product["Product name"] ||
+            "Unnamed product";
 
 
         const price =
@@ -3077,12 +3493,16 @@ async function displayMyProducts() {
 
 
         actions.appendChild(editButton);
+
         actions.appendChild(deleteButton);
 
 
         content.appendChild(name);
+
         content.appendChild(price);
+
         content.appendChild(location);
+
         content.appendChild(actions);
 
 
@@ -3117,7 +3537,9 @@ async function deleteProduct(productId) {
     }
 
 
-    const { error } =
+    const {
+        error
+    } =
         await supabaseClient
         .from("Products table")
         .delete()
@@ -3161,7 +3583,10 @@ async function editProduct(productId) {
     }
 
 
-    const { data: product, error: findError } =
+    const {
+        data: product,
+        error: findError
+    } =
         await supabaseClient
         .from("Products table")
         .select("*")
@@ -3247,7 +3672,9 @@ async function editProduct(productId) {
     }
 
 
-    const { error } =
+    const {
+        error
+    } =
         await supabaseClient
         .from("Products table")
         .update({
@@ -3315,17 +3742,16 @@ function applyCurrentFilters() {
         document.querySelectorAll(".listing-card");
 
 
-    let visibleCount = 0;
-
-
     listings.forEach(function(listing) {
 
         const content =
             listing.textContent.toLowerCase();
 
         const category =
-            (listing.dataset.category || "")
-            .toLowerCase();
+            (
+                listing.dataset.category ||
+                ""
+            ).toLowerCase();
 
 
         const matchesSearch =
@@ -3339,11 +3765,6 @@ function applyCurrentFilters() {
                 ? "block"
                 : "none";
 
-
-        if (matchesSearch) {
-            visibleCount++;
-        }
-
     });
 
 
@@ -3351,6 +3772,7 @@ function applyCurrentFilters() {
 
         document.getElementById("marketplace-listings").style.display =
             "block";
+
     }
 
 }
@@ -3387,7 +3809,9 @@ async function signOut() {
     }
 
 
-    const { error } =
+    const {
+        error
+    } =
         await supabaseClient.auth.signOut();
 
 
@@ -3402,19 +3826,41 @@ async function signOut() {
     }
 
 
-    currentUser = null;
-    currentProfile = null;
+    currentUser =
+        null;
 
-    selectedProfilePicture = "";
-    selectedProductImage = "";
+    currentProfile =
+        null;
+
+    selectedProfilePicture =
+        "";
+
+    selectedProductImage =
+        "";
+
+    walletBalance =
+        0;
+
+    totalEarned =
+        0;
+
+    pendingBalance =
+        0;
+
+    walletTransactions =
+        [];
+
 
     showAuth();
 
     switchForm("signin");
 
 
-    document.getElementById("signin-email").value = "";
-    document.getElementById("signin-password").value = "";
+    document.getElementById("signin-email").value =
+        "";
+
+    document.getElementById("signin-password").value =
+        "";
 
 }
 
@@ -3428,12 +3874,28 @@ supabaseClient.auth.onAuthStateChange(
 
         if (event === "SIGNED_OUT") {
 
-            currentUser = null;
-            currentProfile = null;
+            currentUser =
+                null;
+
+            currentProfile =
+                null;
+
+            walletBalance =
+                0;
+
+            totalEarned =
+                0;
+
+            pendingBalance =
+                0;
+
+            walletTransactions =
+                [];
 
             showAuth();
 
             switchForm("signin");
+
         }
 
     }
@@ -3461,4 +3923,4 @@ function escapeHTML(text) {
 </script>
 
 </body>
-    </html>
+                    </html>
