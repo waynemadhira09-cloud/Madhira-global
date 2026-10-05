@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-    const SUPABASE_URL = "https://mhaaxpztjgppdtumbofs.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_qQSTh1vtarv7HGtcRMLHuw_NCVmtDwW";
+const SUPABASE_URL = "https://mhaaxpztjgppdtumbofs.supabase.co";
+const SUPABASE_KEY = "sb_publishable_qQSTh1vtarv7HGtcRMLHuw_NCVmtDwW";
 
-    const supabaseClient = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 </script>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Madhira Global</title>
 
@@ -38,10 +37,9 @@ body {
     align-items: center;
 }
 
-
-/* ========================================================
-   1. INITIAL AUTHENTICATION SCREEN
-   ======================================================== */
+button {
+    cursor: pointer;
+}
 
 #auth-screen {
     display: flex;
@@ -102,7 +100,9 @@ body {
     text-align: left;
 }
 
-.input-group label {
+.input-group label,
+.sell-input-group label,
+.account-input-group label {
     display: block;
     font-size: 0.85rem;
     color: #8fa0dd;
@@ -110,7 +110,11 @@ body {
 }
 
 .input-group input,
-.input-group select {
+.input-group select,
+.sell-input-group input,
+.sell-input-group select,
+.sell-input-group textarea,
+.account-input-group input {
     width: 100%;
     padding: 12px;
     background: #1e2d4a;
@@ -122,11 +126,16 @@ body {
 }
 
 .input-group input:focus,
-.input-group select:focus {
+.input-group select:focus,
+.sell-input-group input:focus,
+.sell-input-group select:focus,
+.sell-input-group textarea:focus,
+.account-input-group input:focus {
     border-color: #2b6cb0;
 }
 
-.input-group select option {
+.input-group select option,
+.sell-input-group select option {
     background: #1e2d4a;
     color: white;
 }
@@ -140,12 +149,7 @@ body {
     border-radius: 6px;
     font-size: 1rem;
     font-weight: bold;
-    cursor: pointer;
     margin-top: 10px;
-}
-
-.submit-btn:hover {
-    opacity: 0.85;
 }
 
 .toggle-link {
@@ -155,17 +159,22 @@ body {
 }
 
 .toggle-link span {
-    color: #2b6cb0;
+    color: #5da9ff;
     cursor: pointer;
     font-weight: bold;
 }
 
+.message {
+    min-height: 20px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #ffcc66;
+}
 
-/* ========================================================
-   2. MAIN DASHBOARD
-   ======================================================== */
-
-#main-platform {
+#main-platform,
+#wallet-dashboard,
+#sell-dashboard,
+#account-dashboard {
     display: none;
     width: 100%;
     max-width: 600px;
@@ -186,6 +195,17 @@ body {
     gap: 6px;
     flex-wrap: wrap;
     justify-content: flex-end;
+}
+
+.nav-buttons button,
+.wallet-btn,
+.account-btn {
+    border: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    background: #2b6cb0;
 }
 
 .search-container {
@@ -216,7 +236,6 @@ body {
     padding: 10px 24px;
     border-radius: 6px;
     font-weight: bold;
-    cursor: pointer;
 }
 
 .categories-section h3 {
@@ -251,26 +270,16 @@ body {
     margin-bottom: 8px;
 }
 
-
-/* ========================================================
-   3. WALLET DASHBOARD
-   ======================================================== */
-
-#wallet-dashboard {
-    display: none;
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-}
-
-.wallet-header {
+.wallet-header,
+.account-header {
     display: flex;
     align-items: center;
     gap: 15px;
     margin-bottom: 25px;
 }
 
-.wallet-header h2 {
+.wallet-header h2,
+.account-header h2 {
     margin: 0;
     font-size: 1.5rem;
 }
@@ -284,31 +293,33 @@ body {
 .back-btn {
     background: #131c2e;
     border: 1px solid rgba(255,255,255,0.2);
-    margin: 0;
     color: white;
     padding: 10px 15px;
     border-radius: 6px;
-    cursor: pointer;
+}
+
+.wallet-balance-card,
+.sell-box,
+.account-box,
+.transactions,
+.wallet-stat {
+    background: #131c2e;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 .wallet-balance-card {
-    background: #131c2e;
-    color: white;
     padding: 25px;
-    border-radius: 14px;
     text-align: center;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 .wallet-balance-card p {
     color: #8fa0dd;
-    margin-bottom: 8px;
 }
 
 .wallet-balance-card h1 {
     font-size: 32px;
     margin: 10px 0 25px;
-    color: white;
 }
 
 .wallet-actions {
@@ -318,13 +329,11 @@ body {
 
 .wallet-actions button {
     flex: 1;
-    margin: 0;
     background: #2b6cb0;
     color: white;
     border: none;
     padding: 12px;
     border-radius: 6px;
-    cursor: pointer;
 }
 
 .wallet-stats {
@@ -335,10 +344,7 @@ body {
 }
 
 .wallet-stat {
-    background: #131c2e;
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .wallet-stat span {
@@ -348,17 +354,9 @@ body {
     margin-bottom: 8px;
 }
 
-.wallet-stat strong {
-    font-size: 18px;
-    color: white;
-}
-
 .transactions {
-    background: #131c2e;
     margin-top: 20px;
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .transactions h3 {
@@ -371,78 +369,21 @@ body {
     padding: 25px 0;
 }
 
-.wallet-btn {
-    background: #2b6cb0;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-
-/* ========================================================
-   4. SELL PRODUCT DASHBOARD
-   ======================================================== */
-
-#sell-dashboard {
-    display: none;
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-}
-
 .sell-box {
-    background: #131c2e;
     padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 .sell-box h3 {
     margin-bottom: 20px;
-    font-size: 1.3rem;
 }
 
 .sell-input-group {
     margin-bottom: 16px;
 }
 
-.sell-input-group label {
-    display: block;
-    font-size: 0.85rem;
-    color: #8fa0dd;
-    margin-bottom: 6px;
-}
-
-.sell-input-group input,
-.sell-input-group select,
-.sell-input-group textarea {
-    width: 100%;
-    padding: 12px;
-    background: #1e2d4a;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
-    color: #fff;
-    outline: none;
-    font-size: 0.95rem;
-}
-
 .sell-input-group textarea {
     min-height: 120px;
     resize: vertical;
-}
-
-.sell-input-group input:focus,
-.sell-input-group select:focus,
-.sell-input-group textarea:focus {
-    border-color: #2b6cb0;
-}
-
-.sell-input-group select option {
-    background: #1e2d4a;
-    color: white;
 }
 
 .image-preview {
@@ -454,11 +395,6 @@ body {
     border-radius: 8px;
     background: #0b1426;
 }
-
-
-/* ========================================================
-   5. MARKETPLACE LISTINGS
-   ======================================================== */
 
 #marketplace-listings {
     margin-top: 40px;
@@ -508,40 +444,13 @@ body {
 }
 
 .seller-name {
-    color: #ffffff;
+    color: white;
     font-weight: bold;
     margin-top: 10px;
 }
 
-
-/* ========================================================
-   6. ACCOUNT DETAILS DASHBOARD
-   ======================================================== */
-
-#account-dashboard {
-    display: none;
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-}
-
-.account-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
-}
-
-.account-header h2 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
 .account-box {
-    background: #131c2e;
     padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 .profile-picture-section {
@@ -558,10 +467,8 @@ body {
 }
 
 .profile-picture {
-    display: block;
     object-fit: cover;
     border: 3px solid #2b6cb0;
-    background: #1e2d4a;
 }
 
 .profile-picture-placeholder {
@@ -596,28 +503,6 @@ body {
     margin-bottom: 16px;
 }
 
-.account-input-group label {
-    display: block;
-    color: #8fa0dd;
-    font-size: 14px;
-    margin-bottom: 7px;
-}
-
-.account-input-group input {
-    width: 100%;
-    padding: 13px;
-    background: #1e2d4a;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 7px;
-    color: white;
-    font-size: 15px;
-    outline: none;
-}
-
-.account-input-group input:focus {
-    border-color: #2b6cb0;
-}
-
 .id-note {
     color: #8fa0dd;
     font-size: 12px;
@@ -628,8 +513,6 @@ body {
 .save-account-btn {
     width: 100%;
     margin-top: 10px;
-    background: #2b6cb0;
-    color: white;
 }
 
 .account-status {
@@ -639,11 +522,6 @@ body {
     margin-top: 12px;
     min-height: 18px;
 }
-
-
-/* ========================================================
-   7. MY PRODUCTS
-   ======================================================== */
 
 .my-products-section {
     margin-top: 30px;
@@ -701,7 +579,6 @@ body {
     border-radius: 6px;
     color: white;
     font-weight: bold;
-    cursor: pointer;
 }
 
 .edit-product-btn {
@@ -720,11 +597,6 @@ body {
     border-radius: 8px;
 }
 
-
-/* ========================================================
-   8. ACCOUNT SECURITY
-   ======================================================== */
-
 .account-security {
     margin-top: 25px;
     padding: 15px;
@@ -742,18 +614,24 @@ body {
     line-height: 1.5;
 }
 
+.logout-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 7px;
+    background: #b42318;
+    color: white;
+    font-weight: bold;
+}
 
-/* ========================================================
-   9. MOBILE
-   ======================================================== */
+.loading {
+    text-align: center;
+    color: #8fa0dd;
+    padding: 25px;
+}
 
 @media (max-width: 500px) {
-
-    #wallet-dashboard,
-    #sell-dashboard,
-    #account-dashboard {
-        padding: 20px;
-    }
 
     .wallet-actions {
         flex-direction: column;
@@ -770,10 +648,6 @@ body {
 
     .top-navbar {
         align-items: flex-start;
-    }
-
-    .top-navbar .brand-header {
-        flex-shrink: 0;
     }
 
     .nav-buttons {
@@ -795,30 +669,20 @@ body {
         width: 105px;
         height: 105px;
     }
-
 }
 
 </style>
-
 </head>
 
 <body>
 
-
-<!-- ========================================================
-     STAGE 1: AUTHENTICATION SCREEN
-     ======================================================== -->
+<!-- AUTH -->
 
 <div id="auth-screen">
 
     <div class="brand-header">
-
-        <span style="font-size: 2.2rem;">🌐</span>
-
-        <span class="brand-logo">
-            Madhira Global
-        </span>
-
+        <span style="font-size:2.2rem;">🌐</span>
+        <span class="brand-logo">Madhira Global</span>
     </div>
 
     <h1 class="hero-title">
@@ -829,7 +693,6 @@ body {
         Find products from sellers around the world.
     </p>
 
-
     <!-- SIGN IN -->
 
     <div id="signin-box" class="auth-box active">
@@ -839,52 +702,39 @@ body {
         <form onsubmit="handleSignIn(event)">
 
             <div class="input-group">
-
                 <label>Email Address</label>
-
                 <input
                     type="email"
                     id="signin-email"
                     required
-                    placeholder="name@example.com"
-                >
-
+                    placeholder="name@example.com">
             </div>
 
             <div class="input-group">
-
                 <label>Password</label>
-
                 <input
                     type="password"
                     id="signin-password"
                     required
-                    placeholder="••••••••"
-                >
-
+                    placeholder="••••••••">
             </div>
 
-            <button
-                type="submit"
-                class="submit-btn"
-            >
+            <button type="submit" class="submit-btn">
                 Sign In
             </button>
 
         </form>
 
+        <div id="signin-message" class="message"></div>
+
         <div class="toggle-link">
-
             New to the platform?
-
             <span onclick="switchForm('signup')">
                 Sign Up here
             </span>
-
         </div>
 
     </div>
-
 
     <!-- SIGN UP -->
 
@@ -895,18 +745,10 @@ body {
         <form onsubmit="handleSignUp(event)">
 
             <div class="input-group">
-
                 <label>Country</label>
 
-                <select
-                    id="signup-country"
-                    required
-                >
-
-                    <option value="">
-                        Select your country
-                    </option>
-
+                <select id="signup-country" required>
+                    <option value="">Select your country</option>
                     <option>Kenya</option>
                     <option>Uganda</option>
                     <option>Tanzania</option>
@@ -926,100 +768,69 @@ body {
                     <option>Spain</option>
                     <option>Brazil</option>
                     <option>Other</option>
-
                 </select>
-
             </div>
 
-
             <div class="input-group">
-
                 <label>First Name</label>
-
                 <input
                     type="text"
                     id="signup-first-name"
                     required
-                    placeholder="Enter your first name"
-                >
-
+                    placeholder="Enter your first name">
             </div>
 
-
             <div class="input-group">
-
                 <label>Last Name</label>
-
                 <input
                     type="text"
                     id="signup-last-name"
                     required
-                    placeholder="Enter your last name"
-                >
-
+                    placeholder="Enter your last name">
             </div>
 
-
             <div class="input-group">
-
                 <label>Email Address</label>
-
                 <input
                     type="email"
                     id="signup-email"
                     required
-                    placeholder="name@example.com"
-                >
-
+                    placeholder="name@example.com">
             </div>
 
-
             <div class="input-group">
-
                 <label>Password</label>
-
                 <input
                     type="password"
                     id="signup-password"
                     required
-                    placeholder="Create password"
-                >
-
+                    minlength="6"
+                    placeholder="Create password">
             </div>
 
-
             <div class="input-group">
-
                 <label>Confirm Password</label>
-
                 <input
                     type="password"
                     id="signup-confirm-password"
                     required
-                    placeholder="Confirm password"
-                >
-
+                    minlength="6"
+                    placeholder="Confirm password">
             </div>
 
-
-            <button
-                type="submit"
-                class="submit-btn"
-            >
+            <button type="submit" class="submit-btn">
                 Create Account
             </button>
 
         </form>
 
+        <div id="signup-message" class="message"></div>
 
         <div class="toggle-link">
-
             Already have an account?
-
             <span onclick="switchForm('signin')">
                 Sign In here
             </span>
-
         </div>
 
     </div>
@@ -1027,64 +838,41 @@ body {
 </div>
 
 
-
-<!-- ========================================================
-     STAGE 2: MAIN PLATFORM
-     ======================================================== -->
+<!-- MAIN PLATFORM -->
 
 <div id="main-platform">
 
     <header class="top-navbar">
 
-        <div
-            class="brand-header"
-            style="margin-bottom: 0;"
-        >
-
+        <div class="brand-header" style="margin-bottom:0;">
             <span>🌐</span>
 
             <span
                 class="brand-logo"
-                style="font-size: 1.4rem;"
-            >
+                style="font-size:1.4rem;">
                 Madhira Global
             </span>
-
         </div>
-
 
         <div class="nav-buttons">
 
-            <button
-                class="account-btn"
-                onclick="openAccount()"
-            >
+            <button onclick="openAccount()">
                 👤 Account
             </button>
 
-
             <button
-                class="search-btn"
                 onclick="openSell()"
-                style="background:#131c2e;border:1px solid rgba(255,255,255,0.2);"
-            >
+                style="background:#131c2e;border:1px solid rgba(255,255,255,0.2);">
                 Sell
             </button>
 
-
-            <button
-                class="wallet-btn"
-                onclick="openWallet()"
-            >
+            <button onclick="openWallet()">
                 💰 Wallet
             </button>
 
         </div>
 
     </header>
-
-
-    <!-- SEARCH -->
 
     <section class="search-container">
 
@@ -1094,13 +882,11 @@ body {
                 type="text"
                 id="search-input"
                 placeholder="What are you looking for?"
-                oninput="searchProducts()"
-            >
+                oninput="searchProducts()">
 
             <button
                 class="search-btn"
-                onclick="searchProducts()"
-            >
+                onclick="searchProducts()">
                 Search
             </button>
 
@@ -1108,61 +894,44 @@ body {
 
     </section>
 
-
-    <!-- CATEGORIES -->
-
     <section class="categories-section">
 
-        <h3>
-            Explore Categories
-        </h3>
+        <h3>Explore Categories</h3>
 
         <div class="grid-container">
 
-            <div
-                class="category-card"
-                onclick="filterCategory('Cars')"
-            >
+            <div class="category-card"
+                 onclick="filterCategory('Cars')">
                 <span class="category-icon">🚗</span>
                 Cars
             </div>
 
-            <div
-                class="category-card"
-                onclick="filterCategory('Property')"
-            >
+            <div class="category-card"
+                 onclick="filterCategory('Property')">
                 <span class="category-icon">🏠</span>
                 Property
             </div>
 
-            <div
-                class="category-card"
-                onclick="filterCategory('Electronics')"
-            >
+            <div class="category-card"
+                 onclick="filterCategory('Electronics')">
                 <span class="category-icon">📱</span>
                 Electronics
             </div>
 
-            <div
-                class="category-card"
-                onclick="filterCategory('Fashion')"
-            >
+            <div class="category-card"
+                 onclick="filterCategory('Fashion')">
                 <span class="category-icon">👕</span>
                 Fashion
             </div>
 
-            <div
-                class="category-card"
-                onclick="filterCategory('Furniture')"
-            >
+            <div class="category-card"
+                 onclick="filterCategory('Furniture')">
                 <span class="category-icon">🛋️</span>
                 Furniture
             </div>
 
-            <div
-                class="category-card"
-                onclick="filterCategory('Machinery')"
-            >
+            <div class="category-card"
+                 onclick="filterCategory('Machinery')">
                 <span class="category-icon">⚙️</span>
                 Machinery
             </div>
@@ -1170,9 +939,6 @@ body {
         </div>
 
     </section>
-
-
-    <!-- MARKETPLACE LISTINGS -->
 
     <section id="marketplace-listings">
 
@@ -1187,43 +953,32 @@ body {
 </div>
 
 
-
-<!-- ========================================================
-     STAGE 3: WALLET DASHBOARD
-     ======================================================== -->
+<!-- WALLET -->
 
 <div id="wallet-dashboard">
 
     <div class="wallet-header">
 
-        <button
-            onclick="closeWallet()"
-            class="back-btn"
-        >
+        <button onclick="closeWallet()" class="back-btn">
             ← Back
         </button>
 
         <div>
-
             <h2 id="wallet-title">
                 💰 Madhira Wallet
             </h2>
 
             <div
                 class="wallet-owner"
-                id="wallet-owner"
-            ></div>
-
+                id="wallet-owner">
+            </div>
         </div>
 
     </div>
 
-
     <div class="wallet-balance-card">
 
-        <p>
-            Available Balance
-        </p>
+        <p>Available Balance</p>
 
         <h1 id="wallet-balance">
             KSh 0.00
@@ -1243,49 +998,32 @@ body {
 
     </div>
 
-
     <div class="wallet-stats">
 
         <div class="wallet-stat">
-
-            <span>
-                Pending
-            </span>
-
+            <span>Pending</span>
             <strong id="pending-balance">
                 KSh 0.00
             </strong>
-
         </div>
 
-
         <div class="wallet-stat">
-
-            <span>
-                Total Earned
-            </span>
-
+            <span>Total Earned</span>
             <strong id="total-earned">
                 KSh 0.00
             </strong>
-
         </div>
 
     </div>
 
-
     <div class="transactions">
 
-        <h3>
-            Recent Transactions
-        </h3>
+        <h3>Recent Transactions</h3>
 
         <div id="transaction-list">
-
             <div class="empty-transactions">
                 No transactions yet.
             </div>
-
         </div>
 
     </div>
@@ -1293,101 +1031,64 @@ body {
 </div>
 
 
-
-<!-- ========================================================
-     STAGE 4: SELL PRODUCT DASHBOARD
-     ======================================================== -->
+<!-- SELL -->
 
 <div id="sell-dashboard">
 
     <div class="wallet-header">
 
-        <button
-            onclick="closeSell()"
-            class="back-btn"
-        >
+        <button onclick="closeSell()" class="back-btn">
             ← Back
         </button>
 
-        <h2>
-            🏷️ Sell Product
-        </h2>
+        <h2>🏷️ Sell Product</h2>
 
     </div>
 
-
     <div class="sell-box">
 
-        <h3>
-            List Your Product
-        </h3>
-
+        <h3>List Your Product</h3>
 
         <div class="sell-input-group">
 
-            <label>
-                Product Image
-            </label>
+            <label>Product Image</label>
 
             <input
                 type="file"
                 id="product-image"
                 accept="image/*"
-                onchange="previewProductImage(event)"
-            >
+                onchange="previewProductImage(event)">
 
             <img
                 id="image-preview"
                 class="image-preview"
-                alt="Product preview"
-            >
+                alt="Product preview">
 
         </div>
 
-
         <div class="sell-input-group">
-
-            <label>
-                Product Name
-            </label>
-
+            <label>Product Name</label>
             <input
                 type="text"
                 id="product-name"
-                placeholder="e.g. Samsung Galaxy A06"
-            >
-
+                placeholder="e.g. Samsung Galaxy A06">
         </div>
 
-
         <div class="sell-input-group">
-
-            <label>
-                Price (KSh)
-            </label>
-
+            <label>Price (KSh)</label>
             <input
                 type="number"
                 id="product-price"
                 placeholder="Enter price"
-                min="1"
-            >
-
+                min="1">
         </div>
-
 
         <div class="sell-input-group">
 
-            <label>
-                Category
-            </label>
+            <label>Category</label>
 
             <select id="product-category">
-
-                <option value="">
-                    Select category
-                </option>
-
+                <option value="">Select category</option>
                 <option>Cars</option>
                 <option>Property</option>
                 <option>Electronics</option>
@@ -1395,24 +1096,16 @@ body {
                 <option>Furniture</option>
                 <option>Machinery</option>
                 <option>Other</option>
-
             </select>
 
         </div>
 
-
         <div class="sell-input-group">
 
-            <label>
-                Country
-            </label>
+            <label>Country</label>
 
             <select id="product-country">
-
-                <option value="">
-                    Select country
-                </option>
-
+                <option value="">Select country</option>
                 <option>Kenya</option>
                 <option>Uganda</option>
                 <option>Tanzania</option>
@@ -1432,102 +1125,76 @@ body {
                 <option>Spain</option>
                 <option>Brazil</option>
                 <option>Other</option>
-
             </select>
 
         </div>
 
-
         <div class="sell-input-group">
 
-            <label>
-                Location
-            </label>
+            <label>Location</label>
 
             <input
                 type="text"
                 id="product-location"
-                placeholder="e.g. Nairobi"
-            >
+                placeholder="e.g. Nairobi">
 
         </div>
 
-
         <div class="sell-input-group">
 
-            <label>
-                Description
-            </label>
+            <label>Description</label>
 
             <textarea
                 id="product-description"
-                placeholder="Describe your product..."
-            ></textarea>
+                placeholder="Describe your product..."></textarea>
 
         </div>
 
-
         <div class="sell-input-group">
 
-            <label>
-                Contact
-            </label>
+            <label>Contact</label>
 
             <input
                 type="text"
                 id="seller-contact"
-                placeholder="Phone or WhatsApp"
-            >
+                placeholder="Phone or WhatsApp">
 
         </div>
 
-
         <button
             class="submit-btn"
-            onclick="postProduct()"
-        >
+            onclick="postProduct()">
             🚀 Post Product
         </button>
+
+        <div id="sell-message" class="message"></div>
 
     </div>
 
 </div>
 
 
-
-<!-- ========================================================
-     STAGE 5: ACCOUNT DETAILS
-     ======================================================== -->
+<!-- ACCOUNT -->
 
 <div id="account-dashboard">
 
     <div class="account-header">
 
-        <button
-            onclick="closeAccount()"
-            class="back-btn"
-        >
+        <button onclick="closeAccount()" class="back-btn">
             ← Back
         </button>
 
-        <h2>
-            👤 Account Details
-        </h2>
+        <h2>👤 Account Details</h2>
 
     </div>
 
-
     <div class="account-box">
-
-
-        <!-- PROFILE PICTURE -->
 
         <div class="profile-picture-section">
 
             <div
                 id="profile-placeholder"
-                class="profile-picture-placeholder"
-            >
+                class="profile-picture-placeholder">
                 👤
             </div>
 
@@ -1535,13 +1202,11 @@ body {
                 id="profile-picture"
                 class="profile-picture"
                 style="display:none;"
-                alt="Profile picture"
-            >
+                alt="Profile picture">
 
             <label
                 for="profile-picture-input"
-                class="profile-upload-label"
-            >
+                class="profile-upload-label">
                 📷 Upload Profile Picture
             </label>
 
@@ -1549,218 +1214,194 @@ body {
                 type="file"
                 id="profile-picture-input"
                 accept="image/*"
-                onchange="previewProfilePicture(event)"
-            >
+                onchange="previewProfilePicture(event)">
 
         </div>
-
-
-        <!-- ACCOUNT INFORMATION -->
 
         <h3 class="account-info-title">
             Your Information
         </h3>
 
-
         <div class="account-input-group">
-
-            <label>
-                First Name
-            </label>
-
+            <label>First Name</label>
             <input
                 type="text"
                 id="account-first-name"
-                placeholder="Enter first name"
-            >
-
+                placeholder="Enter first name">
         </div>
 
-
         <div class="account-input-group">
-
-            <label>
-                Last Name
-            </label>
-
+            <label>Last Name</label>
             <input
                 type="text"
                 id="account-last-name"
-                placeholder="Enter last name"
-            >
-
+                placeholder="Enter last name">
         </div>
 
-
         <div class="account-input-group">
-
-            <label>
-                Email Address
-            </label>
-
+            <label>Email Address</label>
             <input
                 type="email"
                 id="account-email"
                 placeholder="Email"
-            >
-
+                readonly>
         </div>
 
-
         <div class="account-input-group">
-
-            <label>
-                📞 Contact / Phone
-            </label>
-
+            <label>📞 Contact / Phone</label>
             <input
                 type="text"
                 id="account-contact"
-                placeholder="Enter your phone or WhatsApp number"
-            >
-
+                placeholder="Enter your phone or WhatsApp number">
         </div>
 
-
         <div class="account-input-group">
-
-            <label>
-                📍 Location
-            </label>
-
+            <label>📍 Location</label>
             <input
                 type="text"
                 id="account-location"
-                placeholder="e.g. Nairobi, Kenya"
-            >
-
+                placeholder="e.g. Nairobi, Kenya">
         </div>
 
-
         <div class="account-input-group">
-
-            <label>
-                🪪 ID Number
-            </label>
-
+            <label>🪪 ID Number</label>
             <input
                 type="text"
                 id="account-id-number"
-                placeholder="Enter your ID or passport number"
-            >
+                placeholder="Enter your ID or passport number">
 
             <div class="id-note">
-                This field is for your account information.
-                Real identity verification will require a secure
-                backend verification system.
+                Keep this information private.
             </div>
-
         </div>
-
 
         <button
             class="submit-btn save-account-btn"
-            onclick="saveAccountDetails()"
-        >
+            onclick="saveAccountDetails()">
             💾 Save Account Details
         </button>
 
-
         <div
             id="account-status"
-            class="account-status"
-        ></div>
-
-
-        <!-- MY PRODUCTS -->
+            class="account-status">
+        </div>
 
         <div class="my-products-section">
 
-            <h3>
-                📦 My Posted Products
-            </h3>
+            <h3>📦 My Posted Products</h3>
 
             <div id="my-products-container"></div>
 
         </div>
 
-
-        <!-- SECURITY -->
-
         <div class="account-security">
 
-            <h3>
-                🔐 Account Security
-            </h3>
+            <h3>🔐 Account Security</h3>
 
             <p>
-                Your account information is kept in this
-                browser for this demo version. A real
-                Madhira Global system will use secure
-                server-side accounts and databases.
+                Your login is now handled by Supabase
+                Authentication. Your marketplace data is
+                stored in the Supabase database.
             </p>
 
         </div>
+
+        <button
+            class="logout-btn"
+            onclick="signOut()">
+            🚪 Sign Out
+        </button>
 
     </div>
 
 </div>
 
 
-
-<!-- ========================================================
-     JAVASCRIPT
-     ======================================================== -->
-
 <script>
 
-
-/* ========================================================
-   CURRENT USER
-   ======================================================== */
+/* =====================================================
+   GLOBAL VARIABLES
+   ===================================================== */
 
 let currentUser = null;
-
-
-/* ========================================================
-   PROFILE IMAGE
-   ======================================================== */
+let currentProfile = null;
 
 let selectedProfilePicture = "";
-
-
-/* ========================================================
-   PRODUCT IMAGE
-   ======================================================== */
-
 let selectedProductImage = "";
 
-
-/* ========================================================
-   WALLET
-   ======================================================== */
-
 let walletBalance = 0;
-
 let totalEarned = 0;
 
 
-/* ========================================================
-   START APP
-   ======================================================== */
+/* =====================================================
+   START APPLICATION
+   ===================================================== */
 
-window.addEventListener("load", function() {
+window.addEventListener("load", async function() {
 
-    loadSavedUser();
-
-    loadSavedProducts();
+    await checkSession();
 
 });
 
 
-/* ========================================================
-   SWITCH SIGN IN / SIGN UP
-   ======================================================== */
+/* =====================================================
+   CHECK SUPABASE SESSION
+   ===================================================== */
+
+async function checkSession() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getSession();
+
+    if (error) {
+
+        console.error(error);
+
+        showAuth();
+
+        return;
+    }
+
+    if (data.session) {
+
+        currentUser = data.session.user;
+
+        await loadProfile();
+
+        await loadProducts();
+
+        enterPlatform();
+
+    } else {
+
+        showAuth();
+
+    }
+
+}
+
+
+/* =====================================================
+   AUTH SCREEN
+   ===================================================== */
+
+function showAuth() {
+
+    document.getElementById("auth-screen").style.display = "flex";
+
+    document.getElementById("main-platform").style.display = "none";
+    document.getElementById("wallet-dashboard").style.display = "none";
+    document.getElementById("sell-dashboard").style.display = "none";
+    document.getElementById("account-dashboard").style.display = "none";
+
+}
+
+
+/* =====================================================
+   SWITCH LOGIN / SIGNUP
+   ===================================================== */
 
 function switchForm(target) {
 
@@ -1774,6 +1415,8 @@ function switchForm(target) {
         .classList
         .remove("active");
 
+    document.getElementById("signin-message").textContent = "";
+    document.getElementById("signup-message").textContent = "";
 
     if (target === "signup") {
 
@@ -1794,14 +1437,18 @@ function switchForm(target) {
 }
 
 
-/* ========================================================
-   SIGN UP
-   ======================================================== */
+/* =====================================================
+   SIGN UP WITH SUPABASE
+   ===================================================== */
 
-function handleSignUp(event) {
+async function handleSignUp(event) {
 
     event.preventDefault();
 
+    const message =
+        document.getElementById("signup-message");
+
+    message.textContent = "Creating your account...";
 
     const country =
         document
@@ -1824,7 +1471,8 @@ function handleSignUp(event) {
         document
             .getElementById("signup-email")
             .value
-            .trim();
+            .trim()
+            .toLowerCase();
 
     const password =
         document
@@ -1839,69 +1487,181 @@ function handleSignUp(event) {
 
     if (password !== confirmPassword) {
 
-        alert(
-            "Passwords do not match."
-        );
+        message.textContent =
+            "Passwords do not match.";
 
         return;
 
     }
 
 
-    currentUser = {
+    if (password.length < 6) {
 
-        firstName: firstName,
+        message.textContent =
+            "Password must be at least 6 characters.";
 
-        lastName: lastName,
+        return;
 
-        fullName:
-            firstName + " " + lastName,
-
-        email: email,
-
-        country: country,
-
-        contact: "",
-
-        location: "",
-
-        idNumber: "",
-
-        profilePicture: ""
-
-    };
+    }
 
 
-    localStorage.setItem(
-        "madhiraCurrentUser",
-        JSON.stringify(currentUser)
-    );
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.signUp({
+
+            email: email,
+
+            password: password,
+
+            options: {
+
+                data: {
+
+                    first_name: firstName,
+
+                    last_name: lastName,
+
+                    country: country
+
+                }
+
+            }
+
+        });
 
 
-    localStorage.setItem(
-        "madhiraUserEmail",
-        email
-    );
+        if (error) {
+
+            console.error(error);
+
+            message.textContent =
+                error.message;
+
+            return;
+
+        }
 
 
-    enterPlatform();
+        if (!data.user) {
+
+            message.textContent =
+                "Account could not be created.";
+
+            return;
+
+        }
 
 
-    alert(
-        "Welcome to Madhira Global, " +
-        currentUser.fullName + "!"
-    );
+        /*
+         Create profile.
+        */
+
+        const {
+            error: profileError
+        } = await supabaseClient
+            .from("profiles")
+            .upsert({
+
+                id: data.user.id,
+
+                first_name: firstName,
+
+                last_name: lastName,
+
+                email: email,
+
+                country: country,
+
+                contact: "",
+
+                location: "",
+
+                id_number: "",
+
+                profile_picture: ""
+
+            });
+
+
+        if (profileError) {
+
+            console.error(profileError);
+
+            message.textContent =
+                "Account created, but profile setup failed: " +
+                profileError.message;
+
+            return;
+
+        }
+
+
+        /*
+         If Supabase requires email confirmation,
+         there may not be a session yet.
+        */
+
+        if (!data.session) {
+
+            message.textContent =
+                "Account created! Check your email to confirm your account, then sign in.";
+
+            document
+                .getElementById("signup-box")
+                .querySelector("form")
+                .reset();
+
+            return;
+
+        }
+
+
+        currentUser = data.user;
+
+        await loadProfile();
+
+        await loadProducts();
+
+        enterPlatform();
+
+
+        alert(
+            "Welcome to Madhira Global, " +
+            firstName +
+            " " +
+            lastName +
+            "!"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            "Something went wrong. Please try again.";
+
+    }
 
 }
 
 
-/* ========================================================
-   SIGN IN
-   ======================================================== */
+/* =====================================================
+   SIGN IN WITH SUPABASE
+   ===================================================== */
 
-function handleSignIn(event) {
+async function handleSignIn(event) {
 
     event.preventDefault();
+
+    const message =
+        document.getElementById("signin-message");
+
+    message.textContent =
+        "Signing in...";
 
 
     const email =
@@ -1911,122 +1671,187 @@ function handleSignIn(event) {
             .trim()
             .toLowerCase();
 
-
-    const savedUser =
-        localStorage.getItem(
-            "madhiraCurrentUser"
-        );
-
-
-    if (savedUser) {
-
-        const user =
-            JSON.parse(savedUser);
+    const password =
+        document
+            .getElementById("signin-password")
+            .value;
 
 
-        if (
-            user.email.toLowerCase() === email
-        ) {
+    try {
 
-            currentUser = user;
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.signInWithPassword({
 
-            enterPlatform();
+            email: email,
+
+            password: password
+
+        });
+
+
+        if (error) {
+
+            console.error(error);
+
+            message.textContent =
+                error.message;
 
             return;
 
         }
 
+
+        if (!data.session) {
+
+            message.textContent =
+                "Login did not create a session.";
+
+            return;
+
+        }
+
+
+        currentUser = data.user;
+
+        await loadProfile();
+
+        await loadProducts();
+
+        enterPlatform();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            "Unable to sign in. Please try again.";
+
     }
-
-
-    /*
-       Demo mode:
-       If no saved account is found, create
-       a basic user using the email entered.
-    */
-
-    const emailName =
-        email
-            .split("@")[0]
-            .replace(/[._-]/g, " ");
-
-
-    const generatedName =
-        emailName
-            .replace(/\b\w/g, function(letter) {
-                return letter.toUpperCase();
-            });
-
-
-    currentUser = {
-
-        firstName: generatedName,
-
-        lastName: "",
-
-        fullName: generatedName,
-
-        email: email,
-
-        country: "",
-
-        contact: "",
-
-        location: "",
-
-        idNumber: "",
-
-        profilePicture: ""
-
-    };
-
-
-    localStorage.setItem(
-        "madhiraCurrentUser",
-        JSON.stringify(currentUser)
-    );
-
-
-    enterPlatform();
 
 }
 
 
-/* ========================================================
+/* =====================================================
+   LOAD PROFILE FROM SUPABASE
+   ===================================================== */
+
+async function loadProfile() {
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", currentUser.id)
+        .maybeSingle();
+
+
+    if (error) {
+
+        console.error(
+            "Profile loading error:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    if (data) {
+
+        currentProfile = data;
+
+    } else {
+
+        /*
+         If profile does not exist,
+         create one from Auth metadata.
+        */
+
+        const firstName =
+            currentUser.user_metadata?.first_name || "";
+
+        const lastName =
+            currentUser.user_metadata?.last_name || "";
+
+        const country =
+            currentUser.user_metadata?.country || "";
+
+
+        const {
+            data: newProfile,
+            error: createError
+        } = await supabaseClient
+            .from("profiles")
+            .insert({
+
+                id: currentUser.id,
+
+                first_name: firstName,
+
+                last_name: lastName,
+
+                email: currentUser.email,
+
+                country: country,
+
+                contact: "",
+
+                location: "",
+
+                id_number: "",
+
+                profile_picture: ""
+
+            })
+            .select()
+            .single();
+
+
+        if (createError) {
+
+            console.error(
+                "Profile creation error:",
+                createError
+            );
+
+            return;
+
+        }
+
+
+        currentProfile = newProfile;
+
+    }
+
+}
+
+
+/* =====================================================
    ENTER PLATFORM
-   ======================================================== */
+   ===================================================== */
 
 function enterPlatform() {
 
-    document
-        .getElementById("auth-screen")
-        .style
-        .display = "none";
+    document.getElementById("auth-screen").style.display = "none";
 
+    document.getElementById("wallet-dashboard").style.display = "none";
 
-    document
-        .getElementById("wallet-dashboard")
-        .style
-        .display = "none";
+    document.getElementById("sell-dashboard").style.display = "none";
 
+    document.getElementById("account-dashboard").style.display = "none";
 
-    document
-        .getElementById("sell-dashboard")
-        .style
-        .display = "none";
-
-
-    document
-        .getElementById("account-dashboard")
-        .style
-        .display = "none";
-
-
-    document
-        .getElementById("main-platform")
-        .style
-        .display = "block";
-
+    document.getElementById("main-platform").style.display = "block";
 
     updateWalletDisplay();
 
@@ -2035,66 +1860,27 @@ function enterPlatform() {
 }
 
 
-/* ========================================================
-   LOAD USER
-   ======================================================== */
-
-function loadSavedUser() {
-
-    const saved =
-        localStorage.getItem(
-            "madhiraCurrentUser"
-        );
-
-
-    if (!saved) {
-        return;
-    }
-
-
-    try {
-
-        currentUser =
-            JSON.parse(saved);
-
-    } catch (error) {
-
-        currentUser = null;
-
-    }
-
-}
-
-
-/* ========================================================
-   ACCOUNT DETAILS
-   ======================================================== */
+/* =====================================================
+   ACCOUNT
+   ===================================================== */
 
 function openAccount() {
 
-    document
-        .getElementById("main-platform")
-        .style
-        .display = "none";
+    if (!currentUser) {
 
+        alert("Please sign in first.");
 
-    document
-        .getElementById("wallet-dashboard")
-        .style
-        .display = "none";
+        return;
 
+    }
 
-    document
-        .getElementById("sell-dashboard")
-        .style
-        .display = "none";
+    document.getElementById("main-platform").style.display = "none";
 
+    document.getElementById("wallet-dashboard").style.display = "none";
 
-    document
-        .getElementById("account-dashboard")
-        .style
-        .display = "block";
+    document.getElementById("sell-dashboard").style.display = "none";
 
+    document.getElementById("account-dashboard").style.display = "block";
 
     loadAccountDetails();
 
@@ -2107,26 +1893,18 @@ function openAccount() {
 
 function closeAccount() {
 
-    document
-        .getElementById("account-dashboard")
-        .style
-        .display = "none";
+    document.getElementById("account-dashboard").style.display = "none";
 
-
-    document
-        .getElementById("main-platform")
-        .style
-        .display = "block";
-
+    document.getElementById("main-platform").style.display = "block";
 
     window.scrollTo(0, 0);
 
 }
 
 
-/* ========================================================
-   LOAD ACCOUNT DETAILS INTO FORM
-   ======================================================== */
+/* =====================================================
+   LOAD ACCOUNT DETAILS
+   ===================================================== */
 
 function loadAccountDetails() {
 
@@ -2135,78 +1913,82 @@ function loadAccountDetails() {
     }
 
 
-    document
-        .getElementById("account-first-name")
-        .value =
-        currentUser.firstName || "";
+    const profile =
+        currentProfile || {};
 
 
-    document
-        .getElementById("account-last-name")
-        .value =
-        currentUser.lastName || "";
+    document.getElementById("account-first-name").value =
+        profile.first_name || "";
 
 
-    document
-        .getElementById("account-email")
-        .value =
-        currentUser.email || "";
+    document.getElementById("account-last-name").value =
+        profile.last_name || "";
 
 
-    document
-        .getElementById("account-contact")
-        .value =
-        currentUser.contact || "";
+    document.getElementById("account-email").value =
+        currentUser.email || profile.email || "";
 
 
-    document
-        .getElementById("account-location")
-        .value =
-        currentUser.location || "";
+    document.getElementById("account-contact").value =
+        profile.contact || "";
 
 
-    document
-        .getElementById("account-id-number")
-        .value =
-        currentUser.idNumber || "";
+    document.getElementById("account-location").value =
+        profile.location || "";
 
 
-    if (currentUser.profilePicture) {
-
-        document
-            .getElementById("profile-picture")
-            .src =
-            currentUser.profilePicture;
+    document.getElementById("account-id-number").value =
+        profile.id_number || "";
 
 
-        document
-            .getElementById("profile-picture")
-            .style
-            .display = "block";
+    if (profile.profile_picture) {
 
+        document.getElementById("profile-picture").src =
+            profile.profile_picture;
 
-        document
-            .getElementById("profile-placeholder")
-            .style
-            .display = "none";
+        document.getElementById("profile-picture").style.display =
+            "block";
+
+        document.getElementById("profile-placeholder").style.display =
+            "none";
+
+    } else {
+
+        document.getElementById("profile-picture").style.display =
+            "none";
+
+        document.getElementById("profile-placeholder").style.display =
+            "flex";
 
     }
 
 }
 
 
-/* ========================================================
-   PROFILE PICTURE
-   ======================================================== */
+/* =====================================================
+   PROFILE IMAGE
+   ===================================================== */
 
 function previewProfilePicture(event) {
 
     const file =
         event.target.files[0];
 
-
     if (!file) {
         return;
+    }
+
+
+    if (file.size > 2 * 1024 * 1024) {
+
+        alert(
+            "Please choose a profile picture smaller than 2MB."
+        );
+
+        event.target.value = "";
+
+        return;
+
     }
 
 
@@ -2220,23 +2002,14 @@ function previewProfilePicture(event) {
             selectedProfilePicture =
                 e.target.result;
 
-
-            document
-                .getElementById("profile-picture")
-                .src =
+            document.getElementById("profile-picture").src =
                 selectedProfilePicture;
 
+            document.getElementById("profile-picture").style.display =
+                "block";
 
-            document
-                .getElementById("profile-picture")
-                .style
-                .display = "block";
-
-
-            document
-                .getElementById("profile-placeholder")
-                .style
-                .display = "none";
+            document.getElementById("profile-placeholder").style.display =
+                "none";
 
         };
 
@@ -2246,101 +2019,119 @@ function previewProfilePicture(event) {
 }
 
 
-/* ========================================================
-   SAVE ACCOUNT DETAILS
-   ======================================================== */
+/* =====================================================
+   SAVE ACCOUNT TO SUPABASE
+   ===================================================== */
 
-function saveAccountDetails() {
+async function saveAccountDetails() {
 
     if (!currentUser) {
 
-        alert(
-            "Please sign in first."
-        );
+        alert("Please sign in first.");
 
         return;
 
     }
 
 
-    currentUser.firstName =
+    const status =
+        document.getElementById("account-status");
+
+    status.textContent =
+        "Saving...";
+
+
+    const firstName =
         document
             .getElementById("account-first-name")
             .value
             .trim();
 
-
-    currentUser.lastName =
+    const lastName =
         document
             .getElementById("account-last-name")
             .value
             .trim();
 
-
-    currentUser.fullName =
-        (
-            currentUser.firstName +
-            " " +
-            currentUser.lastName
-        ).trim();
-
-
-    currentUser.email =
-        document
-            .getElementById("account-email")
-            .value
-            .trim();
-
-
-    currentUser.contact =
+    const contact =
         document
             .getElementById("account-contact")
             .value
             .trim();
 
-
-    currentUser.location =
+    const location =
         document
             .getElementById("account-location")
             .value
             .trim();
 
-
-    currentUser.idNumber =
+    const idNumber =
         document
             .getElementById("account-id-number")
             .value
             .trim();
 
 
+    let profilePicture =
+        currentProfile?.profile_picture || "";
+
+
     if (selectedProfilePicture) {
 
-        currentUser.profilePicture =
+        profilePicture =
             selectedProfilePicture;
 
     }
 
 
-    localStorage.setItem(
-        "madhiraCurrentUser",
-        JSON.stringify(currentUser)
-    );
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("profiles")
+        .upsert({
 
+            id: currentUser.id,
+
+            first_name: firstName,
+
+            last_name: lastName,
+
+            email: currentUser.email,
+
+            country: currentProfile?.country || "",
+
+            contact: contact,
+
+            location: location,
+
+            id_number: idNumber,
+
+            profile_picture: profilePicture
+
+        })
+        .select()
+        .single();
+
+
+    if (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "Error: " + error.message;
+
+        return;
+
+    }
+
+
+    currentProfile = data;
 
     selectedProfilePicture = "";
 
-
-    updateWalletDisplay();
-
-
-    const status =
-        document
-            .getElementById("account-status");
-
-
     status.textContent =
         "✓ Account details saved successfully.";
-
 
     setTimeout(function() {
 
@@ -2348,41 +2139,24 @@ function saveAccountDetails() {
 
     }, 3000);
 
-
     displayMyProducts();
 
 }
 
 
-/* ========================================================
+/* =====================================================
    WALLET
-   ======================================================== */
+   ===================================================== */
 
 function openWallet() {
 
-    document
-        .getElementById("main-platform")
-        .style
-        .display = "none";
+    document.getElementById("main-platform").style.display = "none";
 
+    document.getElementById("sell-dashboard").style.display = "none";
 
-    document
-        .getElementById("sell-dashboard")
-        .style
-        .display = "none";
+    document.getElementById("account-dashboard").style.display = "none";
 
-
-    document
-        .getElementById("account-dashboard")
-        .style
-        .display = "none";
-
-
-    document
-        .getElementById("wallet-dashboard")
-        .style
-        .display = "block";
-
+    document.getElementById("wallet-dashboard").style.display = "block";
 
     updateWalletDisplay();
 
@@ -2393,17 +2167,9 @@ function openWallet() {
 
 function closeWallet() {
 
-    document
-        .getElementById("wallet-dashboard")
-        .style
-        .display = "none";
+    document.getElementById("wallet-dashboard").style.display = "none";
 
-
-    document
-        .getElementById("main-platform")
-        .style
-        .display = "block";
-
+    document.getElementById("main-platform").style.display = "block";
 
     window.scrollTo(0, 0);
 
@@ -2412,92 +2178,55 @@ function closeWallet() {
 
 function updateWalletDisplay() {
 
-    document
-        .getElementById("wallet-balance")
-        .textContent =
-        "KSh " +
-        walletBalance.toFixed(2);
+    document.getElementById("wallet-balance").textContent =
+        "KSh " + walletBalance.toFixed(2);
 
-
-    document
-        .getElementById("total-earned")
-        .textContent =
-        "KSh " +
-        totalEarned.toFixed(2);
+    document.getElementById("total-earned").textContent =
+        "KSh " + totalEarned.toFixed(2);
 
 
     if (currentUser) {
 
-        const name =
-            currentUser.fullName ||
-            currentUser.firstName ||
+        const firstName =
+            currentProfile?.first_name ||
+            currentUser.user_metadata?.first_name ||
             "User";
 
+        document.getElementById("wallet-title").textContent =
+            "💰 " + firstName + "'s Wallet";
 
-        document
-            .getElementById("wallet-title")
-            .textContent =
-            "💰 " + name + "'s Wallet";
-
-
-        document
-            .getElementById("wallet-owner")
-            .textContent =
-            "Account: " +
-            (currentUser.email || "");
+        document.getElementById("wallet-owner").textContent =
+            "Account: " + (currentUser.email || "");
 
     }
 
 }
 
 
-/* ========================================================
-   ADD MONEY
-   ======================================================== */
-
 function addMoney() {
 
     let amount =
-        prompt(
-            "Enter the amount you want to add:"
-        );
-
+        prompt("Enter the amount you want to add:");
 
     if (amount === null) {
         return;
     }
 
+    amount = Number(amount);
 
-    amount =
-        Number(amount);
+    if (!isFinite(amount) || amount <= 0) {
 
-
-    if (
-        isNaN(amount) ||
-        amount <= 0
-    ) {
-
-        alert(
-            "Please enter a valid amount."
-        );
+        alert("Please enter a valid amount.");
 
         return;
 
     }
 
-
     walletBalance += amount;
 
-
-    addTransaction(
-        "Deposit",
-        amount,
-        "plus"
-    );
-
+    addTransaction("Deposit", amount, "plus");
 
     updateWalletDisplay();
-
 
     alert(
         "KSh " +
@@ -2508,67 +2237,38 @@ function addMoney() {
 }
 
 
-/* ========================================================
-   WITHDRAW
-   ======================================================== */
-
 function withdrawMoney() {
 
     let amount =
-        prompt(
-            "Enter the amount you want to withdraw:"
-        );
-
+        prompt("Enter the amount you want to withdraw:");
 
     if (amount === null) {
         return;
     }
 
+    amount = Number(amount);
 
-    amount =
-        Number(amount);
+    if (!isFinite(amount) || amount <= 0) {
 
-
-    if (
-        isNaN(amount) ||
-        amount <= 0
-    ) {
-
-        alert(
-            "Please enter a valid amount."
-        );
+        alert("Please enter a valid amount.");
 
         return;
 
     }
 
+    if (amount > walletBalance) {
 
-    if (
-        amount >
-        walletBalance
-    ) {
-
-        alert(
-            "Insufficient wallet balance."
-        );
+        alert("Insufficient wallet balance.");
 
         return;
 
     }
-
 
     walletBalance -= amount;
 
-
-    addTransaction(
-        "Withdrawal",
-        amount,
-        "minus"
-    );
-
+    addTransaction("Withdrawal", amount, "minus");
 
     updateWalletDisplay();
-
 
     alert(
         "KSh " +
@@ -2579,118 +2279,71 @@ function withdrawMoney() {
 }
 
 
-/* ========================================================
-   TRANSACTIONS
-   ======================================================== */
-
-function addTransaction(
-    type,
-    amount,
-    direction
-) {
+function addTransaction(type, amount, direction) {
 
     const transactionList =
-        document.getElementById(
-            "transaction-list"
-        );
-
+        document.getElementById("transaction-list");
 
     const emptyMessage =
-        transactionList.querySelector(
-            ".empty-transactions"
-        );
-
+        transactionList.querySelector(".empty-transactions");
 
     if (emptyMessage) {
         emptyMessage.remove();
     }
 
-
     const transaction =
         document.createElement("div");
 
-
-    transaction.style.padding =
-        "12px 0";
-
+    transaction.style.padding = "12px 0";
 
     transaction.style.borderBottom =
         "1px solid rgba(255,255,255,0.1)";
 
-
     transaction.innerHTML =
-
         "<strong>" +
         escapeHTML(type) +
-        "</strong>" +
-
-        "<br>" +
+        "</strong><br>" +
 
         "<span style='color:#8fa0dd;'>" +
         new Date().toLocaleString() +
-        "</span>" +
-
-        "<br>" +
+        "</span><br>" +
 
         "<span style='color:" +
-
-        (
-            direction === "plus"
-                ? "#4ade80"
-                : "#ff6b6b"
-        ) +
-
+        (direction === "plus" ? "#4ade80" : "#ff6b6b") +
         ";font-weight:bold;'>" +
 
-        (
-            direction === "plus"
-                ? "+"
-                : "-"
-        ) +
+        (direction === "plus" ? "+" : "-") +
 
         "KSh " +
-
         amount.toFixed(2) +
-
         "</span>";
 
-
-    transactionList.prepend(
-        transaction
-    );
+    transactionList.prepend(transaction);
 
 }
 
 
-/* ========================================================
+/* =====================================================
    SELL
-   ======================================================== */
+   ===================================================== */
 
 function openSell() {
 
-    document
-        .getElementById("main-platform")
-        .style
-        .display = "none";
+    if (!currentUser) {
 
+        alert("Please sign in first.");
 
-    document
-        .getElementById("wallet-dashboard")
-        .style
-        .display = "none";
+        return;
 
+    }
 
-    document
-        .getElementById("account-dashboard")
-        .style
-        .display = "none";
+    document.getElementById("main-platform").style.display = "none";
 
+    document.getElementById("wallet-dashboard").style.display = "none";
 
-    document
-        .getElementById("sell-dashboard")
-        .style
-        .display = "block";
+    document.getElementById("account-dashboard").style.display = "none";
 
+    document.getElementById("sell-dashboard").style.display = "block";
 
     window.scrollTo(0, 0);
 
@@ -2699,35 +2352,39 @@ function openSell() {
 
 function closeSell() {
 
-    document
-        .getElementById("sell-dashboard")
-        .style
-        .display = "none";
+    document.getElementById("sell-dashboard").style.display = "none";
 
-
-    document
-        .getElementById("main-platform")
-        .style
-        .display = "block";
-
+    document.getElementById("main-platform").style.display = "block";
 
     window.scrollTo(0, 0);
 
 }
 
 
-/* ========================================================
-   PRODUCT IMAGE PREVIEW
-   ======================================================== */
+/* =====================================================
+   PRODUCT IMAGE
+   ===================================================== */
 
 function previewProductImage(event) {
 
     const file =
         event.target.files[0];
 
-
     if (!file) {
         return;
+    }
+
+
+    if (file.size > 3 * 1024 * 1024) {
+
+        alert(
+            "Please choose an image smaller than 3MB."
+        );
+
+        event.target.value = "";
+
+        return;
+
     }
 
 
@@ -2741,16 +2398,11 @@ function previewProductImage(event) {
             selectedProductImage =
                 e.target.result;
 
-
             const preview =
-                document.getElementById(
-                    "image-preview"
-                );
-
+                document.getElementById("image-preview");
 
             preview.src =
                 selectedProductImage;
-
 
             preview.style.display =
                 "block";
@@ -2763,116 +2415,82 @@ function previewProductImage(event) {
 }
 
 
-/* ========================================================
-   GET SAVED PRODUCTS
-   ======================================================== */
+/* =====================================================
+   LOAD PRODUCTS FROM SUPABASE
+   ===================================================== */
 
-function getProducts() {
+async function loadProducts() {
 
-    const saved =
-        localStorage.getItem(
-            "madhiraProducts"
-        );
+    const container =
+        document.getElementById("listing-container");
 
-
-    if (!saved) {
-        return [];
-    }
+    container.innerHTML =
+        '<div class="loading">Loading marketplace...</div>';
 
 
-    try {
-
-        return JSON.parse(saved);
-
-    } catch (error) {
-
-        return [];
-
-    }
-
-}
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("products")
+        .select("*")
+        .order("created_at", { ascending: false });
 
 
-/* ========================================================
-   SAVE PRODUCTS
-   ======================================================== */
+    if (error) {
 
-function saveProducts(products) {
+        console.error(error);
 
-    localStorage.setItem(
-        "madhiraProducts",
-        JSON.stringify(products)
-    );
+        container.innerHTML =
+            '<div class="no-products">Unable to load products: ' +
+            escapeHTML(error.message) +
+            '</div>';
 
-}
-
-
-/* ========================================================
-   LOAD MARKETPLACE PRODUCTS
-   ======================================================== */
-
-function loadSavedProducts() {
-
-    const products =
-        getProducts();
-
-
-    if (
-        products.length === 0
-    ) {
         return;
+
     }
 
 
-    const listingContainer =
-        document.getElementById(
-            "listing-container"
-        );
+    container.innerHTML = "";
 
 
-    const listingsSection =
-        document.getElementById(
-            "marketplace-listings"
-        );
+    if (!data || data.length === 0) {
+
+        document.getElementById("marketplace-listings").style.display =
+            "none";
+
+        return;
+
+    }
 
 
-    listingContainer.innerHTML = "";
+    data.forEach(function(product) {
 
-
-    products.forEach(function(product) {
-
-        createMarketplaceListing(
-            product
-        );
+        createMarketplaceListing(product);
 
     });
 
 
-    listingsSection.style.display =
+    document.getElementById("marketplace-listings").style.display =
         "block";
 
 }
 
 
-/* ========================================================
-   CREATE MARKETPLACE LISTING
-   ======================================================== */
+/* =====================================================
+   CREATE LISTING
+   ===================================================== */
 
 function createMarketplaceListing(product) {
 
     const listingContainer =
-        document.getElementById(
-            "listing-container"
-        );
-
+        document.getElementById("listing-container");
 
     const listing =
         document.createElement("div");
 
-
     listing.className =
         "listing-card";
-
 
     let imageHTML = "";
 
@@ -2880,17 +2498,15 @@ function createMarketplaceListing(product) {
     if (product.image) {
 
         imageHTML =
-
             '<img class="listing-image" src="' +
-            product.image +
+            escapeAttribute(product.image) +
             '" alt="' +
-            escapeHTML(product.name) +
+            escapeAttribute(product.name) +
             '">';
 
     } else {
 
         imageHTML =
-
             '<div class="listing-image" style="display:flex;align-items:center;justify-content:center;font-size:60px;">🛍️</div>';
 
     }
@@ -2908,7 +2524,7 @@ function createMarketplaceListing(product) {
 
         '<div class="listing-price">' +
         'KSh ' +
-        Number(product.price).toLocaleString() +
+        Number(product.price || 0).toLocaleString() +
         '</div>' +
 
         '<div class="listing-info">' +
@@ -2933,7 +2549,7 @@ function createMarketplaceListing(product) {
 
         '<div class="seller-name">' +
         '👤 Seller: ' +
-        escapeHTML(product.sellerName || "Seller") +
+        escapeHTML(product.seller_name || "Seller") +
         '</div>' +
 
         '<div class="listing-description">' +
@@ -2946,19 +2562,35 @@ function createMarketplaceListing(product) {
     listing.dataset.productId =
         product.id;
 
+    listing.dataset.category =
+        product.category || "";
 
-    listingContainer.appendChild(
-        listing
-    );
+    listingContainer.appendChild(listing);
 
 }
 
 
-/* ========================================================
-   POST PRODUCT
-   ======================================================== */
+/* =====================================================
+   POST PRODUCT TO SUPABASE
+   ===================================================== */
 
-function postProduct() {
+async function postProduct() {
+
+    if (!currentUser) {
+
+        alert("Please sign in first.");
+
+        return;
+
+    }
+
+
+    const message =
+        document.getElementById("sell-message");
+
+    message.textContent =
+        "Posting product...";
+
 
     const name =
         document
@@ -2966,24 +2598,22 @@ function postProduct() {
             .value
             .trim();
 
-
     const price =
-        document
-            .getElementById("product-price")
-            .value;
-
+        Number(
+            document
+                .getElementById("product-price")
+                .value
+        );
 
     const category =
         document
             .getElementById("product-category")
             .value;
 
-
     const country =
         document
             .getElementById("product-country")
             .value;
-
 
     const location =
         document
@@ -2991,13 +2621,11 @@ function postProduct() {
             .value
             .trim();
 
-
     const description =
         document
             .getElementById("product-description")
             .value
             .trim();
-
 
     const contact =
         document
@@ -3009,6 +2637,7 @@ function postProduct() {
     if (
         !name ||
         !price ||
+        price <= 0 ||
         !category ||
         !country ||
         !location ||
@@ -3016,20 +2645,8 @@ function postProduct() {
         !contact
     ) {
 
-        alert(
-            "Please fill in all product details."
-        );
-
-        return;
-
-    }
-
-
-    if (!currentUser) {
-
-        alert(
-            "Please sign in first."
-        );
+        message.textContent =
+            "Please fill in all product details.";
 
         return;
 
@@ -3037,18 +2654,32 @@ function postProduct() {
 
 
     const sellerName =
-        currentUser.fullName ||
-        currentUser.firstName ||
+        (
+            currentProfile?.first_name ||
+            currentUser.user_metadata?.first_name ||
+            ""
+        ) +
+
+        " " +
+
+        (
+            currentProfile?.last_name ||
+            currentUser.user_metadata?.last_name ||
+            ""
+        );
+
+
+    const finalSellerName =
+        sellerName.trim() ||
+        currentUser.email ||
         "Seller";
 
 
     const product = {
 
-        id:
-            Date.now().toString() +
-            Math.random()
-                .toString(36)
-                .substring(2),
+        id: crypto.randomUUID(),
+
+        seller_id: currentUser.id,
 
         name: name,
 
@@ -3064,68 +2695,59 @@ function postProduct() {
 
         contact: contact,
 
-        image:
-            selectedProductImage,
+        image: selectedProductImage || "",
 
-        sellerName:
-            sellerName,
-
-        sellerEmail:
-            currentUser.email,
-
-        createdAt:
-            new Date().toISOString()
+        seller_name: finalSellerName
 
     };
 
 
-    const products =
-        getProducts();
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("products")
+        .insert(product)
+        .select()
+        .single();
 
 
-    products.unshift(
-        product
-    );
+    if (error) {
+
+        console.error(error);
+
+        message.textContent =
+            "Error: " + error.message;
+
+        return;
+
+    }
 
 
-    saveProducts(
-        products
-    );
+    /*
+     Add the new listing to the page.
+    */
 
+    createMarketplaceListing(data);
 
-    createMarketplaceListing(
-        product
-    );
-
-
-    document
-        .getElementById(
-            "marketplace-listings"
-        )
-        .style
-        .display = "block";
+    document.getElementById("marketplace-listings").style.display =
+        "block";
 
 
     clearSellForm();
 
 
-    document
-        .getElementById(
-            "sell-dashboard"
-        )
-        .style
-        .display = "none";
+    document.getElementById("sell-dashboard").style.display =
+        "none";
 
-
-    document
-        .getElementById(
-            "main-platform"
-        )
-        .style
-        .display = "block";
+    document.getElementById("main-platform").style.display =
+        "block";
 
 
     window.scrollTo(0, 0);
+
+
+    message.textContent = "";
 
 
     alert(
@@ -3135,76 +2757,46 @@ function postProduct() {
 }
 
 
-/* ========================================================
+/* =====================================================
    CLEAR SELL FORM
-   ======================================================== */
+   ===================================================== */
 
 function clearSellForm() {
 
-    document
-        .getElementById("product-name")
-        .value = "";
+    document.getElementById("product-name").value = "";
 
+    document.getElementById("product-price").value = "";
 
-    document
-        .getElementById("product-price")
-        .value = "";
+    document.getElementById("product-category").value = "";
 
+    document.getElementById("product-country").value = "";
 
-    document
-        .getElementById("product-category")
-        .value = "";
+    document.getElementById("product-location").value = "";
 
+    document.getElementById("product-description").value = "";
 
-    document
-        .getElementById("product-country")
-        .value = "";
+    document.getElementById("seller-contact").value = "";
 
+    document.getElementById("product-image").value = "";
 
-    document
-        .getElementById("product-location")
-        .value = "";
-
-
-    document
-        .getElementById("product-description")
-        .value = "";
-
-
-    document
-        .getElementById("seller-contact")
-        .value = "";
-
-
-    document
-        .getElementById("product-image")
-        .value = "";
-
-
-    document
-        .getElementById("image-preview")
-        .style
-        .display = "none";
-
+    document.getElementById("image-preview").style.display = "none";
 
     selectedProductImage = "";
 
 }
 
 
-/* ========================================================
-   MY POSTED PRODUCTS
-   ======================================================== */
+/* =====================================================
+   MY PRODUCTS
+   ===================================================== */
 
-function displayMyProducts() {
+async function displayMyProducts() {
 
     const container =
-        document.getElementById(
-            "my-products-container"
-        );
+        document.getElementById("my-products-container");
 
-
-    container.innerHTML = "";
+    container.innerHTML =
+        '<div class="loading">Loading your products...</div>';
 
 
     if (!currentUser) {
@@ -3217,31 +2809,23 @@ function displayMyProducts() {
     }
 
 
-    const products =
-        getProducts();
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("products")
+        .select("*")
+        .eq("seller_id", currentUser.id)
+        .order("created_at", { ascending: false });
 
 
-    const myProducts =
-        products.filter(function(product) {
+    if (error) {
 
-            return (
-                product.sellerEmail ===
-                currentUser.email
-            );
-
-        });
-
-
-    if (
-        myProducts.length === 0
-    ) {
+        console.error(error);
 
         container.innerHTML =
-
-            '<div class="no-products">' +
-
-            '📦 You have not posted any products yet.' +
-
+            '<div class="no-products">Unable to load your products: ' +
+            escapeHTML(error.message) +
             '</div>';
 
         return;
@@ -3249,11 +2833,25 @@ function displayMyProducts() {
     }
 
 
-    myProducts.forEach(function(product) {
+    container.innerHTML = "";
+
+
+    if (!data || data.length === 0) {
+
+        container.innerHTML =
+            '<div class="no-products">' +
+            '📦 You have not posted any products yet.' +
+            '</div>';
+
+        return;
+
+    }
+
+
+    data.forEach(function(product) {
 
         const card =
             document.createElement("div");
-
 
         card.className =
             "my-product-card";
@@ -3265,17 +2863,15 @@ function displayMyProducts() {
         if (product.image) {
 
             imageHTML =
-
                 '<img class="my-product-image" src="' +
-                product.image +
+                escapeAttribute(product.image) +
                 '" alt="' +
-                escapeHTML(product.name) +
+                escapeAttribute(product.name) +
                 '">';
 
         } else {
 
             imageHTML =
-
                 '<div class="my-product-image" style="display:flex;align-items:center;justify-content:center;font-size:50px;">🛍️</div>';
 
         }
@@ -3293,7 +2889,7 @@ function displayMyProducts() {
 
             '<div class="my-product-price">' +
             'KSh ' +
-            Number(product.price).toLocaleString() +
+            Number(product.price || 0).toLocaleString() +
             '</div>' +
 
             '<div class="my-product-location">' +
@@ -3305,24 +2901,12 @@ function displayMyProducts() {
 
             '<div class="my-product-actions">' +
 
-            '<button class="edit-product-btn" ' +
-
-            'onclick="editProduct(\'' +
-            product.id +
-            '\')">' +
-
+            '<button class="edit-product-btn">' +
             '✏️ Edit' +
-
             '</button>' +
 
-            '<button class="delete-product-btn" ' +
-
-            'onclick="deleteProduct(\'' +
-            product.id +
-            '\')">' +
-
+            '<button class="delete-product-btn">' +
             '🗑️ Delete' +
-
             '</button>' +
 
             '</div>' +
@@ -3330,74 +2914,45 @@ function displayMyProducts() {
             '</div>';
 
 
-        container.appendChild(
-            card
-        );
+        card
+            .querySelector(".edit-product-btn")
+            .onclick = function() {
+
+                editProduct(product.id);
+
+            };
+
+
+        card
+            .querySelector(".delete-product-btn")
+            .onclick = function() {
+
+                deleteProduct(product.id);
+
+            };
+
+
+        container.appendChild(card);
 
     });
 
 }
 
 
-/* ========================================================
+/* =====================================================
    DELETE PRODUCT
-   ======================================================== */
+   ===================================================== */
 
-function deleteProduct(productId) {
+async function deleteProduct(productId) {
 
     if (!currentUser) {
         return;
     }
 
 
-    const products =
-        getProducts();
-
-
-    const product =
-        products.find(function(item) {
-
-            return item.id === productId;
-
-        });
-
-
-    if (!product) {
-
-        alert(
-            "Product could not be found."
-        );
-
-        return;
-
-    }
-
-
-    /*
-       SECURITY CHECK:
-       User can only delete a product
-       belonging to their own email.
-    */
-
-    if (
-        product.sellerEmail !==
-        currentUser.email
-    ) {
-
-        alert(
-            "You can only delete your own products."
-        );
-
-        return;
-
-    }
-
-
     const confirmed =
         confirm(
-            "Are you sure you want to delete '" +
-            product.name +
-            "'?"
+            "Are you sure you want to delete this product?"
         );
 
 
@@ -3406,23 +2961,32 @@ function deleteProduct(productId) {
     }
 
 
-    const remainingProducts =
-        products.filter(function(item) {
-
-            return item.id !== productId;
-
-        });
-
-
-    saveProducts(
-        remainingProducts
-    );
+    const {
+        error
+    } = await supabaseClient
+        .from("products")
+        .delete()
+        .eq("id", productId)
+        .eq("seller_id", currentUser.id);
 
 
-    refreshMarketplace();
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to delete product: " +
+            error.message
+        );
+
+        return;
+
+    }
 
 
-    displayMyProducts();
+    await loadProducts();
+
+    await displayMyProducts();
 
 
     alert(
@@ -3432,47 +2996,32 @@ function deleteProduct(productId) {
 }
 
 
-/* ========================================================
+/* =====================================================
    EDIT PRODUCT
-   ======================================================== */
+   ===================================================== */
 
-function editProduct(productId) {
+async function editProduct(productId) {
 
     if (!currentUser) {
         return;
     }
 
 
-    const products =
-        getProducts();
+    const {
+        data: product,
+        error: findError
+    } = await supabaseClient
+        .from("products")
+        .select("*")
+        .eq("id", productId)
+        .eq("seller_id", currentUser.id)
+        .maybeSingle();
 
 
-    const product =
-        products.find(function(item) {
-
-            return item.id === productId;
-
-        });
-
-
-    if (!product) {
+    if (findError || !product) {
 
         alert(
             "Product could not be found."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        product.sellerEmail !==
-        currentUser.email
-    ) {
-
-        alert(
-            "You can only edit your own products."
         );
 
         return;
@@ -3516,27 +3065,60 @@ function editProduct(productId) {
     }
 
 
-    product.name =
-        newName.trim();
+    const priceNumber =
+        Number(newPrice);
 
 
-    product.price =
-        newPrice.trim();
+    if (
+        !newName.trim() ||
+        !isFinite(priceNumber) ||
+        priceNumber <= 0
+    ) {
+
+        alert(
+            "Please enter a valid name and price."
+        );
+
+        return;
+
+    }
 
 
-    product.description =
-        newDescription.trim();
+    const {
+        error
+    } = await supabaseClient
+        .from("products")
+        .update({
+
+            name: newName.trim(),
+
+            price: priceNumber,
+
+            description:
+                newDescription.trim()
+
+        })
+        .eq("id", productId)
+        .eq("seller_id", currentUser.id);
 
 
-    saveProducts(
-        products
-    );
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to update product: " +
+            error.message
+        );
+
+        return;
+
+    }
 
 
-    refreshMarketplace();
+    await loadProducts();
 
-
-    displayMyProducts();
+    await displayMyProducts();
 
 
     alert(
@@ -3546,50 +3128,9 @@ function editProduct(productId) {
 }
 
 
-/* ========================================================
-   REFRESH MARKETPLACE
-   ======================================================== */
-
-function refreshMarketplace() {
-
-    const container =
-        document.getElementById(
-            "listing-container"
-        );
-
-
-    container.innerHTML = "";
-
-
-    const products =
-        getProducts();
-
-
-    products.forEach(function(product) {
-
-        createMarketplaceListing(
-            product
-        );
-
-    });
-
-
-    document
-        .getElementById(
-            "marketplace-listings"
-        )
-        .style
-        .display =
-        products.length > 0
-            ? "block"
-            : "none";
-
-}
-
-
-/* ========================================================
+/* =====================================================
    SEARCH
-   ======================================================== */
+   ===================================================== */
 
 function searchProducts() {
 
@@ -3602,104 +3143,165 @@ function searchProducts() {
 
 
     const listings =
-        document.querySelectorAll(
-            ".listing-card"
-        );
+        document.querySelectorAll(".listing-card");
 
 
     listings.forEach(function(listing) {
 
         const content =
-            listing.textContent
-                .toLowerCase();
+            listing.textContent.toLowerCase();
 
 
-        if (
-            !searchTerm ||
-            content.includes(searchTerm)
-        ) {
-
-            listing.style.display =
-                "block";
-
-        } else {
-
-            listing.style.display =
-                "none";
-
-        }
+        listing.style.display =
+            (
+                !searchTerm ||
+                content.includes(searchTerm)
+            )
+                ? "block"
+                : "none";
 
     });
 
 }
 
 
-/* ========================================================
+/* =====================================================
    CATEGORY FILTER
-   ======================================================== */
+   ===================================================== */
 
 function filterCategory(category) {
-
-    const listings =
-        document.querySelectorAll(
-            ".listing-card"
-        );
-
 
     document
         .getElementById("search-input")
         .value = category;
 
 
+    const listings =
+        document.querySelectorAll(".listing-card");
+
+
     listings.forEach(function(listing) {
 
         const content =
-            listing.textContent
-                .toLowerCase();
+            listing.textContent.toLowerCase();
 
 
-        if (
+        listing.style.display =
             content.includes(
                 category.toLowerCase()
             )
-        ) {
-
-            listing.style.display =
-                "block";
-
-        } else {
-
-            listing.style.display =
-                "none";
-
-        }
+                ? "block"
+                : "none";
 
     });
 
 }
 
 
-/* ========================================================
-   ESCAPE HTML
-   ======================================================== */
+/* =====================================================
+   SIGN OUT
+   ===================================================== */
+
+async function signOut() {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to sign out?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const {
+        error
+    } = await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+        alert(
+            "Unable to sign out: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    currentUser = null;
+
+    currentProfile = null;
+
+    selectedProfilePicture = "";
+
+    selectedProductImage = "";
+
+    showAuth();
+
+    switchForm("signin");
+
+
+    document
+        .getElementById("signin-email")
+        .value = "";
+
+    document
+        .getElementById("signin-password")
+        .value = "";
+
+}
+
+
+/* =====================================================
+   SUPABASE AUTH STATE LISTENER
+   ===================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    async function(event, session) {
+
+        if (session && session.user) {
+
+            currentUser =
+                session.user;
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SECURITY HELPERS
+   ===================================================== */
 
 function escapeHTML(text) {
 
     const div =
         document.createElement("div");
 
-
     div.textContent =
         text == null
             ? ""
             : String(text);
 
-
     return div.innerHTML;
+
+}
+
+
+function escapeAttribute(text) {
+
+    return escapeHTML(text)
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
 
 </script>
 
 </body>
-                                          </html>
+      </html>
