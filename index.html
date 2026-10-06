@@ -4615,7 +4615,148 @@ function escapeHTML(text) {
 }
 
 </script>
+<!-- GAMES BUTTON -->
+<button onclick="openGames()" style="
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    z-index:9999;
+    padding:12px 18px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-weight:bold;
+    font-size:15px;
+">
+    🎮 Games
+</button>
 
+<!-- GAMES DASHBOARD -->
+<div id="games-dashboard" style="
+    display:none;
+    padding:20px;
+    max-width:600px;
+    margin:auto;
+">
+
+    <button onclick="closeGames()" style="
+        padding:10px 15px;
+        border:none;
+        border-radius:8px;
+        background:#333;
+        color:white;
+    ">
+        ← Back
+    </button>
+
+    <h2>🎮 Madhira Games</h2>
+
+    <button onclick="openAviator()" style="
+        width:100%;
+        padding:25px;
+        margin-top:20px;
+        border:none;
+        border-radius:15px;
+        background:#131c2e;
+        color:white;
+        font-size:20px;
+    ">
+        ✈️ Aviator Demo
+    </button>
+
+</div>
+
+<!-- AVIATOR DEMO -->
+<div id="aviator-dashboard" style="
+    display:none;
+    padding:20px;
+    max-width:600px;
+    margin:auto;
+">
+
+    <button onclick="closeAviator()" style="
+        padding:10px 15px;
+        border:none;
+        border-radius:8px;
+        background:#333;
+        color:white;
+    ">
+        ← Back
+    </button>
+
+    <h2>✈️ Aviator Demo</h2>
+
+    <div style="
+        background:#101a2d;
+        padding:40px 20px;
+        border-radius:15px;
+        text-align:center;
+        color:white;
+    ">
+
+        <div id="aviator-multiplier" style="
+            font-size:50px;
+            font-weight:bold;
+        ">
+            1.00x
+        </div>
+
+        <p id="aviator-status">
+            Place a demo bet to start
+        </p>
+
+    </div>
+
+    <p>
+        Demo Balance:
+        <strong id="demo-balance">1,000</strong>
+        credits
+    </p>
+
+    <input
+        id="aviator-bet"
+        type="number"
+        value="10"
+        min="1"
+        max="1000"
+        style="
+            width:100%;
+            padding:12px;
+            box-sizing:border-box;
+        "
+    >
+
+    <button
+        id="aviator-start-btn"
+        onclick="startAviator()"
+        style="
+            width:100%;
+            padding:14px;
+            margin-top:10px;
+            border:none;
+            border-radius:8px;
+            background:#2563eb;
+            color:white;
+            font-weight:bold;
+        "
+    >
+        🚀 Start Round
+    </button>
+
+    <button
+        id="aviator-cashout-btn"
+        onclick="cashOutAviator()"
+        disabled
+        style="
+            width:100%;
+            padding:14px;
+            margin-top:10px;
+            border:none;
+            border-radius:8px;
+            background:#16a34a;
+            color:white;
+            font
 </body>
 </html>
 
