@@ -4615,68 +4615,36 @@ function escapeHTML(text) {
 }
 
 </script>
+    <nav class="bottom-navigation">
 
-<!-- BOTTOM NAVIGATION -->
-<nav id="bottom-navigation" class="bottom-navigation" style="display:none;">
-
-    <button id="bottom-home"
-            class="active"
-            onclick="goHome()">
-        <span>⌂</span>
+    <button onclick="goHome()">
+        <span>🏠</span>
         <small>Home</small>
     </button>
 
-    <button id="bottom-market"
-            onclick="goMarket()">
-        <span>▣</span>
+    <button onclick="goMarket()">
+        <span>🛍️</span>
         <small>Market</small>
     </button>
 
-    <button id="bottom-sell"
-            onclick="openSell()">
-        <span>＋</span>
-        <small>Sell</small>
+    <button onclick="openAviator()">
+        <span>✈️</span>
+        <small>Aviator</small>
     </button>
 
-    <button id="bottom-wallet"
-            onclick="openWallet()">
-        <span>▣</span>
+    <button onclick="openWallet()">
+        <span>💰</span>
         <small>Wallet</small>
     </button>
 
-    <button id="bottom-account"
-            onclick="openAccount()">
-        <span>●</span>
+    <button onclick="openAccount()">
+        <span>👤</span>
         <small>Account</small>
     </button>
 
-</nav>
-    <script>
-const bottomNavigation = document.getElementById("bottom-navigation");
+    </nav>
 
-if (bottomNavigation) {
 
-    supabaseClient.auth.getSession().then(({ data }) => {
-
-        if (data.session) {
-            bottomNavigation.style.display = "flex";
-        } else {
-            bottomNavigation.style.display = "none";
-        }
-
-    });
-
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-
-        if (session) {
-            bottomNavigation.style.display = "flex";
-        } else {
-            bottomNavigation.style.display = "none";
-        }
-
-    });
-}
-    </script>
     
 
 
