@@ -4613,8 +4613,162 @@ function escapeHTML(text) {
     return div.innerHTML;
 
 }
+<script>
+let demoBalance = 1000;
+let aviatorBet = 0;
+let aviatorMultiplier = 1;
+let aviatorCrashPoint = 0;
+let aviatorRunning = false;
+let aviatorInterval = null;
 
+function openGames() {
+    document.getElementById("main-platform").style.display = "none";
+
+    if (document.getElementById("wallet-dashboard"))
+        document.getElementById("wallet-dashboard").style.display = "none";
+
+    if (document.getElementById("sell-dashboard"))
+        document.getElementById("sell-dashboard").style.display = "none";
+
+    if (document.getElementById("account-dashboard"))
+        document.getElementById("account-dashboard").style.display = "none";
+
+    document.getElementById("aviator-dashboard").style.display = "none";
+    document.getElementById("games-dashboard").style.display = "block";
+}
+
+function closeGames() {
+    document.getElementById("games-dashboard").style.display = "none";
+    document.getElementById("main-platform").style.display = "block";
+}
+
+function openAviator() {
+    document.getElementById("games-dashboard").style.display = "none";
+    document.getElementById("aviator-dashboard").style.display = "block";
+    updateDemoBalance();
+}
+
+function closeAviator() {
+    if (aviatorInterval) {
+        clearInterval(aviatorInterval);
+        aviatorInterval = null;
+    }
+
+    aviatorRunning = false;
+
+    document.getElementById("aviator-dashboard").style.display = "none";
+    document.getElementById("games-dashboard").style.display = "block";
+}
+
+function updateDemoBalance() {
+    document.getElementById("demo-balance").textContent =
+        Math.floor(demoBalance).toLocaleString();
+}
+
+function startAviator() {
+
+    if (aviatorRunning) return;
+
+    const bet = Number(
+        document.getElementById("aviator-bet").value
+    );
+
+    if (!Number.isFinite(bet) || bet <= 0) {
+        alert("Enter a valid demo bet.");
+        return;
+    }
+
+    if (bet > demoBalance) {
+        alert("Not enough demo credits.");
+        return;
+    }
+
+    aviatorBet = bet;
+    demoBalance -= bet;
+
+    aviatorMultiplier = 1;
+    aviatorCrashPoint =
+        Number((1.10 + Math.random() * 8.90).toFixed(2));
+
+    aviatorRunning = true;
+
+    updateDemoBalance();
+
+    document.getElementById("aviator-start-btn").disabled = true;
+    document.getElementById("aviator-cashout-btn").disabled = false;
+
+    document.getElementById("aviator-status").textContent =
+        "Plane is flying...";
+
+    document.getElementById("aviator-result").textContent = "";
+
+    aviatorInterval = setInterval(() => {
+
+        aviatorMultiplier =
+            Number((aviatorMultiplier + 0.01).toFixed(2));
+
+        document.getElementById("aviator-multiplier").textContent =
+            aviatorMultiplier.toFixed(2) + "x";
+
+        if (aviatorMultiplier >= aviatorCrashPoint) {
+            crashAviator();
+        }
+
+    }, 100);
+}
+
+function cashOutAviator() {
+
+    if (!aviatorRunning) return;
+
+    clearInterval(aviatorInterval);
+    aviatorInterval = null;
+
+    aviatorRunning = false;
+
+    const winnings =
+        aviatorBet * aviatorMultiplier;
+
+    demoBalance += winnings;
+
+    updateDemoBalance();
+
+    document.getElementById("aviator-status").textContent =
+        "Cashed out!";
+
+    document.getElementById("aviator-result").textContent =
+        "Won " +
+        winnings.toFixed(2) +
+        " demo credits at " +
+        aviatorMultiplier.toFixed(2) +
+        "x";
+
+    document.getElementById("aviator-start-btn").disabled = false;
+    document.getElementById("aviator-cashout-btn").disabled = true;
+}
+
+function crashAviator() {
+
+    clearInterval(aviatorInterval);
+    aviatorInterval = null;
+
+    aviatorRunning = false;
+
+    document.getElementById("aviator-multiplier").textContent =
+        aviatorCrashPoint.toFixed(2) + "x";
+
+    document.getElementById("aviator-status").textContent =
+        "💥 CRASHED!";
+
+    document.getElementById("aviator-result").textContent =
+        "Demo bet lost. Crashed at " +
+        aviatorCrashPoint.toFixed(2) + "x";
+
+    document.getElementById("aviator-start-btn").disabled = false;
+    document.getElementById("aviator-cashout-btn").disabled = true;
+}
 </script>
+
 <!-- GAMES BUTTON -->
 <button onclick="openGames()" style="
     position:fixed;
