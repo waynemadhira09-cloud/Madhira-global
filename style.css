@@ -2471,7 +2471,7 @@ padding: 16px;
    MADHIRA GLOBAL - APP STYLE BOTTOM NAVIGATION
    ======================================================== */
 
-.bottom-navigation {
+.bottom-navigation {display: none !important;
     position: fixed !important;
     left: 10px !important;
     right: 10px !important;
