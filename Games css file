@@ -5,192 +5,555 @@
 body {
     margin: 0;
     padding: 20px;
+    min-height: 100vh;
+
     font-family: Arial, sans-serif;
-    background: #07101f;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #182b4a 0%,
+            #07101f 55%,
+            #030812 100%
+        );
+
     color: white;
 }
 
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
 .games-container {
-    max-width: 600px;
+    width: 100%;
+    max-width: 650px;
     margin: 0 auto;
 }
 
-h1 {
+
+/* =========================
+   GAMES MENU
+========================= */
+
+#games-menu {
+    width: 100%;
+}
+
+#games-menu h1 {
     text-align: center;
-    margin-top: 20px;
+    margin: 20px 0 5px;
+    font-size: 30px;
 }
 
 .subtitle {
     text-align: center;
     color: #8fa0dd;
-    margin-bottom: 25px;
+    margin: 0 0 25px;
 }
+
+
+/* =========================
+   GAME CARDS
+========================= */
 
 .games-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
     gap: 15px;
 }
 
 .game-card {
-    min-height: 160px;
-    border: none;
-    border-radius: 15px;
-    background: #131c2e;
+    min-height: 165px;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.08);
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #172640,
+            #0d1729
+        );
+
     color: white;
-    padding: 20px;
+
+    padding: 20px 12px;
+
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        border-color 0.2s;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0, 0, 0, 0.35);
 }
 
 .game-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(96, 165, 250, 0.5);
+
+    box-shadow:
+        0 15px 30px
+        rgba(0, 0, 0, 0.45);
+}
+
+.game-card:active {
+    transform: scale(0.97);
 }
 
 .game-icon {
-    font-size: 45px;
+    font-size: 48px;
     margin-bottom: 10px;
 }
 
 .game-card h2 {
     margin: 5px 0;
+
+    font-size: 19px;
 }
 
 .game-card p {
-    color: #8fa0dd;
     margin: 5px 0;
+
+    color: #8fa0dd;
+
+    font-size: 14px;
 }
 
-@media (max-width: 500px) {
-    .games-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-/* ==============================
-   AVIATOR GAME
-============================== */
+
+/* =========================
+   AVIATOR
+========================= */
 
 #aviator-game {
     display: none;
-    margin-top: 20px;
+
+    width: 100%;
 }
+
+#aviator-game h1 {
+    text-align: center;
+
+    margin:
+        5px 0 4px;
+}
+
+.demo-label {
+    text-align: center;
+
+    color: #fbbf24;
+
+    font-size: 13px;
+
+    margin-top: 0;
+    margin-bottom: 18px;
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
 
 .back-button {
     border: none;
-    background: #1e2d4a;
+
+    background: #172640;
+
     color: white;
-    padding: 10px 15px;
-    border-radius: 8px;
+
+    padding: 11px 16px;
+
+    border-radius: 9px;
+
     cursor: pointer;
-    margin-bottom: 15px;
+
+    font-size: 14px;
+
+    transition:
+        background 0.2s;
 }
 
-.aviator-game h2 {
-    text-align: center;
-    margin-bottom: 15px;
+.back-button:hover {
+    background: #24395c;
 }
+
+
+/* =========================
+   AVIATOR SCREEN
+========================= */
 
 .aviator-screen {
-    height: 350px;
     position: relative;
+
+    width: 100%;
+
+    height: 370px;
+
     overflow: hidden;
 
-    border-radius: 15px;
+    border-radius: 18px;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.08);
 
     background:
         radial-gradient(
-            circle at center,
-            #243b64,
-            #101a2d 55%,
-            #050b14
+            circle at 50% 85%,
+            #294875 0%,
+            #142743 35%,
+            #091426 65%,
+            #030914 100%
         );
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    box-shadow:
+        inset 0 0 50px
+        rgba(0, 0, 0, 0.35),
+
+        0 12px 30px
+        rgba(0, 0, 0, 0.35);
 }
 
-#aviator-multiplier {
-    font-size: 55px;
-    font-weight: bold;
-    z-index: 2;
-}
 
-#aviator-plane {
+/* Grid lines */
+
+.aviator-screen::before {
+    content: "";
+
     position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.035) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        50px 50px;
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   MULTIPLIER
+========================= */
+
+.aviator-multiplier {
+    position: absolute;
+
+    top: 42%;
+
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 5;
+
+    font-size: 58px;
+
+    font-weight: 800;
+
+    letter-spacing: -2px;
+
+    text-shadow:
+        0 4px 20px
+        rgba(0, 0, 0, 0.6);
+}
+
+
+/* =========================
+   PLANE
+========================= */
+
+.aviator-plane {
+    position: absolute;
+
     left: 30px;
+
     bottom: 35px;
 
-    font-size: 50px;
+    z-index: 4;
+
+    font-size: 52px;
 
     transition:
         left 0.1s linear,
         bottom 0.1s linear;
+
+    filter:
+        drop-shadow(
+            0 5px 10px
+            rgba(0, 0, 0, 0.5)
+        );
 }
 
-#aviator-status {
-    color: #8fa0dd;
-    margin-top: 10px;
-    z-index: 2;
+
+/* =========================
+   STATUS
+========================= */
+
+.aviator-status {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 22px;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 5;
+
+    color: #9fb0d9;
+
+    font-size: 14px;
+
+    white-space: nowrap;
 }
+
+
+/* =========================
+   BALANCE
+========================= */
 
 .demo-balance {
-    background: #131c2e;
-    padding: 15px;
-    border-radius: 10px;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
     margin-top: 15px;
-    text-align: center;
-    color: #8fa0dd;
+
+    padding: 16px;
+
+    border-radius: 12px;
+
+    background: #111d31;
+
+    border: 1px solid
+        rgba(255,255,255,0.06);
+
+    color: #9fb0d9;
 }
 
 .demo-balance strong {
     color: #4ade80;
-    font-size: 20px;
+
+    font-size: 21px;
 }
+
+
+/* =========================
+   CONTROLS
+========================= */
 
 .aviator-controls {
     margin-top: 15px;
 }
 
+.aviator-controls label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #9fb0d9;
+
+    font-size: 14px;
+}
+
 #aviator-bet {
     width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
 
-    background: #131c2e;
+    padding: 14px;
+
+    border: 1px solid
+        rgba(255,255,255,0.08);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #111d31;
+
     color: white;
 
     font-size: 16px;
-    outline: none;
 }
+
+#aviator-bet:focus {
+    border-color:
+        #3b82f6;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
 
 #start-button,
 #cashout-button {
     width: 100%;
-    padding: 14px;
+
     margin-top: 10px;
 
+    padding: 14px;
+
     border: none;
-    border-radius: 8px;
+
+    border-radius: 9px;
 
     color: white;
+
     font-size: 16px;
-    font-weight: bold;
+
+    font-weight: 700;
 
     cursor: pointer;
+
+    transition:
+        transform 0.15s,
+        opacity 0.15s;
+}
+
+#start-button:active,
+#cashout-button:active {
+    transform: scale(0.98);
 }
 
 #start-button {
-    background: #2563eb;
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
 }
 
 #cashout-button {
-    background: #16a34a;
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #15803d
+        );
 }
 
+#start-button:disabled,
 #cashout-button:disabled {
     opacity: 0.4;
+
     cursor: not-allowed;
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.aviator-result {
+    min-height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    margin-top: 15px;
+
+    padding: 10px;
+
+    color: #fbbf24;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 12px;
+    }
+
+    #games-menu h1 {
+        font-size: 26px;
+    }
+
+    .games-grid {
+        gap: 10px;
+    }
+
+    .game-card {
+        min-height: 145px;
+
+        padding: 15px 8px;
+    }
+
+    .game-icon {
+        font-size: 40px;
+    }
+
+    .game-card h2 {
+        font-size: 17px;
+    }
+
+    .aviator-screen {
+        height: 320px;
+    }
+
+    .aviator-multiplier {
+        font-size: 46px;
+    }
+
+    .aviator-plane {
+        font-size: 45px;
+    }
+
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 350px) {
+
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .aviator-screen {
+        height: 300px;
+    }
+
 }
