@@ -2468,104 +2468,150 @@ padding: 16px;
 
 }
   /* ========================================================
-   MADHIRA GLOBAL - BOTTOM NAVIGATION
+   MADHIRA GLOBAL - APP STYLE BOTTOM NAVIGATION
    ======================================================== */
 
 .bottom-navigation {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 78px;
-    background: #263b4d;
-    border-top: 1px solid #526b7e;
-    display: flex;
-    align-items: stretch;
-    justify-content: space-around;
-    z-index: 9999;
-    padding: 0;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.18);
+    position: fixed !important;
+    left: 10px !important;
+    right: 10px !important;
+    bottom: 10px !important;
+
+    width: auto !important;
+    max-width: none !important;
+    height: 78px !important;
+
+    background: #2f75b9 !important;
+
+    border: 1px solid #4389c9 !important;
+    border-radius: 18px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+
+    padding: 5px 4px !important;
+    margin: 0 !important;
+
+    z-index: 999999 !important;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.30) !important;
 }
 
+/* EACH ITEM */
 .bottom-navigation button {
-    flex: 1;
-    height: 78px;
-    margin: 0;
-    padding: 7px 2px 5px;
-    border: none;
-    border-radius: 0;
-    background: transparent;
-    color: #b9c3cc;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    font-size: 14px;
-    font-weight: 500;
-    box-shadow: none;
+    flex: 1 1 20% !important;
+
+    width: 20% !important;
+    height: 68px !important;
+
+    margin: 0 !important;
+    padding: 5px 2px !important;
+
+    border: none !important;
+    border-radius: 13px !important;
+
+    background: transparent !important;
+
+    color: rgba(255, 255, 255, 0.75) !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 3px !important;
+
+    box-shadow: none !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
 }
 
+/* ICON */
 .bottom-navigation button span {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 27px;
-    line-height: 1;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 36px !important;
+    height: 34px !important;
+
+    font-size: 27px !important;
+    line-height: 1 !important;
 }
 
+/* LABEL */
 .bottom-navigation button small {
-    font-size: 13px;
-    line-height: 16px;
-    color: #b9c3cc;
-    font-weight: 500;
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: rgba(255, 255, 255, 0.80) !important;
+
+    font-size: 11px !important;
+    line-height: 15px !important;
+
+    font-weight: 600 !important;
 }
 
+/* ACTIVE ITEM */
 .bottom-navigation button.active {
-    color: #f1d400;
-    background: transparent;
+    background: #ffffff !important;
+    color: #2f75b9 !important;
+
+    border-radius: 13px !important;
 }
 
+/* ACTIVE LABEL */
 .bottom-navigation button.active small {
-    color: #f1d400;
-    font-weight: 600;
+    color: #2f75b9 !important;
+    font-weight: 700 !important;
 }
 
+/* ACTIVE ICON */
 .bottom-navigation button.active span {
-    color: #f1d400;
+    color: #2f75b9 !important;
 }
 
-/* Make the navigation comfortable on small phones */
+/* HOVER */
+.bottom-navigation button:hover {
+    opacity: 1 !important;
+}
+
+/* MOBILE */
 @media (max-width: 500px) {
 
     .bottom-navigation {
-        height: 78px;
+        left: 8px !important;
+        right: 8px !important;
+        bottom: 8px !important;
+
+        height: 78px !important;
+
+        border-radius: 18px !important;
     }
 
     .bottom-navigation button {
-        height: 78px;
+        height: 68px !important;
     }
 
     .bottom-navigation button span {
-        font-size: 27px;
-        width: 32px;
-        height: 32px;
+        font-size: 27px !important;
     }
 
     .bottom-navigation button small {
-        font-size: 13px;
+        font-size: 11px !important;
     }
 }
 
-/* Keep website content above the navigation */
+/* KEEP CONTENT ABOVE THE NAVIGATION */
 #main-platform,
 #wallet-dashboard,
 #sell-dashboard,
 #account-dashboard {
-    padding-bottom: 100px;
+    padding-bottom: 110px !important;
 }
-  
 
 
