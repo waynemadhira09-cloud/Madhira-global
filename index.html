@@ -1,656 +1,725 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MADHIRA GLOBAL</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #0b1426;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* ========================================================
-           AUTHENTICATION
-           ======================================================== */
-
-        #auth-screen {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            width: 100%;
-            max-width: 450px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .brand-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .brand-logo {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        .hero-title {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-            line-height: 1.3;
-        }
-
-        .hero-tagline {
-            color: #8fa0dd;
-            margin-bottom: 40px;
-            font-size: 1rem;
-        }
-
-        .auth-box {
-            background-color: #131c2e;
-            width: 100%;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-            display: none;
-        }
-
-        .auth-box.active {
-            display: block;
-        }
-
-        .auth-box h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .input-group {
-            margin-bottom: 16px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: #8fa0dd;
-            margin-bottom: 6px;
-        }
-
-        .input-group input,
-        .input-group select {
-            width: 100%;
-            padding: 12px;
-            background: #1e2d4a;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px;
-            color: #fff;
-            outline: none;
-            font-size: 0.95rem;
-        }
-
-        .input-group input:focus,
-        .input-group select:focus {
-            border-color: #2b6cb0;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #2b6cb0;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .toggle-link {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #8fa0dd;
-        }
-
-        .toggle-link span {
-            color: #2b6cb0;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* ========================================================
-           MAIN DASHBOARD
-           ======================================================== */
-
-        #main-platform {
-            display: none;
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-        }
-
-        .top-navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            margin-bottom: 30px;
-            gap: 10px;
-        }
-
-        .top-actions {
-            display: flex;
-            gap: 7px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        .search-container {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .search-bar-wrapper {
-            background: white;
-            border-radius: 8px;
-            padding: 8px;
-            display: flex;
-            margin-top: 20px;
-        }
-
-        .search-bar-wrapper input {
-            flex: 1;
-            border: none;
-            padding: 10px;
-            outline: none;
-            font-size: 1rem;
-        }
-
-        .search-btn {
-            background-color: #2b6cb0;
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .categories-section h3 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .category-card {
-            background-color: #ffffff;
-            color: #333333;
-            padding: 24px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .category-icon {
-            display: block;
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-        }
-
-        /* ========================================================
-           ACCOUNT INFO
-           ======================================================== */
-
-        #account-panel {
-            display: none;
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-        }
-
-        .account-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .account-header h2 {
-            font-size: 1.5rem;
-        }
-
-        .account-card {
-            background: #131c2e;
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-        }
-
-        .profile-top {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .profile-picture-wrapper {
-            position: relative;
-            width: 110px;
-            height: 110px;
-            margin: 0 auto 15px;
-        }
-
-        .profile-picture {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #1e2d4a;
-            border: 3px solid #2b6cb0;
-            display: block;
-        }
-
-        .change-photo-label {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: #2b6cb0;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: 2px solid #131c2e;
-        }
-
-        #profile-picture-input {
-            display: none;
-        }
-
-        .profile-top h2 {
-            margin-bottom: 5px;
-        }
-
-        .profile-status {
-            color: #4ade80;
-            font-size: 0.9rem;
-        }
-
-        .account-details {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .account-detail {
-            background: #1e2d4a;
-            border-radius: 8px;
-            padding: 14px;
-        }
-
-        .account-detail-label {
-            display: block;
-            color: #8fa0dd;
-            font-size: 0.8rem;
-            margin-bottom: 5px;
-        }
-
-        .account-detail-value {
-            font-size: 1rem;
-            word-break: break-word;
-        }
-
-        .account-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .account-actions button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 7px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .edit-profile-btn {
-            background: #2b6cb0;
-        }
-
-        .logout-btn {
-            background: #8b2635;
-        }
-
-        /* ========================================================
-           WALLET
-           ======================================================== */
-
-        #wallet-dashboard {
-            display: none;
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-        }
-
-        .wallet-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .wallet-header h2 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
-
-        .back-btn {
-            background: #131c2e;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .wallet-balance-card {
-            background: #131c2e;
-            color: white;
-            padding: 25px;
-            border-radius: 14px;
-            text-align: center;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-        }
-
-        .wallet-owner {
-            color: #8fa0dd;
-            margin-bottom: 12px;
-        }
-
-        .wallet-balance-card p {
-            color: #8fa0dd;
-            margin-bottom: 8px;
-        }
-
-        .wallet-balance-card h1 {
-            font-size: 32px;
-            margin: 10px 0 25px;
-            color: white;
-        }
-
-        .wallet-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .wallet-actions button {
-            flex: 1;
-            background: #2b6cb0;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .wallet-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 18px;
-        }
-
-        .wallet-stat {
-            background: #131c2e;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .wallet-stat span {
-            display: block;
-            color: #8fa0dd;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .wallet-stat strong {
-            font-size: 18px;
-            color: white;
-        }
-
-        .transactions {
-            background: #131c2e;
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .transactions h3 {
-            margin-bottom: 15px;
-        }
-
-        .empty-transactions {
-            color: #8fa0dd;
-            text-align: center;
-            padding: 25px 0;
-        }
-
-        .wallet-btn {
-            background: #2b6cb0;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* ========================================================
-           SELL
-           ======================================================== */
-
-        #sell-dashboard {
-            display: none;
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-        }
-
-        .sell-box {
-            background: #131c2e;
-            padding: 25px;
-            border-radius: 14px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-        }
-
-        .sell-box h3 {
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-
-        .sell-input-group {
-            margin-bottom: 16px;
-        }
-
-        .sell-input-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: #8fa0dd;
-            margin-bottom: 6px;
-        }
-
-        .sell-input-group input,
-        .sell-input-group select,
-        .sell-input-group textarea {
-            width: 100%;
-            padding: 12px;
-            background: #1e2d4a;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px;
-            color: #fff;
-            outline: none;
-            font-size: 0.95rem;
-        }
-
-        .sell-input-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .sell-input-group input:focus,
-        .sell-input-group select:focus,
-        .sell-input-group textarea:focus {
-            border-color: #2b6cb0;
-        }
-
-        .sell-input-group select option {
-            background: #1e2d4a;
-            color: white;
-        }
-
-        .image-preview {
-            width: 100%;
-            max-height: 250px;
-            object-fit: contain;
-            display: none;
-            margin-top: 10px;
-            border-radius: 8px;
-            background: #0b1426;
-        }
-
-        /* ========================================================
-           MARKETPLACE
-           ======================================================== */
-
-        #marketplace-listings {
-            margin-top: 40px;
-            display: none;
-        }
-
-        .listing-card {
-            background: #131c2e;
-            border-radius: 12px;
-            margin-bottom: 18px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .listing-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            background: #1e2d4a;
-        }
-
-        .listing-content {
-            padding: 18px;
-        }
-
-        .listing-content h3 {
-            margin-bottom: 8px;
-        }
-
-        .listing-price {
-            color: #5da9ff;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .listing-info {
-            color: #8fa0dd;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-        }
-
-        .listing-description {
-            color: #d8def5;
-            margin-top: 12px;
-            line-height: 1.5;
-        }
-
-        /* ========================================================
-           MOBILE
-           ======================================================== */
-
-        @media (max-width: 500px) {
-
-            #wallet-dashboard,
-            #sell-dashboard,
-            #account-panel {
-                padding: 20px;
-            }
-
-            .wallet-actions {
-                flex-direction: column;
-            }
-
-            .wallet-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .wallet-header {
-                flex-wrap: wrap;
-            }
-
-            .top-navbar {
-                align-items: flex-start;
-            }
-
-            .top-actions {
-                flex-direction: column;
-                width: auto;
-            }
-
-            .top-actions button {
-                width: 100%;
-            }
-
-            .account-actions {
-                flex-direction: column;
-            }
-        }
-    </style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://mhaaxpztjgppdtumbofs.supabase.co";
+const SUPABASE_KEY = "sb_publishable_qQSTh1vtarv7HGtcRMLHuw_NCVmtDwW";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Madhira Global</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0b1426;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    cursor: pointer;
+}
+
+#auth-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    text-align: center;
+}
+
+.brand-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.brand-logo {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.hero-title {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.hero-tagline {
+    color: #8fa0dd;
+    margin-bottom: 40px;
+    font-size: 1rem;
+}
+
+.auth-box {
+    background-color: #131c2e;
+    width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    display: none;
+}
+
+.auth-box.active {
+    display: block;
+}
+
+.auth-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.input-group label,
+.sell-input-group label,
+.account-input-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: #8fa0dd;
+    margin-bottom: 6px;
+}
+
+.input-group input,
+.input-group select,
+.sell-input-group input,
+.sell-input-group select,
+.sell-input-group textarea,
+.account-input-group input {
+    width: 100%;
+    padding: 12px;
+    background: #1e2d4a;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    color: #fff;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.sell-input-group input:focus,
+.sell-input-group select:focus,
+.sell-input-group textarea:focus,
+.account-input-group input:focus {
+    border-color: #2b6cb0;
+}
+
+.input-group select option,
+.sell-input-group select option {
+    background: #1e2d4a;
+    color: white;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2b6cb0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.toggle-link {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #8fa0dd;
+}
+
+.toggle-link span {
+    color: #5da9ff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.message {
+    min-height: 20px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #ffcc66;
+}
+
+#main-platform,
+#wallet-dashboard,
+#sell-dashboard,
+#account-dashboard {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.nav-buttons button,
+.wallet-btn,
+.account-btn {
+    border: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    background: #2b6cb0;
+}
+
+.search-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.search-bar-wrapper {
+    background: white;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    margin-top: 20px;
+}
+
+.search-bar-wrapper input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    outline: none;
+    font-size: 1rem;
+    min-width: 0;
+}
+
+.search-btn {
+    background-color: #2b6cb0;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.categories-section h3 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.category-card {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 24px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: 0.2s;
+}
+
+.category-card:hover {
+    transform: translateY(-2px);
+}
+
+.category-icon {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.wallet-header,
+.account-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.wallet-header h2,
+.account-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.wallet-owner {
+    color: #8fa0dd;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.back-btn {
+    background: #131c2e;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+.wallet-balance-card,
+.sell-box,
+.account-box,
+.transactions,
+.wallet-stat {
+    background: #131c2e;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.wallet-balance-card {
+    padding: 25px;
+    text-align: center;
+}
+
+.wallet-balance-card p {
+    color: #8fa0dd;
+}
+
+.wallet-balance-card h1 {
+    font-size: 32px;
+    margin: 10px 0 25px;
+}
+
+.wallet-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.wallet-actions button {
+    flex: 1;
+    background: #2b6cb0;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.wallet-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 18px;
+}
+
+.wallet-stat {
+    padding: 20px;
+}
+
+.wallet-stat span {
+    display: block;
+    color: #8fa0dd;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.transactions {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.transactions h3 {
+    margin-bottom: 15px;
+}
+
+.empty-transactions {
+    color: #8fa0dd;
+    text-align: center;
+    padding: 25px 0;
+}
+
+.transaction-item {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.transaction-title {
+    font-weight: bold;
+}
+
+.transaction-date {
+    display: block;
+    color: #8fa0dd;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.transaction-amount {
+    display: block;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.transaction-status {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 11px;
+    padding: 3px 7px;
+    border-radius: 5px;
+    background: #1e2d4a;
+    color: #8fa0dd;
+}
+
+.sell-box {
+    padding: 25px;
+}
+
+.sell-box h3 {
+    margin-bottom: 20px;
+}
+
+.sell-input-group {
+    margin-bottom: 16px;
+}
+
+.sell-input-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.image-preview {
+    width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    display: none;
+    margin-top: 10px;
+    border-radius: 8px;
+    background: #0b1426;
+}
+
+#marketplace-listings {
+    margin-top: 40px;
+    display: none;
+}
+
+.listing-card {
+    background: #131c2e;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.listing-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #1e2d4a;
+}
+
+.listing-content {
+    padding: 18px;
+}
+
+.listing-content h3 {
+    margin-bottom: 8px;
+}
+
+.listing-price {
+    color: #5da9ff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.listing-info {
+    color: #8fa0dd;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.listing-description {
+    color: #d8def5;
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+.seller-name {
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.account-box {
+    padding: 25px;
+}
+
+.profile-picture-section {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.profile-picture,
+.profile-picture-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+}
+
+.profile-picture {
+    object-fit: cover;
+    border: 3px solid #2b6cb0;
+}
+
+.profile-picture-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e2d4a;
+    border: 3px solid #2b6cb0;
+    font-size: 50px;
+}
+
+.profile-upload-label {
+    display: inline-block;
+    background: #2b6cb0;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#profile-picture-input {
+    display: none;
+}
+
+.account-info-title {
+    margin-bottom: 18px;
+}
+
+.account-input-group {
+    margin-bottom: 16px;
+}
+
+.id-note {
+    color: #8fa0dd;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 6px;
+}
+
+.save-account-btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.account-status {
+    text-align: center;
+    color: #4ade80;
+    font-size: 13px;
+    margin-top: 12px;
+    min-height: 18px;
+}
+
+.my-products-section {
+    margin-top: 30px;
+}
+
+.my-products-section h3 {
+    margin-bottom: 15px;
+}
+
+.my-product-card {
+    background: #1e2d4a;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.my-product-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: #0b1426;
+}
+
+.my-product-content {
+    padding: 15px;
+}
+
+.my-product-content h4 {
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+.my-product-price {
+    color: #5da9ff;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.my-product-location {
+    color: #8fa0dd;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.my-product-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-product-btn,
+.delete-product-btn {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+}
+
+.edit-product-btn {
+    background: #2b6cb0;
+}
+
+.delete-product-btn {
+    background: #b42318;
+}
+
+.no-products {
+    background: #1e2d4a;
+    color: #8fa0dd;
+    text-align: center;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.account-security {
+    margin-top: 25px;
+    padding: 15px;
+    background: #1e2d4a;
+    border-radius: 8px;
+}
+
+.account-security h3 {
+    margin-bottom: 8px;
+}
+
+.account-security p {
+    color: #8fa0dd;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.logout-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 7px;
+    background: #b42318;
+    color: white;
+    font-weight: bold;
+}
+
+.loading {
+    text-align: center;
+    color: #8fa0dd;
+    padding: 25px;
+}
+
+@media (max-width: 500px) {
+
+    .wallet-actions {
+        flex-direction: column;
+    }
+
+    .wallet-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .wallet-header,
+    .account-header {
+        flex-wrap: wrap;
+    }
+
+    .top-navbar {
+        align-items: flex-start;
+    }
+
+    .nav-buttons {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .nav-buttons button {
+        font-size: 12px;
+        padding: 9px 10px;
+    }
+
+    .account-box {
+        padding: 20px;
+    }
+
+    .profile-picture,
+    .profile-picture-placeholder {
+        width: 105px;
+        height: 105px;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
-<!-- ========================================================
-     AUTHENTICATION SCREEN
-     ======================================================== -->
-
 <div id="auth-screen">
 
     <div class="brand-header">
-        <span style="font-size: 2.2rem;">🌐</span>
+        <span style="font-size:2.2rem;">🌐</span>
         <span class="brand-logo">Madhira Global</span>
     </div>
 
@@ -662,44 +731,43 @@
         Find products from sellers around the world.
     </p>
 
-    <!-- SIGN IN -->
-
     <div id="signin-box" class="auth-box active">
 
         <h2>Sign In</h2>
 
-        <form onsubmit="handleAuthentication(event, 'signin')">
+        <form onsubmit="handleSignIn(event)">
 
             <div class="input-group">
                 <label>Email Address</label>
-
                 <input
-                    id="signin-email"
                     type="email"
+                    id="signin-email"
                     required
-                    placeholder="name@example.com"
-                >
+                    placeholder="name@example.com">
             </div>
 
             <div class="input-group">
                 <label>Password</label>
-
                 <input
                     type="password"
+                    id="signin-password"
                     required
-                    placeholder="••••••••"
-                >
+                    placeholder="••••••••">
             </div>
 
-            <button type="submit" class="submit-btn">
+            <button
+                type="submit"
+                class="submit-btn"
+                id="signin-button">
                 Sign In
             </button>
 
         </form>
 
+        <div id="signin-message" class="message"></div>
+
         <div class="toggle-link">
             New to the platform?
-
             <span onclick="switchForm('signup')">
                 Sign Up here
             </span>
@@ -707,23 +775,11 @@
 
     </div>
 
-    <!-- SIGN UP -->
-
     <div id="signup-box" class="auth-box">
 
         <h2>Create Account</h2>
 
-        <form onsubmit="handleAuthentication(event, 'signup')">
-
-            <div class="input-group">
-                <label>Profile Picture</label>
-
-                <input
-                    id="signup-photo"
-                    type="file"
-                    accept="image/*"
-                >
-            </div>
+        <form onsubmit="handleSignUp(event)">
 
             <div class="input-group">
                 <label>Country</label>
@@ -753,91 +809,65 @@
             </div>
 
             <div class="input-group">
-                <label>Location</label>
-
-                <input
-                    id="signup-location"
-                    type="text"
-                    required
-                    placeholder="e.g. Nairobi"
-                >
-            </div>
-
-            <div class="input-group">
                 <label>First Name</label>
-
                 <input
-                    id="signup-first-name"
                     type="text"
+                    id="signup-first-name"
                     required
-                    placeholder="Enter your first name"
-                >
+                    placeholder="Enter your first name">
             </div>
 
             <div class="input-group">
                 <label>Last Name</label>
-
                 <input
-                    id="signup-last-name"
                     type="text"
+                    id="signup-last-name"
                     required
-                    placeholder="Enter your last name"
-                >
-            </div>
-
-            <div class="input-group">
-                <label>Contact</label>
-
-                <input
-                    id="signup-contact"
-                    type="tel"
-                    required
-                    placeholder="e.g. 0712345678"
-                >
+                    placeholder="Enter your last name">
             </div>
 
             <div class="input-group">
                 <label>Email Address</label>
-
                 <input
-                    id="signup-email"
                     type="email"
+                    id="signup-email"
                     required
-                    placeholder="name@example.com"
-                >
+                    placeholder="name@example.com">
             </div>
 
             <div class="input-group">
                 <label>Password</label>
-
                 <input
-                    id="signup-password"
                     type="password"
+                    id="signup-password"
                     required
-                    placeholder="Create password"
-                >
+                    minlength="6"
+                    placeholder="Create password">
             </div>
 
             <div class="input-group">
                 <label>Confirm Password</label>
-
                 <input
-                    id="signup-confirm-password"
                     type="password"
+                    id="signup-confirm-password"
                     required
-                    placeholder="Confirm password"
-                >
+                    minlength="6"
+                    placeholder="Confirm password">
             </div>
 
-            <button type="submit" class="submit-btn">
+            <button
+                type="submit"
+                class="submit-btn"
+                id="signup-button">
                 Create Account
             </button>
 
         </form>
 
+        <div id="signup-message" class="message"></div>
+
         <div class="toggle-link">
             Already have an account?
-
             <span onclick="switchForm('signin')">
                 Sign In here
             </span>
@@ -848,58 +878,39 @@
 </div>
 
 
-<!-- ========================================================
-     MAIN PLATFORM
-     ======================================================== -->
-
 <div id="main-platform">
 
     <header class="top-navbar">
 
-        <div
-            class="brand-header"
-            style="margin-bottom: 0;"
-        >
+        <div class="brand-header" style="margin-bottom:0;">
             <span>🌐</span>
 
             <span
                 class="brand-logo"
-                style="font-size: 1.4rem;"
-            >
+                style="font-size:1.4rem;">
                 Madhira Global
             </span>
         </div>
 
-        <div class="top-actions">
+        <div class="nav-buttons">
 
-            <button
-                class="search-btn"
-                onclick="openAccountPanel()"
-                style="background:#131c2e;border:1px solid rgba(255,255,255,0.2);"
-            >
+            <button onclick="openAccount()">
                 👤 Account
             </button>
 
             <button
-                class="search-btn"
                 onclick="openSell()"
-                style="background:#131c2e;border:1px solid rgba(255,255,255,0.2);"
-            >
+                style="background:#131c2e;border:1px solid rgba(255,255,255,0.2);">
                 Sell
             </button>
 
-            <button
-                class="wallet-btn"
-                onclick="openWallet()"
-            >
+            <button onclick="openWallet()">
                 💰 Wallet
             </button>
 
         </div>
 
     </header>
-
-    <!-- SEARCH -->
 
     <section class="search-container">
 
@@ -909,12 +920,11 @@
                 type="text"
                 id="search-input"
                 placeholder="What are you looking for?"
-            >
+                oninput="searchProducts()">
 
             <button
                 class="search-btn"
-                onclick="searchProducts()"
-            >
+                onclick="searchProducts()">
                 Search
             </button>
 
@@ -922,42 +932,50 @@
 
     </section>
 
-    <!-- CATEGORIES -->
-
     <section class="categories-section">
 
-        <h3>
-            Explore Categories
-        </h3>
+        <h3>Explore Categories</h3>
 
         <div class="grid-container">
 
-            <div class="category-card">
+            <div
+                class="category-card"
+                onclick="filterCategory('Cars')">
                 <span class="category-icon">🚗</span>
                 Cars
             </div>
 
-            <div class="category-card">
+            <div
+                class="category-card"
+                onclick="filterCategory('Property')">
                 <span class="category-icon">🏠</span>
                 Property
             </div>
 
-            <div class="category-card">
+            <div
+                class="category-card"
+                onclick="filterCategory('Electronics')">
                 <span class="category-icon">📱</span>
                 Electronics
             </div>
 
-            <div class="category-card">
+            <div
+                class="category-card"
+                onclick="filterCategory('Fashion')">
                 <span class="category-icon">👕</span>
                 Fashion
             </div>
 
-            <div class="category-card">
+            <div
+                class="category-card"
+                onclick="filterCategory('Furniture')">
                 <span class="category-icon">🛋️</span>
                 Furniture
             </div>
 
-            <div class="category-card">
+            <div
+                class="category-card"
+                onclick="filterCategory('Machinery')">
                 <span class="category-icon">⚙️</span>
                 Machinery
             </div>
@@ -965,8 +983,6 @@
         </div>
 
     </section>
-
-    <!-- MARKETPLACE -->
 
     <section id="marketplace-listings">
 
@@ -981,189 +997,34 @@
 </div>
 
 
-<!-- ========================================================
-     ACCOUNT INFO PANEL
-     ======================================================== -->
-
-<div id="account-panel">
-
-    <div class="account-header">
-
-        <button
-            onclick="closeAccountPanel()"
-            class="back-btn"
-        >
-            ← Back
-        </button>
-
-        <h2>
-            👤 Account Info
-        </h2>
-
-    </div>
-
-    <div class="account-card">
-
-        <div class="profile-top">
-
-            <div class="profile-picture-wrapper">
-
-                <img
-                    id="profile-picture"
-                    class="profile-picture"
-                    src=""
-                    alt="Profile picture"
-                >
-
-                <label
-                    for="profile-picture-input"
-                    class="change-photo-label"
-                    title="Change profile picture"
-                >
-                    📷
-                </label>
-
-                <input
-                    type="file"
-                    id="profile-picture-input"
-                    accept="image/*"
-                    onchange="changeProfilePicture(event)"
-                >
-
-            </div>
-
-            <h2 id="account-name">
-                User
-            </h2>
-
-            <div class="profile-status">
-                🟢 Active Account
-            </div>
-
-        </div>
-
-        <div class="account-details">
-
-            <div class="account-detail">
-                <span class="account-detail-label">
-                    🆔 Account ID
-                </span>
-
-                <div
-                    id="account-id"
-                    class="account-detail-value"
-                >
-                    —
-                </div>
-            </div>
-
-            <div class="account-detail">
-                <span class="account-detail-label">
-                    📍 Location
-                </span>
-
-                <div
-                    id="account-location"
-                    class="account-detail-value"
-                >
-                    —
-                </div>
-            </div>
-
-            <div class="account-detail">
-                <span class="account-detail-label">
-                    🌍 Country
-                </span>
-
-                <div
-                    id="account-country"
-                    class="account-detail-value"
-                >
-                    —
-                </div>
-            </div>
-
-            <div class="account-detail">
-                <span class="account-detail-label">
-                    📞 Contact
-                </span>
-
-                <div
-                    id="account-contact"
-                    class="account-detail-value"
-                >
-                    —
-                </div>
-            </div>
-
-            <div class="account-detail">
-                <span class="account-detail-label">
-                    📧 Email
-                </span>
-
-                <div
-                    id="account-email"
-                    class="account-detail-value"
-                >
-                    —
-                </div>
-            </div>
-
-        </div>
-
-        <div class="account-actions">
-
-            <button
-                class="edit-profile-btn"
-                onclick="editProfile()"
-            >
-                ✏️ Edit Profile
-            </button>
-
-            <button
-                class="logout-btn"
-                onclick="logoutUser()"
-            >
-                🚪 Logout
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ========================================================
-     WALLET DASHBOARD
-     ======================================================== -->
-
 <div id="wallet-dashboard">
 
     <div class="wallet-header">
 
         <button
             onclick="closeWallet()"
-            class="back-btn"
-        >
+            class="back-btn">
             ← Back
         </button>
 
-        <h2>
-            💰 Madhira Wallet
-        </h2>
+        <div>
+
+            <h2 id="wallet-title">
+                💰 Madhira Wallet
+            </h2>
+
+            <div
+                class="wallet-owner"
+                id="wallet-owner">
+            </div>
+
+        </div>
 
     </div>
 
     <div class="wallet-balance-card">
 
-        <div class="wallet-owner">
-            👤 Wallet of <strong id="wallet-owner-name">User</strong>
-        </div>
-
-        <p>
-            Available Balance
-        </p>
+        <p>Available Balance</p>
 
         <h1 id="wallet-balance">
             KSh 0.00
@@ -1187,9 +1048,7 @@
 
         <div class="wallet-stat">
 
-            <span>
-                Pending
-            </span>
+            <span>Pending</span>
 
             <strong id="pending-balance">
                 KSh 0.00
@@ -1199,9 +1058,7 @@
 
         <div class="wallet-stat">
 
-            <span>
-                Total Earned
-            </span>
+            <span>Total Earned</span>
 
             <strong id="total-earned">
                 KSh 0.00
@@ -1213,9 +1070,7 @@
 
     <div class="transactions">
 
-        <h3>
-            Recent Transactions
-        </h3>
+        <h3>Recent Transactions</h3>
 
         <div id="transaction-list">
 
@@ -1230,92 +1085,69 @@
 </div>
 
 
-<!-- ========================================================
-     SELL PRODUCT DASHBOARD
-     ======================================================== -->
-
 <div id="sell-dashboard">
 
     <div class="wallet-header">
 
         <button
             onclick="closeSell()"
-            class="back-btn"
-        >
+            class="back-btn">
             ← Back
         </button>
 
-        <h2>
-            🏷️ Sell Product
-        </h2>
+        <h2>🏷️ Sell Product</h2>
 
     </div>
 
     <div class="sell-box">
 
-        <h3>
-            List Your Product
-        </h3>
+        <h3>List Your Product</h3>
 
         <div class="sell-input-group">
 
-            <label>
-                Product Image
-            </label>
+            <label>Product Image</label>
 
             <input
                 type="file"
                 id="product-image"
                 accept="image/*"
-                onchange="previewProductImage(event)"
-            >
+                onchange="previewProductImage(event)">
 
             <img
                 id="image-preview"
                 class="image-preview"
-                alt="Product preview"
-            >
+                alt="Product preview">
 
         </div>
 
         <div class="sell-input-group">
 
-            <label>
-                Product Name
-            </label>
+            <label>Product Name</label>
 
             <input
                 type="text"
                 id="product-name"
-                placeholder="e.g. Samsung Galaxy A06"
-                required
-            >
+                placeholder="e.g. Samsung Galaxy A06">
 
         </div>
 
         <div class="sell-input-group">
 
-            <label>
-                Price (KSh)
-            </label>
+            <label>Price (KSh)</label>
 
             <input
                 type="number"
                 id="product-price"
                 placeholder="Enter price"
-                min="1"
-                required
-            >
+                min="1">
 
         </div>
 
         <div class="sell-input-group">
 
-            <label>
-                Category
-            </label>
+            <label>Category</label>
 
-            <select id="product-category" required>
+            <select id="product-category">
 
                 <option value="">
                     Select category
@@ -1335,11 +1167,9 @@
 
         <div class="sell-input-group">
 
-            <label>
-                Country
-            </label>
+            <label>Country</label>
 
-            <select id="product-country" required>
+            <select id="product-country">
 
                 <option value="">
                     Select country
@@ -1371,53 +1201,204 @@
 
         <div class="sell-input-group">
 
-            <label>
-                Location
-            </label>
+            <label>Location</label>
 
             <input
                 type="text"
                 id="product-location"
-                placeholder="e.g. Nairobi"
-                required
-            >
+                placeholder="e.g. Nairobi">
 
         </div>
 
         <div class="sell-input-group">
 
-            <label>
-                Description
-            </label>
+            <label>Description</label>
 
             <textarea
                 id="product-description"
-                placeholder="Describe your product..."
-                required
-            ></textarea>
+                placeholder="Describe your product..."></textarea>
 
         </div>
 
         <div class="sell-input-group">
 
-            <label>
-                Contact
-            </label>
+            <label>Contact</label>
 
             <input
                 type="text"
                 id="seller-contact"
-                placeholder="Phone or WhatsApp"
-                required
-            >
+                placeholder="Phone or WhatsApp">
 
         </div>
 
         <button
             class="submit-btn"
-            onclick="postProduct()"
-        >
+            id="post-product-button"
+            onclick="postProduct()">
             🚀 Post Product
+        </button>
+
+        <div
+            id="sell-message"
+            class="message">
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="account-dashboard">
+
+    <div class="account-header">
+
+        <button
+            onclick="closeAccount()"
+            class="back-btn">
+            ← Back
+        </button>
+
+        <h2>👤 Account Details</h2>
+
+    </div>
+
+    <div class="account-box">
+
+        <div class="profile-picture-section">
+
+            <div
+                id="profile-placeholder"
+                class="profile-picture-placeholder">
+                👤
+            </div>
+
+            <img
+                id="profile-picture"
+                class="profile-picture"
+                style="display:none;"
+                alt="Profile picture">
+
+            <label
+                for="profile-picture-input"
+                class="profile-upload-label">
+                📷 Upload Profile Picture
+            </label>
+
+            <input
+                type="file"
+                id="profile-picture-input"
+                accept="image/*"
+                onchange="previewProfilePicture(event)">
+
+        </div>
+
+        <h3 class="account-info-title">
+            Your Information
+        </h3>
+
+        <div class="account-input-group">
+
+            <label>First Name</label>
+
+            <input
+                type="text"
+                id="account-first-name">
+
+        </div>
+
+        <div class="account-input-group">
+
+            <label>Last Name</label>
+
+            <input
+                type="text"
+                id="account-last-name">
+
+        </div>
+
+        <div class="account-input-group">
+
+            <label>Email Address</label>
+
+            <input
+                type="email"
+                id="account-email"
+                readonly>
+
+        </div>
+
+        <div class="account-input-group">
+
+            <label>📞 Contact / Phone</label>
+
+            <input
+                type="text"
+                id="account-contact"
+                placeholder="Enter your phone or WhatsApp number">
+
+        </div>
+
+        <div class="account-input-group">
+
+            <label>📍 Location</label>
+
+            <input
+                type="text"
+                id="account-location"
+                placeholder="e.g. Nairobi, Kenya">
+
+        </div>
+
+        <div class="account-input-group">
+
+            <label>🪪 ID Number</label>
+
+            <input
+                type="text"
+                id="account-id-number"
+                placeholder="Enter your ID or passport number">
+
+            <div class="id-note">
+                Keep this information private.
+            </div>
+
+        </div>
+
+        <button
+            class="submit-btn save-account-btn"
+            onclick="saveAccountDetails()">
+            💾 Save Account Details
+        </button>
+
+        <div
+            id="account-status"
+            class="account-status">
+        </div>
+
+        <div class="my-products-section">
+
+            <h3>📦 My Posted Products</h3>
+
+            <div id="my-products-container"></div>
+
+        </div>
+
+        <div class="account-security">
+
+            <h3>🔐 Account Security</h3>
+
+            <p>
+                Your login is handled by Supabase Authentication.
+                Your marketplace profile and products are stored
+                in the Supabase database.
+            </p>
+
+        </div>
+
+        <button
+            class="logout-btn"
+            onclick="signOut()">
+            🚪 Sign Out
         </button>
 
     </div>
@@ -1425,1223 +1406,3138 @@
 </div>
 
 
-<!-- ========================================================
-     JAVASCRIPT
-     ======================================================== -->
-
 <script>
 
-    /* ====================================================
-       USER ACCOUNT
-       ==================================================== */
+/* =====================================================
+   GLOBAL VARIABLES
+   ===================================================== */
 
-    let currentUser = JSON.parse(
-        localStorage.getItem("madhiraCurrentUser")
-    ) || null;
+let currentUser = null;
+let currentProfile = null;
 
+let selectedProfilePicture = "";
+let selectedProductImage = "";
 
-    function generateAccountID() {
-
-        const randomNumber =
-            Math.floor(100000 + Math.random() * 900000);
-
-        return "MG-" + randomNumber;
-
-    }
+let walletBalance = 0;
+let totalEarned = 0;
+let pendingBalance = 0;
+let walletTransactions = [];
 
 
-    function createDefaultProfilePicture(name) {
+/* =====================================================
+   START
+   ===================================================== */
 
-        const firstLetter =
-            name ? name.charAt(0).toUpperCase() : "M";
+window.addEventListener(
+    "load",
+    async function() {
 
-        const svg =
-            `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
-                <rect width="100%" height="100%" fill="#1e2d4a"/>
-                <text x="50%" y="55%"
-                    dominant-baseline="middle"
-                    text-anchor="middle"
-                    fill="white"
-                    font-size="130"
-                    font-family="Arial">${firstLetter}</text>
-            </svg>`;
-
-        return "data:image/svg+xml;charset=UTF-8," +
-            encodeURIComponent(svg);
+        await checkSession();
 
     }
+);
 
 
-    function saveUser() {
+/* =====================================================
+   CHECK SESSION
+   ===================================================== */
 
-        localStorage.setItem(
-            "madhiraCurrentUser",
-            JSON.stringify(currentUser)
-        );
+async function checkSession() {
 
-    }
+    try {
 
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
 
-    function loadAccountInfo() {
+        if (error) {
 
-        if (!currentUser) {
+            console.error(error);
+
+            showAuth();
+
             return;
+
         }
 
-        document.getElementById("account-name").textContent =
-            currentUser.name;
+        if (
+            data.session &&
+            data.session.user
+        ) {
 
-        document.getElementById("account-id").textContent =
-            currentUser.id;
+            currentUser =
+                data.session.user;
 
-        document.getElementById("account-location").textContent =
-            currentUser.location;
+            await loadProfile();
 
-        document.getElementById("account-country").textContent =
-            currentUser.country;
+            await loadProducts();
 
-        document.getElementById("account-contact").textContent =
-            currentUser.contact;
+            await loadWallet();
 
-        document.getElementById("account-email").textContent =
-            currentUser.email;
-
-        document.getElementById("profile-picture").src =
-            currentUser.photo;
-
-        document.getElementById("wallet-owner-name").textContent =
-            currentUser.name;
-
-    }
-
-
-    /* ====================================================
-       AUTHENTICATION
-       ==================================================== */
-
-    function switchForm(target) {
-
-        document
-            .getElementById("signin-box")
-            .classList
-            .remove("active");
-
-        document
-            .getElementById("signup-box")
-            .classList
-            .remove("active");
-
-        if (target === "signup") {
-
-            document
-                .getElementById("signup-box")
-                .classList
-                .add("active");
+            enterPlatform();
 
         } else {
 
-            document
-                .getElementById("signin-box")
-                .classList
-                .add("active");
+            showAuth();
 
         }
 
+    } catch (error) {
+
+        console.error(error);
+
+        showAuth();
+
     }
 
-
-    function handleAuthentication(event, type) {
-
-        event.preventDefault();
+}
 
 
-        if (type === "signup") {
+/* =====================================================
+   AUTH SCREEN
+   ===================================================== */
 
-            const firstName =
-                document.getElementById(
-                    "signup-first-name"
-                ).value.trim();
+function showAuth() {
 
-            const lastName =
-                document.getElementById(
-                    "signup-last-name"
-                ).value.trim();
+    document.getElementById("auth-screen").style.display =
+        "flex";
 
-            const email =
-                document.getElementById(
-                    "signup-email"
-                ).value.trim();
+    document.getElementById("main-platform").style.display =
+        "none";
 
-            const password =
-                document.getElementById(
-                    "signup-password"
-                ).value;
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
 
-            const confirmPassword =
-                document.getElementById(
-                    "signup-confirm-password"
-                ).value;
+    document.getElementById("sell-dashboard").style.display =
+        "none";
 
-            const country =
-                document.getElementById(
-                    "signup-country"
-                ).value;
+    document.getElementById("account-dashboard").style.display =
+        "none";
 
-            const location =
-                document.getElementById(
-                    "signup-location"
-                ).value.trim();
-
-            const contact =
-                document.getElementById(
-                    "signup-contact"
-                ).value.trim();
-
-            const photoInput =
-                document.getElementById(
-                    "signup-photo"
-                );
+}
 
 
-            if (password !== confirmPassword) {
+/* =====================================================
+   SWITCH FORM
+   ===================================================== */
 
-                alert("Passwords do not match.");
+function switchForm(target) {
 
-                return;
+    document
+        .getElementById("signin-box")
+        .classList.remove("active");
 
-            }
+    document
+        .getElementById("signup-box")
+        .classList.remove("active");
+
+    document
+        .getElementById("signin-message")
+        .textContent = "";
+
+    document
+        .getElementById("signup-message")
+        .textContent = "";
+
+    if (target === "signup") {
+
+        document
+            .getElementById("signup-box")
+            .classList.add("active");
+
+    } else {
+
+        document
+            .getElementById("signin-box")
+            .classList.add("active");
+
+    }
+
+}
 
 
-            const name =
-                firstName + " " + lastName;
+/* =====================================================
+   SIGN UP
+   ===================================================== */
 
+async function handleSignUp(event) {
 
-            currentUser = {
+    event.preventDefault();
 
-                id: generateAccountID(),
+    const message =
+        document.getElementById("signup-message");
 
-                name: name,
+    const button =
+        document.getElementById("signup-button");
 
-                firstName: firstName,
+    message.textContent =
+        "Creating your account...";
 
-                lastName: lastName,
+    button.disabled =
+        true;
+
+    const country =
+        document
+        .getElementById("signup-country")
+        .value;
+
+    const firstName =
+        document
+        .getElementById("signup-first-name")
+        .value
+        .trim();
+
+    const lastName =
+        document
+        .getElementById("signup-last-name")
+        .value
+        .trim();
+
+    const email =
+        document
+        .getElementById("signup-email")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const password =
+        document
+        .getElementById("signup-password")
+        .value;
+
+    const confirmPassword =
+        document
+        .getElementById("signup-confirm-password")
+        .value;
+
+    if (
+        password !==
+        confirmPassword
+    ) {
+
+        message.textContent =
+            "Passwords do not match.";
+
+        button.disabled =
+            false;
+
+        return;
+
+    }
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.signUp({
 
                 email: email,
 
                 password: password,
 
-                country: country,
+                options: {
 
-                location: location,
+                    data: {
 
-                contact: contact,
+                        first_name:
+                            firstName,
 
-                photo: createDefaultProfilePicture(name)
+                        last_name:
+                            lastName,
 
-            };
+                        country:
+                            country
 
+                    }
 
-            if (
-                photoInput.files &&
-                photoInput.files[0]
-            ) {
+                }
 
-                const reader =
-                    new FileReader();
+            });
 
-                reader.onload = function(e) {
+        if (error) {
 
-                    currentUser.photo =
-                        e.target.result;
+            console.error(error);
 
-                    saveUser();
+            message.textContent =
+                error.message;
 
-                    finishLogin();
+            button.disabled =
+                false;
 
-                };
-
-                reader.readAsDataURL(
-                    photoInput.files[0]
-                );
-
-                return;
-
-            }
-
-
-            saveUser();
-
-            finishLogin();
-
-        } else {
-
-            const email =
-                document.getElementById(
-                    "signin-email"
-                ).value.trim();
-
-
-            if (!currentUser) {
-
-                alert(
-                    "No account found on this device. Please create an account first."
-                );
-
-                return;
-
-            }
-
-
-            if (
-                email.toLowerCase() !==
-                currentUser.email.toLowerCase()
-            ) {
-
-                alert(
-                    "That email does not match the account on this device."
-                );
-
-                return;
-
-            }
-
-
-            finishLogin();
-
-        }
-
-    }
-
-
-    function finishLogin() {
-
-        document
-            .getElementById("auth-screen")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("main-platform")
-            .style
-            .display = "block";
-
-        loadAccountInfo();
-
-        window.scrollTo(0, 0);
-
-    }
-
-
-    /* ====================================================
-       ACCOUNT PANEL
-       ==================================================== */
-
-    function openAccountPanel() {
-
-        document
-            .getElementById("main-platform")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("wallet-dashboard")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("sell-dashboard")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("account-panel")
-            .style
-            .display = "block";
-
-        loadAccountInfo();
-
-        window.scrollTo(0, 0);
-
-    }
-
-
-    function closeAccountPanel() {
-
-        document
-            .getElementById("account-panel")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("main-platform")
-            .style
-            .display = "block";
-
-        window.scrollTo(0, 0);
-
-    }
-
-
-    function changeProfilePicture(event) {
-
-        const file =
-            event.target.files[0];
-
-        if (!file || !currentUser) {
             return;
+
         }
 
-        const reader =
-            new FileReader();
+        if (!data.user) {
 
-        reader.onload = function(e) {
+            message.textContent =
+                "Account could not be created.";
 
-            currentUser.photo =
+            button.disabled =
+                false;
+
+            return;
+
+        }
+
+        if (data.session) {
+
+            const {
+                data: profileData,
+                error: profileError
+            } =
+                await supabaseClient
+                .from("Profiles")
+                .upsert({
+
+                    id:
+                        data.user.id,
+
+                    "First name":
+                        firstName,
+
+                    "Last name":
+                        lastName,
+
+                    "Email":
+                        email,
+
+                    "Country":
+                        country,
+
+                    "Location":
+                        "",
+
+                    "Id number":
+                        "",
+
+                    "Profile picture":
+                        ""
+
+                }, {
+
+                    onConflict:
+                        "id"
+
+                })
+                .select()
+                .single();
+
+            if (profileError) {
+
+                console.error(profileError);
+
+                message.textContent =
+                    "Account created, but profile setup failed: " +
+                    profileError.message;
+
+                button.disabled =
+                    false;
+
+                return;
+
+            }
+
+            currentProfile =
+                profileData;
+
+        }
+
+        if (!data.session) {
+
+            message.textContent =
+                "Account created! Please sign in.";
+
+            document
+                .getElementById("signup-box")
+                .querySelector("form")
+                .reset();
+
+            button.disabled =
+                false;
+
+            return;
+
+        }
+
+        currentUser =
+            data.user;
+
+        await loadProfile();
+
+        await loadProducts();
+
+        await loadWallet();
+
+        enterPlatform();
+
+        document
+            .getElementById("signup-box")
+            .querySelector("form")
+            .reset();
+
+        button.disabled =
+            false;
+
+        alert(
+            "Welcome to Madhira Global, " +
+            firstName +
+            " " +
+            lastName +
+            "!"
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            error.message ||
+            "Something went wrong.";
+
+        button.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =====================================================
+   SIGN IN
+   ===================================================== */
+
+async function handleSignIn(event) {
+
+    event.preventDefault();
+
+    const message =
+        document.getElementById("signin-message");
+
+    const button =
+        document.getElementById("signin-button");
+
+    message.textContent =
+        "Signing in...";
+
+    button.disabled =
+        true;
+
+    const email =
+        document
+        .getElementById("signin-email")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const password =
+        document
+        .getElementById("signin-password")
+        .value;
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.signInWithPassword({
+
+                email:
+                    email,
+
+                password:
+                    password
+
+            });
+
+        if (error) {
+
+            console.error(error);
+
+            message.textContent =
+                error.message;
+
+            button.disabled =
+                false;
+
+            return;
+
+        }
+
+        if (!data.session) {
+
+            message.textContent =
+                "Login did not create a session.";
+
+            button.disabled =
+                false;
+
+            return;
+
+        }
+
+        currentUser =
+            data.user;
+
+        await loadProfile();
+
+        await loadProducts();
+
+        await loadWallet();
+
+        enterPlatform();
+
+        button.disabled =
+            false;
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            error.message ||
+            "Unable to sign in.";
+
+        button.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD PROFILE
+   ===================================================== */
+
+async function loadProfile() {
+
+    if (!currentUser) {
+        return;
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("Profiles")
+        .select("*")
+        .eq(
+            "id",
+            currentUser.id
+        )
+        .maybeSingle();
+
+    if (error) {
+
+        console.error(
+            "Profile loading error:",
+            error
+        );
+
+        return;
+
+    }
+
+    if (data) {
+
+        currentProfile =
+            data;
+
+        return;
+
+    }
+
+    const firstName =
+        currentUser
+        .user_metadata
+        ?.first_name ||
+        "";
+
+    const lastName =
+        currentUser
+        .user_metadata
+        ?.last_name ||
+        "";
+
+    const country =
+        currentUser
+        .user_metadata
+        ?.country ||
+        "";
+
+    const {
+        data: newProfile,
+        error: createError
+    } =
+        await supabaseClient
+        .from("Profiles")
+        .insert({
+
+            id:
+                currentUser.id,
+
+            "First name":
+                firstName,
+
+            "Last name":
+                lastName,
+
+            "Email":
+                currentUser.email || "",
+
+            "Country":
+                country,
+
+            "Location":
+                "",
+
+            "Id number":
+                "",
+
+            "Profile picture":
+                ""
+
+        })
+        .select()
+        .single();
+
+    if (createError) {
+
+        console.error(
+            "Profile creation error:",
+            createError
+        );
+
+        return;
+
+    }
+
+    currentProfile =
+        newProfile;
+
+}
+
+
+/* =====================================================
+   ENTER PLATFORM
+   ===================================================== */
+
+function enterPlatform() {
+
+    document.getElementById("auth-screen").style.display =
+        "none";
+
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "none";
+
+    document.getElementById("account-dashboard").style.display =
+        "none";
+
+    document.getElementById("main-platform").style.display =
+        "block";
+
+    updateWalletDisplay();
+
+    window.scrollTo(0, 0);
+
+}
+
+
+/* =====================================================
+   ACCOUNT
+   ===================================================== */
+
+function openAccount() {
+
+    if (!currentUser) {
+
+        alert(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+    document.getElementById("main-platform").style.display =
+        "none";
+
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "none";
+
+    document.getElementById("account-dashboard").style.display =
+        "block";
+
+    loadAccountDetails();
+
+    displayMyProducts();
+
+    window.scrollTo(0, 0);
+
+}
+
+
+function closeAccount() {
+
+    document.getElementById("account-dashboard").style.display =
+        "none";
+
+    document.getElementById("main-platform").style.display =
+        "block";
+
+    window.scrollTo(0, 0);
+
+}
+
+
+/* =====================================================
+   ACCOUNT DETAILS
+   ===================================================== */
+
+function loadAccountDetails() {
+
+    if (!currentUser) {
+        return;
+    }
+
+    const profile =
+        currentProfile || {};
+
+    document.getElementById("account-first-name").value =
+        profile["First name"] || "";
+
+    document.getElementById("account-last-name").value =
+        profile["Last name"] || "";
+
+    document.getElementById("account-email").value =
+        currentUser.email ||
+        profile["Email"] ||
+        "";
+
+    document.getElementById("account-contact").value =
+        profile["Contact"] || "";
+
+    document.getElementById("account-location").value =
+        profile["Location"] || "";
+
+    document.getElementById("account-id-number").value =
+        profile["Id number"] || "";
+
+    selectedProfilePicture =
+        "";
+
+    if (
+        profile["Profile picture"]
+    ) {
+
+        document.getElementById("profile-picture").src =
+            profile["Profile picture"];
+
+        document.getElementById("profile-picture").style.display =
+            "block";
+
+        document.getElementById("profile-placeholder").style.display =
+            "none";
+
+    } else {
+
+        document.getElementById("profile-picture").style.display =
+            "none";
+
+        document.getElementById("profile-placeholder").style.display =
+            "flex";
+
+    }
+
+}
+
+
+/* =====================================================
+   PROFILE PICTURE
+   ===================================================== */
+
+function previewProfilePicture(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    if (
+        file.size >
+        2 * 1024 * 1024
+    ) {
+
+        alert(
+            "Please choose a profile picture smaller than 2MB."
+        );
+
+        event.target.value =
+            "";
+
+        return;
+
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(e) {
+
+            selectedProfilePicture =
                 e.target.result;
 
-            saveUser();
+            document
+                .getElementById("profile-picture")
+                .src =
+                selectedProfilePicture;
 
-            loadAccountInfo();
+            document
+                .getElementById("profile-picture")
+                .style.display =
+                "block";
+
+            document
+                .getElementById("profile-placeholder")
+                .style.display =
+                "none";
 
         };
 
-        reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 
-    }
+}
 
 
-    function editProfile() {
+/* =====================================================
+   SAVE ACCOUNT
+   ===================================================== */
 
-        if (!currentUser) {
-            return;
-        }
+async function saveAccountDetails() {
 
-        const newLocation =
-            prompt(
-                "Enter your new location:",
-                currentUser.location
-            );
-
-        if (
-            newLocation === null ||
-            newLocation.trim() === ""
-        ) {
-            return;
-        }
-
-        const newContact =
-            prompt(
-                "Enter your new contact:",
-                currentUser.contact
-            );
-
-        if (
-            newContact === null ||
-            newContact.trim() === ""
-        ) {
-            return;
-        }
-
-        currentUser.location =
-            newLocation.trim();
-
-        currentUser.contact =
-            newContact.trim();
-
-        saveUser();
-
-        loadAccountInfo();
-
-        alert("Profile updated successfully.");
-
-    }
-
-
-    function logoutUser() {
-
-        const confirmLogout =
-            confirm(
-                "Are you sure you want to logout?"
-            );
-
-        if (!confirmLogout) {
-            return;
-        }
-
-        document
-            .getElementById("main-platform")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("account-panel")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("wallet-dashboard")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("sell-dashboard")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("auth-screen")
-            .style
-            .display = "flex";
-
-        switchForm("signin");
-
-    }
-
-
-    /* ====================================================
-       WALLET
-       ==================================================== */
-
-    let walletBalance = 0;
-
-    let totalEarned = 0;
-
-
-    function openWallet() {
-
-        document
-            .getElementById("main-platform")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("sell-dashboard")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("account-panel")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("wallet-dashboard")
-            .style
-            .display = "block";
-
-        updateWalletDisplay();
-
-        window.scrollTo(0, 0);
-
-    }
-
-
-    function closeWallet() {
-
-        document
-            .getElementById("wallet-dashboard")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("main-platform")
-            .style
-            .display = "block";
-
-        window.scrollTo(0, 0);
-
-    }
-
-
-    function updateWalletDisplay() {
-
-        document
-            .getElementById("wallet-balance")
-            .textContent =
-            "KSh " +
-            walletBalance.toFixed(2);
-
-        document
-            .getElementById("total-earned")
-            .textContent =
-            "KSh " +
-            totalEarned.toFixed(2);
-
-        if (currentUser) {
-
-            document
-                .getElementById("wallet-owner-name")
-                .textContent =
-                currentUser.name;
-
-        }
-
-    }
-
-
-    function addMoney() {
-
-        let amount =
-            prompt(
-                "Enter the amount you want to add:"
-            );
-
-        if (amount === null) {
-            return;
-        }
-
-        amount = Number(amount);
-
-        if (
-            isNaN(amount) ||
-            amount <= 0
-        ) {
-
-            alert(
-                "Please enter a valid amount."
-            );
-
-            return;
-
-        }
-
-        walletBalance += amount;
-
-        addTransaction(
-            "Deposit",
-            amount,
-            "plus"
-        );
-
-        updateWalletDisplay();
+    if (!currentUser) {
 
         alert(
-            "KSh " +
-            amount.toFixed(2) +
-            " added to your demo wallet."
+            "Please sign in first."
         );
 
+        return;
+
     }
 
+    const status =
+        document.getElementById("account-status");
 
-    function withdrawMoney() {
+    status.textContent =
+        "Saving...";
 
-        let amount =
-            prompt(
-                "Enter the amount you want to withdraw:"
+    const firstName =
+        document
+        .getElementById("account-first-name")
+        .value
+        .trim();
+
+    const lastName =
+        document
+        .getElementById("account-last-name")
+        .value
+        .trim();
+
+    const location =
+        document
+        .getElementById("account-location")
+        .value
+        .trim();
+
+    const idNumber =
+        document
+        .getElementById("account-id-number")
+        .value
+        .trim();
+
+    let profilePicture =
+        currentProfile?.["Profile picture"] ||
+        "";
+
+    if (selectedProfilePicture) {
+
+        profilePicture =
+            selectedProfilePicture;
+
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("Profiles")
+        .upsert({
+
+            id:
+                currentUser.id,
+
+            "First name":
+                firstName,
+
+            "Last name":
+                lastName,
+
+            "Email":
+                currentUser.email || "",
+
+            "Country":
+                currentProfile?.["Country"] || "",
+
+            "Location":
+                location,
+
+            "Id number":
+                idNumber,
+
+            "Profile picture":
+                profilePicture
+
+        }, {
+
+            onConflict:
+                "id"
+
+        })
+        .select()
+        .single();
+
+    if (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "Error: " +
+            error.message;
+
+        return;
+
+    }
+
+    currentProfile =
+        data;
+
+    selectedProfilePicture =
+        "";
+
+    status.textContent =
+        "✓ Account details saved successfully.";
+
+    setTimeout(
+        function() {
+
+            status.textContent =
+                "";
+
+        },
+        3000
+    );
+
+}
+
+
+/* =====================================================
+   WALLET
+   ===================================================== */
+
+async function loadWallet() {
+
+    if (!currentUser) {
+        return;
+    }
+
+    try {
+
+        let {
+            data: wallet,
+            error: walletError
+        } =
+            await supabaseClient
+            .from("wallets")
+            .select("*")
+            .eq(
+                "user_id",
+                currentUser.id
+            )
+            .maybeSingle();
+
+        if (walletError) {
+
+            console.error(
+                "Wallet loading error:",
+                walletError
             );
 
-        if (amount === null) {
             return;
+
         }
 
-        amount = Number(amount);
+        if (!wallet) {
 
-        if (
-            isNaN(amount) ||
-            amount <= 0
-        ) {
+            const {
+                data: newWallet,
+                error: createWalletError
+            } =
+                await supabaseClient
+                .from("wallets")
+                .insert({
 
-            alert(
-                "Please enter a valid amount."
+                    user_id:
+                        currentUser.id,
+
+                    balance:
+                        0
+
+                })
+                .select("*")
+                .single();
+
+            if (createWalletError) {
+
+                console.error(
+                    "Wallet creation error:",
+                    createWalletError
+                );
+
+                return;
+
+            }
+
+            wallet =
+                newWallet;
+
+        }
+
+        walletBalance =
+            Number(
+                wallet.balance || 0
             );
 
-            return;
-
-        }
-
-        if (amount > walletBalance) {
-
-            alert(
-                "Insufficient wallet balance."
+        const {
+            data: transactions,
+            error: transactionError
+        } =
+            await supabaseClient
+            .from("wallet_transactions")
+            .select("*")
+            .eq(
+                "user_id",
+                currentUser.id
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
             );
 
-            return;
+        if (transactionError) {
 
-        }
-
-        walletBalance -= amount;
-
-        addTransaction(
-            "Withdrawal",
-            amount,
-            "minus"
-        );
-
-        updateWalletDisplay();
-
-        alert(
-            "KSh " +
-            amount.toFixed(2) +
-            " withdrawn from your demo wallet."
-        );
-
-    }
-
-
-    function addTransaction(
-        type,
-        amount,
-        direction
-    ) {
-
-        const transactionList =
-            document.getElementById(
-                "transaction-list"
+            console.error(
+                "Transaction loading error:",
+                transactionError
             );
 
-        const emptyMessage =
-            transactionList.querySelector(
-                ".empty-transactions"
-            );
+            walletTransactions =
+                [];
 
-        if (emptyMessage) {
-            emptyMessage.remove();
+        } else {
+
+            walletTransactions =
+                transactions || [];
+
         }
 
-        const transaction =
-            document.createElement("div");
+        totalEarned =
+            0;
 
-        transaction.style.padding =
-            "12px 0";
+        pendingBalance =
+            0;
 
-        transaction.style.borderBottom =
-            "1px solid rgba(255,255,255,0.1)";
+        walletTransactions.forEach(
+            function(transaction) {
 
-        transaction.innerHTML =
-            "<strong>" +
-            escapeHTML(type) +
-            "</strong>" +
-
-            "<br>" +
-
-            '<span style="color:#8fa0dd;">' +
-            new Date().toLocaleString() +
-            "</span>" +
-
-            "<br>" +
-
-            '<span style="color:' +
-            (
-                direction === "plus"
-                    ? "#4ade80"
-                    : "#ff6b6b"
-            ) +
-            ';font-weight:bold;">' +
-
-            (
-                direction === "plus"
-                    ? "+"
-                    : "-"
-            ) +
-
-            "KSh " +
-
-            amount.toFixed(2) +
-
-            "</span>";
-
-        transactionList.prepend(
-            transaction
-        );
-
-    }
-
-
-    /* ====================================================
-       SELL SYSTEM
-       ==================================================== */
-
-    let selectedProductImage = "";
-
-
-    function openSell() {
-
-        document
-            .getElementById("main-platform")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("wallet-dashboard")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("account-panel")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("sell-dashboard")
-            .style
-            .display = "block";
-
-        window.scrollTo(0, 0);
-
-    }
-
-
-    function closeSell() {
-
-        document
-            .getElementById("sell-dashboard")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("main-platform")
-            .style
-            .display = "block";
-
-        window.scrollTo(0, 0);
-
-    }
-
-
-    function previewProductImage(event) {
-
-        const file =
-            event.target.files[0];
-
-        if (!file) {
-            return;
-        }
-
-        const reader =
-            new FileReader();
-
-        reader.onload =
-            function(e) {
-
-                selectedProductImage =
-                    e.target.result;
-
-                const preview =
-                    document.getElementById(
-                        "image-preview"
+                const amount =
+                    Number(
+                        transaction.amount || 0
                     );
 
-                preview.src =
-                    selectedProductImage;
+                const type =
+                    String(
+                        transaction.type || ""
+                    ).toLowerCase();
 
-                preview.style.display =
-                    "block";
+                const status =
+                    String(
+                        transaction.status || ""
+                    ).toLowerCase();
+
+                if (
+                    (
+                        type === "earning" ||
+                        type === "sale" ||
+                        type === "commission"
+                    ) &&
+                    status === "completed"
+                ) {
+
+                    totalEarned +=
+                        amount;
+
+                }
+
+                if (
+                    status === "pending"
+                ) {
+
+                    pendingBalance +=
+                        amount;
+
+                }
+
+            }
+        );
+
+        updateWalletDisplay();
+
+        displayWalletTransactions();
+
+    } catch (error) {
+
+        console.error(
+            "Wallet connection error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN WALLET
+   ===================================================== */
+
+async function openWallet() {
+
+    if (!currentUser) {
+
+        alert(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+    document.getElementById("main-platform").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "none";
+
+    document.getElementById("account-dashboard").style.display =
+        "none";
+
+    document.getElementById("wallet-dashboard").style.display =
+        "block";
+
+    await loadWallet();
+
+    updateWalletDisplay();
+
+    window.scrollTo(0, 0);
+
+}
+
+
+function closeWallet() {
+
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
+
+    document.getElementById("main-platform").style.display =
+        "block";
+
+    window.scrollTo(0, 0);
+
+}
+
+
+/* =====================================================
+   UPDATE WALLET DISPLAY
+   ===================================================== */
+
+function updateWalletDisplay() {
+
+    const balanceElement =
+        document.getElementById("wallet-balance");
+
+    const pendingElement =
+        document.getElementById("pending-balance");
+
+    const earnedElement =
+        document.getElementById("total-earned");
+
+    if (balanceElement) {
+
+        balanceElement.textContent =
+            "KSh " +
+            Number(
+                walletBalance || 0
+            ).toLocaleString(
+                "en-KE",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
+
+    if (pendingElement) {
+
+        pendingElement.textContent =
+            "KSh " +
+            Number(
+                pendingBalance || 0
+            ).toLocaleString(
+                "en-KE",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
+
+    if (earnedElement) {
+
+        earnedElement.textContent =
+            "KSh " +
+            Number(
+                totalEarned || 0
+            ).toLocaleString(
+                "en-KE",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
+
+    if (currentUser) {
+
+        const firstName =
+            currentProfile?.["First name"] ||
+            currentUser.user_metadata?.first_name ||
+            "User";
+
+        const walletTitle =
+            document.getElementById(
+                "wallet-title"
+            );
+
+        const walletOwner =
+            document.getElementById(
+                "wallet-owner"
+            );
+
+        if (walletTitle) {
+
+            walletTitle.textContent =
+                "💰 " +
+                firstName +
+                "'s Wallet";
+
+        }
+
+        if (walletOwner) {
+
+            walletOwner.textContent =
+                "Account: " +
+                (
+                    currentUser.email ||
+                    ""
+                );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   DISPLAY WALLET TRANSACTIONS
+   ===================================================== */
+
+function displayWalletTransactions() {
+
+    const transactionList =
+        document.getElementById(
+            "transaction-list"
+        );
+
+    if (!transactionList) {
+        return;
+    }
+
+    transactionList.innerHTML =
+        "";
+
+    if (
+        !walletTransactions ||
+        walletTransactions.length === 0
+    ) {
+
+        transactionList.innerHTML =
+            '<div class="empty-transactions">' +
+            'No transactions yet.' +
+            '</div>';
+
+        return;
+
+    }
+
+    walletTransactions
+        .slice(0, 20)
+        .forEach(
+            function(transaction) {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "transaction-item";
+
+                const title =
+                    document.createElement(
+                        "div"
+                    );
+
+                title.className =
+                    "transaction-title";
+
+                title.textContent =
+                    transaction.type ||
+                    "Transaction";
+
+                const date =
+                    document.createElement(
+                        "span"
+                    );
+
+                date.className =
+                    "transaction-date";
+
+                if (
+                    transaction.created_at
+                ) {
+
+                    date.textContent =
+                        new Date(
+                            transaction.created_at
+                        ).toLocaleString();
+
+                }
+
+                const amount =
+                    document.createElement(
+                        "span"
+                    );
+
+                amount.className =
+                    "transaction-amount";
+
+                const transactionType =
+                    String(
+                        transaction.type || ""
+                    ).toLowerCase();
+
+                const positive =
+                    transactionType === "deposit" ||
+                    transactionType === "earning" ||
+                    transactionType === "sale" ||
+                    transactionType === "commission" ||
+                    transactionType === "refund";
+
+                amount.style.color =
+                    positive
+                        ? "#4ade80"
+                        : "#ff6b6b";
+
+                amount.textContent =
+                    (positive ? "+" : "-") +
+                    "KSh " +
+                    Number(
+                        transaction.amount || 0
+                    ).toLocaleString(
+                        "en-KE",
+                        {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }
+                    );
+
+                const status =
+                    document.createElement(
+                        "span"
+                    );
+
+                status.className =
+                    "transaction-status";
+
+                status.textContent =
+                    transaction.status ||
+                    "pending";
+
+                item.appendChild(title);
+
+                item.appendChild(date);
+
+                item.appendChild(amount);
+
+                item.appendChild(status);
+
+                if (
+                    transaction.description
+                ) {
+
+                    const description =
+                        document.createElement(
+                            "div"
+                        );
+
+                    description.style.color =
+                        "#8fa0dd";
+
+                    description.style.fontSize =
+                        "12px";
+
+                    description.style.marginTop =
+                        "5px";
+
+                    description.textContent =
+                        transaction.description;
+
+                    item.appendChild(
+                        description
+                    );
+
+                }
+
+                transactionList.appendChild(
+                    item
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   ADD MONEY
+   AUTHENTICATED SUPABASE CONNECTION TEST
+   ===================================================== */
+
+async function addMoney() {
+
+    if (!currentUser) {
+
+        alert(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+    try {
+
+        alert(
+            "Connecting to M-Pesa service..."
+        );
+
+        /*
+         * Get the currently logged-in Supabase session.
+         *
+         * bright-function requires an Authorization
+         * header, so we must send the user's access token.
+         */
+
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+            await supabaseClient.auth.getSession();
+
+        if (sessionError) {
+
+            console.error(
+                "Session error:",
+                sessionError
+            );
+
+            alert(
+                "❌ Could not get your login session.\n\n" +
+                sessionError.message
+            );
+
+            return;
+
+        }
+
+        const session =
+            sessionData?.session;
+
+        if (
+            !session ||
+            !session.access_token
+        ) {
+
+            alert(
+                "❌ Your login session has expired.\n\n" +
+                "Please sign out and sign in again."
+            );
+
+            return;
+
+        }
+
+        /*
+         * Send authenticated request to
+         * the Supabase Edge Function.
+         */
+
+        const response =
+            await fetch(
+                "https://mhaaxpztjgppdtumbofs.supabase.co/functions/v1/bright-function",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            "Bearer " +
+                            session.access_token,
+
+                        "apikey":
+                            SUPABASE_KEY
+
+                    },
+
+                    body: JSON.stringify({
+
+                        test:
+                            true,
+
+                        user_id:
+                            currentUser.id,
+
+                        email:
+                            currentUser.email || ""
+
+                    })
+
+                }
+            );
+
+        /*
+         * Read the server response.
+         */
+
+        let result = {};
+
+        try {
+
+            result =
+                await response.json();
+
+        } catch (jsonError) {
+
+            console.error(
+                "Invalid function response:",
+                jsonError
+            );
+
+            result = {
+
+                success:
+                    false,
+
+                error:
+                    "The server returned an invalid response."
 
             };
 
-        reader.readAsDataURL(file);
+        }
 
-    }
+        console.log(
+            "M-Pesa function response:",
+            result
+        );
 
-
-    function postProduct() {
-
-        const name =
-            document.getElementById(
-                "product-name"
-            ).value.trim();
-
-        const price =
-            document.getElementById(
-                "product-price"
-            ).value;
-
-        const category =
-            document.getElementById(
-                "product-category"
-            ).value;
-
-        const country =
-            document.getElementById(
-                "product-country"
-            ).value;
-
-        const location =
-            document.getElementById(
-                "product-location"
-            ).value.trim();
-
-        const description =
-            document.getElementById(
-                "product-description"
-            ).value.trim();
-
-        const contact =
-            document.getElementById(
-                "seller-contact"
-            ).value.trim();
-
+        /*
+         * Successful connection.
+         */
 
         if (
-            !name ||
-            !price ||
-            !category ||
-            !country ||
-            !location ||
-            !description ||
-            !contact
+            response.ok &&
+            result.success
         ) {
 
             alert(
-                "Please fill in all product details."
+                "✅ CONNECTION SUCCESSFUL!\n\n" +
+                "MADHIRA GLOBAL successfully connected " +
+                "to the Supabase Edge Function.\n\n" +
+                "Your M-Pesa payment system can now be connected."
             );
 
             return;
 
         }
 
+        /*
+         * Server returned an error.
+         */
 
-        const listingContainer =
-            document.getElementById(
-                "listing-container"
-            );
-
-        const listingsSection =
-            document.getElementById(
-                "marketplace-listings"
-            );
-
-        const listing =
-            document.createElement("div");
-
-        listing.className =
-            "listing-card";
-
-
-        const imageHTML =
-            selectedProductImage
-
-                ? '<img class="listing-image" src="' +
-                  selectedProductImage +
-                  '" alt="' +
-                  escapeHTML(name) +
-                  '">'
-
-                : '<div class="listing-image" style="display:flex;align-items:center;justify-content:center;font-size:60px;">🛍️</div>';
-
-
-        listing.innerHTML =
-            imageHTML +
-
-            '<div class="listing-content">' +
-
-            "<h3>" +
-            escapeHTML(name) +
-            "</h3>" +
-
-            '<div class="listing-price">' +
-            "KSh " +
-            Number(price).toLocaleString() +
-            "</div>" +
-
-            '<div class="listing-info">' +
-            "📂 " +
-            escapeHTML(category) +
-            "</div>" +
-
-            '<div class="listing-info">' +
-            "🌍 " +
-            escapeHTML(country) +
-            "</div>" +
-
-            '<div class="listing-info">' +
-            "📍 " +
-            escapeHTML(location) +
-            "</div>" +
-
-            '<div class="listing-info">' +
-            "📞 " +
-            escapeHTML(contact) +
-            "</div>" +
-
-            '<div class="listing-description">' +
-            escapeHTML(description) +
-            "</div>" +
-
-            "</div>";
-
-
-        listingContainer.prepend(
-            listing
+        alert(
+            "❌ Supabase function returned an error.\n\n" +
+            "Status: " +
+            response.status +
+            "\n\n" +
+            JSON.stringify(
+                result,
+                null,
+                2
+            )
         );
 
-        listingsSection.style.display =
+    } catch (error) {
+
+        console.error(
+            "M-Pesa connection error:",
+            error
+        );
+
+        alert(
+            "❌ Could not connect to the M-Pesa service.\n\n" +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   WITHDRAW
+   ===================================================== */
+
+function withdrawMoney() {
+
+    alert(
+        "Withdrawals are not connected yet. " +
+        "Your wallet balance cannot be changed directly from the website."
+    );
+
+}
+
+
+/* =====================================================
+   SELL
+   ===================================================== */
+
+function openSell() {
+
+    if (!currentUser) {
+
+        alert(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+    document.getElementById("main-platform").style.display =
+        "none";
+
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
+
+    document.getElementById("account-dashboard").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "block";
+
+    window.scrollTo(0, 0);
+
+}
+
+
+function closeSell() {
+
+    document.getElementById("sell-dashboard").style.display =
+        "none";
+
+    document.getElementById("main-platform").style.display =
+        "block";
+
+    window.scrollTo(0, 0);
+
+}
+
+
+/* =====================================================
+   PRODUCT IMAGE
+   ===================================================== */
+
+function previewProductImage(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    if (
+        file.size >
+        3 * 1024 * 1024
+    ) {
+
+        alert(
+            "Please choose an image smaller than 3MB."
+        );
+
+        event.target.value =
+            "";
+
+        return;
+
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(e) {
+
+            selectedProductImage =
+                e.target.result;
+
+            const preview =
+                document.getElementById(
+                    "image-preview"
+                );
+
+            preview.src =
+                selectedProductImage;
+
+            preview.style.display =
+                "block";
+
+        };
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =====================================================
+   LOAD PRODUCTS
+   ===================================================== */
+
+async function loadProducts() {
+
+    const container =
+        document.getElementById(
+            "listing-container"
+        );
+
+    container.innerHTML =
+        '<div class="loading">Loading marketplace...</div>';
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("Products table")
+        .select("*")
+        .order(
+            "Created at",
+            {
+                ascending: false
+            }
+        );
+
+    if (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            '<div class="no-products">' +
+            'Unable to load products: ' +
+            escapeHTML(error.message) +
+            '</div>';
+
+        return;
+
+    }
+
+    container.innerHTML =
+        "";
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        document
+            .getElementById(
+                "marketplace-listings"
+            )
+            .style.display =
+            "none";
+
+        return;
+
+    }
+
+    const sellerIds = [
+        ...new Set(
+            data
+                .map(
+                    product =>
+                        product.seller_id
+                )
+                .filter(Boolean)
+        )
+    ];
+
+    let sellerProfiles = {};
+
+    if (
+        sellerIds.length > 0
+    ) {
+
+        const {
+            data: profiles,
+            error: profileError
+        } =
+            await supabaseClient
+            .from("Profiles")
+            .select(
+                'id, "First name", "Last name"'
+            )
+            .in(
+                "id",
+                sellerIds
+            );
+
+        if (
+            !profileError &&
+            profiles
+        ) {
+
+            profiles.forEach(
+                function(profile) {
+
+                    sellerProfiles[
+                        profile.id
+                    ] =
+                        profile;
+
+                }
+            );
+
+        }
+
+    }
+
+    data.forEach(
+        function(product) {
+
+            createMarketplaceListing(
+                product,
+                sellerProfiles[
+                    product.seller_id
+                ]
+            );
+
+        }
+    );
+
+    document
+        .getElementById(
+            "marketplace-listings"
+        )
+        .style.display =
+        "block";
+
+    applyCurrentFilters();
+
+}
+
+
+/* =====================================================
+   CREATE MARKETPLACE LISTING
+   ===================================================== */
+
+function createMarketplaceListing(
+    product,
+    sellerProfile
+) {
+
+    const listingContainer =
+        document.getElementById(
+            "listing-container"
+        );
+
+    const listing =
+        document.createElement(
+            "div"
+        );
+
+    listing.className =
+        "listing-card";
+
+    listing.dataset.productId =
+        product.id;
+
+    listing.dataset.category =
+        product["Category"] || "";
+
+    if (
+        product["Image url"]
+    ) {
+
+        const image =
+            document.createElement(
+                "img"
+            );
+
+        image.className =
+            "listing-image";
+
+        image.src =
+            product["Image url"];
+
+        image.alt =
+            product["Product name"] ||
+            "Product";
+
+        listing.appendChild(
+            image
+        );
+
+    } else {
+
+        const placeholder =
+            document.createElement(
+                "div"
+            );
+
+        placeholder.className =
+            "listing-image";
+
+        placeholder.style.display =
+            "flex";
+
+        placeholder.style.alignItems =
+            "center";
+
+        placeholder.style.justifyContent =
+            "center";
+
+        placeholder.style.fontSize =
+            "60px";
+
+        placeholder.textContent =
+            "🛍️";
+
+        listing.appendChild(
+            placeholder
+        );
+
+    }
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+    content.className =
+        "listing-content";
+
+    const title =
+        document.createElement(
+            "h3"
+        );
+
+    title.textContent =
+        product["Product name"] ||
+        "Unnamed product";
+
+    const price =
+        document.createElement(
+            "div"
+        );
+
+    price.className =
+        "listing-price";
+
+    price.textContent =
+        "KSh " +
+        Number(
+            product["Price"] || 0
+        ).toLocaleString();
+
+    const category =
+        document.createElement(
+            "div"
+        );
+
+    category.className =
+        "listing-info";
+
+    category.textContent =
+        "📂 " +
+        (
+            product["Category"] ||
+            ""
+        );
+
+    const country =
+        document.createElement(
+            "div"
+        );
+
+    country.className =
+        "listing-info";
+
+    country.textContent =
+        "🌍 " +
+        (
+            product["Country"] ||
+            ""
+        );
+
+    const location =
+        document.createElement(
+            "div"
+        );
+
+    location.className =
+        "listing-info";
+
+    location.textContent =
+        "📍 " +
+        (
+            product["Location"] ||
+            ""
+        );
+
+    const contact =
+        document.createElement(
+            "div"
+        );
+
+    contact.className =
+        "listing-info";
+
+    contact.textContent =
+        "📞 " +
+        (
+            product["Contact"] ||
+            ""
+        );
+
+    let sellerName =
+        "Seller";
+
+    if (
+        sellerProfile
+    ) {
+
+        sellerName =
+            (
+                sellerProfile["First name"] ||
+                ""
+            ) +
+            " " +
+            (
+                sellerProfile["Last name"] ||
+                ""
+            );
+
+        sellerName =
+            sellerName.trim() ||
+            "Seller";
+
+    }
+
+    const seller =
+        document.createElement(
+            "div"
+        );
+
+    seller.className =
+        "seller-name";
+
+    seller.textContent =
+        "👤 Seller: " +
+        sellerName;
+
+    const description =
+        document.createElement(
+            "div"
+        );
+
+    description.className =
+        "listing-description";
+
+    description.textContent =
+        product["Description"] ||
+        "";
+
+    content.appendChild(title);
+
+    content.appendChild(price);
+
+    content.appendChild(category);
+
+    content.appendChild(country);
+
+    content.appendChild(location);
+
+    content.appendChild(contact);
+
+    content.appendChild(seller);
+
+    content.appendChild(description);
+
+    listing.appendChild(
+        content
+    );
+
+    listingContainer.appendChild(
+        listing
+    );
+
+}
+
+
+/* =====================================================
+   POST PRODUCT
+   ===================================================== */
+
+async function postProduct() {
+
+    if (!currentUser) {
+
+        alert(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+    const message =
+        document.getElementById(
+            "sell-message"
+        );
+
+    const button =
+        document.getElementById(
+            "post-product-button"
+        );
+
+    message.textContent =
+        "Posting product...";
+
+    button.disabled =
+        true;
+
+    const name =
+        document
+        .getElementById(
+            "product-name"
+        )
+        .value
+        .trim();
+
+    const price =
+        Number(
+            document
+            .getElementById(
+                "product-price"
+            )
+            .value
+        );
+
+    const category =
+        document
+        .getElementById(
+            "product-category"
+        )
+        .value;
+
+    const country =
+        document
+        .getElementById(
+            "product-country"
+        )
+        .value;
+
+    const location =
+        document
+        .getElementById(
+            "product-location"
+        )
+        .value
+        .trim();
+
+    const description =
+        document
+        .getElementById(
+            "product-description"
+        )
+        .value
+        .trim();
+
+    const contact =
+        document
+        .getElementById(
+            "seller-contact"
+        )
+        .value
+        .trim();
+
+    if (
+        !name ||
+        !price ||
+        price <= 0 ||
+        !category ||
+        !country ||
+        !location ||
+        !description ||
+        !contact
+    ) {
+
+        message.textContent =
+            "Please fill in all product details.";
+
+        button.disabled =
+            false;
+
+        return;
+
+    }
+
+    const product = {
+
+        seller_id:
+            currentUser.id,
+
+        "Product name":
+            name,
+
+        "Price":
+            price,
+
+        "Category":
+            category,
+
+        "Country":
+            country,
+
+        "Location":
+            location,
+
+        "Description":
+            description,
+
+        "Contact":
+            contact,
+
+        "Image url":
+            selectedProductImage || ""
+
+    };
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+            .from("Products table")
+            .insert(product)
+            .select()
+            .single();
+
+        if (error) {
+
+            console.error(error);
+
+            message.textContent =
+                "Error: " +
+                error.message;
+
+            button.disabled =
+                false;
+
+            return;
+
+        }
+
+        await loadProducts();
+
+        await displayMyProducts();
+
+        clearSellForm();
+
+        document
+            .getElementById(
+                "sell-dashboard"
+            )
+            .style.display =
+            "none";
+
+        document
+            .getElementById(
+                "main-platform"
+            )
+            .style.display =
             "block";
 
-
-        document
-            .getElementById("sell-dashboard")
-            .style
-            .display = "none";
-
-        document
-            .getElementById("main-platform")
-            .style
-            .display = "block";
-
-
-        document
-            .getElementById("product-name")
-            .value = "";
-
-        document
-            .getElementById("product-price")
-            .value = "";
-
-        document
-            .getElementById("product-category")
-            .value = "";
-
-        document
-            .getElementById("product-country")
-            .value = "";
-
-        document
-            .getElementById("product-location")
-            .value = "";
-
-        document
-            .getElementById("product-description")
-            .value = "";
-
-        document
-            .getElementById("seller-contact")
-            .value = "";
-
-        document
-            .getElementById("product-image")
-            .value = "";
-
-        document
-            .getElementById("image-preview")
-            .style
-            .display = "none";
-
-        selectedProductImage = "";
-
         window.scrollTo(0, 0);
+
+        button.disabled =
+            false;
+
+        message.textContent =
+            "";
 
         alert(
             "Your product has been posted successfully!"
         );
 
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            error.message ||
+            "Unable to post product.";
+
+        button.disabled =
+            false;
+
     }
 
-
-    /* ====================================================
-       SEARCH
-       ==================================================== */
-
-    function searchProducts() {
-
-        const searchTerm =
-            document.getElementById(
-                "search-input"
-            ).value
-            .trim()
-            .toLowerCase();
-
-        const listings =
-            document.querySelectorAll(
-                ".listing-card"
-            );
+}
 
 
-        if (!searchTerm) {
+/* =====================================================
+   CLEAR SELL FORM
+   ===================================================== */
 
-            listings.forEach(
-                function(listing) {
+function clearSellForm() {
 
-                    listing.style.display =
-                        "block";
+    document.getElementById(
+        "product-name"
+    ).value =
+        "";
 
-                }
-            );
+    document.getElementById(
+        "product-price"
+    ).value =
+        "";
 
-            return;
+    document.getElementById(
+        "product-category"
+    ).value =
+        "";
 
-        }
+    document.getElementById(
+        "product-country"
+    ).value =
+        "";
+
+    document.getElementById(
+        "product-location"
+    ).value =
+        "";
+
+    document.getElementById(
+        "product-description"
+    ).value =
+        "";
+
+    document.getElementById(
+        "seller-contact"
+    ).value =
+        "";
+
+    document.getElementById(
+        "product-image"
+    ).value =
+        "";
+
+    document.getElementById(
+        "image-preview"
+    ).style.display =
+        "none";
+
+    selectedProductImage =
+        "";
+
+}
 
 
-        listings.forEach(
-            function(listing) {
+/* =====================================================
+   MY PRODUCTS
+   ===================================================== */
 
-                const content =
-                    listing.textContent
-                    .toLowerCase();
+async function displayMyProducts() {
 
-                if (
-                    content.includes(searchTerm)
-                ) {
+    const container =
+        document.getElementById(
+            "my-products-container"
+        );
 
-                    listing.style.display =
-                        "block";
+    container.innerHTML =
+        '<div class="loading">Loading your products...</div>';
 
-                } else {
+    if (!currentUser) {
 
-                    listing.style.display =
-                        "none";
+        container.innerHTML =
+            '<div class="no-products">Please sign in first.</div>';
 
-                }
+        return;
 
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("Products table")
+        .select("*")
+        .eq(
+            "seller_id",
+            currentUser.id
+        )
+        .order(
+            "Created at",
+            {
+                ascending: false
             }
         );
 
-    }
+    if (error) {
 
+        console.error(error);
 
-    /* ====================================================
-       SECURITY / HTML ESCAPING
-       ==================================================== */
+        container.innerHTML =
+            '<div class="no-products">' +
+            'Unable to load your products: ' +
+            escapeHTML(error.message) +
+            '</div>';
 
-    function escapeHTML(text) {
-
-        const div =
-            document.createElement("div");
-
-        div.textContent = text;
-
-        return div.innerHTML;
+        return;
 
     }
 
+    container.innerHTML =
+        "";
 
-    /* ====================================================
-       INITIAL LOAD
-       ==================================================== */
+    if (
+        !data ||
+        data.length === 0
+    ) {
 
-    window.addEventListener(
-        "DOMContentLoaded",
-        function() {
+        container.innerHTML =
+            '<div class="no-products">' +
+            '📦 You have not posted any products yet.' +
+            '</div>';
 
-            if (currentUser) {
+        return;
 
-                loadAccountInfo();
+    }
+
+    data.forEach(
+        function(product) {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "my-product-card";
+
+            if (
+                product["Image url"]
+            ) {
+
+                const image =
+                    document.createElement(
+                        "img"
+                    );
+
+                image.className =
+                    "my-product-image";
+
+                image.src =
+                    product["Image url"];
+
+                image.alt =
+                    product["Product name"] ||
+                    "Product";
+
+                card.appendChild(
+                    image
+                );
+
+            } else {
+
+                const placeholder =
+                    document.createElement(
+                        "div"
+                    );
+
+                placeholder.className =
+                    "my-product-image";
+
+                placeholder.style.display =
+                    "flex";
+
+                placeholder.style.alignItems =
+                    "center";
+
+                placeholder.style.justifyContent =
+                    "center";
+
+                placeholder.style.fontSize =
+                    "50px";
+
+                placeholder.textContent =
+                    "🛍️";
+
+                card.appendChild(
+                    placeholder
+                );
 
             }
+
+            const content =
+                document.createElement(
+                    "div"
+                );
+
+            content.className =
+                "my-product-content";
+
+            const name =
+                document.createElement(
+                    "h4"
+                );
+
+            name.textContent =
+                product["Product name"] ||
+                "Unnamed product";
+
+            const price =
+                document.createElement(
+                    "div"
+                );
+
+            price.className =
+                "my-product-price";
+
+            price.textContent =
+                "KSh " +
+                Number(
+                    product["Price"] || 0
+                ).toLocaleString();
+
+            const location =
+                document.createElement(
+                    "div"
+                );
+
+            location.className =
+                "my-product-location";
+
+            location.textContent =
+                "📍 " +
+                (
+                    product["Location"] ||
+                    ""
+                ) +
+                " • " +
+                (
+                    product["Country"] ||
+                    ""
+                );
+
+            const actions =
+                document.createElement(
+                    "div"
+                );
+
+            actions.className =
+                "my-product-actions";
+
+            const editButton =
+                document.createElement(
+                    "button"
+                );
+
+            editButton.className =
+                "edit-product-btn";
+
+            editButton.textContent =
+                "✏️ Edit";
+
+            editButton.onclick =
+                function() {
+
+                    editProduct(
+                        product.id
+                    );
+
+                };
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+            deleteButton.className =
+                "delete-product-btn";
+
+            deleteButton.textContent =
+                "🗑️ Delete";
+
+            deleteButton.onclick =
+                function() {
+
+                    deleteProduct(
+                        product.id
+                    );
+
+                };
+
+            actions.appendChild(
+                editButton
+            );
+
+            actions.appendChild(
+                deleteButton
+            );
+
+            content.appendChild(
+                name
+            );
+
+            content.appendChild(
+                price
+            );
+
+            content.appendChild(
+                location
+            );
+
+            content.appendChild(
+                actions
+            );
+
+            card.appendChild(
+                content
+            );
+
+            container.appendChild(
+                card
+            );
 
         }
     );
 
-</script>
-    <script>
-(function () {
-    const startButton = document.getElementById("startGame");
-    const cashOutButton = document.getElementById("cashOut");
-    const betInput = document.getElementById("betAmount");
+}
 
-    const balanceDisplay = document.getElementById("balance");
-    const multiplierDisplay = document.getElementById("multiplier");
-    const statusDisplay = document.getElementById("game-status");
-    const winDisplay = document.getElementById("potentialWin");
 
-    let balance = 1000;
-    let multiplier = 1;
-    let bet = 0;
-    let timer = null;
-    let playing = false;
-    let crashPoint = 0;
+/* =====================================================
+   DELETE PRODUCT
+   ===================================================== */
 
-    function display() {
-        balanceDisplay.textContent = balance.toFixed(2);
-        multiplierDisplay.textContent = multiplier.toFixed(2) + "x";
+async function deleteProduct(productId) {
 
-        if (playing) {
-            winDisplay.textContent = (bet * multiplier).toFixed(2);
-        } else {
-            winDisplay.textContent = "0.00";
-        }
+    if (!currentUser) {
+        return;
     }
 
-    startButton.onclick = function () {
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this product?"
+        );
 
-        if (playing) return;
+    if (!confirmed) {
+        return;
+    }
 
-        bet = parseFloat(betInput.value);
+    const {
+        error
+    } =
+        await supabaseClient
+        .from("Products table")
+        .delete()
+        .eq(
+            "id",
+            productId
+        )
+        .eq(
+            "seller_id",
+            currentUser.id
+        );
 
-        if (isNaN(bet) || bet <= 0) {
-            statusDisplay.textContent = "Enter a valid bet.";
-            return;
-        }
+    if (error) {
 
-        if (bet > balance) {
-            statusDisplay.textContent = "Not enough balance.";
-            return;
-        }
+        console.error(error);
 
-        balance -= bet;
+        alert(
+            "Unable to delete product: " +
+            error.message
+        );
 
-        multiplier = 1;
-        crashPoint = 1.20 + Math.random() * 8;
+        return;
 
-        playing = true;
+    }
 
-        startButton.disabled = true;
-        cashOutButton.disabled = false;
-        betInput.disabled = true;
+    await loadProducts();
 
-        statusDisplay.textContent = "✈️ Flying...";
+    await displayMyProducts();
 
-        display();
+    alert(
+        "Product deleted successfully."
+    );
 
-        timer = setInterval(function () {
-
-            multiplier += 0.02;
-
-            display();
-
-            if (multiplier >= crashPoint) {
-                clearInterval(timer);
-
-                playing = false;
-
-                statusDisplay.textContent =
-                    "💥 Crashed at " + multiplier.toFixed(2) + "x";
-
-                startButton.disabled = false;
-                cashOutButton.disabled = true;
-                betInput.disabled = false;
-
-                display();
-            }
-
-        }, 100);
-    };
-
-    cashOutButton.onclick = function () {
-
-        if (!playing) return;
-
-        clearInterval(timer);
-
-        const winnings = bet * multiplier;
-
-        balance += winnings;
-
-        playing = false;
-
-        statusDisplay.textContent =
-            "💰 Cashed out at " + multiplier.toFixed(2) + "x";
-
-        startButton.disabled = false;
-        cashOutButton.disabled = true;
-        betInput.disabled = false;
-
-        display();
-    };
-
-    display();
-
-})();
-    </script>
-<script>
-function startAviatorGame() {
-    alert("Aviator button is working!");
 }
+
+
+/* =====================================================
+   EDIT PRODUCT
+   ===================================================== */
+
+async function editProduct(productId) {
+
+    if (!currentUser) {
+        return;
+    }
+
+    const {
+        data: product,
+        error: findError
+    } =
+        await supabaseClient
+        .from("Products table")
+        .select("*")
+        .eq(
+            "id",
+            productId
+        )
+        .eq(
+            "seller_id",
+            currentUser.id
+        )
+        .maybeSingle();
+
+    if (findError) {
+
+        console.error(findError);
+
+        alert(
+            "Unable to find product: " +
+            findError.message
+        );
+
+        return;
+
+    }
+
+    if (!product) {
+
+        alert(
+            "Product could not be found."
+        );
+
+        return;
+
+    }
+
+    const newName =
+        prompt(
+            "Product name:",
+            product["Product name"] || ""
+        );
+
+    if (newName === null) {
+        return;
+    }
+
+    const newPrice =
+        prompt(
+            "Price (KSh):",
+            product["Price"] || ""
+        );
+
+    if (newPrice === null) {
+        return;
+    }
+
+    const newDescription =
+        prompt(
+            "Description:",
+            product["Description"] || ""
+        );
+
+    if (newDescription === null) {
+        return;
+    }
+
+    const priceNumber =
+        Number(newPrice);
+
+    if (
+        !newName.trim() ||
+        !isFinite(priceNumber) ||
+        priceNumber <= 0
+    ) {
+
+        alert(
+            "Please enter a valid name and price."
+        );
+
+        return;
+
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+        .from("Products table")
+        .update({
+
+            "Product name":
+                newName.trim(),
+
+            "Price":
+                priceNumber,
+
+            "Description":
+                newDescription.trim()
+
+        })
+        .eq(
+            "id",
+            productId
+        )
+        .eq(
+            "seller_id",
+            currentUser.id
+        );
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to update product: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+    await loadProducts();
+
+    await displayMyProducts();
+
+    alert(
+        "Product updated successfully."
+    );
+
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+function searchProducts() {
+
+    applyCurrentFilters();
+
+}
+
+
+function applyCurrentFilters() {
+
+    const searchTerm =
+        document
+        .getElementById(
+            "search-input"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+    const listings =
+        document.querySelectorAll(
+            ".listing-card"
+        );
+
+    listings.forEach(
+        function(listing) {
+
+            const content =
+                listing.textContent
+                .toLowerCase();
+
+            const category =
+                (
+                    listing.dataset.category ||
+                    ""
+                ).toLowerCase();
+
+            const matchesSearch =
+                !searchTerm ||
+                content.includes(
+                    searchTerm
+                ) ||
+                category.includes(
+                    searchTerm
+                );
+
+            listing.style.display =
+                matchesSearch
+                    ? "block"
+                    : "none";
+
+        }
+    );
+
+    if (
+        listings.length > 0
+    ) {
+
+        document
+            .getElementById(
+                "marketplace-listings"
+            )
+            .style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =====================================================
+   CATEGORY FILTER
+   ===================================================== */
+
+function filterCategory(category) {
+
+    document
+        .getElementById(
+            "search-input"
+        )
+        .value =
+        category;
+
+    searchProducts();
+
+}
+
+
+/* =====================================================
+   SIGN OUT
+   ===================================================== */
+
+async function signOut() {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to sign out?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient.auth.signOut();
+
+    if (error) {
+
+        alert(
+            "Unable to sign out: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+    currentUser =
+        null;
+
+    currentProfile =
+        null;
+
+    selectedProfilePicture =
+        "";
+
+    selectedProductImage =
+        "";
+
+    walletBalance =
+        0;
+
+    totalEarned =
+        0;
+
+    pendingBalance =
+        0;
+
+    walletTransactions =
+        [];
+
+    showAuth();
+
+    switchForm(
+        "signin"
+    );
+
+    document.getElementById(
+        "signin-email"
+    ).value =
+        "";
+
+    document.getElementById(
+        "signin-password"
+    ).value =
+        "";
+
+}
+
+
+/* =====================================================
+   AUTH STATE LISTENER
+   ===================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            currentUser =
+                null;
+
+            currentProfile =
+                null;
+
+            walletBalance =
+                0;
+
+            totalEarned =
+                0;
+
+            pendingBalance =
+                0;
+
+            walletTransactions =
+                [];
+
+            showAuth();
+
+            switchForm(
+                "signin"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SECURITY HELPERS
+   ===================================================== */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text == null
+            ? ""
+            : String(text);
+
+    return div.innerHTML;
+
+}
+
 </script>
+
 </body>
-</html>
-
-
-
+                                </html>
