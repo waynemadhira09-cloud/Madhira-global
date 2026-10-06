@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Madhira Games</title>
 
     <link rel="stylesheet" href="games.css">
@@ -11,7 +10,10 @@
 
 <body>
 
-    <div class="games-container">
+<div class="games-container">
+
+    <!-- GAMES MENU -->
+    <section id="games-menu">
 
         <h1>🎮 Madhira Games</h1>
 
@@ -22,109 +24,217 @@
             <button class="game-card" onclick="openAviator()">
                 <div class="game-icon">✈️</div>
                 <h2>Aviator</h2>
-                <p>Play the demo game</p>
+                <p>Play</p>
             </button>
 
-            <button class="game-card">
+            <button class="game-card" onclick="comingSoon('Dice')">
                 <div class="game-icon">🎲</div>
                 <h2>Dice</h2>
                 <p>Coming soon</p>
             </button>
 
-            <button class="game-card">
+            <button class="game-card" onclick="comingSoon('Mines')">
                 <div class="game-icon">💣</div>
                 <h2>Mines</h2>
                 <p>Coming soon</p>
             </button>
 
-            <button class="game-card">
+            <button class="game-card" onclick="comingSoon('Plinko')">
                 <div class="game-icon">🔴</div>
                 <h2>Plinko</h2>
                 <p>Coming soon</p>
             </button>
 
         </div>
-<!-- AVIATOR GAME -->
 
-<div id="aviator-game" class="aviator-game">
+    </section>
 
-    <button class="back-button" onclick="closeAviator()">
-        ← Back to Games
-    </button>
 
-    <h2>✈️ Aviator</h2>
+    <!-- AVIATOR -->
+    <section id="aviator-game">
 
-    <div class="aviator-screen">
+        <button class="back-button" onclick="closeAviator()">
+            ← Back
+        </button>
 
-        <div id="aviator-multiplier">
-            1.00x
-        </div>
+        <h1>✈️ Aviator</h1>
 
-        <div id="aviator-plane">
-            ✈️
-        </div>
-
-        <p id="aviator-status">
-            Ready to play
+        <p class="demo-label">
+            Virtual credits only
         </p>
 
-    </div>
 
-    <div class="demo-balance">
-        Demo Balance:
-        <strong id="demo-balance">1000.00</strong>
-    </div>
+        <!-- GAME SCREEN -->
+        <div class="aviator-screen">
 
-    <div class="aviator-controls">
+            <div
+                id="aviator-multiplier"
+                class="aviator-multiplier">
+                1.00x
+            </div>
 
-        <input
-            id="aviator-bet"
-            type="number"
-            min="1"
-            value="10"
-            placeholder="Bet amount"
-        >
+            <div
+                id="aviator-plane"
+                class="aviator-plane">
+                ✈️
+            </div>
 
-        <button
-            id="start-button"
-            onclick="startAviator()">
-            🚀 Start
-        </button>
+            <div
+                id="aviator-status"
+                class="aviator-status">
+                Ready
+            </div>
 
-        <button
-            id="cashout-button"
-            onclick="cashOutAviator()"
-            disabled>
-            💰 Cash Out
-        </button>
+        </div>
 
-    </div>
+
+        <!-- BALANCE -->
+        <div class="demo-balance">
+
+            <span>Virtual Balance</span>
+
+            <strong id="demo-balance">
+                1000.00
+            </strong>
+
+            <span>credits</span>
+
+        </div>
+
+
+        <!-- BET -->
+        <div class="aviator-controls">
+
+            <label for="aviator-bet">
+                Bet amount
+            </label>
+
+            <input
+                id="aviator-bet"
+                type="number"
+                min="1"
+                max="1000"
+                value="10"
+            >
+
+
+            <button
+                id="start-button"
+                class="start-button"
+                onclick="startAviator()">
+
+                🚀 Start Round
+
+            </button>
+
+
+            <button
+                id="cashout-button"
+                class="cashout-button"
+                onclick="cashOutAviator()"
+                disabled>
+
+                💰 Cash Out
+
+            </button>
+
+        </div>
+
+
+        <!-- RESULT -->
+        <div
+            id="aviator-result"
+            class="aviator-result">
+        </div>
+
+    </section>
 
 </div>
-    </div>
 
-    <script>
 
-let demoBalance = 1000;
+<script>
+
+/* =========================
+   GAME VARIABLES
+========================= */
+
+let virtualBalance = 1000;
 
 let aviatorRunning = false;
+
 let aviatorInterval = null;
+
 let aviatorMultiplier = 1;
+
 let aviatorBet = 0;
+
 let aviatorCrashPoint = 0;
 
 
+/* =========================
+   OPEN AVIATOR
+========================= */
+
 function openAviator() {
 
-    document.querySelector(".games-grid").style.display = "none";
-
-    document.querySelector(".subtitle").style.display = "none";
-
-    document.querySelector(".games-container h1").style.display = "none";
+    document.getElementById("games-menu").style.display = "none";
 
     document.getElementById("aviator-game").style.display = "block";
 
+    updateBalance();
+
 }
+
+
+/* =========================
+   CLOSE AVIATOR
+========================= */
+
+function closeAviator() {
+
+    if (aviatorRunning) {
+
+        clearInterval(aviatorInterval);
+
+        aviatorRunning = false;
+
+    }
+
+    document.getElementById("aviator-game").style.display = "none";
+
+    document.getElementById("games-menu").style.display = "block";
+
+    resetGame();
+
+}
+
+
+/* =========================
+   COMING SOON
+========================= */
+
+function comingSoon(game) {
+
+    alert(game + " is coming soon.");
+
+}
+
+
+/* =========================
+   BALANCE
+========================= */
+
+function updateBalance() {
+
+    document.getElementById("demo-balance").textContent =
+        virtualBalance.toFixed(2);
+
+}
+
+
+/* =========================
+   START ROUND
+========================= */
 
 function startAviator() {
 
@@ -132,37 +242,134 @@ function startAviator() {
         return;
     }
 
-    aviatorBet = Number(
-    document.getElementById("aviator-bet").value
-);
 
-    if (aviatorBet > demoBalance) {
-        alert("Not enough demo credits.");
+    const input =
+        document.getElementById("aviator-bet");
+
+
+    aviatorBet =
+        Number(input.value);
+
+
+    if (!Number.isFinite(aviatorBet) || aviatorBet < 1) {
+
+        alert("Enter a valid amount.");
+
         return;
     }
 
-    demoBalance -= aviatorBet;
+
+    if (aviatorBet > virtualBalance) {
+
+        alert("Not enough virtual credits.");
+
+        return;
+    }
+
+
+    /* Deduct virtual credits */
+
+    virtualBalance -= aviatorBet;
+
+    updateBalance();
+
+
+    /* Reset */
 
     aviatorMultiplier = 1;
 
-    aviatorCrashPoint =
-        (Math.random() * 4 + 1.2).toFixed(2);
-
     aviatorRunning = true;
 
-    console.log("Crash point:", aviatorCrashPoint);
 
-    aviatorInterval = setInterval(function () {
+    /* Random crash point */
+
+    aviatorCrashPoint =
+        Number(
+            (Math.random() * 6.8 + 1.2).toFixed(2)
+        );
+
+
+    /* Buttons */
+
+    document.getElementById("start-button").disabled = true;
+
+    document.getElementById("cashout-button").disabled = false;
+
+
+    /* Text */
+
+    document.getElementById("aviator-status").textContent =
+        "🚀 Flying...";
+
+    document.getElementById("aviator-result").textContent =
+        "";
+
+
+    /* Multiplier */
+
+    document.getElementById("aviator-multiplier").textContent =
+        "1.00x";
+
+
+    /* Plane */
+
+    document.getElementById("aviator-plane").style.left =
+        "30px";
+
+    document.getElementById("aviator-plane").style.bottom =
+        "35px";
+
+
+    /* Game loop */
+
+    aviatorInterval = setInterval(function() {
 
         aviatorMultiplier += 0.01;
 
-        console.log(
-            aviatorMultiplier.toFixed(2) + "x"
-        );
+
+        /* Update multiplier */
+
+        document.getElementById(
+            "aviator-multiplier"
+        ).textContent =
+            aviatorMultiplier.toFixed(2) + "x";
+
+
+        /* Move plane */
+
+        const screen =
+            document.querySelector(".aviator-screen");
+
+        const maxLeft =
+            screen.clientWidth - 80;
+
+        const maxBottom =
+            screen.clientHeight - 100;
+
+        const progress =
+            Math.min(
+                (aviatorMultiplier - 1) / 6,
+                1
+            );
+
+
+        document.getElementById(
+            "aviator-plane"
+        ).style.left =
+            (30 + progress * maxLeft) + "px";
+
+
+        document.getElementById(
+            "aviator-plane"
+        ).style.bottom =
+            (35 + progress * maxBottom) + "px";
+
+
+        /* Crash */
 
         if (
             aviatorMultiplier >=
-            Number(aviatorCrashPoint)
+            aviatorCrashPoint
         ) {
 
             crashAviator();
@@ -174,32 +381,46 @@ function startAviator() {
 }
 
 
+/* =========================
+   CRASH
+========================= */
+
 function crashAviator() {
 
     clearInterval(aviatorInterval);
 
     aviatorRunning = false;
 
-    console.log(
-        "Plane crashed at " +
-        aviatorCrashPoint +
-        "x"
-    );
-    document.getElementById("start-button").disabled = true;
 
-document.getElementById("cashout-button").disabled = false;
+    document.getElementById(
+        "aviator-status"
+    ).textContent =
+        "💥 Crashed";
 
-document.getElementById("aviator-status").textContent =
-    "🚀 Flying...";
 
-document.getElementById("aviator-multiplier").textContent =
-    "1.00x";
+    document.getElementById(
+        "aviator-result"
+    ).textContent =
+        "The plane crashed at " +
+        aviatorCrashPoint.toFixed(2) +
+        "x.";
 
-document.getElementById("demo-balance").textContent =
-    demoBalance.toFixed(2);
+
+    document.getElementById(
+        "start-button"
+    ).disabled = false;
+
+
+    document.getElementById(
+        "cashout-button"
+    ).disabled = true;
 
 }
 
+
+/* =========================
+   CASH OUT
+========================= */
 
 function cashOutAviator() {
 
@@ -207,29 +428,97 @@ function cashOutAviator() {
         return;
     }
 
+
     clearInterval(aviatorInterval);
 
     aviatorRunning = false;
 
+
     const winnings =
         aviatorBet * aviatorMultiplier;
 
-    demoBalance += winnings;
 
-    console.log(
+    virtualBalance += winnings;
+
+    updateBalance();
+
+
+    document.getElementById(
+        "aviator-status"
+    ).textContent =
+        "💰 Cashed Out";
+
+
+    document.getElementById(
+        "aviator-result"
+    ).textContent =
         "Cashed out at " +
         aviatorMultiplier.toFixed(2) +
-        "x"
-    );
+        "x — +" +
+        winnings.toFixed(2) +
+        " credits";
 
-    console.log(
-        "Demo balance:",
-        demoBalance.toFixed(2)
-    );
+
+    document.getElementById(
+        "start-button"
+    ).disabled = false;
+
+
+    document.getElementById(
+        "cashout-button"
+    ).disabled = true;
 
 }
 
-    </script>
+
+/* =========================
+   RESET
+========================= */
+
+function resetGame() {
+
+    document.getElementById(
+        "aviator-multiplier"
+    ).textContent =
+        "1.00x";
+
+
+    document.getElementById(
+        "aviator-status"
+    ).textContent =
+        "Ready";
+
+
+    document.getElementById(
+        "aviator-result"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "aviator-plane"
+    ).style.left =
+        "30px";
+
+
+    document.getElementById(
+        "aviator-plane"
+    ).style.bottom =
+        "35px";
+
+
+    document.getElementById(
+        "start-button"
+    ).disabled = false;
+
+
+    document.getElementById(
+        "cashout-button"
+    ).disabled = true;
+
+}
+
+</script>
 
 </body>
 </html>
