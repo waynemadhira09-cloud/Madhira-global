@@ -116,10 +116,15 @@ let aviatorCrashPoint = 0;
 
 function openAviator() {
 
-    alert("Aviator demo is ready.");
+    document.querySelector(".games-grid").style.display = "none";
+
+    document.querySelector(".subtitle").style.display = "none";
+
+    document.querySelector(".games-container h1").style.display = "none";
+
+    document.getElementById("aviator-game").style.display = "block";
 
 }
-
 
 function startAviator() {
 
