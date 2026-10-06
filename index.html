@@ -1,710 +1,4622 @@
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-
-<div class="brand-header">  
-    <span style="font-size:2.2rem;">🌐</span>  
-    <span class="brand-logo">Madhira Global</span>  
-</div>  
-
-<h1 class="hero-title">  
-    Buy & Sell Anything Worldwide  
-</h1>  
-
-<p class="hero-tagline">  
-    Find products from sellers around the world.  
-</p>  
-
-<div id="signin-box" class="auth-box active">  
-
-    <h2>Sign In</h2>  
-
-    <form onsubmit="handleSignIn(event)">  
-
-        <div class="input-group">  
-            <label>Email Address</label>  
-            <input  
-                type="email"  
-                id="signin-email"  
-                required  
-                placeholder="name@example.com">  
-        </div>  
-
-        <div class="input-group">  
-            <label>Password</label>  
-            <input  
-                type="password"  
-                id="signin-password"  
-                required  
-                placeholder="••••••••">  
-        </div>  
-
-        <button  
-            type="submit"  
-            class="submit-btn"  
-            id="signin-button">  
-            Sign In  
-        </button>  
-
-    </form>  
-
-    <div id="signin-message" class="message"></div>  
-
-    <div class="toggle-link">  
-        New to the platform?  
-        <span onclick="switchForm('signup')">  
-            Sign Up here  
-        </span>  
-    </div>  
-
-</div>  
-
-<div id="signup-box" class="auth-box">  
-
-    <h2>Create Account</h2>  
-
-    <form onsubmit="handleSignUp(event)">  
-
-        <div class="input-group">  
-            <label>Country</label>  
-
-            <select id="signup-country" required>  
-                <option value="">Select your country</option>  
-                <option>Kenya</option>  
-                <option>Uganda</option>  
-                <option>Tanzania</option>  
-                <option>Rwanda</option>  
-                <option>South Africa</option>  
-                <option>Nigeria</option>  
-                <option>Ghana</option>  
-                <option>United States</option>  
-                <option>United Kingdom</option>  
-                <option>Canada</option>  
-                <option>Australia</option>  
-                <option>India</option>  
-                <option>China</option>  
-                <option>Germany</option>  
-                <option>France</option>  
-                <option>Italy</option>  
-                <option>Spain</option>  
-                <option>Brazil</option>  
-                <option>Other</option>  
-            </select>  
-        </div>  
-
-        <div class="input-group">  
-            <label>First Name</label>  
-            <input  
-                type="text"  
-                id="signup-first-name"  
-                required  
-                placeholder="Enter your first name">  
-        </div>  
-
-        <div class="input-group">  
-            <label>Last Name</label>  
-            <input  
-                type="text"  
-                id="signup-last-name"  
-                required  
-                placeholder="Enter your last name">  
-        </div>  
-
-        <div class="input-group">  
-            <label>Email Address</label>  
-            <input  
-                type="email"  
-                id="signup-email"  
-                required  
-                placeholder="name@example.com">  
-        </div>  
-
-        <div class="input-group">  
-            <label>Password</label>  
-            <input  
-                type="password"  
-                id="signup-password"  
-                required  
-                minlength="6"  
-                placeholder="Create password">  
-        </div>  
-
-        <div class="input-group">  
-            <label>Confirm Password</label>  
-            <input  
-                type="password"  
-                id="signup-confirm-password"  
-                required  
-                minlength="6"  
-                placeholder="Confirm password">  
-        </div>  
-
-        <button  
-            type="submit"  
-            class="submit-btn"  
-            id="signup-button">  
-            Create Account  
-        </button>  
-
-    </form>  
-
-    <div id="signup-message" class="message"></div>  
-
-    <div class="toggle-link">  
-        Already have an account?  
-        <span onclick="switchForm('signin')">  
-            Sign In here  
-        </span>  
-    </div>  
-
-</div>  
-
-
-
-  
-
-  
-
-<header class="top-navbar">  
-
-    <div class="brand-header" style="margin-bottom:0;">  
-        <span>🌐</span>  
-
-        <span  
-            class="brand-logo"  
-            style="font-size:1.4rem;">  
-            Madhira Global  
-        </span>  
-    </div>  
-
-    <div class="nav-buttons">  
-
-        <button onclick="openAccount()">  
-            👤 Account  
-        </button>  
-
-        <button  
-            onclick="openSell()"  
-            style="background:#131c2e;border:1px solid rgba(255,255,255,0.2);">  
-            Sell  
-        </button>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://mhaaxpztjgppdtumbofs.supabase.co";
+const SUPABASE_KEY = "sb_publishable_qQSTh1vtarv7HGtcRMLHuw_NCVmtDwW";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Madhira Global</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0b1426;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    cursor: pointer;
+}
+
+#auth-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    text-align: center;
+}
+
+.brand-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.brand-logo {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.hero-title {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.hero-tagline {
+    color: #8fa0dd;
+    margin-bottom: 40px;
+    font-size: 1rem;
+}
+
+.auth-box {
+    background-color: #131c2e;
+    width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    display: none;
+}
+
+.auth-box.active {
+    display: block;
+}
+
+.auth-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.input-group label,
+.sell-input-group label,
+.account-input-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: #8fa0dd;
+    margin-bottom: 6px;
+}
+
+.input-group input,
+.input-group select,
+.sell-input-group input,
+.sell-input-group select,
+.sell-input-group textarea,
+.account-input-group input {
+    width: 100%;
+    padding: 12px;
+    background: #1e2d4a;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    color: #fff;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.sell-input-group input:focus,
+.sell-input-group select:focus,
+.sell-input-group textarea:focus,
+.account-input-group input:focus {
+    border-color: #2b6cb0;
+}
+
+.input-group select option,
+.sell-input-group select option {
+    background: #1e2d4a;
+    color: white;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2b6cb0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.toggle-link {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #8fa0dd;
+}
+
+.toggle-link span {
+    color: #5da9ff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.message {
+    min-height: 20px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #ffcc66;
+}
+
+#main-platform,
+#wallet-dashboard,
+#sell-dashboard,
+#account-dashboard {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.nav-buttons button,
+.wallet-btn,
+.account-btn {
+    border: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    background: #2b6cb0;
+}
+
+.search-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.search-bar-wrapper {
+    background: white;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    margin-top: 20px;
+}
+
+.search-bar-wrapper input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    outline: none;
+    font-size: 1rem;
+    min-width: 0;
+}
+
+.search-btn {
+    background-color: #2b6cb0;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.categories-section h3 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.category-card {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 24px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: 0.2s;
+}
+
+.category-card:hover {
+    transform: translateY(-2px);
+}
+
+.category-icon {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.wallet-header,
+.account-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.wallet-header h2,
+.account-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.wallet-owner {
+    color: #8fa0dd;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.back-btn {
+    background: #131c2e;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+.wallet-balance-card,
+.sell-box,
+.account-box,
+.transactions,
+.wallet-stat {
+    background: #131c2e;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.wallet-balance-card {
+    padding: 25px;
+    text-align: center;
+}
+
+.wallet-balance-card p {
+    color: #8fa0dd;
+}
+
+.wallet-balance-card h1 {
+    font-size: 32px;
+    margin: 10px 0 25px;
+}
+
+.wallet-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.wallet-actions button {
+    flex: 1;
+    background: #2b6cb0;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.wallet-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 18px;
+}
+
+.wallet-stat {
+    padding: 20px;
+}
+
+.wallet-stat span {
+    display: block;
+    color: #8fa0dd;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.transactions {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.transactions h3 {
+    margin-bottom: 15px;
+}
+
+.empty-transactions {
+    color: #8fa0dd;
+    text-align: center;
+    padding: 25px 0;
+}
+
+.transaction-item {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.transaction-title {
+    font-weight: bold;
+}
+
+.transaction-date {
+    display: block;
+    color: #8fa0dd;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.transaction-amount {
+    display: block;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.transaction-status {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 11px;
+    padding: 3px 7px;
+    border-radius: 5px;
+    background: #1e2d4a;
+    color: #8fa0dd;
+}
+
+.sell-box {
+    padding: 25px;
+}
+
+.sell-box h3 {
+    margin-bottom: 20px;
+}
+
+.sell-input-group {
+    margin-bottom: 16px;
+}
+
+.sell-input-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.image-preview {
+    width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    display: none;
+    margin-top: 10px;
+    border-radius: 8px;
+    background: #0b1426;
+}
+
+#marketplace-listings {
+    margin-top: 40px;
+    display: none;
+}
+
+.listing-card {
+    background: #131c2e;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.listing-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #1e2d4a;
+}
+
+.listing-content {
+    padding: 18px;
+}
+
+.listing-content h3 {
+    margin-bottom: 8px;
+}
+
+.listing-price {
+    color: #5da9ff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.listing-info {
+    color: #8fa0dd;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.listing-description {
+    color: #d8def5;
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+.seller-name {
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.account-box {
+    padding: 25px;
+}
+
+.profile-picture-section {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.profile-picture,
+.profile-picture-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+}
+
+.profile-picture {
+    object-fit: cover;
+    border: 3px solid #2b6cb0;
+}
+
+.profile-picture-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e2d4a;
+    border: 3px solid #2b6cb0;
+    font-size: 50px;
+}
+
+.profile-upload-label {
+    display: inline-block;
+    background: #2b6cb0;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#profile-picture-input {
+    display: none;
+}
+
+.account-info-title {
+    margin-bottom: 18px;
+}
+
+.account-input-group {
+    margin-bottom: 16px;
+}
+
+.id-note {
+    color: #8fa0dd;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 6px;
+}
+
+.save-account-btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.account-status {
+    text-align: center;
+    color: #4ade80;
+    font-size: 13px;
+    margin-top: 12px;
+    min-height: 18px;
+}
+
+.my-products-section {
+    margin-top: 30px;
+}
+
+.my-products-section h3 {
+    margin-bottom: 15px;
+}
+
+.my-product-card {
+    background: #1e2d4a;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.my-product-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: #0b1426;
+}
+
+.my-product-content {
+    padding: 15px;
+}
+
+.my-product-content h4 {
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+.my-product-price {
+    color: #5da9ff;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.my-product-location {
+    color: #8fa0dd;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.my-product-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-product-btn,
+.delete-product-btn {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+}
+
+.edit-product-btn {
+    background: #2b6cb0;
+}
+
+.delete-product-btn {
+    background: #b42318;
+}
+
+.no-products {
+    background: #1e2d4a;
+    color: #8fa0dd;
+    text-align: center;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.account-security {
+    margin-top: 25px;
+    padding: 15px;
+    background: #1e2d4a;
+    border-radius: 8px;
+}
+
+.account-security h3 {
+    margin-bottom: 8px;
+}
+
+.account-security p {
+    color: #8fa0dd;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.logout-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 7px;
+    background: #b42318;
+    color: white;
+    font-weight: bold;
+}
+
+.loading {
+    text-align: center;
+    color: #8fa0dd;
+    padding: 25px;
+}
+
+@media (max-width: 500px) {
+
+    .wallet-actions {
+        flex-direction: column;
+    }
+
+    .wallet-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .wallet-header,
+    .account-header {
+        flex-wrap: wrap;
+    }
+
+    .top-navbar {
+        align-items: flex-start;
+    }
+
+    .nav-buttons {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .nav-buttons button {
+        font-size: 12px;
+        padding: 9px 10px;
+    }
+
+    .account-box {
+        padding: 20px;
+    }
+
+    .profile-picture,
+    .profile-picture-placeholder {
+        width: 105px;
+        height: 105px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="auth-screen">
+
+    <div class="brand-header">
+        <span style="font-size:2.2rem;">🌐</span>
+        <span class="brand-logo">Madhira Global</span>
+    </div>
+
+    <h1 class="hero-title">
+        Buy & Sell Anything Worldwide
+    </h1>
+
+    <p class="hero-tagline">
+        Find products from sellers around the world.
+    </p>
+
+    <div id="signin-box" class="auth-box active">
+
+        <h2>Sign In</h2>
+
+        <form onsubmit="handleSignIn(event)">
+
+            <div class="input-group">
+                <label>Email Address</label>
+                <input
+                    type="email"
+                    id="signin-email"
+                    required
+                    placeholder="name@example.com">
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="signin-password"
+                    required
+                    placeholder="••••••••">
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn"
+                id="signin-button">
+                Sign In
+            </button>
+
+        </form>
+
+        <div id="signin-message" class="message"></div>
+
+        <div class="toggle-link">
+            New to the platform?
+            <span onclick="switchForm('signup')">
+                Sign Up here
+            </span>
+        </div>
+
+    </div>
+
+    <div id="signup-box" class="auth-box">
+
+        <h2>Create Account</h2>
+
+        <form onsubmit="handleSignUp(event)">
+
+            <div class="input-group">
+                <label>Country</label>
+
+                <select id="signup-country" required>
+                    <option value="">Select your country</option>
+                    <option>Kenya</option>
+                    <option>Uganda</option>
+                    <option>Tanzania</option>
+                    <option>Rwanda</option>
+                    <option>South Africa</option>
+                    <option>Nigeria</option>
+                    <option>Ghana</option>
+                    <option>United States</option>
+                    <option>United Kingdom</option>
+                    <option>Canada</option>
+                    <option>Australia</option>
+                    <option>India</option>
+                    <option>China</option>
+                    <option>Germany</option>
+                    <option>France</option>
+                    <option>Italy</option>
+                    <option>Spain</option>
+                    <option>Brazil</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>First Name</label>
+                <input
+                    type="text"
+                    id="signup-first-name"
+                    required
+                    placeholder="Enter your first name">
+            </div>
+
+            <div class="input-group">
+                <label>Last Name</label>
+                <input
+                    type="text"
+                    id="signup-last-name"
+                    required
+                    placeholder="Enter your last name">
+            </div>
+
+            <div class="input-group">
+                <label>Email Address</label>
+                <input
+                    type="email"
+                    id="signup-email"
+                    required
+                    placeholder="name@example.com">
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="signup-password"
+                    required
+                    minlength="6"
+                    placeholder="Create password">
+            </div>
+
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input
+                    type="password"
+                    id="signup-confirm-password"
+                    required
+                    minlength="6"
+                    placeholder="Confirm password">
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn"
+                id="signup-button">
+                Create Account
+            </button>
+
+        </form>
+
+        <div id="signup-message" class="message"></div>
+
+        <div class="toggle-link">
+            Already have an account?
+            <span onclick="switchForm('signin')">
+                Sign In here
+            </span>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="main-platform">
+
+    <header class="top-navbar">
+
+        <div class="brand-header" style="margin-bottom:0;">
+            <span>🌐</span>
+
+            <span
+                class="brand-logo"
+                style="font-size:1.4rem;">
+                Madhira Global
+            </span>
+        </div>
+
+        <div class="nav-buttons">
+
+            <button onclick="openAccount()">
+                👤 Account
+            </button>
+
+            <button
+                onclick="openSell()"
+                style="background:#131c2e;border:1px solid rgba(255,255,255,0.2);">
+                Sell
+            </button>
+
+            <button onclick="openWallet()">
+                💰 Wallet
+            </button>
+
+        </div>
+
+    </header>
+
+    <section class="search-container">
+
+        <div class="search-bar-wrapper">
+
+            <input
+                type="text"
+                id="search-input"
+                placeholder="What are you looking for?"
+                oninput="searchProducts()">
+
+            <button
+                class="search-btn"
+                onclick="searchProducts()">
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+    <section class="categories-section">
+
+        <h3>Explore Categories</h3>
+
+        <div class="grid-container">
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Cars')">
+                <span class="category-icon">🚗</span>
+                Cars
+            </div>
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Property')">
+                <span class="category-icon">🏠</span>
+                Property
+            </div>
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Electronics')">
+                <span class="category-icon">📱</span>
+                Electronics
+            </div>
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Fashion')">
+                <span class="category-icon">👕</span>
+                Fashion
+            </div>
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Furniture')">
+                <span class="category-icon">🛋️</span>
+                Furniture
+            </div>
+
+            <div
+                class="category-card"
+                onclick="filterCategory('Machinery')">
+                <span class="category-icon">⚙️</span>
+                Machinery
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="marketplace-listings">
+
+        <h3 style="margin-bottom:20px;">
+            🛍️ Marketplace Listings
+        </h3>
+
+        <div id="listing-container"></div>
+
+    </section>
+
+</div>
+
+
+<div id="wallet-dashboard">
+
+    <div class="wallet-header">
+
+        <button
+            onclick="closeWallet()"
+            class="back-btn">
+            ← Back
+        </button>
+
+        <div>
+
+            <h2 id="wallet-title">
+                💰 Madhira Wallet
+            </h2>
+
+            <div
+                class="wallet-owner"
+                id="wallet-owner">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="wallet-balance-card">
+
+        <p>Available Balance</p>
+
+        <h1 id="wallet-balance">
+            KSh 0.00
+        </h1>
+
+        <div class="wallet-actions">
+
+            <button onclick="addMoney()">
+                ➕ Add Money
+            </button>
+
+            <button onclick="withdrawMoney()">
+                💸 Withdraw
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="wallet-stats">
+
+        <div class="wallet-stat">
+
+            <span>Pending</span>
+
+            <strong id="pending-balance">
+                KSh 0.00
+            </strong>
+
+        </div>
+
+        <div class="wallet-stat">
+
+            <span>Total Earned</span>
+
+            <strong id="total-earned">
+                KSh 0.00
+            </strong>
+
+        </div>
+
+    </div>
+
+    <div class="transactions">
+
+        <h3>Recent Transactions</h3>
+
+        <div id="transaction-list">
+
+            <div class="empty-transactions">
+                No transactions yet.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="sell-dashboard">
+
+    <div class="wallet-header">
+
+        <button
+            onclick="closeSell()"
+            class="back-btn">
+            ← Back
+        </button>
+
+        <h2>🏷️ Sell Product</h2>
+
+    </div>
+
+    <div class="sell-box">
+
+        <h3>List Your Product</h3>
+
+        <div class="sell-input-group">
+
+            <label>Product Image</label>
+
+            <input
+                type="file"
+                id="product-image"
+                accept="image/*"
+                onchange="previewProductImage(event)">
+
+            <img
+                id="image-preview"
+                class="image-preview"
+                alt="Product preview">
+
+        </div>
+
+        <div class="sell-input-group">
+
+            <label>Product Name</label>
+
+            <input
+                type="text"
+                id="product-name"
+                placeholder="e.g. Samsung Galaxy A06">
+
+        </div>
+
+        <div class="sell-input-group">
+
+            <label>Price (KSh)</label>
+
+            <input
+                type="number"
+                id="product-price"
+                placeholder="Enter price"
+                min="1">
+
+        </div>
+
+        <div class="sell-input-group">
+
+            <label>Category</label>
+
+            <select id="product-category">
+
+                <option value="">
+                    Select category
+                </option>
+
+                <option>Cars</option>
+                <option>Property</option>
+                <option>Electronics</option>
+                <option>Fashion</option>
+                <option>Furniture</option>
+                <option>Machinery</option>
+                <option>Other</option>
+
+            </select>
+
+        </div>
+
+        <div class="sell-input-group">
+
+            <label>Country</label>
+
+            <select id="product-country">
+
+                <option value="">
+                    Select country
+                </option>
+
+                <option>Kenya</option>
+                <option>Uganda</option>
+                <option>Tanzania</option>
+                <option>Rwanda</option>
+                <option>South Africa</option>
+                <option>Nigeria</option>
+                <option>Ghana</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+                <option>Canada</option>
+                <option>Australia</option>
+                <option>India</option>
+                <option>China</option>
+                <option>Germany</option>
+                <option>France</option>
+                <option>Italy</option>
+                <option>Spain</option>
+                <option>Brazil</option>
+                <option>Other</option>
+
+            </select>
+
+        </div>
+
+        <div class="sell-input-group">
+
+            <label>Location</label>
+
+            <input
+                type="text"
+                id="product-location"
+                placeholder="e.g. Nairobi">
+
+        </div>
+
+        <div class="sell-input-group">
+
+            <label>Description</label>
+
+            <textarea
+                id="product-description"
+                placeholder="Describe your product..."></textarea>
+
+        </div>
+
+        <div class="sell-input-group">
+
+            <label>Contact</label>
+
+            <input
+                type="text"
+                id="seller-contact"
+                placeholder="Phone or WhatsApp">
+
+        </div>
+
+        <button
+            class="submit-btn"
+            id="post-product-button"
+            onclick="postProduct()">
+            🚀 Post Product
+        </button>
+
+        <div
+            id="sell-message"
+            class="message">
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="account-dashboard">
+
+    <div class="account-header">
+
+        <button
+            onclick="closeAccount()"
+            class="back-btn">
+            ← Back
+        </button>
+
+        <h2>👤 Account Details</h2>
+
+    </div>
+
+    <div class="account-box">
+
+        <div class="profile-picture-section">
+
+            <div
+                id="profile-placeholder"
+                class="profile-picture-placeholder">
+                👤
+            </div>
+
+            <img
+                id="profile-picture"
+                class="profile-picture"
+                style="display:none;"
+                alt="Profile picture">
+
+            <label
+                for="profile-picture-input"
+                class="profile-upload-label">
+                📷 Upload Profile Picture
+            </label>
+
+            <input
+                type="file"
+                id="profile-picture-input"
+                accept="image/*"
+                onchange="previewProfilePicture(event)">
+
+        </div>
+
+        <h3 class="account-info-title">
+            Your Information
+        </h3>
+
+        <div class="account-input-group">
+
+            <label>First Name</label>
+
+            <input
+                type="text"
+                id="account-first-name">
+
+        </div>
+
+        <div class="account-input-group">
+
+            <label>Last Name</label>
+
+            <input
+                type="text"
+                id="account-last-name">
+
+        </div>
+
+        <div class="account-input-group">
+
+            <label>Email Address</label>
+
+            <input
+                type="email"
+                id="account-email"
+                readonly>
+
+        </div>
+
+        <div class="account-input-group">
+
+            <label>📞 Contact / Phone</label>
+
+            <input
+                type="text"
+                id="account-contact"
+                placeholder="Enter your phone or WhatsApp number">
+
+        </div>
+
+        <div class="account-input-group">
+
+            <label>📍 Location</label>
+
+            <input
+                type="text"
+                id="account-location"
+                placeholder="e.g. Nairobi, Kenya">
+
+        </div>
+
+        <div class="account-input-group">
+
+            <label>🪪 ID Number</label>
+
+            <input
+                type="text"
+                id="account-id-number"
+                placeholder="Enter your ID or passport number">
+
+            <div class="id-note">
+                Keep this information private.
+            </div>
+
+        </div>
+
+        <button
+            class="submit-btn save-account-btn"
+            onclick="saveAccountDetails()">
+            💾 Save Account Details
+        </button>
+
+        <div
+            id="account-status"
+            class="account-status">
+        </div>
+
+        <div class="my-products-section">
+
+            <h3>📦 My Posted Products</h3>
+
+            <div id="my-products-container"></div>
+
+        </div>
+
+        <div class="account-security">
+
+            <h3>🔐 Account Security</h3>
+
+            <p>
+                Your login is handled by Supabase Authentication.
+                Your marketplace profile and products are stored
+                in the Supabase database.
+            </p>
+
+        </div>
+
+        <button
+            class="logout-btn"
+            onclick="signOut()">
+            🚪 Sign Out
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   GLOBAL VARIABLES
+   ===================================================== */
+
+let currentUser = null;
+let currentProfile = null;
+
+let selectedProfilePicture = "";
+let selectedProductImage = "";
+
+let walletBalance = 0;
+let totalEarned = 0;
+let pendingBalance = 0;
+let walletTransactions = [];
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+window.addEventListener(
+    "load",
+    async function() {
+
+        await checkSession();
+
+    }
+);
+
+
+/* =====================================================
+   CHECK SESSION
+   ===================================================== */
+
+async function checkSession() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+        if (error) {
+
+            console.error(error);
+
+            showAuth();
+
+            return;
+
+        }
+
+        if (
+            data.session &&
+            data.session.user
+        ) {
+
+            currentUser =
+                data.session.user;
+
+            await loadProfile();
+
+            await loadProducts();
+
+            await loadWallet();
+
+            enterPlatform();
+
+        } else {
+
+            showAuth();
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        showAuth();
+
+    }
+
+}
+
+
+/* =====================================================
+   AUTH SCREEN
+   ===================================================== */
+
+function showAuth() {
+
+    document.getElementById("auth-screen").style.display =
+        "flex";
+
+    document.getElementById("main-platform").style.display =
+        "none";
+
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "none";
+
+    document.getElementById("account-dashboard").style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   SWITCH FORM
+   ===================================================== */
+
+function switchForm(target) {
+
+    document
+        .getElementById("signin-box")
+        .classList.remove("active");
+
+    document
+        .getElementById("signup-box")
+        .classList.remove("active");
+
+    document
+        .getElementById("signin-message")
+        .textContent = "";
+
+    document
+        .getElementById("signup-message")
+        .textContent = "";
+
+    if (target === "signup") {
+
+        document
+            .getElementById("signup-box")
+            .classList.add("active");
+
+    } else {
+
+        document
+            .getElementById("signin-box")
+            .classList.add("active");
+
+    }
+
+}
+
+
+/* =====================================================
+   SIGN UP
+   ===================================================== */
+
+async function handleSignUp(event) {
+
+    event.preventDefault();
+
+    const message =
+        document.getElementById("signup-message");
+
+    const button =
+        document.getElementById("signup-button");
+
+    message.textContent =
+        "Creating your account...";
 
-        <button onclick="openWallet()">  
-            💰 Wallet  
-        </button>  
-
-    </div>  
-
-</header>  
+    button.disabled =
+        true;
 
-<section class="search-container">  
-
-    <div class="search-bar-wrapper">  
+    const country =
+        document
+        .getElementById("signup-country")
+        .value;
 
-        <input  
-            type="text"  
-            id="search-input"  
-            placeholder="What are you looking for?"  
-            oninput="searchProducts()">  
+    const firstName =
+        document
+        .getElementById("signup-first-name")
+        .value
+        .trim();
 
-        <button  
-            class="search-btn"  
-            onclick="searchProducts()">  
-            Search  
-        </button>  
+    const lastName =
+        document
+        .getElementById("signup-last-name")
+        .value
+        .trim();
 
-    </div>  
+    const email =
+        document
+        .getElementById("signup-email")
+        .value
+        .trim()
+        .toLowerCase();
 
-</section>  
+    const password =
+        document
+        .getElementById("signup-password")
+        .value;
 
-<section class="categories-section">  
+    const confirmPassword =
+        document
+        .getElementById("signup-confirm-password")
+        .value;
 
-    <h3>Explore Categories</h3>  
+    if (
+        password !==
+        confirmPassword
+    ) {
 
-    <div class="grid-container">  
+        message.textContent =
+            "Passwords do not match.";
 
-        <div  
-            class="category-card"  
-            onclick="filterCategory('Cars')">  
-            <span class="category-icon">🚗</span>  
-            Cars  
-        </div>  
+        button.disabled =
+            false;
 
-        <div  
-            class="category-card"  
-            onclick="filterCategory('Property')">  
-            <span class="category-icon">🏠</span>  
-            Property  
-        </div>  
+        return;
 
-        <div  
-            class="category-card"  
-            onclick="filterCategory('Electronics')">  
-            <span class="category-icon">📱</span>  
-            Electronics  
-        </div>  
+    }
 
-        <div  
-            class="category-card"  
-            onclick="filterCategory('Fashion')">  
-            <span class="category-icon">👕</span>  
-            Fashion  
-        </div>  
+    try {
 
-        <div  
-            class="category-card"  
-            onclick="filterCategory('Furniture')">  
-            <span class="category-icon">🛋️</span>  
-            Furniture  
-        </div>  
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.signUp({
 
-        <div  
-            class="category-card"  
-            onclick="filterCategory('Machinery')">  
-            <span class="category-icon">⚙️</span>  
-            Machinery  
-        </div>  
+                email: email,
 
-    </div>  
+                password: password,
 
-</section>  
+                options: {
 
-<section id="marketplace-listings">  
+                    data: {
 
-    <h3 style="margin-bottom:20px;">  
-        🛍️ Marketplace Listings  
-    </h3>  
+                        first_name:
+                            firstName,
 
-    <div id="listing-container"></div>  
+                        last_name:
+                            lastName,
 
-</section>  
+                        country:
+                            country
 
+                    }
 
+                }
 
-  
+            });
 
-  
+        if (error) {
 
-<div class="wallet-header">  
+            console.error(error);
 
-    <button  
-        onclick="closeWallet()"  
-        class="back-btn">  
-        ← Back  
-    </button>  
+            message.textContent =
+                error.message;
 
-    <div>  
+            button.disabled =
+                false;
 
-        <h2 id="wallet-title">  
-            💰 Madhira Wallet  
-        </h2>  
+            return;
 
-        <div  
-            class="wallet-owner"  
-            id="wallet-owner">  
-        </div>  
+        }
 
-    </div>  
+        if (!data.user) {
 
-</div>  
+            message.textContent =
+                "Account could not be created.";
 
-<div class="wallet-balance-card">  
+            button.disabled =
+                false;
 
-    <p>Available Balance</p>  
+            return;
 
-    <h1 id="wallet-balance">  
-        KSh 0.00  
-    </h1>  
+        }
 
-    <div class="wallet-actions">  
+        if (data.session) {
 
-        <button onclick="addMoney()">  
-            ➕ Add Money  
-        </button>  
+            const {
+                data: profileData,
+                error: profileError
+            } =
+                await supabaseClient
+                .from("Profiles")
+                .upsert({
 
-        <button onclick="withdrawMoney()">  
-            💸 Withdraw  
-        </button>  
+                    id:
+                        data.user.id,
 
-    </div>  
+                    "First name":
+                        firstName,
 
-</div>  
+                    "Last name":
+                        lastName,
 
-<div class="wallet-stats">  
+                    "Email":
+                        email,
 
-    <div class="wallet-stat">  
+                    "Country":
+                        country,
 
-        <span>Pending</span>  
+                    "Location":
+                        "",
 
-        <strong id="pending-balance">  
-            KSh 0.00  
-        </strong>  
+                    "Id number":
+                        "",
 
-    </div>  
+                    "Profile picture":
+                        ""
 
-    <div class="wallet-stat">  
+                }, {
 
-        <span>Total Earned</span>  
+                    onConflict:
+                        "id"
 
-        <strong id="total-earned">  
-            KSh 0.00  
-        </strong>  
+                })
+                .select()
+                .single();
 
-    </div>  
+            if (profileError) {
 
-</div>  
+                console.error(profileError);
 
-<div class="transactions">  
+                message.textContent =
+                    "Account created, but profile setup failed: " +
+                    profileError.message;
 
-    <h3>Recent Transactions</h3>  
+                button.disabled =
+                    false;
 
-    <div id="transaction-list">  
+                return;
 
-        <div class="empty-transactions">  
-            No transactions yet.  
-        </div>  
+            }
 
-    </div>  
+            currentProfile =
+                profileData;
 
-</div>  
+        }
 
+        if (!data.session) {
 
+            message.textContent =
+                "Account created! Please sign in.";
 
-  
+            document
+                .getElementById("signup-box")
+                .querySelector("form")
+                .reset();
 
-  
+            button.disabled =
+                false;
 
-<div class="wallet-header">  
+            return;
 
-    <button  
-        onclick="closeSell()"  
-        class="back-btn">  
-        ← Back  
-    </button>  
+        }
 
-    <h2>🏷️ Sell Product</h2>  
+        currentUser =
+            data.user;
 
-</div>  
+        await loadProfile();
 
-<div class="sell-box">  
+        await loadProducts();
 
-    <h3>List Your Product</h3>  
+        await loadWallet();
 
-    <div class="sell-input-group">  
+        enterPlatform();
 
-        <label>Product Image</label>  
+        document
+            .getElementById("signup-box")
+            .querySelector("form")
+            .reset();
 
-        <input  
-            type="file"  
-            id="product-image"  
-            accept="image/*"  
-            onchange="previewProductImage(event)">  
+        button.disabled =
+            false;
 
-        <img  
-            id="image-preview"  
-            class="image-preview"  
-            alt="Product preview">  
+        alert(
+            "Welcome to Madhira Global, " +
+            firstName +
+            " " +
+            lastName +
+            "!"
+        );
 
-    </div>  
+    } catch (error) {
 
-    <div class="sell-input-group">  
+        console.error(error);
 
-        <label>Product Name</label>  
+        message.textContent =
+            error.message ||
+            "Something went wrong.";
 
-        <input  
-            type="text"  
-            id="product-name"  
-            placeholder="e.g. Samsung Galaxy A06">  
+        button.disabled =
+            false;
 
-    </div>  
+    }
 
-    <div class="sell-input-group">  
+}
 
-        <label>Price (KSh)</label>  
 
-        <input  
-            type="number"  
-            id="product-price"  
-            placeholder="Enter price"  
-            min="1">  
+/* =====================================================
+   SIGN IN
+   ===================================================== */
 
-    </div>  
+async function handleSignIn(event) {
 
-    <div class="sell-input-group">  
+    event.preventDefault();
 
-        <label>Category</label>  
+    const message =
+        document.getElementById("signin-message");
 
-        <select id="product-category">  
+    const button =
+        document.getElementById("signin-button");
 
-            <option value="">  
-                Select category  
-            </option>  
+    message.textContent =
+        "Signing in...";
 
-            <option>Cars</option>  
-            <option>Property</option>  
-            <option>Electronics</option>  
-            <option>Fashion</option>  
-            <option>Furniture</option>  
-            <option>Machinery</option>  
-            <option>Other</option>  
+    button.disabled =
+        true;
 
-        </select>  
+    const email =
+        document
+        .getElementById("signin-email")
+        .value
+        .trim()
+        .toLowerCase();
 
-    </div>  
+    const password =
+        document
+        .getElementById("signin-password")
+        .value;
 
-    <div class="sell-input-group">  
+    try {
 
-        <label>Country</label>  
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.signInWithPassword({
 
-        <select id="product-country">  
+                email:
+                    email,
 
-            <option value="">  
-                Select country  
-            </option>  
+                password:
+                    password
 
-            <option>Kenya</option>  
-            <option>Uganda</option>  
-            <option>Tanzania</option>  
-            <option>Rwanda</option>  
-            <option>South Africa</option>  
-            <option>Nigeria</option>  
-            <option>Ghana</option>  
-            <option>United States</option>  
-            <option>United Kingdom</option>  
-            <option>Canada</option>  
-            <option>Australia</option>  
-            <option>India</option>  
-            <option>China</option>  
-            <option>Germany</option>  
-            <option>France</option>  
-            <option>Italy</option>  
-            <option>Spain</option>  
-            <option>Brazil</option>  
-            <option>Other</option>  
+            });
 
-        </select>  
+        if (error) {
 
-    </div>  
+            console.error(error);
 
-    <div class="sell-input-group">  
+            message.textContent =
+                error.message;
 
-        <label>Location</label>  
+            button.disabled =
+                false;
 
-        <input  
-            type="text"  
-            id="product-location"  
-            placeholder="e.g. Nairobi">  
+            return;
 
-    </div>  
+        }
 
-    <div class="sell-input-group">  
+        if (!data.session) {
 
-        <label>Description</label>  
+            message.textContent =
+                "Login did not create a session.";
 
-        <textarea  
-            id="product-description"  
-            placeholder="Describe your product..."></textarea>  
+            button.disabled =
+                false;
 
-    </div>  
+            return;
 
-    <div class="sell-input-group">  
+        }
 
-        <label>Contact</label>  
+        currentUser =
+            data.user;
 
-        <input  
-            type="text"  
-            id="seller-contact"  
-            placeholder="Phone or WhatsApp">  
+        await loadProfile();
 
-    </div>  
+        await loadProducts();
 
-    <button  
-        class="submit-btn"  
-        id="post-product-button"  
-        onclick="postProduct()">  
-        🚀 Post Product  
-    </button>  
+        await loadWallet();
 
-    <div  
-        id="sell-message"  
-        class="message">  
-    </div>  
+        enterPlatform();
 
-</div>  
+        button.disabled =
+            false;
 
+    } catch (error) {
 
+        console.error(error);
 
-  
+        message.textContent =
+            error.message ||
+            "Unable to sign in.";
 
-  
+        button.disabled =
+            false;
 
-<div class="account-header">  
+    }
 
-    <button  
-        onclick="closeAccount()"  
-        class="back-btn">  
-        ← Back  
-    </button>  
+}
 
-    <h2>👤 Account Details</h2>  
 
-</div>  
+/* =====================================================
+   LOAD PROFILE
+   ===================================================== */
 
-<div class="account-box">  
+async function loadProfile() {
 
-    <div class="profile-picture-section">  
+    if (!currentUser) {
+        return;
+    }
 
-        <div  
-            id="profile-placeholder"  
-            class="profile-picture-placeholder">  
-            👤  
-        </div>  
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("Profiles")
+        .select("*")
+        .eq(
+            "id",
+            currentUser.id
+        )
+        .maybeSingle();
 
-        <img  
-            id="profile-picture"  
-            class="profile-picture"  
-            style="display:none;"  
-            alt="Profile picture">  
+    if (error) {
 
-        <label  
-            for="profile-picture-input"  
-            class="profile-upload-label">  
-            📷 Upload Profile Picture  
-        </label>  
+        console.error(
+            "Profile loading error:",
+            error
+        );
 
-        <input  
-            type="file"  
-            id="profile-picture-input"  
-            accept="image/*"  
-            onchange="previewProfilePicture(event)">  
+        return;
 
-    </div>  
+    }
 
-    <h3 class="account-info-title">  
-        Your Information  
-    </h3>  
+    if (data) {
 
-    <div class="account-input-group">  
+        currentProfile =
+            data;
 
-        <label>First Name</label>  
+        return;
 
-        <input  
-            type="text"  
-            id="account-first-name">  
+    }
 
-    </div>  
+    const firstName =
+        currentUser
+        .user_metadata
+        ?.first_name ||
+        "";
 
-    <div class="account-input-group">  
+    const lastName =
+        currentUser
+        .user_metadata
+        ?.last_name ||
+        "";
 
-        <label>Last Name</label>  
+    const country =
+        currentUser
+        .user_metadata
+        ?.country ||
+        "";
 
-        <input  
-            type="text"  
-            id="account-last-name">  
+    const {
+        data: newProfile,
+        error: createError
+    } =
+        await supabaseClient
+        .from("Profiles")
+        .insert({
 
-    </div>  
+            id:
+                currentUser.id,
 
-    <div class="account-input-group">  
+            "First name":
+                firstName,
 
-        <label>Email Address</label>  
+            "Last name":
+                lastName,
 
-        <input  
-            type="email"  
-            id="account-email"  
-            readonly>  
+            "Email":
+                currentUser.email || "",
 
-    </div>  
+            "Country":
+                country,
 
-    <div class="account-input-group">  
+            "Location":
+                "",
 
-        <label>📞 Contact / Phone</label>  
+            "Id number":
+                "",
 
-        <input  
-            type="text"  
-            id="account-contact"  
-            placeholder="Enter your phone or WhatsApp number">  
+            "Profile picture":
+                ""
 
-    </div>  
+        })
+        .select()
+        .single();
 
-    <div class="account-input-group">  
+    if (createError) {
 
-        <label>📍 Location</label>  
+        console.error(
+            "Profile creation error:",
+            createError
+        );
 
-        <input  
-            type="text"  
-            id="account-location"  
-            placeholder="e.g. Nairobi, Kenya">  
+        return;
 
-    </div>  
+    }
 
-    <div class="account-input-group">  
+    currentProfile =
+        newProfile;
 
-        <label>🪪 ID Number</label>  
+}
 
-        <input  
-            type="text"  
-            id="account-id-number"  
-            placeholder="Enter your ID or passport number">  
 
-        <div class="id-note">  
-            Keep this information private.  
-        </div>  
+/* =====================================================
+   ENTER PLATFORM
+   ===================================================== */
 
-    </div>  
+function enterPlatform() {
 
-    <button  
-        class="submit-btn save-account-btn"  
-        onclick="saveAccountDetails()">  
-        💾 Save Account Details  
-    </button>  
+    document.getElementById("auth-screen").style.display =
+        "none";
 
-    <div  
-        id="account-status"  
-        class="account-status">  
-    </div>  
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
 
-    <div class="my-products-section">  
+    document.getElementById("sell-dashboard").style.display =
+        "none";
 
-        <h3>📦 My Posted Products</h3>  
+    document.getElementById("account-dashboard").style.display =
+        "none";
 
-        <div id="my-products-container"></div>  
+    document.getElementById("main-platform").style.display =
+        "block";
 
-    </div>  
+    updateWalletDisplay();
 
-    <div class="account-security">  
+    window.scrollTo(0, 0);
 
-        <h3>🔐 Account Security</h3>  
+}
 
-        <p>  
-            Your login is handled by Supabase Authentication.  
-            Your marketplace profile and products are stored  
-            in the Supabase database.  
-        </p>  
 
-    </div>  
+/* =====================================================
+   ACCOUNT
+   ===================================================== */
 
-    <button  
-        class="logout-btn"  
-        onclick="signOut()">  
-        🚪 Sign Out  
-    </button>  
+function openAccount() {
 
-</div>  
+    if (!currentUser) {
 
+        alert(
+            "Please sign in first."
+        );
 
+        return;
 
-  
-  
-  
-  
+    }
+
+    document.getElementById("main-platform").style.display =
+        "none";
+
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "none";
+
+    document.getElementById("account-dashboard").style.display =
+        "block";
+
+    loadAccountDetails();
+
+    displayMyProducts();
+
+    window.scrollTo(0, 0);
+
+}
+
+
+function closeAccount() {
+
+    document.getElementById("account-dashboard").style.display =
+        "none";
+
+    document.getElementById("main-platform").style.display =
+        "block";
+
+    window.scrollTo(0, 0);
+
+}
+
+
+/* =====================================================
+   ACCOUNT DETAILS
+   ===================================================== */
+
+function loadAccountDetails() {
+
+    if (!currentUser) {
+        return;
+    }
+
+    const profile =
+        currentProfile || {};
+
+    document.getElementById("account-first-name").value =
+        profile["First name"] || "";
+
+    document.getElementById("account-last-name").value =
+        profile["Last name"] || "";
+
+    document.getElementById("account-email").value =
+        currentUser.email ||
+        profile["Email"] ||
+        "";
+
+    document.getElementById("account-contact").value =
+        profile["Contact"] || "";
+
+    document.getElementById("account-location").value =
+        profile["Location"] || "";
+
+    document.getElementById("account-id-number").value =
+        profile["Id number"] || "";
+
+    selectedProfilePicture =
+        "";
+
+    if (
+        profile["Profile picture"]
+    ) {
+
+        document.getElementById("profile-picture").src =
+            profile["Profile picture"];
+
+        document.getElementById("profile-picture").style.display =
+            "block";
+
+        document.getElementById("profile-placeholder").style.display =
+            "none";
+
+    } else {
+
+        document.getElementById("profile-picture").style.display =
+            "none";
+
+        document.getElementById("profile-placeholder").style.display =
+            "flex";
+
+    }
+
+}
+
+
+/* =====================================================
+   PROFILE PICTURE
+   ===================================================== */
+
+function previewProfilePicture(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    if (
+        file.size >
+        2 * 1024 * 1024
+    ) {
+
+        alert(
+            "Please choose a profile picture smaller than 2MB."
+        );
+
+        event.target.value =
+            "";
+
+        return;
+
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(e) {
+
+            selectedProfilePicture =
+                e.target.result;
+
+            document
+                .getElementById("profile-picture")
+                .src =
+                selectedProfilePicture;
+
+            document
+                .getElementById("profile-picture")
+                .style.display =
+                "block";
+
+            document
+                .getElementById("profile-placeholder")
+                .style.display =
+                "none";
+
+        };
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =====================================================
+   SAVE ACCOUNT
+   ===================================================== */
+
+async function saveAccountDetails() {
+
+    if (!currentUser) {
+
+        alert(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+    const status =
+        document.getElementById("account-status");
+
+    status.textContent =
+        "Saving...";
+
+    const firstName =
+        document
+        .getElementById("account-first-name")
+        .value
+        .trim();
+
+    const lastName =
+        document
+        .getElementById("account-last-name")
+        .value
+        .trim();
+
+    const location =
+        document
+        .getElementById("account-location")
+        .value
+        .trim();
+
+    const idNumber =
+        document
+        .getElementById("account-id-number")
+        .value
+        .trim();
+
+    let profilePicture =
+        currentProfile?.["Profile picture"] ||
+        "";
+
+    if (selectedProfilePicture) {
+
+        profilePicture =
+            selectedProfilePicture;
+
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("Profiles")
+        .upsert({
+
+            id:
+                currentUser.id,
+
+            "First name":
+                firstName,
+
+            "Last name":
+                lastName,
+
+            "Email":
+                currentUser.email || "",
+
+            "Country":
+                currentProfile?.["Country"] || "",
+
+            "Location":
+                location,
+
+            "Id number":
+                idNumber,
+
+            "Profile picture":
+                profilePicture
+
+        }, {
+
+            onConflict:
+                "id"
+
+        })
+        .select()
+        .single();
+
+    if (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "Error: " +
+            error.message;
+
+        return;
+
+    }
+
+    currentProfile =
+        data;
+
+    selectedProfilePicture =
+        "";
+
+    status.textContent =
+        "✓ Account details saved successfully.";
+
+    setTimeout(
+        function() {
+
+            status.textContent =
+                "";
+
+        },
+        3000
+    );
+
+}
+
+
+/* =====================================================
+   WALLET
+   ===================================================== */
+
+async function loadWallet() {
+
+    if (!currentUser) {
+        return;
+    }
+
+    try {
+
+        let {
+            data: wallet,
+            error: walletError
+        } =
+            await supabaseClient
+            .from("wallets")
+            .select("*")
+            .eq(
+                "user_id",
+                currentUser.id
+            )
+            .maybeSingle();
+
+        if (walletError) {
+
+            console.error(
+                "Wallet loading error:",
+                walletError
+            );
+
+            return;
+
+        }
+
+        if (!wallet) {
+
+            const {
+                data: newWallet,
+                error: createWalletError
+            } =
+                await supabaseClient
+                .from("wallets")
+                .insert({
+
+                    user_id:
+                        currentUser.id,
+
+                    balance:
+                        0
+
+                })
+                .select("*")
+                .single();
+
+            if (createWalletError) {
+
+                console.error(
+                    "Wallet creation error:",
+                    createWalletError
+                );
+
+                return;
+
+            }
+
+            wallet =
+                newWallet;
+
+        }
+
+        walletBalance =
+            Number(
+                wallet.balance || 0
+            );
+
+        const {
+            data: transactions,
+            error: transactionError
+        } =
+            await supabaseClient
+            .from("wallet_transactions")
+            .select("*")
+            .eq(
+                "user_id",
+                currentUser.id
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+        if (transactionError) {
+
+            console.error(
+                "Transaction loading error:",
+                transactionError
+            );
+
+            walletTransactions =
+                [];
+
+        } else {
+
+            walletTransactions =
+                transactions || [];
+
+        }
+
+        totalEarned =
+            0;
+
+        pendingBalance =
+            0;
+
+        walletTransactions.forEach(
+            function(transaction) {
+
+                const amount =
+                    Number(
+                        transaction.amount || 0
+                    );
+
+                const type =
+                    String(
+                        transaction.type || ""
+                    ).toLowerCase();
+
+                const status =
+                    String(
+                        transaction.status || ""
+                    ).toLowerCase();
+
+                if (
+                    (
+                        type === "earning" ||
+                        type === "sale" ||
+                        type === "commission"
+                    ) &&
+                    status === "completed"
+                ) {
+
+                    totalEarned +=
+                        amount;
+
+                }
+
+                if (
+                    status === "pending"
+                ) {
+
+                    pendingBalance +=
+                        amount;
+
+                }
+
+            }
+        );
+
+        updateWalletDisplay();
+
+        displayWalletTransactions();
+
+    } catch (error) {
+
+        console.error(
+            "Wallet connection error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN WALLET
+   ===================================================== */
+
+async function openWallet() {
+
+    if (!currentUser) {
+
+        alert(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+    document.getElementById("main-platform").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "none";
+
+    document.getElementById("account-dashboard").style.display =
+        "none";
+
+    document.getElementById("wallet-dashboard").style.display =
+        "block";
+
+    await loadWallet();
+
+    updateWalletDisplay();
+
+    window.scrollTo(0, 0);
+
+}
+
+
+function closeWallet() {
+
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
+
+    document.getElementById("main-platform").style.display =
+        "block";
+
+    window.scrollTo(0, 0);
+
+}
+
+
+/* =====================================================
+   UPDATE WALLET DISPLAY
+   ===================================================== */
+
+function updateWalletDisplay() {
+
+    const balanceElement =
+        document.getElementById("wallet-balance");
+
+    const pendingElement =
+        document.getElementById("pending-balance");
+
+    const earnedElement =
+        document.getElementById("total-earned");
+
+    if (balanceElement) {
+
+        balanceElement.textContent =
+            "KSh " +
+            Number(
+                walletBalance || 0
+            ).toLocaleString(
+                "en-KE",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
+
+    if (pendingElement) {
+
+        pendingElement.textContent =
+            "KSh " +
+            Number(
+                pendingBalance || 0
+            ).toLocaleString(
+                "en-KE",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
+
+    if (earnedElement) {
+
+        earnedElement.textContent =
+            "KSh " +
+            Number(
+                totalEarned || 0
+            ).toLocaleString(
+                "en-KE",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
+
+    if (currentUser) {
+
+        const firstName =
+            currentProfile?.["First name"] ||
+            currentUser.user_metadata?.first_name ||
+            "User";
+
+        const walletTitle =
+            document.getElementById(
+                "wallet-title"
+            );
+
+        const walletOwner =
+            document.getElementById(
+                "wallet-owner"
+            );
+
+        if (walletTitle) {
+
+            walletTitle.textContent =
+                "💰 " +
+                firstName +
+                "'s Wallet";
+
+        }
+
+        if (walletOwner) {
+
+            walletOwner.textContent =
+                "Account: " +
+                (
+                    currentUser.email ||
+                    ""
+                );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   DISPLAY WALLET TRANSACTIONS
+   ===================================================== */
+
+function displayWalletTransactions() {
+
+    const transactionList =
+        document.getElementById(
+            "transaction-list"
+        );
+
+    if (!transactionList) {
+        return;
+    }
+
+    transactionList.innerHTML =
+        "";
+
+    if (
+        !walletTransactions ||
+        walletTransactions.length === 0
+    ) {
+
+        transactionList.innerHTML =
+            '<div class="empty-transactions">' +
+            'No transactions yet.' +
+            '</div>';
+
+        return;
+
+    }
+
+    walletTransactions
+        .slice(0, 20)
+        .forEach(
+            function(transaction) {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "transaction-item";
+
+                const title =
+                    document.createElement(
+                        "div"
+                    );
+
+                title.className =
+                    "transaction-title";
+
+                title.textContent =
+                    transaction.type ||
+                    "Transaction";
+
+                const date =
+                    document.createElement(
+                        "span"
+                    );
+
+                date.className =
+                    "transaction-date";
+
+                if (
+                    transaction.created_at
+                ) {
+
+                    date.textContent =
+                        new Date(
+                            transaction.created_at
+                        ).toLocaleString();
+
+                }
+
+                const amount =
+                    document.createElement(
+                        "span"
+                    );
+
+                amount.className =
+                    "transaction-amount";
+
+                const transactionType =
+                    String(
+                        transaction.type || ""
+                    ).toLowerCase();
+
+                const positive =
+                    transactionType === "deposit" ||
+                    transactionType === "earning" ||
+                    transactionType === "sale" ||
+                    transactionType === "commission" ||
+                    transactionType === "refund";
+
+                amount.style.color =
+                    positive
+                        ? "#4ade80"
+                        : "#ff6b6b";
+
+                amount.textContent =
+                    (positive ? "+" : "-") +
+                    "KSh " +
+                    Number(
+                        transaction.amount || 0
+                    ).toLocaleString(
+                        "en-KE",
+                        {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }
+                    );
+
+                const status =
+                    document.createElement(
+                        "span"
+                    );
+
+                status.className =
+                    "transaction-status";
+
+                status.textContent =
+                    transaction.status ||
+                    "pending";
+
+                item.appendChild(title);
+
+                item.appendChild(date);
+
+                item.appendChild(amount);
+
+                item.appendChild(status);
+
+                if (
+                    transaction.description
+                ) {
+
+                    const description =
+                        document.createElement(
+                            "div"
+                        );
+
+                    description.style.color =
+                        "#8fa0dd";
+
+                    description.style.fontSize =
+                        "12px";
+
+                    description.style.marginTop =
+                        "5px";
+
+                    description.textContent =
+                        transaction.description;
+
+                    item.appendChild(
+                        description
+                    );
+
+                }
+
+                transactionList.appendChild(
+                    item
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   ADD MONEY
+   M-PESA STK PUSH
+   ===================================================== */
+
+async function addMoney() {
+
+    if (!currentUser) {
+
+        alert(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+    // Ask for amount
+    const amountInput =
+        prompt(
+            "Enter the amount you want to add to your wallet (KSh):"
+        );
+
+    if (amountInput === null) {
+        return;
+    }
+
+    const amount =
+        Number(
+            amountInput
+        );
+
+    if (
+        !Number.isFinite(amount) ||
+        amount < 1
+    ) {
+
+        alert(
+            "Please enter a valid amount of at least KSh 1."
+        );
+
+        return;
+
+    }
+
+    // Ask for M-Pesa phone number
+    const phoneInput =
+        prompt(
+            "Enter the M-Pesa phone number:\n\nExample: 0712345678"
+        );
+
+    if (phoneInput === null) {
+        return;
+    }
+
+    let phone =
+        phoneInput.replace(
+            /\D/g,
+            ""
+        );
+
+    // Convert 07XXXXXXXX to 2547XXXXXXXX
+    if (
+        phone.startsWith("0")
+    ) {
+
+        phone =
+            "254" +
+            phone.substring(1);
+
+    }
+
+    if (
+        !/^254\d{9}$/.test(phone)
+    ) {
+
+        alert(
+            "Invalid Kenyan M-Pesa number.\n\n" +
+            "Example: 0712345678"
+        );
+
+        return;
+
+    }
+
+    try {
+
+        alert(
+            "📱 Sending M-Pesa payment request...\n\n" +
+            "Amount: KSh " +
+            amount
+        );
+
+        // Get current Supabase session
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+            await supabaseClient.auth.getSession();
+
+        if (sessionError) {
+
+            console.error(
+                "Session error:",
+                sessionError
+            );
+
+            alert(
+                "❌ Could not get your login session.\n\n" +
+                sessionError.message
+            );
+
+            return;
+
+        }
+
+        const session =
+            sessionData?.session;
+
+        if (
+            !session ||
+            !session.access_token
+        ) {
+
+            alert(
+                "❌ Your login session has expired.\n\n" +
+                "Please sign out and sign in again."
+            );
+
+            return;
+
+        }
+
+        // Call Supabase Edge Function
+        const response =
+            await fetch(
+
+                SUPABASE_URL +
+                "/functions/v1/bright-function",
+
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            "Bearer " +
+                            session.access_token,
+
+                        "apikey":
+                            SUPABASE_KEY
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            amount:
+                                amount,
+
+                            phone:
+                                phone,
+
+                            user_id:
+                                currentUser.id,
+
+                            email:
+                                currentUser.email ||
+                                ""
+
+                        })
+
+                }
+
+            );
+
+        let result = {};
+
+        try {
+
+            result =
+                await response.json();
+
+        } catch (jsonError) {
+
+            console.error(
+                "Invalid server response:",
+                jsonError
+            );
+
+            result = {
+
+                success:
+                    false,
+
+                error:
+                    "The server returned an invalid response."
+
+            };
+
+        }
+
+        console.log(
+            "M-Pesa STK response:",
+            result
+        );
+
+        if (
+            response.ok &&
+            result.success
+        ) {
+
+            alert(
+
+                "✅ M-PESA REQUEST SENT!\n\n" +
+
+                "KSh " +
+                amount +
+                " payment request has been sent to:\n" +
+                phone +
+                "\n\n" +
+
+                "Check your phone and enter your M-Pesa PIN to complete the payment.\n\n" +
+
+                "Your wallet will only be credited after the payment is confirmed."
+
+            );
+
+            await loadWallet();
+
+            return;
+
+        }
+
+        alert(
+
+            "❌ M-Pesa request failed.\n\n" +
+
+            "Status: " +
+            response.status +
+            "\n\n" +
+
+            (
+                result.error ||
+                result.message ||
+                result.ResponseDescription ||
+                "Unknown error"
+            )
+
+        );
+
+    } catch (error) {
+
+        console.error(
+            "M-Pesa connection error:",
+            error
+        );
+
+        alert(
+
+            "❌ Could not connect to M-Pesa.\n\n" +
+
+            error.message
+
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   WITHDRAW
+   ===================================================== */
+
+function withdrawMoney() {
+
+    alert(
+        "Withdrawals are not connected yet. " +
+        "Your wallet balance cannot be changed directly from the website."
+    );
+
+}
+
+
+/* =====================================================
+   SELL
+   ===================================================== */
+
+function openSell() {
+
+    if (!currentUser) {
+
+        alert(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+    document.getElementById("main-platform").style.display =
+        "none";
+
+    document.getElementById("wallet-dashboard").style.display =
+        "none";
+
+    document.getElementById("account-dashboard").style.display =
+        "none";
+
+    document.getElementById("sell-dashboard").style.display =
+        "block";
+
+    window.scrollTo(0, 0);
+
+}
+
+
+function closeSell() {
+
+    document.getElementById("sell-dashboard").style.display =
+        "none";
+
+    document.getElementById("main-platform").style.display =
+        "block";
+
+    window.scrollTo(0, 0);
+
+}
+
+
+/* =====================================================
+   PRODUCT IMAGE
+   ===================================================== */
+
+function previewProductImage(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    if (
+        file.size >
+        3 * 1024 * 1024
+    ) {
+
+        alert(
+            "Please choose an image smaller than 3MB."
+        );
+
+        event.target.value =
+            "";
+
+        return;
+
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(e) {
+
+            selectedProductImage =
+                e.target.result;
+
+            const preview =
+                document.getElementById(
+                    "image-preview"
+                );
+
+            preview.src =
+                selectedProductImage;
+
+            preview.style.display =
+                "block";
+
+        };
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =====================================================
+   LOAD PRODUCTS
+   ===================================================== */
+
+async function loadProducts() {
+
+    const container =
+        document.getElementById(
+            "listing-container"
+        );
+
+    container.innerHTML =
+        '<div class="loading">Loading marketplace...</div>';
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("Products table")
+        .select("*")
+        .order(
+            "Created at",
+            {
+                ascending: false
+            }
+        );
+
+    if (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            '<div class="no-products">' +
+            'Unable to load products: ' +
+            escapeHTML(error.message) +
+            '</div>';
+
+        return;
+
+    }
+
+    container.innerHTML =
+        "";
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        document
+            .getElementById(
+                "marketplace-listings"
+            )
+            .style.display =
+            "none";
+
+        return;
+
+    }
+
+    const sellerIds = [
+        ...new Set(
+            data
+                .map(
+                    product =>
+                        product.seller_id
+                )
+                .filter(Boolean)
+        )
+    ];
+
+    let sellerProfiles = {};
+
+    if (
+        sellerIds.length > 0
+    ) {
+
+        const {
+            data: profiles,
+            error: profileError
+        } =
+            await supabaseClient
+            .from("Profiles")
+            .select(
+                'id, "First name", "Last name"'
+            )
+            .in(
+                "id",
+                sellerIds
+            );
+
+        if (
+            !profileError &&
+            profiles
+        ) {
+
+            profiles.forEach(
+                function(profile) {
+
+                    sellerProfiles[
+                        profile.id
+                    ] =
+                        profile;
+
+                }
+            );
+
+        }
+
+    }
+
+    data.forEach(
+        function(product) {
+
+            createMarketplaceListing(
+                product,
+                sellerProfiles[
+                    product.seller_id
+                ]
+            );
+
+        }
+    );
+
+    document
+        .getElementById(
+            "marketplace-listings"
+        )
+        .style.display =
+        "block";
+
+    applyCurrentFilters();
+
+}
+
+
+/* =====================================================
+   CREATE MARKETPLACE LISTING
+   ===================================================== */
+
+function createMarketplaceListing(
+    product,
+    sellerProfile
+) {
+
+    const listingContainer =
+        document.getElementById(
+            "listing-container"
+        );
+
+    const listing =
+        document.createElement(
+            "div"
+        );
+
+    listing.className =
+        "listing-card";
+
+    listing.dataset.productId =
+        product.id;
+
+    listing.dataset.category =
+        product["Category"] || "";
+
+    if (
+        product["Image url"]
+    ) {
+
+        const image =
+            document.createElement(
+                "img"
+            );
+
+        image.className =
+            "listing-image";
+
+        image.src =
+            product["Image url"];
+
+        image.alt =
+            product["Product name"] ||
+            "Product";
+
+        listing.appendChild(
+            image
+        );
+
+    } else {
+
+        const placeholder =
+            document.createElement(
+                "div"
+            );
+
+        placeholder.className =
+            "listing-image";
+
+        placeholder.style.display =
+            "flex";
+
+        placeholder.style.alignItems =
+            "center";
+
+        placeholder.style.justifyContent =
+            "center";
+
+        placeholder.style.fontSize =
+            "60px";
+
+        placeholder.textContent =
+            "🛍️";
+
+        listing.appendChild(
+            placeholder
+        );
+
+    }
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+    content.className =
+        "listing-content";
+
+    const title =
+        document.createElement(
+            "h3"
+        );
+
+    title.textContent =
+        product["Product name"] ||
+        "Unnamed product";
+
+    const price =
+        document.createElement(
+            "div"
+        );
+
+    price.className =
+        "listing-price";
+
+    price.textContent =
+        "KSh " +
+        Number(
+            product["Price"] || 0
+        ).toLocaleString();
+
+    const category =
+        document.createElement(
+            "div"
+        );
+
+    category.className =
+        "listing-info";
+
+    category.textContent =
+        "📂 " +
+        (
+            product["Category"] ||
+            ""
+        );
+
+    const country =
+        document.createElement(
+            "div"
+        );
+
+    country.className =
+        "listing-info";
+
+    country.textContent =
+        "🌍 " +
+        (
+            product["Country"] ||
+            ""
+        );
+
+    const location =
+        document.createElement(
+            "div"
+        );
+
+    location.className =
+        "listing-info";
+
+    location.textContent =
+        "📍 " +
+        (
+            product["Location"] ||
+            ""
+        );
+
+    const contact =
+        document.createElement(
+            "div"
+        );
+
+    contact.className =
+        "listing-info";
+
+    contact.textContent =
+        "📞 " +
+        (
+            product["Contact"] ||
+            ""
+        );
+
+    let sellerName =
+        "Seller";
+
+    if (
+        sellerProfile
+    ) {
+
+        sellerName =
+            (
+                sellerProfile["First name"] ||
+                ""
+            ) +
+            " " +
+            (
+                sellerProfile["Last name"] ||
+                ""
+            );
+
+        sellerName =
+            sellerName.trim() ||
+            "Seller";
+
+    }
+
+    const seller =
+        document.createElement(
+            "div"
+        );
+
+    seller.className =
+        "seller-name";
+
+    seller.textContent =
+        "👤 Seller: " +
+        sellerName;
+
+    const description =
+        document.createElement(
+            "div"
+        );
+
+    description.className =
+        "listing-description";
+
+    description.textContent =
+        product["Description"] ||
+        "";
+
+    content.appendChild(title);
+
+    content.appendChild(price);
+
+    content.appendChild(category);
+
+    content.appendChild(country);
+
+    content.appendChild(location);
+
+    content.appendChild(contact);
+
+    content.appendChild(seller);
+
+    content.appendChild(description);
+
+    listing.appendChild(
+        content
+    );
+
+    listingContainer.appendChild(
+        listing
+    );
+
+}
+
+
+/* =====================================================
+   POST PRODUCT
+   ===================================================== */
+
+async function postProduct() {
+
+    if (!currentUser) {
+
+        alert(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+    const message =
+        document.getElementById(
+            "sell-message"
+        );
+
+    const button =
+        document.getElementById(
+            "post-product-button"
+        );
+
+    message.textContent =
+        "Posting product...";
+
+    button.disabled =
+        true;
+
+    const name =
+        document
+        .getElementById(
+            "product-name"
+        )
+        .value
+        .trim();
+
+    const price =
+        Number(
+            document
+            .getElementById(
+                "product-price"
+            )
+            .value
+        );
+
+    const category =
+        document
+        .getElementById(
+            "product-category"
+        )
+        .value;
+
+    const country =
+        document
+        .getElementById(
+            "product-country"
+        )
+        .value;
+
+    const location =
+        document
+        .getElementById(
+            "product-location"
+        )
+        .value
+        .trim();
+
+    const description =
+        document
+        .getElementById(
+            "product-description"
+        )
+        .value
+        .trim();
+
+    const contact =
+        document
+        .getElementById(
+            "seller-contact"
+        )
+        .value
+        .trim();
+
+    if (
+        !name ||
+        !price ||
+        price <= 0 ||
+        !category ||
+        !country ||
+        !location ||
+        !description ||
+        !contact
+    ) {
+
+        message.textContent =
+            "Please fill in all product details.";
+
+        button.disabled =
+            false;
+
+        return;
+
+    }
+
+    const product = {
+
+        seller_id:
+            currentUser.id,
+
+        "Product name":
+            name,
+
+        "Price":
+            price,
+
+        "Category":
+            category,
+
+        "Country":
+            country,
+
+        "Location":
+            location,
+
+        "Description":
+            description,
+
+        "Contact":
+            contact,
+
+        "Image url":
+            selectedProductImage || ""
+
+    };
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+            .from("Products table")
+            .insert(product)
+            .select()
+            .single();
+
+        if (error) {
+
+            console.error(error);
+
+            message.textContent =
+                "Error: " +
+                error.message;
+
+            button.disabled =
+                false;
+
+            return;
+
+        }
+
+        await loadProducts();
+
+        await displayMyProducts();
+
+        clearSellForm();
+
+        document
+            .getElementById(
+                "sell-dashboard"
+            )
+            .style.display =
+            "none";
+
+        document
+            .getElementById(
+                "main-platform"
+            )
+            .style.display =
+            "block";
+
+        window.scrollTo(0, 0);
+
+        button.disabled =
+            false;
+
+        message.textContent =
+            "";
+
+        alert(
+            "Your product has been posted successfully!"
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            error.message ||
+            "Unable to post product.";
+
+        button.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =====================================================
+   CLEAR SELL FORM
+   ===================================================== */
+
+function clearSellForm() {
+
+    document.getElementById(
+        "product-name"
+    ).value =
+        "";
+
+    document.getElementById(
+        "product-price"
+    ).value =
+        "";
+
+    document.getElementById(
+        "product-category"
+    ).value =
+        "";
+
+    document.getElementById(
+        "product-country"
+    ).value =
+        "";
+
+    document.getElementById(
+        "product-location"
+    ).value =
+        "";
+
+    document.getElementById(
+        "product-description"
+    ).value =
+        "";
+
+    document.getElementById(
+        "seller-contact"
+    ).value =
+        "";
+
+    document.getElementById(
+        "product-image"
+    ).value =
+        "";
+
+    document.getElementById(
+        "image-preview"
+    ).style.display =
+        "none";
+
+    selectedProductImage =
+        "";
+
+}
+
+
+/* =====================================================
+   MY PRODUCTS
+   ===================================================== */
+
+async function displayMyProducts() {
+
+    const container =
+        document.getElementById(
+            "my-products-container"
+        );
+
+    container.innerHTML =
+        '<div class="loading">Loading your products...</div>';
+
+    if (!currentUser) {
+
+        container.innerHTML =
+            '<div class="no-products">Please sign in first.</div>';
+
+        return;
+
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("Products table")
+        .select("*")
+        .eq(
+            "seller_id",
+            currentUser.id
+        )
+        .order(
+            "Created at",
+            {
+                ascending: false
+            }
+        );
+
+    if (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            '<div class="no-products">' +
+            'Unable to load your products: ' +
+            escapeHTML(error.message) +
+            '</div>';
+
+        return;
+
+    }
+
+    container.innerHTML =
+        "";
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        container.innerHTML =
+            '<div class="no-products">' +
+            '📦 You have not posted any products yet.' +
+            '</div>';
+
+        return;
+
+    }
+
+    data.forEach(
+        function(product) {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "my-product-card";
+
+            if (
+                product["Image url"]
+            ) {
+
+                const image =
+                    document.createElement(
+                        "img"
+                    );
+
+                image.className =
+                    "my-product-image";
+
+                image.src =
+                    product["Image url"];
+
+                image.alt =
+                    product["Product name"] ||
+                    "Product";
+
+                card.appendChild(
+                    image
+                );
+
+            } else {
+
+                const placeholder =
+                    document.createElement(
+                        "div"
+                    );
+
+                placeholder.className =
+                    "my-product-image";
+
+                placeholder.style.display =
+                    "flex";
+
+                placeholder.style.alignItems =
+                    "center";
+
+                placeholder.style.justifyContent =
+                    "center";
+
+                placeholder.style.fontSize =
+                    "50px";
+
+                placeholder.textContent =
+                    "🛍️";
+
+                card.appendChild(
+                    placeholder
+                );
+
+            }
+
+            const content =
+                document.createElement(
+                    "div"
+                );
+
+            content.className =
+                "my-product-content";
+
+            const name =
+                document.createElement(
+                    "h4"
+                );
+
+            name.textContent =
+                product["Product name"] ||
+                "Unnamed product";
+
+            const price =
+                document.createElement(
+                    "div"
+                );
+
+            price.className =
+                "my-product-price";
+
+            price.textContent =
+                "KSh " +
+                Number(
+                    product["Price"] || 0
+                ).toLocaleString();
+
+            const location =
+                document.createElement(
+                    "div"
+                );
+
+            location.className =
+                "my-product-location";
+
+            location.textContent =
+                "📍 " +
+                (
+                    product["Location"] ||
+                    ""
+                ) +
+                " • " +
+                (
+                    product["Country"] ||
+                    ""
+                );
+
+            const actions =
+                document.createElement(
+                    "div"
+                );
+
+            actions.className =
+                "my-product-actions";
+
+            const editButton =
+                document.createElement(
+                    "button"
+                );
+
+            editButton.className =
+                "edit-product-btn";
+
+            editButton.textContent =
+                "✏️ Edit";
+
+            editButton.onclick =
+                function() {
+
+                    editProduct(
+                        product.id
+                    );
+
+                };
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+            deleteButton.className =
+                "delete-product-btn";
+
+            deleteButton.textContent =
+                "🗑️ Delete";
+
+            deleteButton.onclick =
+                function() {
+
+                    deleteProduct(
+                        product.id
+                    );
+
+                };
+
+            actions.appendChild(
+                editButton
+            );
+
+            actions.appendChild(
+                deleteButton
+            );
+
+            content.appendChild(
+                name
+            );
+
+            content.appendChild(
+                price
+            );
+
+            content.appendChild(
+                location
+            );
+
+            content.appendChild(
+                actions
+            );
+
+            card.appendChild(
+                content
+            );
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   DELETE PRODUCT
+   ===================================================== */
+
+async function deleteProduct(productId) {
+
+    if (!currentUser) {
+        return;
+    }
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this product?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+        .from("Products table")
+        .delete()
+        .eq(
+            "id",
+            productId
+        )
+        .eq(
+            "seller_id",
+            currentUser.id
+        );
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to delete product: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+    await loadProducts();
+
+    await displayMyProducts();
+
+    alert(
+        "Product deleted successfully."
+    );
+
+}
+
+
+/* =====================================================
+   EDIT PRODUCT
+   ===================================================== */
+
+async function editProduct(productId) {
+
+    if (!currentUser) {
+        return;
+    }
+
+    const {
+        data: product,
+        error: findError
+    } =
+        await supabaseClient
+        .from("Products table")
+        .select("*")
+        .eq(
+            "id",
+            productId
+        )
+        .eq(
+            "seller_id",
+            currentUser.id
+        )
+        .maybeSingle();
+
+    if (findError) {
+
+        console.error(findError);
+
+        alert(
+            "Unable to find product: " +
+            findError.message
+        );
+
+        return;
+
+    }
+
+    if (!product) {
+
+        alert(
+            "Product could not be found."
+        );
+
+        return;
+
+    }
+
+    const newName =
+        prompt(
+            "Product name:",
+            product["Product name"] || ""
+        );
+
+    if (newName === null) {
+        return;
+    }
+
+    const newPrice =
+        prompt(
+            "Price (KSh):",
+            product["Price"] || ""
+        );
+
+    if (newPrice === null) {
+        return;
+    }
+
+    const newDescription =
+        prompt(
+            "Description:",
+            product["Description"] || ""
+        );
+
+    if (newDescription === null) {
+        return;
+    }
+
+    const priceNumber =
+        Number(newPrice);
+
+    if (
+        !newName.trim() ||
+        !isFinite(priceNumber) ||
+        priceNumber <= 0
+    ) {
+
+        alert(
+            "Please enter a valid name and price."
+        );
+
+        return;
+
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient
+        .from("Products table")
+        .update({
+
+            "Product name":
+                newName.trim(),
+
+            "Price":
+                priceNumber,
+
+            "Description":
+                newDescription.trim()
+
+        })
+        .eq(
+            "id",
+            productId
+        )
+        .eq(
+            "seller_id",
+            currentUser.id
+        );
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to update product: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+    await loadProducts();
+
+    await displayMyProducts();
+
+    alert(
+        "Product updated successfully."
+    );
+
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+function searchProducts() {
+
+    applyCurrentFilters();
+
+}
+
+
+function applyCurrentFilters() {
+
+    const searchTerm =
+        document
+        .getElementById(
+            "search-input"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+    const listings =
+        document.querySelectorAll(
+            ".listing-card"
+        );
+
+    listings.forEach(
+        function(listing) {
+
+            const content =
+                listing.textContent
+                .toLowerCase();
+
+            const category =
+                (
+                    listing.dataset.category ||
+                    ""
+                ).toLowerCase();
+
+            const matchesSearch =
+                !searchTerm ||
+                content.includes(
+                    searchTerm
+                ) ||
+                category.includes(
+                    searchTerm
+                );
+
+            listing.style.display =
+                matchesSearch
+                    ? "block"
+                    : "none";
+
+        }
+    );
+
+    if (
+        listings.length > 0
+    ) {
+
+        document
+            .getElementById(
+                "marketplace-listings"
+            )
+            .style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =====================================================
+   CATEGORY FILTER
+   ===================================================== */
+
+function filterCategory(category) {
+
+    document
+        .getElementById(
+            "search-input"
+        )
+        .value =
+        category;
+
+    searchProducts();
+
+}
+
+
+/* =====================================================
+   SIGN OUT
+   ===================================================== */
+
+async function signOut() {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to sign out?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient.auth.signOut();
+
+    if (error) {
+
+        alert(
+            "Unable to sign out: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+    currentUser =
+        null;
+
+    currentProfile =
+        null;
+
+    selectedProfilePicture =
+        "";
+
+    selectedProductImage =
+        "";
+
+    walletBalance =
+        0;
+
+    totalEarned =
+        0;
+
+    pendingBalance =
+        0;
+
+    walletTransactions =
+        [];
+
+    showAuth();
+
+    switchForm(
+        "signin"
+    );
+
+    document.getElementById(
+        "signin-email"
+    ).value =
+        "";
+
+    document.getElementById(
+        "signin-password"
+    ).value =
+        "";
+
+}
+
+
+/* =====================================================
+   AUTH STATE LISTENER
+   ===================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            currentUser =
+                null;
+
+            currentProfile =
+                null;
+
+            walletBalance =
+                0;
+
+            totalEarned =
+                0;
+
+            pendingBalance =
+                0;
+
+            walletTransactions =
+                [];
+
+            showAuth();
+
+            switchForm(
+                "signin"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SECURITY HELPERS
+   ===================================================== */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text == null
+            ? ""
+            : String(text);
+
+    return div.innerHTML;
+
+}
+
+</script>
+
+</body>
+</html>
+
 
