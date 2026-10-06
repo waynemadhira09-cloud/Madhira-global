@@ -4617,7 +4617,7 @@ function escapeHTML(text) {
 </script>
 
 <!-- BOTTOM NAVIGATION -->
-<nav class="bottom-navigation">
+<nav id="bottom-navigation" class="bottom-navigation" style="display:none;">
 
     <button id="bottom-home"
             class="active"
@@ -4651,6 +4651,32 @@ function escapeHTML(text) {
     </button>
 
 </nav>
+    <script>
+const bottomNavigation = document.getElementById("bottom-navigation");
+
+if (bottomNavigation) {
+
+    supabaseClient.auth.getSession().then(({ data }) => {
+
+        if (data.session) {
+            bottomNavigation.style.display = "flex";
+        } else {
+            bottomNavigation.style.display = "none";
+        }
+
+    });
+
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+
+        if (session) {
+            bottomNavigation.style.display = "flex";
+        } else {
+            bottomNavigation.style.display = "none";
+        }
+
+    });
+}
+    </script>
     
 
 
