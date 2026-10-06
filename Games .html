@@ -44,7 +44,63 @@
             </button>
 
         </div>
+<!-- AVIATOR GAME -->
 
+<div id="aviator-game" class="aviator-game">
+
+    <button class="back-button" onclick="closeAviator()">
+        ← Back to Games
+    </button>
+
+    <h2>✈️ Aviator</h2>
+
+    <div class="aviator-screen">
+
+        <div id="aviator-multiplier">
+            1.00x
+        </div>
+
+        <div id="aviator-plane">
+            ✈️
+        </div>
+
+        <p id="aviator-status">
+            Ready to play
+        </p>
+
+    </div>
+
+    <div class="demo-balance">
+        Demo Balance:
+        <strong id="demo-balance">1000.00</strong>
+    </div>
+
+    <div class="aviator-controls">
+
+        <input
+            id="aviator-bet"
+            type="number"
+            min="1"
+            value="10"
+            placeholder="Bet amount"
+        >
+
+        <button
+            id="start-button"
+            onclick="startAviator()">
+            🚀 Start
+        </button>
+
+        <button
+            id="cashout-button"
+            onclick="cashOutAviator()"
+            disabled>
+            💰 Cash Out
+        </button>
+
+    </div>
+
+</div>
     </div>
 
     <script>
