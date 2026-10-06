@@ -2467,6 +2467,68 @@ height: 200px;
 padding: 16px;
 
 }
+  /* ========================================================
+   MADHIRA GLOBAL BOTTOM NAVIGATION
+   ======================================================== */
+
+.bottom-navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: white;
+    border-top: 1px solid #e4e7ec;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 9999;
+    padding: 5px 8px;
+}
+
+.bottom-navigation button {
+    flex: 1;
+    height: 60px;
+    margin: 0;
+    padding: 5px 2px;
+    border: none;
+    background: transparent;
+    color: #667085;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border-radius: 10px;
+}
+
+.bottom-navigation button span {
+    font-size: 21px;
+    line-height: 1;
+}
+
+.bottom-navigation button small {
+    font-size: 11px;
+    font-weight: 600;
+    color: #667085;
+}
+
+.bottom-navigation button.active {
+    color: #111827;
+    background: #f2f4f7;
+}
+
+.bottom-navigation button.active small {
+    color: #111827;
+}
+
+#main-platform,
+#wallet-dashboard,
+#sell-dashboard,
+#account-dashboard {
+    padding-bottom: 100px;
+}
 
 
 
