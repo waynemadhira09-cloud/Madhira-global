@@ -49,9 +49,110 @@
 
     <script>
 
-        function openAviator() {
-            alert("Aviator game will open here.");
+let demoBalance = 1000;
+
+let aviatorRunning = false;
+let aviatorInterval = null;
+let aviatorMultiplier = 1;
+let aviatorBet = 0;
+let aviatorCrashPoint = 0;
+
+
+function openAviator() {
+
+    alert("Aviator demo is ready.");
+
+}
+
+
+function startAviator() {
+
+    if (aviatorRunning) {
+        return;
+    }
+
+    aviatorBet = 10;
+
+    if (aviatorBet > demoBalance) {
+        alert("Not enough demo credits.");
+        return;
+    }
+
+    demoBalance -= aviatorBet;
+
+    aviatorMultiplier = 1;
+
+    aviatorCrashPoint =
+        (Math.random() * 4 + 1.2).toFixed(2);
+
+    aviatorRunning = true;
+
+    console.log("Crash point:", aviatorCrashPoint);
+
+    aviatorInterval = setInterval(function () {
+
+        aviatorMultiplier += 0.01;
+
+        console.log(
+            aviatorMultiplier.toFixed(2) + "x"
+        );
+
+        if (
+            aviatorMultiplier >=
+            Number(aviatorCrashPoint)
+        ) {
+
+            crashAviator();
+
         }
+
+    }, 100);
+
+}
+
+
+function crashAviator() {
+
+    clearInterval(aviatorInterval);
+
+    aviatorRunning = false;
+
+    console.log(
+        "Plane crashed at " +
+        aviatorCrashPoint +
+        "x"
+    );
+
+}
+
+
+function cashOutAviator() {
+
+    if (!aviatorRunning) {
+        return;
+    }
+
+    clearInterval(aviatorInterval);
+
+    aviatorRunning = false;
+
+    const winnings =
+        aviatorBet * aviatorMultiplier;
+
+    demoBalance += winnings;
+
+    console.log(
+        "Cashed out at " +
+        aviatorMultiplier.toFixed(2) +
+        "x"
+    );
+
+    console.log(
+        "Demo balance:",
+        demoBalance.toFixed(2)
+    );
+
+}
 
     </script>
 
