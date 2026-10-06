@@ -4615,6 +4615,71 @@ function escapeHTML(text) {
 }
 
 </script>
+    <!-- AVIATOR DASHBOARD -->
+<div id="aviator-dashboard" style="display:none;">
+
+    <div class="dashboard-card">
+
+        <h2>✈️ Aviator</h2>
+        <p>Virtual credits — Free Play</p>
+
+        <div class="aviator-balance">
+            <span>Virtual Balance</span>
+            <strong id="aviator-balance">10,000.00</strong>
+        </div>
+
+        <div class="aviator-game">
+            <div class="aviator-sky">
+                <div id="aviator-multiplier">1.00x</div>
+                <div id="aviator-plane">✈️</div>
+            </div>
+
+            <div class="aviator-status" id="aviator-status">
+                Place your virtual bet
+            </div>
+        </div>
+
+        <div class="aviator-controls">
+
+            <label>Virtual Stake</label>
+
+            <input
+                type="number"
+                id="aviator-stake"
+                value="100"
+                min="10"
+                step="10"
+            >
+
+            <button
+                type="button"
+                id="aviator-bet-btn"
+                onclick="startAviator()"
+            >
+                🚀 BET
+            </button>
+
+            <button
+                type="button"
+                id="aviator-cashout-btn"
+                onclick="cashOutAviator()"
+                disabled
+            >
+                💰 CASH OUT
+            </button>
+
+        </div>
+
+        <div class="aviator-history">
+            <h3>Round History</h3>
+            <div id="aviator-history-list">
+                <p>No rounds yet.</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
     <nav class="bottom-navigation">
 
     <button onclick="goHome()">
