@@ -4967,7 +4967,139 @@ function addAviatorHistory(result) {
         history.removeChild(history.lastChild);
     }
 }
-    
+    <script>
+let balance = 1000;
+let multiplier = 1.00;
+let crashPoint = 0;
+let gameRunning = false;
+let hasBet = false;
+let betAmount = 0;
+let gameTimer;
+
+const multiplierDisplay = document.getElementById("multiplier");
+const balanceDisplay = document.getElementById("aviatorBalance");
+const betInput = document.getElementById("betAmount");
+const betButton = document.getElementById("betButton");
+const cashoutButton = document.getElementById("cashoutButton");
+const message = document.getElementById("aviatorMessage");
+const plane = document.getElementById("plane");
+
+function updateBalance() {
+    balanceDisplay.textContent =
+        "Balance: KSh " + balance.toFixed(2);
+}
+
+function generateCrashPoint() {
+    return (1.10 + Math.random() * 8.90);
+}
+
+function startGame() {
+    if (gameRunning) return;
+
+    multiplier = 1.00;
+    crashPoint = generateCrashPoint();
+    gameRunning = true;
+
+    multiplierDisplay.textContent =
+        multiplier.toFixed(2) + "x";
+
+    message.textContent = "🚀 Plane is flying...";
+
+    gameTimer = setInterval(() => {
+
+        multiplier += 0.01 + (multiplier * 0.003);
+
+        multiplierDisplay.textContent =
+            multiplier.toFixed(2) + "x";
+
+        plane.style.transform =
+            "translate(" + (multiplier * 12) + "px, -" +
+            (multiplier * 5) + "px)";
+
+        if (multiplier >= crashPoint) {
+            crashGame();
+        }
+
+    }, 100);
+}
+
+function crashGame() {
+    clearInterval(gameTimer);
+
+    gameRunning = false;
+
+    multiplierDisplay.textContent =
+        crashPoint.toFixed(2) + "x";
+
+    message.textContent =
+        "💥 Crashed at " + crashPoint.toFixed(2) + "x";
+
+    cashoutButton.disabled = true;
+    betButton.disabled = false;
+
+    hasBet = false;
+}
+
+betButton.addEventListener("click", () => {
+
+    if (gameRunning) {
+        message.textContent =
+            "Wait for the next round.";
+        return;
+    }
+
+    betAmount = Number(betInput.value);
+
+    if (!betAmount || betAmount <= 0) {
+        message.textContent =
+            "Enter a valid bet amount.";
+        return;
+    }
+
+    if (betAmount > balance) {
+        message.textContent =
+            "Insufficient balance.";
+        return;
+    }
+
+    balance -= betAmount;
+
+    updateBalance();
+
+    hasBet = true;
+
+    cashoutButton.disabled = false;
+    betButton.disabled = true;
+
+    message.textContent =
+        "Bet placed: KSh " + betAmount.toFixed(2);
+
+    startGame();
+});
+
+cashoutButton.addEventListener("click", () => {
+
+    if (!gameRunning || !hasBet) return;
+
+    const winnings = betAmount * multiplier;
+
+    balance += winnings;
+
+    updateBalance();
+
+    message.textContent =
+        "💰 Cashed out at " +
+        multiplier.toFixed(2) +
+        "x — Won KSh " +
+        winnings.toFixed(2);
+
+    hasBet = false;
+
+    cashoutButton.disabled = true;
+});
+
+updateBalance();
+    </script>
 
 </body>
 </html>
