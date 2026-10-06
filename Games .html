@@ -132,7 +132,9 @@ function startAviator() {
         return;
     }
 
-    aviatorBet = 10;
+    aviatorBet = Number(
+    document.getElementById("aviator-bet").value
+);
 
     if (aviatorBet > demoBalance) {
         alert("Not enough demo credits.");
@@ -183,6 +185,18 @@ function crashAviator() {
         aviatorCrashPoint +
         "x"
     );
+    document.getElementById("start-button").disabled = true;
+
+document.getElementById("cashout-button").disabled = false;
+
+document.getElementById("aviator-status").textContent =
+    "🚀 Flying...";
+
+document.getElementById("aviator-multiplier").textContent =
+    "1.00x";
+
+document.getElementById("demo-balance").textContent =
+    demoBalance.toFixed(2);
 
 }
 
