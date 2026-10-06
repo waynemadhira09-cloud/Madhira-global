@@ -2613,5 +2613,8 @@ padding: 16px;
 #account-dashboard {
     padding-bottom: 110px !important;
 }
-
+/* HIDE BOTTOM NAVIGATION UNTIL USER IS LOGGED IN */
+.bottom-navigation {
+    display: none !important;
+}
 
