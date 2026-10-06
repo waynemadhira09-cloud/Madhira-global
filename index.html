@@ -1,7 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<body>
+    <!-- AVIATOR GAME -->
+<section id="aviator" class="aviator-game">
 
+    <div class="aviator-header">
+        <h2>✈️ Aviator</h2>
+        <span id="aviatorBalance">Balance: KSh 1,000</span>
+    </div>
+
+    <div class="aviator-screen">
+        <div id="multiplier">1.00x</div>
+        <div id="plane">✈️</div>
+    </div>
+
+    <div class="aviator-controls">
+        <input
+            type="number"
+            id="betAmount"
+            placeholder="Enter bet"
+            min="1"
+        >
+
+        <button id="betButton">BET</button>
+
+        <button id="cashoutButton" disabled>
+            CASH OUT
+        </button>
+    </div>
+
+    <div id="aviatorMessage">
+        Place your bet to start
+    </div>
+
+</section>
+<!-- END AVIATOR GAME -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
