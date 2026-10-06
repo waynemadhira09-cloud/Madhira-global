@@ -4708,6 +4708,235 @@ function escapeHTML(text) {
     </button>
 
     </nav>
+    </script>
+    /* ================================
+   AVIATOR FREE-PLAY GAME
+================================ */
+
+let aviatorBalance = 10000;
+let aviatorMultiplier = 1.00;
+let aviatorRunning = false;
+let aviatorInterval = null;
+let aviatorCrashPoint = 0;
+let aviatorStake = 0;
+let aviatorCashedOut = false;
+
+
+/* OPEN AVIATOR */
+function openAviator() {
+
+    if (!currentUser) {
+        alert("Please sign in first.");
+        return;
+    }
+
+    document.getElementById("main-platform").style.display = "none";
+    document.getElementById("wallet-dashboard").style.display = "none";
+    document.getElementById("sell-dashboard").style.display = "none";
+    document.getElementById("account-dashboard").style.display = "none";
+    document.getElementById("aviator-dashboard").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    updateAviatorDisplay();
+}
+
+
+/* UPDATE DISPLAY */
+function updateAviatorDisplay() {
+
+    const balance = document.getElementById("aviator-balance");
+
+    if (balance) {
+        balance.textContent =
+            aviatorBalance.toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+    }
+}
+
+
+/* START ROUND */
+function startAviator() {
+
+    if (aviatorRunning) return;
+
+    const stakeInput = document.getElementById("aviator-stake");
+    const stake = Number(stakeInput.value);
+
+    if (!Number.isFinite(stake) || stake < 10) {
+        alert("Minimum virtual stake is 10 credits.");
+        return;
+    }
+
+    if (stake > aviatorBalance) {
+        alert("Not enough virtual credits.");
+        return;
+    }
+
+    aviatorStake = stake;
+    aviatorBalance -= stake;
+
+    aviatorMultiplier = 1.00;
+    aviatorRunning = true;
+    aviatorCashedOut = false;
+
+    /*
+       Demo-only crash point.
+       This is intentionally a local free-play game,
+       not a real-money gambling system.
+    */
+    aviatorCrashPoint =
+        Number((1.20 + Math.random() * 8.80).toFixed(2));
+
+    document.getElementById("aviator-bet-btn").disabled = true;
+    document.getElementById("aviator-cashout-btn").disabled = false;
+    document.getElementById("aviator-stake").disabled = true;
+
+    document.getElementById("aviator-status").textContent =
+        "✈️ Flying... Cash out before the crash!";
+
+    runAviatorRound();
+}
+
+
+/* RUN MULTIPLIER */
+function runAviatorRound() {
+
+    aviatorInterval = setInterval(function () {
+
+        if (!aviatorRunning) {
+            clearInterval(aviatorInterval);
+            return;
+        }
+
+        aviatorMultiplier += 0.05;
+
+        aviatorMultiplier =
+            Number(aviatorMultiplier.toFixed(2));
+
+        document.getElementById("aviator-multiplier").textContent =
+            aviatorMultiplier.toFixed(2) + "x";
+
+        /* Move plane */
+        const plane = document.getElementById("aviator-plane");
+
+        if (plane) {
+
+            const progress =
+                Math.min(
+                    (aviatorMultiplier - 1) / 8,
+                    1
+                );
+
+            plane.style.left =
+                (15 + progress * 70) + "%";
+
+            plane.style.bottom =
+                (25 + progress * 50) + "%";
+        }
+
+        /* Crash */
+        if (aviatorMultiplier >= aviatorCrashPoint) {
+            crashAviator();
+        }
+
+    }, 120);
+}
+
+
+/* CASH OUT */
+function cashOutAviator() {
+
+    if (!aviatorRunning || aviatorCashedOut) return;
+
+    aviatorCashedOut = true;
+
+    const winnings =
+        aviatorStake * aviatorMultiplier;
+
+    aviatorBalance += winnings;
+
+    aviatorRunning = false;
+
+    clearInterval(aviatorInterval);
+
+    document.getElementById("aviator-status").textContent =
+        "💰 Cashed out at " +
+        aviatorMultiplier.toFixed(2) +
+        "x";
+
+    document.getElementById("aviator-cashout-btn").disabled = true;
+    document.getElementById("aviator-bet-btn").disabled = false;
+    document.getElementById("aviator-stake").disabled = false;
+
+    addAviatorHistory(
+        aviatorMultiplier.toFixed(2) + "x"
+    );
+
+    updateAviatorDisplay();
+}
+
+
+/* CRASH */
+function crashAviator() {
+
+    if (!aviatorRunning) return;
+
+    aviatorRunning = false;
+
+    clearInterval(aviatorInterval);
+
+    document.getElementById("aviator-multiplier").textContent =
+        aviatorCrashPoint.toFixed(2) + "x";
+
+    document.getElementById("aviator-status").textContent =
+        "💥 CRASHED at " +
+        aviatorCrashPoint.toFixed(2) +
+        "x";
+
+    document.getElementById("aviator-cashout-btn").disabled = true;
+    document.getElementById("aviator-bet-btn").disabled = false;
+    document.getElementById("aviator-stake").disabled = false;
+
+    addAviatorHistory(
+        aviatorCrashPoint.toFixed(2) + "x"
+    );
+
+    updateAviatorDisplay();
+}
+
+
+/* ROUND HISTORY */
+function addAviatorHistory(result) {
+
+    const history =
+        document.getElementById("aviator-history-list");
+
+    if (!history) return;
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "aviator-history-item";
+
+    item.textContent = result;
+
+    history.prepend(item);
+
+    if (history.children.length > 12) {
+        history.removeChild(history.lastChild);
+    }
+}
+    
+
+</body>
+</html>
 
 
     
