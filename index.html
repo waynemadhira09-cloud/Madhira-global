@@ -2525,8 +2525,123 @@
     );
 
 </script>
+<script>
+let balance = 1000;
+let multiplier = 1.00;
+let gameRunning = false;
+let crashed = false;
+let bet = 0;
+let gameInterval;
 
-</body>
+const balanceEl = document.getElementById("balance");
+const multiplierEl = document.getElementById("multiplier");
+const statusEl = document.getElementById("game-status");
+const betInput = document.getElementById("betAmount");
+const startButton = document.getElementById("startGame");
+const cashOutButton = document.getElementById("cashOut");
+const potentialWinEl = document.getElementById("potentialWin");
+
+function updateDisplay() {
+    balanceEl.textContent = balance.toFixed(2);
+    multiplierEl.textContent = multiplier.toFixed(2) + "x";
+    potentialWinEl.textContent = gameRunning
+        ? (bet * multiplier).toFixed(2)
+        : "0.00";
+}
+
+startButton.addEventListener("click", function () {
+
+    if (gameRunning) return;
+
+    bet = Number(betInput.value);
+
+    if (!bet || bet <= 0) {
+        statusEl.textContent = "Enter a valid bet.";
+        return;
+    }
+
+    if (bet > balance) {
+        statusEl.textContent = "Not enough virtual credits.";
+        return;
+    }
+
+    balance -= bet;
+
+    multiplier = 1.00;
+    gameRunning = true;
+    crashed = false;
+
+    startButton.disabled = true;
+    cashOutButton.disabled = false;
+    betInput.disabled = true;
+
+    statusEl.textContent = "Flying...";
+
+    updateDisplay();
+
+    // Random crash point for the demo
+    const crashPoint = 1.10 + Math.random() * 9.90;
+
+    gameInterval = setInterval(function () {
+
+        multiplier += 0.01;
+
+        updateDisplay();
+
+        if (multiplier >= crashPoint) {
+            crashGame();
+        }
+
+    }, 100);
+});
+
+
+cashOutButton.addEventListener("click", function () {
+
+    if (!gameRunning || crashed) return;
+
+    const winnings = bet * multiplier;
+
+    balance += winnings;
+
+    gameRunning = false;
+
+    clearInterval(gameInterval);
+
+    statusEl.textContent =
+        "Cashed out at " + multiplier.toFixed(2) + "x";
+
+    cashOutButton.disabled = true;
+    startButton.disabled = false;
+    betInput.disabled = false;
+
+    updateDisplay();
+});
+
+
+function crashGame() {
+
+    gameRunning = false;
+    crashed = true;
+
+    clearInterval(gameInterval);
+
+    statusEl.textContent =
+        "💥 Crashed at " + multiplier.toFixed(2) + "x";
+
+    multiplierEl.textContent =
+        multiplier.toFixed(2) + "x";
+
+    cashOutButton.disabled = true;
+    startButton.disabled = false;
+    betInput.disabled = false;
+
+    updateDisplay();
+}
+
+updateDisplay();
+</script>
+
     <section id="aviator-game" class="aviator-game">
     <h2>✈️ Aviator</h2>
 
@@ -2553,6 +2668,7 @@
         <p>Potential Win: KSh <span id="potentialWin">0</span></p>
     </div>
     </section>
+</body>
 </html>
 
 
