@@ -2468,7 +2468,7 @@ padding: 16px;
 
 }
   /* ========================================================
-   MADHIRA GLOBAL BOTTOM NAVIGATION
+   MADHIRA GLOBAL - BOTTOM NAVIGATION
    ======================================================== */
 
 .bottom-navigation {
@@ -2476,59 +2476,96 @@ padding: 16px;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 70px;
-    background: white;
-    border-top: 1px solid #e4e7ec;
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+    height: 78px;
+    background: #263b4d;
+    border-top: 1px solid #526b7e;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-around;
     z-index: 9999;
-    padding: 5px 8px;
+    padding: 0;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.18);
 }
 
 .bottom-navigation button {
     flex: 1;
-    height: 60px;
+    height: 78px;
     margin: 0;
-    padding: 5px 2px;
+    padding: 7px 2px 5px;
     border: none;
+    border-radius: 0;
     background: transparent;
-    color: #667085;
+    color: #b9c3cc;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
-    border-radius: 10px;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: none;
 }
 
 .bottom-navigation button span {
-    font-size: 21px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
     line-height: 1;
 }
 
 .bottom-navigation button small {
-    font-size: 11px;
-    font-weight: 600;
-    color: #667085;
+    font-size: 13px;
+    line-height: 16px;
+    color: #b9c3cc;
+    font-weight: 500;
 }
 
 .bottom-navigation button.active {
-    color: #111827;
-    background: #f2f4f7;
+    color: #f1d400;
+    background: transparent;
 }
 
 .bottom-navigation button.active small {
-    color: #111827;
+    color: #f1d400;
+    font-weight: 600;
 }
 
+.bottom-navigation button.active span {
+    color: #f1d400;
+}
+
+/* Make the navigation comfortable on small phones */
+@media (max-width: 500px) {
+
+    .bottom-navigation {
+        height: 78px;
+    }
+
+    .bottom-navigation button {
+        height: 78px;
+    }
+
+    .bottom-navigation button span {
+        font-size: 27px;
+        width: 32px;
+        height: 32px;
+    }
+
+    .bottom-navigation button small {
+        font-size: 13px;
+    }
+}
+
+/* Keep website content above the navigation */
 #main-platform,
 #wallet-dashboard,
 #sell-dashboard,
 #account-dashboard {
     padding-bottom: 100px;
 }
-
+  
 
 
