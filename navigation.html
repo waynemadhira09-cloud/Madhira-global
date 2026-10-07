@@ -1,411 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Madhira Global Navigation</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            background: #07111F;
-            font-family: Arial, sans-serif;
-            color: white;
-        }
-
-        /* =========================
-           SIDE NAVIGATION
-        ========================= */
-
-        .madhira-side-nav {
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-
-            width: 105px;
-
-            background: #091827;
-            border-right: 1px solid #173A5C;
-
-            padding: 14px 8px 85px;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            gap: 9px;
-
-            overflow-y: auto;
-
-            z-index: 1000;
-        }
-
-        .madhira-side-nav::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        .madhira-side-nav::-webkit-scrollbar-thumb {
-            background: #1769AA;
-            border-radius: 10px;
-        }
-
-
-        /* =========================
-           SIDE BUTTONS
-        ========================= */
-
-        .side-nav-item {
-            width: 89px;
-            min-height: 70px;
-
-            padding: 8px 4px;
-
-            border: 1px solid #1B4B72;
-            border-radius: 12px;
-
-            background: #102A43;
-
-            color: white;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            text-decoration: none;
-
-            cursor: pointer;
-
-            transition:
-                transform 0.2s ease,
-                background 0.2s ease,
-                box-shadow 0.2s ease,
-                border 0.2s ease;
-        }
-
-
-        .side-nav-item span {
-            font-size: 28px;
-            line-height: 30px;
-        }
-
-
-        .side-nav-item small {
-            margin-top: 6px;
-
-            color: #FFFFFF;
-
-            font-size: 10px;
-            font-weight: 700;
-
-            text-align: center;
-            white-space: nowrap;
-        }
-
-
-        /* HOVER */
-
-        .side-nav-item:hover {
-            background: #0878D1;
-
-            border-color: #35B5FF;
-
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 5px 16px rgba(0, 126, 255, 0.25);
-        }
-
-
-        /* ACTIVE */
-
-        .side-nav-item.active {
-            background: linear-gradient(
-                145deg,
-                #0869B5,
-                #159DFF
-            );
-
-            border-color: #4CC0FF;
-
-            box-shadow:
-                0 0 18px rgba(25, 167, 255, 0.35);
-        }
-
-
-        /* =========================
-           VIP
-        ========================= */
-
-        .vip-nav {
-            background: linear-gradient(
-                145deg,
-                #4A3500,
-                #B47A00
-            );
-
-            border-color: #F5C542;
-
-            box-shadow:
-                0 0 12px rgba(245, 197, 66, 0.20);
-        }
-
-        .vip-nav small {
-            color: #FFE58A;
-        }
-
-
-        /* =========================
-           JACKPOT
-        ========================= */
-
-        .jackpot-nav {
-            background: linear-gradient(
-                145deg,
-                #102B48,
-                #155D91
-            );
-        }
-
-
-        /* =========================
-           AVIATOR
-        ========================= */
-
-        .aviator-nav {
-            min-height: 78px;
-
-            background: linear-gradient(
-                145deg,
-                #075EA8,
-                #12A8FF
-            );
-
-            border: 2px solid #54C7FF;
-
-            box-shadow:
-                0 0 20px rgba(18, 168, 255, 0.38);
-        }
-
-        .aviator-nav span {
-            font-size: 32px;
-        }
-
-        .aviator-nav small {
-            font-size: 11px;
-            font-weight: 900;
-            color: white;
-        }
-
-
-        /* =========================
-           BOTTOM NAVIGATION
-        ========================= */
-
-        .madhira-bottom-nav {
-            position: fixed;
-
-            left: 105px;
-            right: 0;
-            bottom: 0;
-
-            height: 78px;
-
-            background: #091827;
-
-            border-top: 1px solid #173A5C;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            gap: 10px;
-
-            padding: 7px 12px;
-
-            z-index: 1100;
-        }
-
-
-        .bottom-nav-item {
-            flex: 1;
-
-            max-width: 150px;
-
-            height: 62px;
-
-            border: 1px solid #1B4B72;
-            border-radius: 12px;
-
-            background: #102A43;
-
-            color: #B9CDE0;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            text-decoration: none;
-
-            cursor: pointer;
-
-            transition: 0.2s ease;
-        }
-
-
-        .bottom-nav-item span {
-            font-size: 25px;
-        }
-
-
-        .bottom-nav-item small {
-            margin-top: 4px;
-
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-
-        .bottom-nav-item:hover,
-        .bottom-nav-item.active {
-            background: #0878D1;
-
-            border-color: #35B5FF;
-
-            color: white;
-
-            box-shadow:
-                0 0 14px rgba(25, 167, 255, 0.25);
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 600px) {
-
-            .madhira-side-nav {
-                width: 96px;
-                padding-left: 6px;
-                padding-right: 6px;
-            }
-
-            .side-nav-item {
-                width: 84px;
-                min-height: 68px;
-            }
-
-            .side-nav-item span {
-                font-size: 27px;
-            }
-
-            .side-nav-item small {
-                font-size: 9px;
-            }
-
-            .aviator-nav {
-                min-height: 76px;
-            }
-
-            .madhira-bottom-nav {
-                left: 96px;
-                height: 72px;
-
-                gap: 6px;
-                padding: 6px;
-            }
-
-            .bottom-nav-item {
-                height: 58px;
-            }
-
-            .bottom-nav-item span {
-                font-size: 22px;
-            }
-
-            .bottom-nav-item small {
-                font-size: 8px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- =========================
-         MADHIRA SIDE NAVIGATION
-    ========================= -->
-
-    <nav class="madhira-side-nav">
-
-        <a href="#" class="side-nav-item vip-nav">
-            <span>👑</span>
-            <small>VIP</small>
-        </a>
-
-        <a href="#" class="side-nav-item jackpot-nav">
-            <span>🏆</span>
-            <small>MADHIRA<br>JACKPOT</small>
-        </a>
-
-        <a href="#" class="side-nav-item">
-            <span>⚽</span>
-            <small>SPORTS</small>
-        </a>
-
-        <a href="#" class="side-nav-item active">
-            <span>🎮</span>
-            <small>GAMES</small>
-        </a>
-
-        <a href="#" class="side-nav-item aviator-nav">
-            <span>✈️</span>
-            <small>AVIATOR</small>
-        </a>
-
-        <a href="#" class="side-nav-item">
-            <span>🃏</span>
-            <small>PLINKO</small>
-        </a>
-
-        <a href="#" class="side-nav-item">
-            <span>🎲</span>
-            <small>DICE</small>
-        </a>
-
-        <a href="#" class="side-nav-item">
-            <span>💣</span>
-            <small>MINES</small>
-        </a>
-
-        <a href="#" class="side-nav-item">
-            <span>🎮</span>
-            <small>ALL GAMES</small>
-        </a>
-
-        <a href="#" class="side-nav-item">
-            <span>🔥</span>
-            <small>POPULAR</small>
-        </a>
-
-    </nav>
-
-
-    <!-- =========================
-         MADHIRA BOTTOM NAVIGATION
-    ========================= -->
-
-    <nav class="madhira-bottom-nav">
+<nav class="madhira-side-nav">
+
+    <a href="#" class="side-nav-item vip-nav">
+        <span>👑</span>
+        <small>VIP</small>
+    </a>
+
+    <a href="#" class="side-nav-item jackpot-nav">
+        <span>🏆</span>
+        <small>MADHIRA<br>JACKPOT</small>
+    </a>
+
+    <a href="#" class="side-nav-item">
+        <span>⚽</span>
+        <small>SPORTS</small>
+    </a>
+
+    <a href="#" class="side-nav-item active">
+        <span>🎮</span>
+        <small>GAMES</small>
+    </a>
+
+    <a href="#" class="side-nav-item aviator-nav">
+        <span>✈️</span>
+        <small>AVIATOR</small>
+    </a>
+
+    <a href="#" class="side-nav-item">
+        <span>🃏</span>
+        <small>PLINKO</small>
+    </a>
+
+    <a href="#" class="side-nav-item">
+        <span>🎲</span>
+        <small>DICE</small>
+    </a>
+
+    <a href="#" class="side-nav-item">
+        <span>💣</span>
+        <small>MINES</small>
+    </a>
+
+    <a href="#" class="side-nav-item">
+        <span>🎮</span>
+        <small>ALL GAMES</small>
+    </a>
+
+    <a href="#" class="side-nav-item">
+        <span>🔥</span>
+        <small>POPULAR</small>
+    </a>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <div class="madhira-bottom-nav">
 
         <a href="#" class="bottom-nav-item">
             <span>☰</span>
@@ -432,10 +80,321 @@
             <small>ACCOUNT</small>
         </a>
 
-    </nav>
+    </div>
 
-</body>
-</html>
+</nav>
 
 
+
+2. Your CSS file
+
+
+Add this at the very bottom of your existing CSS:
+
+
+:::writing{variant="document" id="91364" title="Madhira Navigation CSS"}
+
+
+/* =========================================
+   MADHIRA GLOBAL SIDE NAVIGATION
+========================================= */
+
+.madhira-side-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 105px;
+
+    background: #071827;
+    border-right: 1px solid #17466D;
+
+    padding: 15px 8px 95px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 9px;
+
+    overflow-y: auto;
+
+    z-index: 1000;
+}
+
+
+/* SIDE BUTTON */
+
+.side-nav-item {
+    width: 89px;
+    min-height: 70px;
+
+    border-radius: 13px;
+    border: 1px solid #1C527C;
+
+    background: #102B43;
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+
+/* ICON */
+
+.side-nav-item span {
+    font-size: 28px;
+    line-height: 30px;
+}
+
+
+/* LABEL */
+
+.side-nav-item small {
+    margin-top: 6px;
+
+    color: white;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-align: center;
+}
+
+
+/* HOVER */
+
+.side-nav-item:hover {
+    background: #0878D1;
+    border-color: #39B8FF;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 15px rgba(8,120,209,0.35);
+}
+
+
+/* ACTIVE */
+
+.side-nav-item.active {
+    background: linear-gradient(
+        145deg,
+        #0768B5,
+        #16A5FF
+    );
+
+    border-color: #55C8FF;
+
+    box-shadow: 0 0 18px rgba(25,167,255,0.35);
+}
+
+
+/* VIP */
+
+.vip-nav {
+    background: linear-gradient(
+        145deg,
+        #513A00,
+        #B98200
+    );
+
+    border-color: #F5C542;
+}
+
+.vip-nav small {
+    color: #FFE58A;
+}
+
+
+/* JACKPOT */
+
+.jackpot-nav {
+    background: linear-gradient(
+        145deg,
+        #102D4A,
+        #17669D
+    );
+}
+
+
+/* AVIATOR */
+
+.aviator-nav {
+    min-height: 78px;
+
+    background: linear-gradient(
+        145deg,
+        #075EA8,
+        #12A8FF
+    );
+
+    border: 2px solid #55C9FF;
+
+    box-shadow:
+        0 0 20px rgba(18,168,255,0.40);
+}
+
+.aviator-nav span {
+    font-size: 33px;
+}
+
+.aviator-nav small {
+    font-size: 11px;
+    font-weight: 900;
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+========================================= */
+
+.madhira-bottom-nav {
+    position: fixed;
+
+    left: 105px;
+    right: 0;
+    bottom: 0;
+
+    height: 78px;
+
+    background: #071827;
+
+    border-top: 1px solid #17466D;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 7px 12px;
+
+    z-index: 1100;
+}
+
+
+/* BOTTOM BUTTON */
+
+.bottom-nav-item {
+    flex: 1;
+
+    max-width: 150px;
+    height: 62px;
+
+    border-radius: 13px;
+    border: 1px solid #1C527C;
+
+    background: #102B43;
+
+    color: #B7CCE0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+
+/* BOTTOM ICON */
+
+.bottom-nav-item span {
+    font-size: 25px;
+}
+
+
+/* BOTTOM LABEL */
+
+.bottom-nav-item small {
+    margin-top: 4px;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+
+/* ACTIVE BOTTOM */
+
+.bottom-nav-item.active {
+    background: #0878D1;
+
+    border-color: #3DBBFF;
+
+    color: white;
+
+    box-shadow:
+        0 0 14px rgba(25,167,255,0.30);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .madhira-side-nav {
+        width: 96px;
+
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    .side-nav-item {
+        width: 84px;
+        min-height: 68px;
+    }
+
+    .side-nav-item span {
+        font-size: 27px;
+    }
+
+    .side-nav-item small {
+        font-size: 9px;
+    }
+
+    .aviator-nav {
+        min-height: 76px;
+    }
+
+    .madhira-bottom-nav {
+        left: 96px;
+
+        height: 72px;
+
+        gap: 6px;
+
+        padding: 6px;
+    }
+
+    .bottom-nav-item {
+        height: 58px;
+    }
+
+    .bottom-nav-item span {
+        font-size: 22px;
+    }
+
+    .bottom-nav-item small {
+        font-size: 8px;
+    }
+}
+
+
+
+Important: don't paste the CSS into navigation.html. Put it in your existing CSS file.
+
+
+After saving both files, we'll do the next step: connect navigation.html to your main index.html so the navigation actually appears on your Madhira Global site.
 
