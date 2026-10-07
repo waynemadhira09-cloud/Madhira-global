@@ -930,3 +930,18 @@ body > * {
         padding-left: 75px;
     }
 }
+/* AVIATOR HIGHLIGHT */
+.aviator-nav {
+    background: linear-gradient(135deg, #0878D1, #19A7FF);
+    box-shadow: 0 0 12px rgba(25, 167, 255, 0.35);
+}
+
+.aviator-nav span {
+    font-size: 26px;
+}
+
+.aviator-nav small {
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 9px;
+}
