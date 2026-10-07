@@ -4478,17 +4478,8 @@ return div.innerHTML;
     <a href="games.html"class="home-games-button">
     🎮 Games
     </a>
-    <div id="madhira-navigation"></div>
-    <script>
-fetch("navigation.html")
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById("madhira-navigation").innerHTML = data;
-    })
-    .catch(error => {
-        console.error("Navigation failed to load:", error);
-    });
-    </script>
+        <script src="sidebar.js"></script>
+
 </body>
 
 </html>  
