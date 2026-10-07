@@ -810,3 +810,20 @@ body > * {
     margin: 7px 0;
     color: #d1d5db;
 }
+.madhira-games-link {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #2b6cb0;
+    color: white;
+
+    padding: 12px 25px;
+    border-radius: 25px;
+
+    text-decoration: none;
+    font-weight: bold;
+
+    z-index: 9999;
+}
