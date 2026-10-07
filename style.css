@@ -827,4 +827,23 @@ body > * {
 
     z-index: 9999;
 }
+.home-games-button {
+    display: inline-block;
+    padding: 15px 40px;
+    margin-top: 20px;
+
+    background: #0759a8;
+    color: white;
+
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.home-games-button:hover {
+    transform: scale(1.05);
+}
 
