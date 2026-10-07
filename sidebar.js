@@ -1,23 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Get the current file name from the URL
+    // Get the current file name from the URL path
     const currentFile = window.location.pathname.split("/").pop() || "index.html";
 
-    // 1. LIST YOUR SIGN-IN / SIGN-UP FILENAMES HERE TO EXCLUDE THEM
-    const excludedPages = ["signin.html", "signup.html", "login.html", "register.html"];
+    // 1. BLOCKED PAGES: The navbar will NOT appear on your sign-in / landing page
+    const excludedPages = ["index.html"];
 
-    // If the current page is one of the excluded files, stop the script entirely
     if (excludedPages.includes(currentFile)) {
-        return; 
+        return; // Stops the script immediately on index.html
     }
 
-    // 2. Create the navigation container element (Only runs if NOT on an excluded page)
+    // 2. Create the navigation container element (Only runs after signing in)
     const bottomNav = document.createElement("nav");
     bottomNav.className = "bottom-nav";
 
-    // Navigation configuration to exactly match your app layout reference
+    // Navigation configuration matching your exact app layout structure
+    // Note: Change "dashboard.html" to whatever page the user sees right after signing in
     const navItems = [
         { name: "Menu", url: "menu.html", icon: "☰" },
-        { name: "Lobby", url: "index.html", icon: "🏠" },
+        { name: "Lobby", url: "dashboard.html", icon: "🏠" }, 
         { name: "Deposit", url: "deposit.html", icon: "⬇️", badge: "3%" },
         { name: "Promo", url: "promo.html", icon: "⭐" },
         { name: "Account", url: "account.html", icon: "👤" }
@@ -63,4 +63,3 @@ document.addEventListener("DOMContentLoaded", () => {
     // Apply baseline buffer margin to body automatically to secure site scrolling readability
     document.body.style.paddingBottom = "60px";
 });
-
