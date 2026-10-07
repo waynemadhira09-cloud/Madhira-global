@@ -918,3 +918,15 @@ body > * {
     font-weight: bold;
     }
 
+/* SPACE FOR MADHIRA SIDE NAVIGATION */
+@media (min-width: 601px) {
+    body {
+        padding-left: 75px;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding-left: 75px;
+    }
+}
