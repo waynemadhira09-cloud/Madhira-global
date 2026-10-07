@@ -827,3 +827,19 @@ body > * {
 
     z-index: 9999;
 }
+.madhira-games-link {
+    display: inline-block;
+    padding: 14px 35px;
+    background: #168aad;
+    color: white;
+    text-decoration: none;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.madhira-games-link:hover {
+    transform: scale(1.05);
+}
