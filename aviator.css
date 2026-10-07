@@ -1,0 +1,649 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #080d18;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.aviator-container {
+    width: 100%;
+    max-width: 650px;
+    margin: auto;
+    padding: 10px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.top-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 0 12px;
+}
+
+.back-button {
+    border: none;
+    background: #17243a;
+    color: white;
+    padding: 10px 13px;
+    border-radius: 9px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.logo {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.logo span {
+    letter-spacing: 1px;
+}
+
+.balance-box {
+    background: #131d30;
+    padding: 7px 10px;
+    border-radius: 9px;
+    text-align: right;
+}
+
+.balance-box span {
+    display: block;
+    color: #8fa0b9;
+    font-size: 10px;
+}
+
+.balance-box strong {
+    font-size: 14px;
+}
+
+
+/* =========================
+   MULTIPLIER HISTORY
+========================= */
+
+.history-bar {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 7px 2px;
+    margin-bottom: 8px;
+}
+
+.history-bar span {
+    flex-shrink: 0;
+    background: #18253a;
+    border-radius: 15px;
+    padding: 6px 11px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   GAME AREA
+========================= */
+
+.game-area {
+    position: relative;
+    height: 390px;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid #1e3557;
+
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            #142d50 0%,
+            #0b1930 45%,
+            #060b15 100%
+        );
+}
+
+
+/* STARS */
+
+.game-area::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        radial-gradient(circle, white 1px, transparent 2px);
+
+    background-size: 55px 55px;
+    opacity: 0.25;
+}
+
+
+/* CLOUDS */
+
+.cloud {
+    position: absolute;
+    opacity: 0.08;
+    font-size: 60px;
+}
+
+.cloud-one {
+    top: 70px;
+    left: 5%;
+}
+
+.cloud-two {
+    top: 160px;
+    right: 5%;
+}
+
+.cloud-three {
+    top: 270px;
+    left: 35%;
+}
+
+
+/* LIVE LABEL */
+
+.live-label {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    color: #8fa0b9;
+    font-size: 11px;
+    font-weight: bold;
+
+    z-index: 4;
+}
+
+
+/* MULTIPLIER */
+
+.multiplier {
+    position: absolute;
+
+    top: 125px;
+    left: 0;
+    right: 0;
+
+    text-align: center;
+
+    font-size: 56px;
+    font-weight: bold;
+
+    z-index: 5;
+
+    text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+
+
+/* CRASHED */
+
+.crashed-text {
+    position: absolute;
+
+    top: 205px;
+    left: 0;
+    right: 0;
+
+    text-align: center;
+
+    font-size: 25px;
+    font-weight: bold;
+
+    display: none;
+
+    z-index: 6;
+}
+
+
+/* FLIGHT PATH */
+
+.flight-path {
+    position: absolute;
+
+    width: 800px;
+    height: 500px;
+
+    left: -570px;
+    bottom: -430px;
+
+    border-top: 4px solid #e63946;
+    border-right: 4px solid #e63946;
+
+    border-radius: 0 100% 0 0;
+
+    transform: rotate(-10deg);
+
+    opacity: 0;
+
+    z-index: 2;
+}
+
+
+/* PLANE */
+
+.plane {
+    position: absolute;
+
+    left: 8%;
+    bottom: 35px;
+
+    font-size: 38px;
+
+    z-index: 7;
+
+    opacity: 0;
+    transform: rotate(-15deg);
+}
+
+
+/* GAME MESSAGE */
+
+.game-message {
+    position: absolute;
+
+    bottom: 18px;
+    left: 0;
+    right: 0;
+
+    text-align: center;
+
+    color: #9eacc0;
+    font-size: 12px;
+
+    z-index: 8;
+}
+
+
+/* =========================
+   FLYING ANIMATION
+========================= */
+
+.game-area.flying .plane {
+    opacity: 1;
+    animation: flyPlane 8s linear forwards;
+}
+
+.game-area.flying .flight-path {
+    opacity: 0.8;
+    animation: growPath 8s linear forwards;
+}
+
+@keyframes flyPlane {
+
+    0% {
+        left: 8%;
+        bottom: 35px;
+        transform: rotate(-10deg);
+    }
+
+    25% {
+        left: 28%;
+        bottom: 70px;
+        transform: rotate(-15deg);
+    }
+
+    50% {
+        left: 48%;
+        bottom: 130px;
+        transform: rotate(-20deg);
+    }
+
+    75% {
+        left: 68%;
+        bottom: 210px;
+        transform: rotate(-25deg);
+    }
+
+    100% {
+        left: 87%;
+        bottom: 300px;
+        transform: rotate(-30deg);
+    }
+}
+
+@keyframes growPath {
+
+    0% {
+        transform: rotate(-10deg) scaleX(0.2);
+    }
+
+    100% {
+        transform: rotate(-10deg) scaleX(1);
+    }
+}
+
+
+/* =========================
+   BET PANEL
+========================= */
+
+.bet-panel {
+    margin-top: 10px;
+    background: #111a2b;
+    border-radius: 15px;
+    padding: 13px;
+}
+
+.bet-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.bet-tab {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    background: #1a2940;
+    color: #9eacc0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.bet-tab.active {
+    background: #0759a8;
+    color: white;
+}
+
+
+/* AMOUNT */
+
+.amount-area label {
+    display: block;
+    margin-bottom: 7px;
+    color: #9eacc0;
+    font-size: 12px;
+}
+
+.amount-input {
+    display: flex;
+    background: #1a2940;
+    border-radius: 9px;
+    overflow: hidden;
+}
+
+.amount-input button {
+    width: 42px;
+    border: none;
+    background: #223451;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.amount-input input {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* QUICK BUTTONS */
+
+.quick-buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-top: 9px;
+}
+
+.quick-buttons button {
+    border: none;
+    background: #1c2b43;
+    color: white;
+    padding: 9px 2px;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* AUTO CASHOUT */
+
+.auto-cashout {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 12px;
+    padding: 9px;
+    background: #17243a;
+    border-radius: 8px;
+}
+
+.auto-cashout label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    flex: 1;
+}
+
+.auto-cashout input[type="number"] {
+    width: 70px;
+    background: #0d1626;
+    border: 1px solid #29405f;
+    border-radius: 6px;
+    color: white;
+    padding: 7px;
+    text-align: center;
+}
+
+.auto-cashout span {
+    font-weight: bold;
+}
+
+
+/* ACTION BUTTONS */
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.bet-button,
+.cashout-button {
+    border: none;
+    padding: 15px 5px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.bet-button {
+    background: #168aad;
+}
+
+.cashout-button {
+    background: #c62828;
+}
+
+.cashout-button:disabled,
+.bet-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   CURRENT
+========================= */
+
+.current-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.current-card {
+    background: #111a2b;
+    padding: 12px;
+    border-radius: 11px;
+}
+
+.current-card span {
+    display: block;
+    color: #8998ad;
+    font-size: 11px;
+}
+
+.current-card strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 17px;
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.result {
+    margin-top: 10px;
+    padding: 13px;
+    background: #111a2b;
+    border-radius: 11px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   PLAYERS
+========================= */
+
+.players-section,
+.game-history {
+    margin-top: 10px;
+    background: #111a2b;
+    padding: 13px;
+    border-radius: 13px;
+}
+
+.players-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.players-header h2,
+.game-history h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.players-header span {
+    color: #8796aa;
+    font-size: 11px;
+}
+
+.player-row,
+.history-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 7px;
+    padding: 10px;
+
+    background: #19273d;
+    border-radius: 8px;
+
+    font-size: 12px;
+}
+
+.player-name {
+    color: #dce4ee;
+}
+
+.player-amount {
+    font-weight: bold;
+}
+
+.history-row strong {
+    font-size: 12px;
+}
+
+.empty-players,
+.empty-history {
+    color: #738196;
+    text-align: center;
+    padding: 15px;
+    font-size: 12px;
+}
+
+
+/* =========================
+   WARNING
+========================= */
+
+.virtual-warning {
+    text-align: center;
+    color: #69788d;
+    font-size: 9px;
+    padding: 15px 0 8px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 450px) {
+
+    .aviator-container {
+        padding: 7px;
+    }
+
+    .logo {
+        font-size: 14px;
+    }
+
+    .balance-box {
+        padding: 6px 8px;
+    }
+
+    .game-area {
+        height: 360px;
+    }
+
+    .multiplier {
+        top: 115px;
+        font-size: 48px;
+    }
+
+    .plane {
+        font-size: 32px;
+    }
+
+    .quick-buttons button {
+        font-size: 11px;
+    }
+
+    .action-buttons button {
+        font-size: 14px;
+    }
+  }
