@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Madhira Plinko</title>
+
+    <link rel="stylesheet" href="plinko.css">
+</head>
+
+<body>
+
+<div class="plinko-container">
+
+    <header class="plinko-header">
+        <button class="back-button" onclick="window.location.href='games.html'">
+            ← Games
+        </button>
+
+        <h1>🃏 Plinko</h1>
+
+        <div class="virtual-balance">
+            Virtual Credits:
+            <strong id="balance">1000</strong>
+        </div>
+    </header>
+
+
+    <!-- PLINKO BOARD -->
+
+    <div class="plinko-board" id="plinko-board">
+
+        <div class="multiplier-row">
+            <div>0.5x</div>
+            <div>1x</div>
+            <div>2x</div>
+            <div>5x</div>
+            <div>10x</div>
+            <div>5x</div>
+            <div>2x</div>
+            <div>1x</div>
+            <div>0.5x</div>
+        </div>
+
+    </div>
+
+
+    <!-- CONTROLS -->
+
+    <div class="controls">
+
+        <label for="bet">
+            Bet Amount
+        </label>
+
+        <input
+            type="number"
+            id="bet"
+            value="10"
+            min="1"
+        >
+
+        <button
+            type="button"
+            id="drop-button"
+            onclick="dropBall()"
+        >
+            DROP BALL
+        </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div
+        class="result"
+        id="result"
+    >
+        Choose your bet and drop the ball.
+    </div>
+
+
+    <!-- HISTORY -->
+
+    <div class="history">
+
+        <h2>Game History</h2>
+
+        <div id="history-list">
+            No games yet.
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let balance = 1000;
+let gameRunning = false;
+
+
+/* =========================
+   DROP BALL
+========================= */
+
+function dropBall() {
+
+    if (gameRunning) {
+        return;
+    }
+
+    const betInput = document.getElementById("bet");
+    const bet = Number(betInput.value);
+
+    if (!bet || bet <= 0) {
+
+        document.getElementById("result").textContent =
+            "Enter a valid bet amount.";
+
+        return;
+    }
+
+    if (bet > balance) {
+
+        document.getElementById("result").textContent =
+            "Not enough virtual credits.";
+
+        return;
+    }
+
+    gameRunning = true;
+
+    balance -= bet;
+
+    updateBalance();
+
+    const board = document.getElementById("plinko-board");
+
+    const ball = document.createElement("div");
+
+    ball.className = "plinko-ball";
+
+    ball.textContent = "●";
+
+    board.appendChild(ball);
+
+
+    /*
+       Random multiplier for the
+       virtual-credit game.
+    */
+
+    const multipliers = [
+        0.5,
+        1,
+        2,
+        5,
+        10,
+        5,
+        2,
+        1,
+        0.5
+    ];
+
+    const multiplier =
+        multipliers[
+            Math.floor(
+                Math.random() * multipliers.length
+            )
+        ];
+
+
+    const winnings = bet * multiplier;
+
+
+    setTimeout(function() {
+
+        balance += winnings;
+
+        updateBalance();
+
+        document.getElementById("result").textContent =
+            "Result: " +
+            multiplier +
+            "x — You received " +
+            winnings +
+            " credits.";
+
+
+        addHistory(
+            bet,
+            multiplier,
+            winnings
+        );
+
+
+        ball.remove();
+
+        gameRunning = false;
+
+    }, 1800);
+
+}
+
+
+/* =========================
+   UPDATE BALANCE
+========================= */
+
+function updateBalance() {
+
+    document.getElementById("balance").textContent =
+        balance.toFixed(2);
+
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function addHistory(
+    bet,
+    multiplier,
+    winnings
+) {
+
+    const history =
+        document.getElementById("history-list");
+
+
+    if (
+        history.textContent ===
+        "No games yet."
+    ) {
+
+        history.innerHTML = "";
+
+    }
+
+
+    const item =
+        document.createElement("div");
+
+
+    item.className =
+        "history-item";
+
+
+    item.textContent =
+        "Bet " +
+        bet +
+        " → " +
+        multiplier +
+        "x → " +
+        winnings +
+        " credits";
+
+
+    history.prepend(item);
+
+}
+
+</script>
+
+</body>
+</html>
+
+
