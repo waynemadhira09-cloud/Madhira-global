@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,68 @@
     <title>Madhira Games</title>
 
     <link rel="stylesheet" href="games.css">
+
+    <style>
+        /* =========================
+           BIG BLUE GAME BUTTONS
+        ========================== */
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .game-card {
+            width: 100%;
+            min-height: 170px;
+            padding: 25px 20px;
+
+            background: #1565d8;
+            border: none;
+            border-radius: 22px;
+
+            color: white;
+            text-align: center;
+
+            cursor: pointer;
+
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .game-card:hover {
+            background: #1976e8;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-card:active {
+            transform: scale(0.98);
+        }
+
+        .game-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .game-card h2 {
+            margin: 5px 0 8px;
+            font-size: 25px;
+            color: white;
+        }
+
+        .game-card p {
+            margin: 0;
+            font-size: 14px;
+            color: #e8f1ff;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,7 +85,7 @@
         <h1>🎮 Madhira Games</h1>
 
         <p class="subtitle">
-            Choose a game
+            play a game of ur choice
         </p>
 
 
@@ -267,3 +330,4 @@ function comingSoon(gameName) {
 
 </body>
 </html>
+```
