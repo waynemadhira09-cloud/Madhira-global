@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Madhira Aviator</title>
+
+    <link rel="stylesheet" href="aviator.css">
+</head>
+
+<body>
+
+<div class="aviator-container">
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="window.location.href='games.html'"
+        >
+            ← Games
+        </button>
+
+        <div class="logo">
+            ✈️ <span>MADHIRA</span>
+        </div>
+
+        <div class="balance-box">
+            <span>Balance</span>
+            <strong id="balance">1000.00</strong>
+        </div>
+
+    </header>
+
+
+    <!-- MULTIPLIER HISTORY -->
+
+    <div class="history-bar" id="multiplier-history">
+
+        <span>1.45x</span>
+        <span>2.18x</span>
+        <span>1.07x</span>
+        <span>5.24x</span>
+        <span>1.32x</span>
+
+    </div>
+
+
+    <!-- GAME -->
+
+    <section class="game-area" id="game-area">
+
+        <div class="cloud cloud-one">☁</div>
+        <div class="cloud cloud-two">☁</div>
+        <div class="cloud cloud-three">☁</div>
+
+        <div class="live-label" id="live-label">
+            WAITING FOR NEXT ROUND
+        </div>
+
+        <div
+            class="multiplier"
+            id="multiplier"
+        >
+            1.00x
+        </div>
+
+        <div
+            class="crashed-text"
+            id="crashed-text"
+        >
+            CRASHED
+        </div>
+
+        <div class="flight-path" id="flight-path"></div>
+
+        <div
+            class="plane"
+            id="plane"
+        >
+            ✈️
+        </div>
+
+        <div
+            class="game-message"
+            id="game-message"
+        >
+            Place your bet
+        </div>
+
+    </section>
+
+
+    <!-- BET PANEL -->
+
+    <section class="bet-panel">
+
+        <div class="bet-tabs">
+
+            <button
+                type="button"
+                class="bet-tab active"
+                id="manual-tab"
+                onclick="setMode('manual')"
+            >
+                Manual
+            </button>
+
+            <button
+                type="button"
+                class="bet-tab"
+                id="auto-tab"
+                onclick="setMode('auto')"
+            >
+                Auto
+            </button>
+
+        </div>
+
+
+        <div class="bet-row">
+
+            <div class="amount-area">
+
+                <label for="bet-amount">
+                    Bet Amount
+                </label>
+
+                <div class="amount-input">
+
+                    <button
+                        type="button"
+                        onclick="changeBet(-10)"
+                    >
+                        −
+                    </button>
+
+                    <input
+                        type="number"
+                        id="bet-amount"
+                        value="10"
+                        min="1"
+                        step="1"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="changeBet(10)"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUICK AMOUNTS -->
+
+        <div class="quick-buttons">
+
+            <button type="button" onclick="setBet(10)">
+                10
+            </button>
+
+            <button type="button" onclick="setBet(50)">
+                50
+            </button>
+
+            <button type="button" onclick="setBet(100)">
+                100
+            </button>
+
+            <button type="button" onclick="setBet(250)">
+                250
+            </button>
+
+            <button type="button" onclick="setBet(500)">
+                500
+            </button>
+
+        </div>
+
+
+        <!-- AUTO CASHOUT -->
+
+        <div
+            class="auto-cashout"
+            id="auto-cashout"
+        >
+
+            <label>
+                <input
+                    type="checkbox"
+                    id="auto-cashout-check"
+                >
+
+                Auto Cash Out
+            </label>
+
+            <input
+                type="number"
+                id="auto-value"
+                value="2"
+                min="1.01"
+                step="0.01"
+            >
+
+            <span>x</span>
+
+        </div>
+
+
+        <!-- MAIN BUTTONS -->
+
+        <div class="action-buttons">
+
+            <button
+                type="button"
+                class="bet-button"
+                id="bet-button"
+                onclick="placeBet()"
+            >
+                BET
+            </button>
+
+            <button
+                type="button"
+                class="cashout-button"
+                id="cashout-button"
+                onclick="cashOut()"
+                disabled
+            >
+                CASH OUT
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- CURRENT BET -->
+
+    <section class="current-section">
+
+        <div class="current-card">
+
+            <span>Current Bet</span>
+
+            <strong id="current-bet">
+                0.00
+            </strong>
+
+        </div>
+
+        <div class="current-card">
+
+            <span>Potential Win</span>
+
+            <strong id="potential-win">
+                0.00
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESULT -->
+
+    <div
+        class="result"
+        id="result"
+    >
+        Virtual Credits Only
+    </div>
+
+
+    <!-- PLAYERS -->
+
+    <section class="players-section">
+
+        <div class="players-header">
+
+            <h2>Current Bets</h2>
+
+            <span id="players-count">
+                0 Players
+            </span>
+
+        </div>
+
+        <div id="players-list">
+
+            <div class="empty-players">
+                Waiting for players...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GAME HISTORY -->
+
+    <section class="game-history">
+
+        <h2>Game History</h2>
+
+        <div id="game-history-list">
+
+            <div class="empty-history">
+                No completed games yet.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="virtual-warning">
+        VIRTUAL CREDITS ONLY — NO REAL MONEY
+    </div>
+
+</div>
+
+
+<script src="aviator.js"></script>
+
+</body>
+  </html>
