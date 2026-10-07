@@ -2,39 +2,38 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get the current file name from the URL path
     const currentFile = window.location.pathname.split("/").pop() || "index.html";
 
-    // 1. BLOCKED PAGES: The navbar will NOT appear on your sign-in / landing page
+    // 1. BLOCKED PAGES: The navbar will NOT appear on your index.html sign-in page
     const excludedPages = ["index.html"];
 
     if (excludedPages.includes(currentFile)) {
-        return; // Stops the script immediately on index.html
+        return; // Stops execution immediately if on index.html
     }
 
-    // 2. Create the navigation container element (Only runs after signing in)
+    // 2. Create the navigation container element
     const bottomNav = document.createElement("nav");
     bottomNav.className = "bottom-nav";
 
-    // Navigation configuration matching your exact app layout structure
-    // Note: Change "dashboard.html" to whatever page the user sees right after signing in
+    // 3. Navigation setup mapped exactly to your project files
     const navItems = [
-        { name: "Menu", url: "menu.html", icon: "☰" },
-        { name: "Lobby", url: "dashboard.html", icon: "🏠" }, 
-        { name: "Deposit", url: "deposit.html", icon: "⬇️", badge: "3%" },
-        { name: "Promo", url: "promo.html", icon: "⭐" },
-        { name: "Account", url: "account.html", icon: "👤" }
+        { name: "Menu", url: "navigation.html", icon: "☰" },
+        { name: "Lobby", url: "games.html", icon: "🏠" }, 
+        { name: "Deposit", url: "games.html", icon: "⬇️", badge: "3%" }, // Change destination if you create a deposit page later
+        { name: "Promo", url: "games.html", icon: "⭐" },
+        { name: "Account", url: "games.html", icon: "👤" }
     ];
 
-    // Loop through structural items to build the visual nodes dynamically
+    // Loop through links to build out the button nodes dynamically
     navItems.forEach(item => {
         const link = document.createElement("a");
         link.href = item.url;
         link.className = "nav-item";
 
-        // Auto-assign active selection styling to match target context file
+        // Highlight the current active tab
         if (currentFile === item.url) {
             link.classList.add("active");
         }
 
-        // Generate the Red Notification Overlay Badge component if true
+        // Generate the 3% badge overlay on the deposit link
         if (item.badge) {
             const badgeDiv = document.createElement("div");
             badgeDiv.className = "badge";
@@ -42,13 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
             link.appendChild(badgeDiv);
         }
 
-        // Icon display layer
+        // Icon element layer
         const iconSpan = document.createElement("span");
         iconSpan.className = "nav-icon";
         iconSpan.textContent = item.icon;
         link.appendChild(iconSpan);
 
-        // Core text layout layer
+        // Text label layer
         const labelSpan = document.createElement("span");
         labelSpan.className = "nav-label";
         labelSpan.textContent = item.name;
@@ -57,9 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
         bottomNav.appendChild(link);
     });
 
-    // Final DOM attachment interface execution
-    document.body.appendChild(bottomNav);
+    // 4. Injects the navbar inside the body element right before the </body> tag
+    document.body.insertAdjacentElement('beforeend', bottomNav);
 
-    // Apply baseline buffer margin to body automatically to secure site scrolling readability
+    // Add safe margin spacing to your body layouts so content doesn't get covered up
     document.body.style.paddingBottom = "60px";
 });
