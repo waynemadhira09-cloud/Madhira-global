@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madhira Games</title>
+
+    <link rel="stylesheet" href="games.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🎮 Madhira Games</h1>
+        <p class="subtitle">Choose a game</p>
+
+        <div class="games">
+
+            <button class="game-card" onclick="openAviator()">
+                <span class="icon">✈️</span>
+                <strong>Aviator</strong>
+                <small>Play with virtual credits</small>
+            </button>
+
+            <button class="game-card" onclick="comingSoon('Dice')">
+                <span class="icon">🎲</span>
+                <strong>Dice</strong>
+                <small>Coming soon</small>
+            </button>
+
+            <button class="game-card" onclick="comingSoon('Mines')">
+                <span class="icon">💣</span>
+                <strong>Mines</strong>
+                <small>Coming soon</small>
+            </button>
+
+            <button class="game-card" onclick="comingSoon('Plinko')">
+                <span class="icon">🔴</span>
+                <strong>Plinko</strong>
+                <small>Coming soon</small>
+            </button>
+
+        </div>
+
+        <div id="aviator" class="aviator">
+
+            <button class="back" onclick="closeAviator()">← Back</button>
+
+            <h2>✈️ Aviator</h2>
+
+            <div class="demo">VIRTUAL CREDITS ONLY</div>
+
+            <div class="screen">
+
+                <div id="multiplier">1.00x</div>
+
+                <div id="plane">✈️</div>
+
+                <div id="status">Ready</div>
+
+            </div>
+
+            <div class="balance">
+                Virtual Balance:
+                <strong id="balance">1000.00</strong>
+            </div>
+
+            <label>Bet amount</label>
+
+            <input
+                id="bet"
+                type="number"
+                min="1"
+                value="10"
+            >
+
+            <button
+                id="start"
+                onclick="startGame()">
+                🚀 Start Round
+            </button>
+
+            <button
+                id="cashout"
+                onclick="cashOut()"
+                disabled>
+                💰 Cash Out
+            </button>
+
+            <div id="result"></div>
+
+        </div>
+
+    </div>
+
+<script>
+
+let balance = 1000;
+let running = false;
+let interval = null;
+let multiplier = 1;
+let bet = 0;
+let crashPoint = 0;
+
+function updateBalance() {
+    document.getElementById("balance").textContent =
+        balance.toFixed(2);
+}
+
+function openAviator() {
+
+    document.querySelector(".games").style.display = "none";
+
+    document.querySelector(".subtitle").style.display = "none";
+
+    document.querySelector("h1").style.display = "none";
+
+    document.getElementById("aviator").style.display = "block";
+
+    updateBalance();
+}
+
+function closeAviator() {
+
+    if (interval) {
+        clearInterval(interval);
+    }
+
+    running = false;
+
+    document.getElementById("aviator").style.display = "none";
+
+    document.querySelector(".games").style.display = "grid";
+
+    document.querySelector(".subtitle").style.display = "block";
+
+    document.querySelector("h1").style.display = "block";
+
+    resetGame();
+}
+
+function comingSoon(name) {
+    alert(name + " is coming soon.");
+}
+
+function startGame() {
+
+    if (running) return;
+
+    bet = Number(document.getElementById("bet").value);
+
+    if (!Number.isFinite(bet) || bet < 1) {
+        alert("Enter a valid virtual credit amount.");
+        return;
+    }
+
+    if (bet > balance) {
+        alert("Not enough virtual credits.");
+        return;
+    }
+
+    balance -= bet;
+
+    updateBalance();
+
+    multiplier = 1;
+
+    crashPoint =
+        Number((Math.random() * 6 + 1.2).toFixed(2));
+
+    running = true;
+
+    document.getElementById("start").disabled = true;
+    document.getElementById("cashout").disabled = false;
+
+    document.getElementById("status").textContent =
+        "🚀 Flying...";
+
+    document.getElementById("result").textContent = "";
+
+    interval = setInterval(function() {
+
+        multiplier += 0.01;
+
+        document.getElementById("multiplier").textContent =
+            multiplier.toFixed(2) + "x";
+
+        let progress =
+            Math.min((multiplier - 1) / 6, 1);
+
+        let screen =
+            document.querySelector(".screen");
+
+        let maxX =
+            screen.clientWidth - 90;
+
+        let maxY =
+            screen.clientHeight - 120;
+
+        document.getElementById("plane").style.left =
+            (25 + progress * maxX) + "px";
+
+        document.getElementById("plane").style.bottom =
+            (30 + progress * maxY) + "px";
+
+        if (multiplier >= crashPoint) {
+            crash();
+        }
+
+    }, 100);
+}
+
+function crash() {
+
+    clearInterval(interval);
+
+    running = false;
+
+    document.getElementById("status").textContent =
+        "💥 Crashed";
+
+    document.getElementById("result").textContent =
+        "Crashed at " +
+        crashPoint.toFixed(2) +
+        "x";
+
+    document.getElementById("start").disabled = false;
+    document.getElementById("cashout").disabled = true;
+}
+
+function cashOut() {
+
+    if (!running) return;
+
+    clearInterval(interval);
+
+    running = false;
+
+    let winnings = bet * multiplier;
+
+    balance += winnings;
+
+    updateBalance();
+
+    document.getElementById("status").textContent =
+        "💰 Cashed Out";
+
+    document.getElementById("result").textContent =
+        "Cashed out at " +
+        multiplier.toFixed(2) +
+        "x — +" +
+        winnings.toFixed(2) +
+        " credits";
+
+    document.getElementById("start").disabled = false;
+    document.getElementById("cashout").disabled = true;
+}
+
+function resetGame() {
+
+    document.getElementById("multiplier").textContent =
+        "1.00x";
+
+    document.getElementById("status").textContent =
+        "Ready";
+
+    document.getElementById("result").textContent =
+        "";
+
+    document.getElementById("plane").style.left =
+        "25px";
+
+    document.getElementById("plane").style.bottom =
+        "30px";
+
+    document.getElementById("start").disabled = false;
+    document.getElementById("cashout").disabled = true;
+}
+
+</script>
+
+</body>
+</html>
