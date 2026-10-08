@@ -1,1 +1,97 @@
+/* ==========================================================================
+   COMPLETE BOTTOM NAVIGATION BAR CSS (Replicating Image Layout)
+   ========================================================================== */
+
+/* 1. Global Reset & Box Sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Removes flash on mobile click */
+}
+
+/* 2. Main Navigation Bar Container */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 62px;                  /* Precision height matching modern mobile bars */
+    background-color: #0b1a2d;     /* Deep dark blue primary background from your image */
+    display: flex;
+    justify-content: space-around; /* Spaces out all 5 buttons equally */
+    align-items: center;
+    border-top: 1px solid #142841; /* Subtle upper border separating navigation from page content */
+    z-index: 99999;                /* Ensures it floats above everything else on the screen */
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3); /* Slight dark shadow pulling it forward */
+}
+
+/* 3. Individual Navigation Link Structure */
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #8fa0b5;                /* Muted slate blue/gray color for non-active links */
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    position: relative;
+    flex: 1;
+    height: 100%;
+    transition: color 0.2s ease;
+}
+
+/* 4. FontAwesome Icon Customizations */
+.nav-item i {
+    font-size: 19px;               /* Sizing scale matched to standard web/mobile layout */
+    margin-bottom: 5px;            /* Precise spacing between the icon and text label */
+}
+
+/* 5. Active/Highlighted State (Applied to Menu and Account buttons in your screenshot) */
+.nav-item.active {
+    color: #f7ca18;                /* Vibrant, custom yellow color precisely matching the image highlight */
+}
+
+/* 6. Deposit Button Special Positioning Wrapper */
+.deposit-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* 7. The Red "3%" Deposit Promo Badge */
+.badge {
+    position: absolute;
+    top: -14px;                    /* Rises slightly above the icon just like the reference screenshot */
+    left: 50%;
+    transform: translateX(-50%);   /* Centers the badge perfectly over the deposit icon */
+    background-color: #e74c3c;     /* Bright, eye-catching red background color */
+    color: #ffffff;                /* Sharp white badge text */
+    font-size: 9px;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 4px;            /* Subtle modern rounding rather than a perfect circle */
+    line-height: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+/* 8. Small Red Triangle Underneath the Badge */
+.badge::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;                  /* Anchors triangle flush against the bottom edge */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px 4px 0;       /* Formulates a clean downward-pointing arrow symbol */
+    border-style: solid;
+    border-color: #e74c3c transparent;
+}
+
+/* 9. Safety Rule for Main Document Content */
+body {
+    padding-bottom: 62px !important; /* Prevents the bar from accidentally overlapping text elements */
+}
 
