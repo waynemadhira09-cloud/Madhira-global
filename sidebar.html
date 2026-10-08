@@ -1,0 +1,42 @@
+<!-- Keep your existing layout markup here. 
+     Just ensure your menu item matches the button tag style below: -->
+
+<button class="nav-btn" id="menuTriggerBtn">
+  <i class="fa-solid fa-bars"></i>
+  <span>Menu</span>
+</button>
+
+<!-- Add this script block to the very bottom of your bottom navigation.html -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // 1. Create a hidden element container to house our standalone sidebar component
+    const sidebarContainer = document.createElement('div');
+    sidebarContainer.id = 'sidebar-component-wrapper';
+    document.body.appendChild(sidebarContainer);
+
+    // 2. Fetch the external component into the shell container
+    fetch('sidebar.html')
+      .then(response => response.text())
+      .then(htmlData => {
+        sidebarContainer.innerHTML = htmlData;
+        
+        // 3. Attach the event click handler to the menu trigger
+        const menuBtn = document.getElementById('menuTriggerBtn');
+        menuBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const drawer = document.getElementById('sideDrawer');
+          if (drawer) {
+            drawer.classList.toggle('sidebar-is-open');
+          }
+        });
+
+        // Close sidebar if user clicks on a navigation link item inside it
+        sidebarContainer.addEventListener('click', function(e) {
+          if (e.target.closest('.sidebar-sub-item')) {
+            document.getElementById('sideDrawer').classList.remove('sidebar-is-open');
+          }
+        });
+      })
+      .catch(err => console.error('Error loading the sidebar module:', err));
+  });
+</script>
