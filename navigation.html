@@ -122,18 +122,22 @@
       .then(data => {
         container.innerHTML = data;
         
-        // 3. Make the Menu button open/close the sidebar when clicked
+        // 3. Make the Menu button open/close the sidebar and background overlay
         const menuButton = document.getElementById('menuTriggerBtn');
         if (menuButton) {
           menuButton.addEventListener('click', function(e) {
             e.preventDefault(); // Prevents the page from jumping
             const drawer = document.getElementById('sideDrawer');
-            if (drawer) {
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            if (drawer && overlay) {
               drawer.classList.toggle('sidebar-is-open');
+              overlay.classList.toggle('overlay-is-visible');
             }
           });
         }
       });
   });
 </script>
+
 
