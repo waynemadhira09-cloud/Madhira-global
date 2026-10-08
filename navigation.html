@@ -1,60 +1,79 @@
 <!-- Main bar containing background and layout settings -->
 <nav id="mainBottomNav" class="bottom-nav" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; height: 62px; background-color: #0b1a2d; justify-content: space-around; align-items: center; border-top: 1px solid #142841; z-index: 99999; box-shadow: 0 -4px 10px rgba(0,0,0,0.3); padding: 0 10px; box-sizing: border-box; font-family: sans-serif;">
     
-    <!-- Link Styles Style Block embedded cleanly -->
+    <!-- COMPLETE CSS BLOCK -->
     <style>
+        /* 1. Reset rules for the nav elements only */
+        .bottom-nav, .bottom-nav * {
+            box-sizing: border-box !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 2. Individual Navigation Link Layout */
         .bottom-nav .nav-item {
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
             justify-content: center !important;
             text-decoration: none !important;
-            color: #8fa0b5 !important;
+            color: #8fa0b5 !important; /* Muted slate gray-blue color */
             font-size: 11px !important;
-            font-weight: 500;
-            flex: 1;
-            height: 100%;
+            font-weight: 500 !important;
+            flex: 1 !important;
+            height: 100% !important;
             -webkit-tap-highlight-color: transparent;
         }
-        /* Yellow highlight for active states */
+
+        /* 3. Yellow Highlight for Active Elements (Menu & Account) */
         .bottom-nav .nav-item.active {
-            color: #f7ca18 !important;
+            color: #f7ca18 !important; /* Precise yellow from your screenshot */
         }
+
+        /* 4. Icon Sizing and Spacing */
         .bottom-nav .nav-item i {
             font-size: 19px !important;
             margin-bottom: 4px !important;
+            display: inline-block !important;
         }
+
+        /* 5. Deposit Badge Layout Elements */
         .bottom-nav .deposit-wrapper {
-            position: relative;
-            display: inline-block;
+            position: relative !important;
+            display: inline-block !important;
         }
+
+        /* 6. Red Promo Badge Structure */
         .bottom-nav .badge {
-            position: absolute;
-            top: -14px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #e74c3c;
+            position: absolute !important;
+            top: -14px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            background-color: #e74c3c !important; /* Vibrant Red */
             color: #ffffff !important;
-            font-size: 9px;
-            font-weight: bold;
-            padding: 2px 5px;
-            border-radius: 4px;
-            line-height: 1;
-            z-index: 10;
+            font-size: 9px !important;
+            font-weight: bold !important;
+            padding: 2px 5px !important;
+            border-radius: 4px !important;
+            line-height: 1 !important;
+            white-space: nowrap !important;
+            z-index: 10 !important;
         }
+
+        /* 7. Tiny Arrow Underneath the Badge */
         .bottom-nav .badge::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 4px 4px 0;
-            border-style: solid;
-            border-color: #e74c3c transparent;
+            content: '' !important;
+            position: absolute !important;
+            bottom: -3px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            border-width: 4px 4px 0 !important;
+            border-style: solid !important;
+            border-color: #e74c3c transparent !important;
         }
     </style>
 
-    <!-- FontAwesome Library (Ensures icons load properly) -->
+    <!-- FontAwesome Icon CDN Link -->
     <link rel="stylesheet" href="https://cloudflare.com">
 
     <!-- Menu Link (Active) -->
@@ -69,7 +88,7 @@
         <span>Lobby</span>
     </a>
 
-    <!-- Deposit Link with 3% Promo Badge -->
+    <!-- Deposit Link with Red Badge -->
     <a href="#deposit" class="nav-item">
         <div class="deposit-wrapper">
             <span class="badge">3%</span>
