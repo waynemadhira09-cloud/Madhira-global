@@ -1,42 +1,153 @@
-<!-- Keep your existing layout markup here. 
-     Just ensure your menu item matches the button tag style below: -->
+<!-- Background Overlay Mask (Dims the rest of the screen) -->
+<div id="sidebarOverlay" class="drawer-overlay-mask" onclick="toggleSidebarMenu()"></div>
 
-<button class="nav-btn" id="menuTriggerBtn">
-  <i class="fa-solid fa-bars"></i>
-  <span>Menu</span>
-</button>
-
-<!-- Add this script block to the very bottom of your bottom navigation.html -->
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // 1. Create a hidden element container to house our standalone sidebar component
-    const sidebarContainer = document.createElement('div');
-    sidebarContainer.id = 'sidebar-component-wrapper';
-    document.body.appendChild(sidebarContainer);
-
-    // 2. Fetch the external component into the shell container
-    fetch('sidebar.html')
-      .then(response => response.text())
-      .then(htmlData => {
-        sidebarContainer.innerHTML = htmlData;
+<!-- The Navy Blue Sidebar Panel -->
+<div id="sideDrawer" class="my-sidebar-panel">
+  <div class="sidebar-inner-box">
+    
+    <!-- Games Container Box -->
+    <div class="sidebar-group-card">
+      <div class="sidebar-header-title">
+        <span>GAMES</span>
+        <i class="fa-solid fa-chevron-up"></i>
+      </div>
+      <div class="sidebar-items-list">
         
-        // 3. Attach the event click handler to the menu trigger
-        const menuBtn = document.getElementById('menuTriggerBtn');
-        menuBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          const drawer = document.getElementById('sideDrawer');
-          if (drawer) {
-            drawer.classList.toggle('sidebar-is-open');
-          }
-        });
+        <!-- Madhira Global -->
+        <a href="#" class="sidebar-link item-highlight-blue">
+          <i class="fa-solid fa-globe icon-gold"></i>
+          <span>Madhira Global</span>
+        </a>
 
-        // Close sidebar if user clicks on a navigation link item inside it
-        sidebarContainer.addEventListener('click', function(e) {
-          if (e.target.closest('.sidebar-sub-item')) {
-            document.getElementById('sideDrawer').classList.remove('sidebar-is-open');
-          }
-        });
-      })
-      .catch(err => console.error('Error loading the sidebar module:', err));
-  });
+        <!-- Aviator (Red Slanted Style) -->
+        <a href="#" class="sidebar-link item-brand-red">
+          <i class="fa-solid fa-plane-departure"></i>
+          <span>Aviator</span>
+        </a>
+
+        <!-- All Games -->
+        <a href="#" class="sidebar-link">
+          <i class="fa-solid fa-gamepad icon-gold"></i>
+          <span>All Games</span>
+        </a>
+
+        <!-- Market List -->
+        <a href="#" class="sidebar-link">
+          <i class="fa-solid fa-list-check icon-gold"></i>
+          <span>Market List</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Helper function to close the menu if the user clicks out on the dark background
+  function toggleSidebarMenu() {
+    const drawer = document.getElementById('sideDrawer');
+    const overlay = document.getElementById('sidebarOverlay');
+    if(drawer) drawer.classList.remove('sidebar-is-open');
+    if(overlay) overlay.classList.remove('overlay-is-visible');
+  }
 </script>
+
+<!-- Clean Visual Styles -->
+<style>
+  /* Dark backdrop styling */
+  .drawer-overlay-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(5, 10, 18, 0.6); /* Translucent dark tint */
+    backdrop-filter: blur(2px); /* Slight background blur effect */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 9998; /* Sits right beneath the sidebar panel */
+  }
+
+  .drawer-overlay-mask.overlay-is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Sidebar Core Panel layout */
+  .my-sidebar-panel {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: calc(100% - 60px); /* Keeps your bottom navigation clear and accessible */
+    background-color: #0a111e; /* Clean Solid Navy Blue */
+    border-right: 1px solid #16243d;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9999;
+    overflow-y: auto;
+  }
+
+  .my-sidebar-panel.sidebar-is-open {
+    left: 0;
+  }
+
+  .sidebar-inner-box {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sidebar-group-card {
+    background-color: #0e1a2f;
+    border: 1px solid #1a2f4c;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .sidebar-header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background-color: #050a12;
+    font-size: 11px;
+    font-weight: 700;
+    color: #6b82a6;
+    letter-spacing: 0.5px;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background-color: #12223c;
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 1px solid #0e1a2f;
+  }
+
+  .sidebar-link:last-child {
+    border-bottom: none;
+  }
+
+  .icon-gold { color: #f3c246; }
+
+  /* Red Highlight Styling for Aviator */
+  .sidebar-link.item-brand-red {
+    background-color: #cf2342;
+    color: white;
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  /* Madhira Global Styling background variation */
+  .sidebar-link.item-highlight-blue {
+    background-color: #162a4a;
+  }
+</style>
