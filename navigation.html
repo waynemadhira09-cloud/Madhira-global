@@ -77,10 +77,11 @@
     <link rel="stylesheet" href="https://cloudflare.com">
 
     <!-- Menu Link (Active) -->
-    <a href="#menu" class="nav-item active">
-        <i class="fa-solid fa-bars"></i>
-        <span>Menu</span>
-    </a>
+<a href="#menu" class="nav-item active" id="menuTriggerBtn">
+  <i class="fa-solid fa-bars"></i>
+  <span>Menu</span>
+</a>
+
 
     <!-- Lobby Link -->
     <a href="#lobby" class="nav-item">
@@ -109,3 +110,30 @@
         <span>Account</span>
     </a>
 </nav>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // 1. Create a space on the screen to load the sidebar
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+
+    // 2. Load the sidebar.html file automatically
+    fetch('sidebar.html')
+      .then(response => response.text())
+      .then(data => {
+        container.innerHTML = data;
+        
+        // 3. Make the Menu button open/close the sidebar when clicked
+        const menuButton = document.getElementById('menuTriggerBtn');
+        if (menuButton) {
+          menuButton.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevents the page from jumping
+            const drawer = document.getElementById('sideDrawer');
+            if (drawer) {
+              drawer.classList.toggle('sidebar-is-open');
+            }
+          });
+        }
+      });
+  });
+</script>
+
