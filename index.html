@@ -4489,6 +4489,45 @@ return div.innerHTML;
     </a>
         <<iframe src="navigation.html" style="position:fixed; bottom:0; left:0; width:100%; height:60px; border:none; z-index:9999; overflow:hidden;" scrolling="no"></iframe>
 
+<script>
+    // 1. Dynamically pull the navigation structure into your index.html safely
+    fetch('navigation.html')
+        .then(response => response.text())
+        .then(data => {
+            // Extracts only the nav bar content and injects it at the bottom
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const navElement = doc.getElementById('mainBottomNav');
+            if (navElement) {
+                document.body.appendChild(navElement);
+            }
+        });
+
+    // 2. The Logic to show the navigation bar ONLY after signing in
+    function showBottomNavigation() {
+        const bottomNav = document.getElementById('mainBottomNav');
+        if (bottomNav) {
+            bottomNav.style.display = 'flex'; // Reveals the navigation bar safely
+            document.body.style.paddingBottom = '62px'; // Adds layout space at bottom
+        }
+    }
+
+    // 3. Attach this logic to your existing "Sign In" button click handler
+    document.addEventListener("DOMContentLoaded", () => {
+        // Find your blue "Sign In" button. 
+        // Note: Change 'form' or add an id to your button if needed
+        const signInButton = document.querySelector('button, input[type="submit"]'); 
+        
+        if (signInButton) {
+            signInButton.addEventListener('click', function(e) {
+                // Assuming your sign-in process happens successfully here:
+                
+                // Trigger the navigation bar to display immediately
+                showBottomNavigation(); 
+            });
+        }
+    });
+</script>
 
 </body>
 
