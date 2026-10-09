@@ -75,12 +75,11 @@
 
     <!-- FontAwesome Icon CDN Link -->
     <link rel="stylesheet" href="https://cloudflare.com">
-
-    <!-- Inside your navigation.html file -->
-<a href="#menu" class="nav-item active" onclick="window.parent.postMessage({ action: 'navClick', target: 'menu' }, '*'); return false;">
+<a href="#" class="nav-item active" onclick="window.parent.document.getElementById('sideMenuDrawer').style.left = '0px'; return false;">
     <i class="fa-solid fa-bars"></i>
     <span>Menu</span>
 </a>
+
 
 
 
