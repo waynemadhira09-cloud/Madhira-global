@@ -4489,45 +4489,68 @@ return div.innerHTML;
     </a>
         <<iframe src="navigation.html" style="position:fixed; bottom:0; left:0; width:100%; height:60px; border:none; z-index:9999; overflow:hidden;" scrolling="no"></iframe>
 
-<script>
-    // 1. Dynamically pull the navigation structure into your index.html safely
-    fetch('navigation.html')
-        .then(response => response.text())
-        .then(data => {
-            // Extracts only the nav bar content and injects it at the bottom
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-            const navElement = doc.getElementById('mainBottomNav');
-            if (navElement) {
-                document.body.appendChild(navElement);
-            }
-        });
+<!-- The Floating Bottom Navigation Bar Frame -->
+<iframe id="navFrame" src="navigation.html" style="display: none; position: fixed; bottom: 12px; left: 2.5%; width: 95%; height: 62px; border: none; z-index: 99999; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);" scrolling="no"></iframe>
 
-    // 2. The Logic to show the navigation bar ONLY after signing in
+<!-- The Sliding Sidebar Container (Hosting sidebar.html) -->
+<div id="sideMenuDrawer" style="position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background-color: #0b1a2d; z-index: 100000; transition: left 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.5);">
+    <!-- Header overlay area to change layout brand text to Madhira -->
+    <div style="padding: 15px; background-color: #07111e; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #142841;">
+        <span style="color: #f7ca18; font-weight: bold; font-family: sans-serif; font-size: 20px;">madhira<span style="color:#ffffff;">.com</span></span>
+        <button onclick="toggleSidebar(false)" style="background: none; border: none; color: #8fa0b5; font-size: 20px; cursor: pointer;">&times;</button>
+    </div>
+    <!-- Embeds your actual separate sidebar content layout safely -->
+    <iframe src="sidebar.html" style="width: 100%; height: calc(100% - 60px); border: none;" scrolling="auto"></iframe>
+</div>
+
+<!-- Dimmed background shield layer when menu opens -->
+<div id="menuBackdrop" onclick="toggleSidebar(false)" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 99998;"></div>
+
+<script>
+    // Reveals the bottom bar navigation track layout area
     function showBottomNavigation() {
-        const bottomNav = document.getElementById('mainBottomNav');
-        if (bottomNav) {
-            bottomNav.style.display = 'flex'; // Reveals the navigation bar safely
-            document.body.style.paddingBottom = '62px'; // Adds layout space at bottom
+        const frame = document.getElementById('navFrame');
+        if (frame) {
+            frame.style.display = 'block';
+            document.body.style.paddingBottom = '74px';
         }
     }
 
-    // 3. Attach this logic to your existing "Sign In" button click handler
+    // Controls the smooth sliding animation of the sidebar drawer
+    function toggleSidebar(shouldOpen) {
+        const drawer = document.getElementById('sideMenuDrawer');
+        const backdrop = document.getElementById('menuBackdrop');
+        if (drawer && backdrop) {
+            if (shouldOpen) {
+                drawer.style.left = '0px';
+                backdrop.style.display = 'block';
+            } else {
+                drawer.style.left = '-280px';
+                backdrop.style.display = 'none';
+            }
+        }
+    }
+
+    // Listens for structural navigation events coming out from your navigation file
+    window.addEventListener('message', function(event) {
+        if (event.data && event.data.action === 'navClick') {
+            if (event.data.target === 'menu') {
+                toggleSidebar(true); // Triggers the panel to slide out smoothly
+            }
+        }
+    });
+
+    // Auto trigger configuration for your sign-in validation process
     document.addEventListener("DOMContentLoaded", () => {
-        // Find your blue "Sign In" button. 
-        // Note: Change 'form' or add an id to your button if needed
-        const signInButton = document.querySelector('button, input[type="submit"]'); 
-        
+        const signInButton = document.querySelector('button, input[type="submit"]');
         if (signInButton) {
-            signInButton.addEventListener('click', function(e) {
-                // Assuming your sign-in process happens successfully here:
-                
-                // Trigger the navigation bar to display immediately
-                showBottomNavigation(); 
+            signInButton.addEventListener('click', () => {
+                showBottomNavigation();
             });
         }
     });
 </script>
+
 
 </body>
 
