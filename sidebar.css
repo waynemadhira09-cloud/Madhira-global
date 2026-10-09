@@ -1,0 +1,165 @@
+/* ==========================================
+   SIDEBAR NAVIGATION SYSTEM (Navy Blue Edition)
+   ========================================== */
+
+/* Global Reset overrides */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+    background-color: transparent;
+}
+
+/* Scrollbar customization for webkit engines */
+.sidebar-container::-webkit-scrollbar {
+    width: 4px;
+}
+.sidebar-container::-webkit-scrollbar-thumb {
+    background: #1a2f4c;
+    border-radius: 4px;
+}
+
+/* Master Sidebar Base Framework */
+.sidebar-container {
+    width: 100%;
+    height: 100vh;
+    background-color: #0b1a2d; /* Premium solid Navy Blue tone */
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    border-right: 1px solid #142841;
+}
+
+/* Logo and Header Block area */
+.sidebar-header {
+    padding: 20px 15px;
+    border-bottom: 1px solid #142841;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.logo-yellow {
+    color: #f7ca18; /* Yellow highlight core */
+}
+
+.logo-white {
+    color: #ffffff;
+}
+
+/* Action Blocks (VIP and Jackpot Cards) Layout */
+.action-blocks {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.block-btn {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    gap: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Metallic gold profile gradient for VIP */
+.vip-btn {
+    background: linear-gradient(135deg, #ffe066 0%, #f5af19 100%);
+    color: #050d18;
+}
+
+/* Subtle white/silver balance look for Jackpot track */
+.jackpot-btn {
+    background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+    color: #050d18;
+}
+
+/* Section Header Labels Structure (SPORTS & GAMES) */
+.menu-sections {
+    padding: 5px 15px 30px 15px;
+}
+
+.section-group {
+    margin-bottom: 15px;
+}
+
+.section-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    color: #e2b318; /* Accent header labels precisely like screenshot */
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+.section-trigger i {
+    font-size: 10px;
+    color: #8fa0b5;
+}
+
+/* Content wrapper containers */
+.section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Main Navigation Strip Items layout */
+.menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 44px;
+    background-color: #14253d; /* Clean slate navy segment boxes */
+    border-radius: 8px;
+    padding: 0 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    gap: 12px;
+    border: 1px solid #1a2f4c;
+    transition: background-color 0.2s;
+}
+
+.menu-item i {
+    font-size: 16px;
+    color: #f7ca18; /* Standardizes gold branding across menu lines */
+    width: 20px;
+    text-align: center;
+}
+
+/* Custom highlighted Aviator line overlay setup */
+.menu-item.aviator-btn {
+    background: linear-gradient(90deg, #d31027 0%, #ea384d 100%) !important;
+    border: none !important;
+}
+
+.menu-item.aviator-btn i {
+    color: #ffffff !important;
+    font-style: italic;
+}
+
+/* Custom sub-label soccer circle track overrides */
+.menu-item .yellow-icon {
+    font-size: 14px;
+}
