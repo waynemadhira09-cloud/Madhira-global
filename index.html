@@ -4506,41 +4506,57 @@ return div.innerHTML;
 <!-- Dimmed background shield layer when menu opens -->
 <div id="menuBackdrop" onclick="toggleSidebar(false)" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 99998;"></div>
 
+<!-- 1. The Floating Bottom Navigation Bar Frame -->
+<iframe id="navFrame" src="navigation.html" style="display: none; position: fixed; bottom: 12px; left: 2.5%; width: 95%; height: 62px; border: none; z-index: 99999; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);" scrolling="no"></iframe>
+
+<!-- 2. The Sliding Sidebar Drawer (Safely hosting your separate sidebar.html file) -->
+<div id="sideMenuDrawer" style="position: fixed; top: 0; left: -280px; width: 280px; height: 100%; z-index: 100000; transition: left 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.5); background-color: #0b1a2d;">
+    <iframe src="sidebar.html" style="width: 100%; height: 100%; border: none;" scrolling="auto"></iframe>
+</div>
+
+<!-- 3. Screen Shield Overlay (Darkens background and closes sidebar if clicked outside) -->
+<div id="menuBackdrop" onclick="toggleSidebar(false)" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 99998;"></div>
+
 <script>
-    // Reveals the bottom bar navigation track layout area
+    // Reveals the bottom navigation bar after a user signs in successfully
     function showBottomNavigation() {
         const frame = document.getElementById('navFrame');
         if (frame) {
             frame.style.display = 'block';
-            document.body.style.paddingBottom = '74px';
+            document.body.style.paddingBottom = '74px'; // Keeps your grid categories readable
         }
     }
 
-    // Controls the smooth sliding animation of the sidebar drawer
+    // Handles the sliding mechanics for your separate sidebar panel
     function toggleSidebar(shouldOpen) {
         const drawer = document.getElementById('sideMenuDrawer');
         const backdrop = document.getElementById('menuBackdrop');
         if (drawer && backdrop) {
             if (shouldOpen) {
-                drawer.style.left = '0px';
-                backdrop.style.display = 'block';
+                drawer.style.left = '0px';        // Slides the sidebar panel out smoothly
+                backdrop.style.display = 'block';   // Darkens background
             } else {
-                drawer.style.left = '-280px';
-                backdrop.style.display = 'none';
+                drawer.style.left = '-280px';     // Completely tucks it back away
+                backdrop.style.display = 'none';    // Hides overlay
             }
         }
     }
 
-    // Listens for structural navigation events coming out from your navigation file
+    // Master Message System: Catches button click events coming out of navigation.html
     window.addEventListener('message', function(event) {
         if (event.data && event.data.action === 'navClick') {
-            if (event.data.target === 'menu') {
-                toggleSidebar(true); // Triggers the panel to slide out smoothly
+            const clickedButton = event.data.target;
+            
+            // If the user tapped the menu button, slide open the sidebar panel!
+            if (clickedButton === 'menu') {
+                toggleSidebar(true);
             }
+            
+            // You can add paths for other buttons here (lobby, deposit, etc.) if needed later
         }
     });
 
-    // Auto trigger configuration for your sign-in validation process
+    // Automatic hook listening to display the navigation when signing in
     document.addEventListener("DOMContentLoaded", () => {
         const signInButton = document.querySelector('button, input[type="submit"]');
         if (signInButton) {
@@ -4550,6 +4566,7 @@ return div.innerHTML;
         }
     });
 </script>
+
 
 
 </body>
