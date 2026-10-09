@@ -1,153 +1,18 @@
-<!-- Background Overlay Mask (Dims the rest of the screen) -->
-<div id="sidebarOverlay" class="drawer-overlay-mask" onclick="toggleSidebarMenu()"></div>
-
-<!-- The Navy Blue Sidebar Panel -->
-<div id="sideDrawer" class="my-sidebar-panel">
-  <div class="sidebar-inner-box">
-    
-    <!-- Games Container Box -->
-    <div class="sidebar-group-card">
-      <div class="sidebar-header-title">
-        <span>GAMES</span>
-        <i class="fa-solid fa-chevron-up"></i>
-      </div>
-      <div class="sidebar-items-list">
-        
-        <!-- Madhira Global -->
-        <a href="#" class="sidebar-link item-highlight-blue">
-          <i class="fa-solid fa-globe icon-gold"></i>
-          <span>Madhira Global</span>
-        </a>
-
-        <!-- Aviator (Red Slanted Style) -->
-        <a href="#" class="sidebar-link item-brand-red">
-          <i class="fa-solid fa-plane-departure"></i>
-          <span>Aviator</span>
-        </a>
-
-        <!-- All Games -->
-        <a href="#" class="sidebar-link">
-          <i class="fa-solid fa-gamepad icon-gold"></i>
-          <span>All Games</span>
-        </a>
-
-        <!-- Market List -->
-        <a href="#" class="sidebar-link">
-          <i class="fa-solid fa-list-check icon-gold"></i>
-          <span>Market List</span>
-        </a>
-
-      </div>
-    </div>
-
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <h3 style="margin: 0; font-family: sans-serif;">Navigation</h3>
+    <button id="close-sidebar-btn" style="font-size: 28px; background: none; border: none; color: white; cursor: pointer; padding: 0 5px;">&times;</button>
   </div>
+  
+  <!-- Your exact sidebar menu links -->
+  <ul class="sidebar-links" style="list-style: none; padding: 20px 0; margin: 0; font-family: sans-serif;">
+    <li style="padding: 15px 20px; border-bottom: 1px solid #2a2a2a;"><a href="#aviator" style="color: white; text-decoration: none; display: block; font-size: 16px;">🚀 Aviator</a></li>
+    <li style="padding: 15px 20px; border-bottom: 1px solid #2a2a2a;"><a href="#market-listing" style="color: white; text-decoration: none; display: block; font-size: 16px;">📈 Market Listing</a></li>
+    <li style="padding: 15px 20px; border-bottom: 1px solid #2a2a2a;"><a href="#plinko" style="color: white; text-decoration: none; display: block; font-size: 16px;">🔵 Plinko</a></li>
+    <li style="padding: 15px 20px; border-bottom: 1px solid #2a2a2a;"><a href="#jetx" style="color: white; text-decoration: none; display: block; font-size: 16px;">✈️ JetX</a></li>
+    <li style="padding: 15px 20px; border-bottom: 1px solid #2a2a2a;"><a href="#account" style="color: white; text-decoration: none; display: block; font-size: 16px;">👤 Account</a></li>
+  </ul>
 </div>
 
-<script>
-  // Helper function to close the menu if the user clicks out on the dark background
-  function toggleSidebarMenu() {
-    const drawer = document.getElementById('sideDrawer');
-    const overlay = document.getElementById('sidebarOverlay');
-    if(drawer) drawer.classList.remove('sidebar-is-open');
-    if(overlay) overlay.classList.remove('overlay-is-visible');
-  }
-</script>
-
-<!-- Clean Visual Styles -->
-<style>
-  /* Dark backdrop styling */
-  .drawer-overlay-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(5, 10, 18, 0.6); /* Translucent dark tint */
-    backdrop-filter: blur(2px); /* Slight background blur effect */
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    z-index: 9998; /* Sits right beneath the sidebar panel */
-  }
-
-  .drawer-overlay-mask.overlay-is-visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Sidebar Core Panel layout */
-  .my-sidebar-panel {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 280px;
-    height: calc(100% - 60px); /* Keeps your bottom navigation clear and accessible */
-    background-color: #0a111e; /* Clean Solid Navy Blue */
-    border-right: 1px solid #16243d;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 9999;
-    overflow-y: auto;
-  }
-
-  .my-sidebar-panel.sidebar-is-open {
-    left: 0;
-  }
-
-  .sidebar-inner-box {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .sidebar-group-card {
-    background-color: #0e1a2f;
-    border: 1px solid #1a2f4c;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .sidebar-header-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 14px;
-    background-color: #050a12;
-    font-size: 11px;
-    font-weight: 700;
-    color: #6b82a6;
-    letter-spacing: 0.5px;
-  }
-
-  .sidebar-link {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px;
-    background-color: #12223c;
-    color: #e2e8f0;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    border-bottom: 1px solid #0e1a2f;
-  }
-
-  .sidebar-link:last-child {
-    border-bottom: none;
-  }
-
-  .icon-gold { color: #f3c246; }
-
-  /* Red Highlight Styling for Aviator */
-  .sidebar-link.item-brand-red {
-    background-color: #cf2342;
-    color: white;
-    font-style: italic;
-    font-weight: 700;
-  }
-
-  /* Madhira Global Styling background variation */
-  .sidebar-link.item-highlight-blue {
-    background-color: #162a4a;
-  }
-</style>
+<!-- Dark overlay background behind the sidebar -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
