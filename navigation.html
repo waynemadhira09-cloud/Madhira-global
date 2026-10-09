@@ -76,11 +76,12 @@
     <!-- FontAwesome Icon CDN Link -->
     <link rel="stylesheet" href="https://cloudflare.com">
 
-    <!-- Menu Link (Active) -->
-<a href="#menu" class="nav-item active" id="menuTriggerBtn">
-  <i class="fa-solid fa-bars"></i>
-  <span>Menu</span>
+    <!-- Inside your navigation.html file -->
+<a href="#menu" class="nav-item active" onclick="window.parent.postMessage({ action: 'navClick', target: 'menu' }, '*'); return false;">
+    <i class="fa-solid fa-bars"></i>
+    <span>Menu</span>
 </a>
+
 
 
     <!-- Lobby Link -->
