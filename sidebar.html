@@ -1,18 +1,69 @@
-<div id="sidebar" class="sidebar">
-  <div class="sidebar-header">
-    <h3 style="margin: 0; font-family: sans-serif;">Navigation</h3>
-    <button id="close-sidebar-btn" style="font-size: 28px; background: none; border: none; color: white; cursor: pointer; padding: 0 5px;">&times;</button>
+<div id="sidebar" class="sidebar" style="background: linear-gradient(135deg, #0b192c 0%, #1e3e62 100%);">
+  
+  <!-- Sidebar Header -->
+  <div class="sidebar-header" style="display: flex; justify-content: space-between; align-items: center; padding: 25px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <h3 style="margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 600; color: #ffffff; letter-spacing: 0.5px;">Dashboard</h3>
+    <button id="close-sidebar-btn" style="font-size: 28px; background: none; border: none; color: rgba(255,255,255,0.7); cursor: pointer; padding: 0 5px; transition: color 0.2s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">&times;</button>
   </div>
   
-  <!-- Your exact sidebar menu links -->
-  <ul class="sidebar-links" style="list-style: none; padding: 20px 0; margin: 0; font-family: sans-serif;">
-    <li style="padding: 15px 20px; border-bottom: 1px solid #2a2a2a;"><a href="#aviator" style="color: white; text-decoration: none; display: block; font-size: 16px;">🚀 Aviator</a></li>
-    <li style="padding: 15px 20px; border-bottom: 1px solid #2a2a2a;"><a href="#market-listing" style="color: white; text-decoration: none; display: block; font-size: 16px;">📈 Market Listing</a></li>
-    <li style="padding: 15px 20px; border-bottom: 1px solid #2a2a2a;"><a href="#plinko" style="color: white; text-decoration: none; display: block; font-size: 16px;">🔵 Plinko</a></li>
-    <li style="padding: 15px 20px; border-bottom: 1px solid #2a2a2a;"><a href="#jetx" style="color: white; text-decoration: none; display: block; font-size: 16px;">✈️ JetX</a></li>
-    <li style="padding: 15px 20px; border-bottom: 1px solid #2a2a2a;"><a href="#account" style="color: white; text-decoration: none; display: block; font-size: 16px;">👤 Account</a></li>
+  <!-- Sleek Menu Button Container -->
+  <ul class="sidebar-links" style="list-style: none; padding: 20px 15px; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; gap: 12px;">
+    
+    <!-- Aviator Button -->
+    <li>
+      <a href="#aviator" class="menu-item" style="display: flex; align-items: center; gap: 15px; color: #ffffff; text-decoration: none; padding: 14px 18px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; font-weight: 500; font-size: 15px; transition: all 0.2s ease-in-out;">
+        <span class="menu-icon" style="font-size: 18px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #e63946; border-radius: 8px;">🚀</span>
+        Aviator
+      </a>
+    </li>
+
+    <!-- Market Listing Button -->
+    <li>
+      <a href="#market-listing" class="menu-item" style="display: flex; align-items: center; gap: 15px; color: #ffffff; text-decoration: none; padding: 14px 18px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; font-weight: 500; font-size: 15px; transition: all 0.2s ease-in-out;">
+        <span class="menu-icon" style="font-size: 18px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #2a9d8f; border-radius: 8px;">📈</span>
+        Market Listing
+      </a>
+    </li>
+
+    <!-- Plinko Button -->
+    <li>
+      <a href="#plinko" class="menu-item" style="display: flex; align-items: center; gap: 15px; color: #ffffff; text-decoration: none; padding: 14px 18px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; font-weight: 500; font-size: 15px; transition: all 0.2s ease-in-out;">
+        <span class="menu-icon" style="font-size: 18px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #4a90e2; border-radius: 8px;">🔵</span>
+        Plinko
+      </a>
+    </li>
+
+    <!-- JetX Button -->
+    <li>
+      <a href="#jetx" class="menu-item" style="display: flex; align-items: center; gap: 15px; color: #ffffff; text-decoration: none; padding: 14px 18px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; font-weight: 500; font-size: 15px; transition: all 0.2s ease-in-out;">
+        <span class="menu-icon" style="font-size: 18px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #f4a261; border-radius: 8px;">✈️</span>
+        JetX
+      </a>
+    </li>
+
+    <!-- Account Button -->
+    <li>
+      <a href="#account" class="menu-item" style="display: flex; align-items: center; gap: 15px; color: #ffffff; text-decoration: none; padding: 14px 18px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; font-weight: 500; font-size: 15px; transition: all 0.2s ease-in-out;">
+        <span class="menu-icon" style="font-size: 18px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #a29bfe; border-radius: 8px;">👤</span>
+        Account
+      </a>
+    </li>
+
   </ul>
 </div>
 
 <!-- Dark overlay background behind the sidebar -->
 <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- Quick hover effects stylesheet inside the component -->
+<style>
+  .menu-item:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  .menu-item:active {
+    transform: translateY(1px);
+  }
+</style>
